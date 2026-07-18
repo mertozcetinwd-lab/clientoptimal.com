@@ -1,0 +1,68 @@
+---
+import Base from './Base.astro';
+import { meta } from '../data/site.js';
+
+interface Props { title: string; kicker: string }
+const { title, kicker } = Astro.props;
+---
+
+<Base title={`${title} · ${meta.name}`} description={kicker}>
+  <article class="legal">
+    <div class="wrap">
+      <header class="head">
+        <p class="eyebrow">{meta.legalName}</p>
+        <h1 class="display title">{title}</h1>
+        <p class="kicker">{kicker}</p>
+        <p class="date">Effective {meta.effectiveDate}</p>
+      </header>
+
+      <div class="prose"><slot /></div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .legal { padding-block: clamp(3rem, 8vh, 5rem) 0; }
+
+  .head {
+    padding-bottom: 2.5rem;
+    border-bottom: var(--hair-w) solid var(--hair);
+    margin-bottom: 3rem;
+  }
+  .title {
+    font-size: var(--step-h2);
+    margin-block: 1rem 1rem;
+  }
+  .kicker { color: var(--text-dim); max-width: var(--measure); }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1.2rem;
+  }
+
+  /* Legal copy is read by people scanning for one clause. Generous measure and
+     leading, clear hierarchy, nothing clever. */
+  .prose { max-width: var(--measure); padding-bottom: 2rem; }
+
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.2; letter-spacing: -0.02em;
+    margin-block: 2.8rem 0.9rem;
+  }
+  .prose :global(h2:first-child) { margin-top: 0; }
+
+  .prose :global(p) { margin-bottom: 1.1rem; color: var(--text-dim); }
+  .prose :global(strong) { color: var(--text); font-weight: 600; }
+
+  .prose :global(ul) { margin-bottom: 1.1rem; padding-left: 1.1rem; }
+  .prose :global(li) { margin-bottom: 0.5rem; color: var(--text-dim); }
+
+  .prose :global(a) {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+</style>

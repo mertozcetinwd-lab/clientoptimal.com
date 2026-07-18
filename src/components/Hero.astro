@@ -1,0 +1,73 @@
+---
+import Plate from './Plate.astro';
+import { hero } from '../data/site.js';
+---
+
+<section class="hero">
+  <div class="wrap grid">
+    <div class="copy">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 class="display title">{hero.title}</h1>
+      <p class="lead">{hero.lead}</p>
+      <div class="ctas">
+        <a class="btn primary" href={hero.cta.href} target="_blank" rel="noopener">{hero.cta.label}</a>
+        <a class="btn" href={hero.secondary.href}>{hero.secondary.label}</a>
+      </div>
+    </div>
+
+    <!-- The parent owns this wrapper and its styling; Plate owns only its own
+         internals. Passing a class into Plate would land it on an element with
+         Plate's scope hash, and the rule here would compile to a selector that
+         can never match. -->
+    <div class="figure" aria-hidden="true">
+      <Plate kind="graph" seed={7} ratio="4 / 3" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: clamp(3.5rem, 9vh, 6.5rem) var(--section-y); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .eyebrow { margin-bottom: 1.4rem; }
+
+  .title {
+    font-size: var(--step-hero);
+    max-width: 17ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .lead { margin-bottom: 2.2rem; }
+
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  .figure {
+    opacity: 0.85;
+    /* Bleeds slightly past the container on wide screens so the composition
+       doesn't read as two tidy boxes side by side. */
+    margin-inline-end: calc(var(--gutter) * -0.5);
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .title { max-width: 20ch; }
+    /* The plate stays BELOW the copy on narrow screens. It was ordered above
+       it, and at a 4/3 ratio that meant a phone opened on ~290px of decoration
+       with the headline pushed off the first screen entirely. Decoration does
+       not get to outrank the one sentence explaining what the company does.
+       Cropped rather than scaled: the SVG already uses preserveAspectRatio
+       "slice", so a max-height trims it cleanly instead of squashing it. */
+    .figure {
+      margin-inline-end: 0;
+      opacity: 0.55;
+      max-height: 170px;
+      overflow: hidden;
+    }
+  }
+</style>

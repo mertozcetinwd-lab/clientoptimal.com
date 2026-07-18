@@ -1,0 +1,126 @@
+---
+// Sticky, not fixed, and no bottom bar. mertozcetin.com's twin chrome rails
+// are Mert's signature; a business site wants the browser to feel normal.
+import { meta, nav, contact } from '../data/site.js';
+---
+
+<header class="hdr">
+  <div class="wrap inner">
+    <a class="brand" href="/">
+      <span class="dot" aria-hidden="true"></span>
+      {meta.name}
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+    </nav>
+
+    <div class="right">
+      <div class="themes" role="group" aria-label="Colour mode">
+        <button type="button" data-theme-set="dark" title="Dark mode">Dark</button>
+        <button type="button" data-theme-set="light" title="Light mode">Light</button>
+      </div>
+      <a class="talk" href={contact.linkedin} target="_blank" rel="noopener">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: var(--hair-w) solid var(--hair);
+  }
+  .inner {
+    height: var(--header-h);
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  .brand {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 0.98rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+
+  .nav {
+    display: flex; gap: 1.6rem;
+    margin-inline-start: auto;
+  }
+  .nav a {
+    font-family: var(--font-mono);
+    font-size: 0.74rem; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .nav a:hover { color: var(--text); }
+
+  .right { display: flex; align-items: center; gap: 1rem; }
+
+  .themes { display: flex; border: var(--hair-w) solid var(--hair); }
+  .themes button {
+    background: none; border: 0; cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.42em 0.7em;
+    transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+  }
+  .themes button:hover { color: var(--text); }
+  .themes button[aria-pressed='true'] { background: var(--text); color: var(--bg); }
+
+  .talk {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.6em 1em;
+    border: var(--hair-w) solid var(--hair-2);
+    white-space: nowrap;
+    transition: border-color var(--t-fast) var(--ease);
+  }
+  .talk:hover { border-color: var(--text); }
+
+  /* Sacrifice order, most expendable first: the duplicate CTA goes, then the
+     theme toggle. NAV LINKS ARE NEVER HIDDEN. Dropping them below a breakpoint
+     once left phones with no way around the sibling site, and "it still has the
+     brand link" is not navigation. Below 560px the header becomes two rows
+     instead, which costs 2rem of height and keeps everything reachable. */
+  @media (max-width: 900px) { .talk { display: none; } }
+
+  @media (max-width: 560px) {
+    .inner {
+      height: auto;
+      flex-wrap: wrap;
+      row-gap: 0.15rem;
+      padding-block: 0.7rem;
+    }
+    .brand { font-size: 0.92rem; }
+    .right { margin-inline-start: auto; }
+    .nav {
+      order: 3;
+      width: 100%;
+      margin-inline-start: 0;
+      gap: 1.15rem;
+      /* If three labels ever outgrow a narrow phone, they scroll sideways
+         rather than disappearing or wrapping into a ragged stack. */
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a { font-size: 0.68rem; white-space: nowrap; }
+  }
+
+  @media (max-width: 380px) {
+    .themes { display: none; }
+  }
+</style>

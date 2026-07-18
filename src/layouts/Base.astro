@@ -1,0 +1,81 @@
+---
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/inter';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/tokens.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { meta } from '../data/site.js';
+
+interface Props { title?: string; description?: string }
+const {
+  // Middle dot, not an em dash. references/voice.md in the parent AIOS rules
+  // out em dashes, and a <title> is shipping copy like any other string.
+  title = `${meta.name} · ${meta.tagline}`,
+  description = meta.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <script is:inline>
+      // Runs before first paint, and both jobs depend on that.
+      // data-theme: settle it here or the page flashes the wrong field.
+      // .js: tokens.css hides .reveal ONLY under html.js, so a JS failure
+      // leaves every section visible instead of blank.
+      (function () {
+        var el = document.documentElement;
+        el.classList.add('js');
+        var t;
+        try {
+          // ?theme= wins over the stored preference. It exists so a headless
+          // browser can shoot both themes without touching localStorage, which
+          // is how this site gets visually verified. Same trick as the sibling.
+          var p = new URLSearchParams(location.search).get('theme');
+          t = p || localStorage.getItem('co-theme');
+        } catch (e) {}
+        if (t === 'dark' || t === 'light') el.setAttribute('data-theme', t);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+
+    <script>
+      import { initThemeControls } from '../scripts/theme.js';
+      import { initReveals } from '../scripts/reveal.js';
+      initThemeControls();
+      initReveals();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .skip {
+    position: fixed; top: -120px; left: 0; z-index: 200;
+    background: var(--text); color: var(--bg);
+    padding: 0.7em 1.1em;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: top 0.2s var(--ease);
+  }
+  .skip:focus { top: 0; }
+</style>

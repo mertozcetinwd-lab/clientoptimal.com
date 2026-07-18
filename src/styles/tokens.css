@@ -1,0 +1,280 @@
+/* ============================================================
+   clientoptimal.com — design tokens + base
+
+   Sibling to mertozcetin.com, not a clone. It inherits the STRUCTURE
+   (the field carries the colour; two themes swap field and paper; one
+   signal that is never a body colour) and changes everything else.
+
+   Three tones, and only three:
+     FIELD   petrol   — the ground
+     PAPER   bone     — the type
+     SIGNAL  amber    — accents only, never body text
+
+   What differs from the personal site, deliberately:
+     - sans body (Inter), not mono. Mono is demoted to small labels.
+       A business site is read, not admired.
+     - more air, larger body, calmer rhythm. No marquee, no chrome
+       bars, no character-decode. Those are Mert's signature, not the
+       company's.
+     - prefers-reduced-motion IS honoured here. It was removed twice
+       from mertozcetin.com on purpose; that call is defensible on a
+       personal site and indefensible on a client-facing one.
+
+   Every contrast figure below is computed, not estimated.
+   ============================================================ */
+
+/* ---- DARK — petrol field ---- */
+:root,
+[data-theme='dark'] {
+  --bg:            #0a2f45;   /* deep petrol — the field */
+  --bg-2:          #072435;   /* deeper: bands, scrims */
+  --panel:         #0e3a54;
+  --text:          #e8e4d9;   /* bone — 10.98:1 on --bg */
+  --text-dim:      rgba(232, 228, 217, 0.74);
+  --muted:         rgba(232, 228, 217, 0.54);
+  --hair:          rgba(232, 228, 217, 0.16);
+  --hair-2:        rgba(232, 228, 217, 0.32);
+
+  --accent:        #f5a623;   /* amber — 6.88:1 on --bg */
+  --accent-ink:    #0a2f45;   /* type on amber fills */
+  --scheme:        dark;
+
+  /* See the note in the light block: fills keep the BRIGHT amber in both
+     themes, because the AA problem is amber as TEXT, not amber as a ground. */
+  --accent-fill:     #f5a623;
+  --accent-fill-ink: #0a2f45;   /* petrol on bright amber — 6.88:1 */
+}
+
+/* ---- LIGHT — bone field ---- */
+[data-theme='light'] {
+  --bg:            #e8e4d9;   /* bone */
+  --bg-2:          #ded9cb;
+  --panel:         #f2efe7;
+  --text:          #0a2f45;   /* petrol ink — 10.98:1 on --bg */
+  --text-dim:      rgba(10, 47, 69, 0.76);
+  --muted:         rgba(10, 47, 69, 0.58);
+  --hair:          rgba(10, 47, 69, 0.16);
+  --hair-2:        rgba(10, 47, 69, 0.30);
+
+  /* The one place the themes legitimately diverge, same as the sibling site:
+     #f5a623 on bone is 1.90:1 and fails AA badly. This darker amber clears
+     it at 5.03:1. If you ever "unify" these two values, you break the light
+     theme for anyone who needs the contrast. */
+  --accent:        #8a5200;
+  --accent-ink:    #e8e4d9;
+  --scheme:        light;
+
+  /* FILLS DO NOT SWAP. The AA failure above is about amber as TEXT on a bone
+     ground. Amber as a GROUND with petrol type on it is a different pair and
+     clears AA at 6.88:1 in both themes. Darkening the fill too produced a muddy
+     brown button that was technically compliant and visually dead. So: --accent
+     for text and rules (theme-dependent), --accent-fill for grounds (constant). */
+  --accent-fill:     #f5a623;
+  --accent-fill-ink: #0a2f45;
+}
+
+/* ---- type + scale + rhythm (theme-independent) ---- */
+:root {
+  --font-display: 'Archivo Variable', 'Archivo', Helvetica, Arial, sans-serif;
+  --font-body:    'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Body runs LARGER than the personal site (0.85–0.95rem there). Business
+     copy is read by people skimming on a phone deciding whether to email you. */
+  --step-eyebrow: 0.7rem;
+  --step-small:   clamp(0.78rem, 0.75rem + 0.14vw, 0.86rem);
+  --step-body:    clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+  --step-lead:    clamp(1.12rem, 1rem + 0.6vw, 1.45rem);
+  --step-h3:      clamp(1.35rem, 1.1rem + 1.2vw, 1.95rem);
+  --step-h2:      clamp(1.9rem, 1.3rem + 2.8vw, 3.4rem);
+  /* Capped at 4.2rem, not 5.6. At 5.6 the homepage headline ran five lines on a
+     1440 viewport and read as a poster rather than a company explaining itself. */
+  --step-hero:    clamp(2.35rem, 1.5rem + 3.6vw, 4.2rem);
+
+  /* Archivo is a grotesk with generous sidebearings — display sizes need
+     pulling in, body sizes do not. */
+  --ls-display:   -0.03em;
+  --ls-h2:        -0.02em;
+  --lh-body:      1.65;
+  --lh-tight:     1.08;
+
+  --wrap: 1140px;
+  --measure: 62ch;              /* body copy never runs wider than this */
+  --gutter: clamp(1.2rem, 0.6rem + 2.6vw, 2.8rem);
+  --section-y: clamp(4rem, 9vh, 7.5rem);
+  --hair-w: 1px;
+  --header-h: 4rem;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 0.15s;
+  --t-med: 0.24s;
+
+  --grain-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+img, svg, video { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; color: inherit; }
+a { color: inherit; }
+
+/* ---- base ---- */
+html {
+  color-scheme: var(--scheme);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--t-med) var(--ease), color var(--t-med) var(--ease);
+  position: relative;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Grain: the one texture. Keeps large flat fields from reading as flat colour. */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: var(--grain-url);
+  background-size: 200px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+[data-theme='light'] body::after { opacity: 0.07; mix-blend-mode: multiply; }
+
+/* ---- primitives ---- */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* The mono label. Small, uppercase, wide-tracked — the "system voice".
+   This is the ONLY place mono appears on this site. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+}
+
+.lead {
+  font-size: var(--step-lead);
+  color: var(--text-dim);
+  max-width: var(--measure);
+}
+
+.body-measure { max-width: var(--measure); }
+
+.hair { border: 0; border-top: var(--hair-w) solid var(--hair); }
+
+.section {
+  padding-block: var(--section-y);
+  border-top: var(--hair-w) solid var(--hair);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--step-h2);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-h2);
+  max-width: 20ch;
+}
+
+/* ---- buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.9em 1.5em;
+  border: var(--hair-w) solid var(--hair-2);
+  transition: background-color var(--t-fast) var(--ease),
+              color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease);
+}
+.btn:hover { border-color: var(--text); }
+.btn.primary {
+  background: var(--accent-fill);
+  color: var(--accent-fill-ink);
+  border-color: var(--accent-fill);
+  font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.08); border-color: var(--accent-fill); }
+
+/* Inline text link with an amber underline that draws on hover. The one
+   flourish this site keeps. */
+.link {
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size var(--t-med) var(--ease);
+  padding-bottom: 1px;
+}
+.link:hover, .link:focus-visible { background-size: 100% 1px; }
+
+/* ---- reveal ----
+   IMPORTANT, carried over from the sibling site as a hard rule: reveals use
+   `animation`, never `transition`. Astro compiles a component's `.foo` to
+   `.foo[data-astro-cid-xxx]` — specificity (0,2,0), identical to `.reveal.in`
+   — so any component that sets `transition:` on a `.reveal` element silently
+   replaces the whole list and kills the fade. Four elements broke that way on
+   mertozcetin.com. Corollary: never hover-transform a `.reveal` element; the
+   animation's `both` fill outranks it. Put the transform on a child. */
+.js .reveal { opacity: 0; }
+.js .reveal.in {
+  animation: rise 0.7s var(--ease) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- motion opt-out ----
+   Present here on purpose. mertozcetin.com dropped its equivalent twice at
+   Mert's direction; that is a defensible call on a personal showpiece and a
+   bad one on a site whose job is to be read by strangers, some of whom get
+   sick from parallax and marching dashes. Everything still SHOWS — nothing
+   is hidden behind an animation that never runs. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js .reveal { opacity: 1; }
+}

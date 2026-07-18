@@ -1,0 +1,85 @@
+---
+import { proof } from '../data/site.js';
+---
+
+<section class="section" id="proof">
+  <div class="wrap">
+    <p class="eyebrow">{proof.eyebrow}</p>
+    <h2 class="section-title reveal">{proof.title}</h2>
+    <p class="lead intro reveal">{proof.lead}</p>
+
+    <ul class="list">
+      {proof.repos.map((r) => (
+        <li class="repo reveal">
+          <a class="hit" href={r.href} target="_blank" rel="noopener">
+            <div class="head">
+              <h3 class="name">{r.name}</h3>
+              <span class="go" aria-hidden="true">GitHub ↗</span>
+            </div>
+            <p class="desc">{r.desc}</p>
+            <p class="stack">{r.stack}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 1.4rem; }
+  .intro { margin-bottom: 3.2rem; }
+
+  .list { list-style: none; padding: 0; }
+
+  .repo { border-top: var(--hair-w) solid var(--hair); }
+  .repo:last-child { border-bottom: var(--hair-w) solid var(--hair); }
+
+  /* The whole row is the link target, not just the name. A 6px text link is a
+     bad hit area on a phone. */
+  .hit {
+    display: block;
+    padding-block: 1.8rem;
+    text-decoration: none;
+    transition: background-color var(--t-fast) var(--ease);
+  }
+  .hit:hover { background: color-mix(in srgb, var(--text) 4%, transparent); }
+
+  .head {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .name {
+    font-family: var(--font-mono);
+    font-size: var(--step-body);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .go {
+    font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+    margin-inline-start: auto;
+    opacity: 0;
+    transition: opacity var(--t-fast) var(--ease);
+  }
+  .hit:hover .go, .hit:focus-visible .go { opacity: 1; }
+
+  .desc {
+    font-size: var(--step-small);
+    color: var(--text-dim);
+    max-width: var(--measure);
+    margin-bottom: 0.6rem;
+  }
+
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  @media (max-width: 520px) {
+    .go { opacity: 1; } /* no hover on touch, so just show it */
+  }
+</style>

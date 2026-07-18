@@ -1,0 +1,67 @@
+---
+import { principles } from '../data/site.js';
+---
+
+<section class="section band" id="how">
+  <div class="wrap">
+    <p class="eyebrow">How we work</p>
+    <h2 class="section-title reveal">Boring on purpose.</h2>
+    <p class="lead intro reveal">
+      Most automation breaks because it was built to look good in a demo. These four
+      rules are what keep it running after the demo is over.
+    </p>
+
+    <ol class="list">
+      {principles.map((p) => (
+        <li class="row reveal">
+          <span class="idx">{p.idx}</span>
+          <div class="text">
+            <h3 class="name">{p.title}</h3>
+            <p class="desc">{p.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* The one tonal shift on the page. Keeps a long read from feeling like one
+     unbroken field. */
+  .band { background: var(--bg-2); }
+
+  .section-title { margin-block: 1.2rem 1.4rem; }
+  .intro { margin-bottom: 3.2rem; }
+
+  .list { list-style: none; padding: 0; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 2rem;
+    border-top: var(--hair-w) solid var(--hair);
+  }
+  .row:last-child { border-bottom: var(--hair-w) solid var(--hair); }
+
+  .idx {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--accent);
+    padding-top: 0.45rem;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+  }
+
+  .desc { color: var(--text-dim); max-width: var(--measure); }
+
+  @media (max-width: 600px) {
+    .row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .idx { padding-top: 0; }
+  }
+</style>

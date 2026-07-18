@@ -1,0 +1,52 @@
+---
+import { meta, contact, legalNav } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="wrap inner">
+    <p class="col">© {year} {meta.legalName}</p>
+
+    <nav class="col links" aria-label="Legal">
+      {legalNav.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <nav class="col links" aria-label="Elsewhere">
+      <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a href={contact.github} target="_blank" rel="noopener">GitHub</a>
+      <a href={`mailto:${contact.email}`}>Email</a>
+    </nav>
+
+    <p class="col dim">{meta.location} · {meta.hours}</p>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    border-top: var(--hair-w) solid var(--hair);
+    padding-block: 2.4rem;
+    margin-top: var(--section-y);
+  }
+  .inner {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 0.8rem 2rem;
+  }
+  .col {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .dim { margin-inline-start: auto; }
+  .links { display: flex; gap: 1.1rem; }
+  .links a {
+    text-decoration: none;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .links a:hover { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .dim { margin-inline-start: 0; width: 100%; }
+  }
+</style>

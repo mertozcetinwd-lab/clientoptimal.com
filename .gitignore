@@ -1,0 +1,15 @@
+dist/
+.astro/
+node_modules/
+.env
+.env.*
+.DS_Store
+*.log
+
+# Saved copies of other people's sites. A SingleFile save of another company's
+# site was once committed to the mertozcetin.com repo while studying its layout,
+# and had to be rewritten out of history before that repo could go public — git
+# serves every prior commit forever, so a public repo would have hosted someone
+# else's entire website under Mert's name, indefinitely. Never again.
+*.singlefile.html
+/reference/
