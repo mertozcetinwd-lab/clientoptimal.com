@@ -1,22 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
+import { Component as Hero3D } from '../components/ui/experience-hero.tsx';
 import Ticker from '../components/Ticker.astro';
+import ProblemGrid from '../components/ProblemGrid.astro';
+import FlowDiagram from '../components/FlowDiagram.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Principles from '../components/Principles.astro';
 import Proof from '../components/Proof.astro';
+import Faq from '../components/Faq.astro';
 import ContactCta from '../components/ContactCta.astro';
 ---
 
-{/* Generalist homepage. Order carries the argument: position the studio (Hero),
-    show the range of what gets built (Capabilities/Services), how it's built
-    (Principles), the public proof, and the ask. The Reactivation component is kept
-    in the repo for the future dedicated /services page, not rendered here. */}
+{/* Generalist homepage, rig.ai-style flow: a WebGL hero, then the problem, how a
+    build runs, the services, the approach, public proof, questions, and the ask.
+    The hero is a client-only React island (three/@react-three/fiber has no SSR
+    path); everything below stays plain Astro + hand-authored CSS. */}
 <Base>
-  <Hero />
+  <Hero3D client:only="react" />
   <Ticker />
+  <ProblemGrid />
+  <FlowDiagram />
   <Capabilities />
   <Principles />
   <Proof />
+  <Faq />
   <ContactCta />
 </Base>

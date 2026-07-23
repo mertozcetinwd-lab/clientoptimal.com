@@ -1,0 +1,43 @@
+/* Tailwind v4, scoped to the 3D hero island. Imports theme + utilities but NOT
+   preflight, so Tailwind never resets the rest of the site (which runs on
+   hand-authored token CSS). Only utility classes actually used in the .tsx get
+   generated, and none of the existing components use Tailwind class names, so
+   this is inert everywhere except the hero. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Brand faces (already loaded globally via Fontsource in Base.astro) so the
+   island's font-sans / font-mono match the rest of the site. */
+@theme {
+  --font-sans: 'Archivo Variable', 'Archivo', Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ---- custom classes the hero component references ---- */
+@layer components {
+  /* Glassmorphic command-deck cell. */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  /* Outlined display word (second line of the headline). */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+  }
+  /* Faint dot mask laid over the whole hero for texture. */
+  .bento-mask {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px);
+    background-size: 6px 6px;
+  }
+}
+
+/* Sliding signal bar in the AVAILABILITY cell. */
+@keyframes loading-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-loading { animation: loading-slide 2.4s ease-in-out infinite; }

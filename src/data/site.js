@@ -101,6 +101,40 @@ export const reactivation = {
   ],
 };
 
+// The problem, rig.ai-style: a bordered 2x2 grid of real failure modes that set
+// up why the services exist. All four are honest, generalist pains (no metrics,
+// no fear-mongering) and each maps to a principle further down the page.
+export const problem = {
+  eyebrow: 'The problem',
+  title: 'Most automation quietly dies.',
+  cards: [
+    {
+      idx: '01',
+      tag: 'Silent failure',
+      title: 'It breaks and nobody notices.',
+      desc: 'A workflow stops running on a Tuesday and you find out a month later, when the numbers look wrong and the trail has gone cold.',
+    },
+    {
+      idx: '02',
+      tag: 'Vendor lock-in',
+      title: 'You end up renting your own process.',
+      desc: 'Built on a platform that sits between you and your data, and raises the price or changes the rules whenever it decides to.',
+    },
+    {
+      idx: '03',
+      tag: 'Demo-ware',
+      title: 'It worked once, on stage.',
+      desc: 'A flashy demo is a different engineering problem than something that runs unattended at 3am with nobody watching it.',
+    },
+    {
+      idx: '04',
+      tag: 'Tab sprawl',
+      title: 'Six tools that do not talk.',
+      desc: 'The work lives in Gmail and ClickUp and Stripe and a spreadsheet, and the integration holding it together is you.',
+    },
+  ],
+};
+
 // What gets built. Adapted from the capability categories on mertozcetin.com
 // (src/data/site.js) and rewritten from first-person portfolio voice into
 // service voice. Every one of these describes something already built at
@@ -235,6 +269,35 @@ export const cta = {
   lead: 'Tell me what the task is and how often it eats your week. I will give you a straight answer on whether it is worth automating, and roughly what it would take, before you commit to anything.',
 };
 
+// Honest FAQ, rig.ai-style accordion. Answers are generalist and true; nothing
+// implies a track record. "Is my data safe" stays consistent with /privacy.
+export const faq = {
+  eyebrow: 'Questions',
+  title: 'Before you ask.',
+  items: [
+    {
+      q: 'What do you actually build?',
+      a: 'Automations, tool-using agents, internal tools, and the systems they run on. Most projects are some mix, wired straight from the APIs rather than a no-code platform in the middle.',
+    },
+    {
+      q: 'How do we work together?',
+      a: 'You tell me the task and how often it eats your week. I scope it, build it, and hand it back running. Remote, end to end. You approve anything that goes out under your name.',
+    },
+    {
+      q: 'What does it cost?',
+      a: 'Depends on the build. I will give you a rough number before you commit, and I will tell you plainly if a thing is not worth automating instead of billing you to find out.',
+    },
+    {
+      q: 'Do you only do reactivation?',
+      a: 'No. Database reactivation is one offer, not the whole shop. If a task is repetitive and rule-based, it is a candidate, whatever corner of the business it lives in.',
+    },
+    {
+      q: 'Is my data safe?',
+      a: 'I prefer direct APIs over third-party platforms, so there are fewer places your data has to live. Nothing runs that you have not approved, and this site itself sets no cookies and runs no analytics.',
+    },
+  ],
+};
+
 export const legalNav = [
   { label: 'Privacy', href: '/privacy' },
   { label: 'Terms', href: '/terms' },
@@ -244,3 +307,4 @@ export const legalNav = [
 // produced two projects both numbered 06.
 capabilities.forEach((c, i) => { c.idx = String(i + 1).padStart(2, '0'); });
 principles.forEach((p, i) => { p.idx = String(i + 1).padStart(2, '0'); });
+problem.cards.forEach((c, i) => { c.idx = String(i + 1).padStart(2, '0'); });

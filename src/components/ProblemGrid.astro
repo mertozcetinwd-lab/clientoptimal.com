@@ -1,0 +1,83 @@
+---
+// rig.ai-style "problem" section: a bordered outer box, a badge + headline up
+// top, a full-width divider, then a 2x2 grid of numbered failure-mode cards with
+// mono labels. Honest generalist pains, no metrics. Sets up the services below.
+import { problem } from '../data/site.js';
+---
+
+<section class="section prob" id="problem">
+  <div class="wrap">
+    <div class="outer">
+      <div class="top">
+        <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{problem.eyebrow}</p>
+        <h2 class="section-title reveal">{problem.title}</h2>
+      </div>
+      <div class="divider" aria-hidden="true"></div>
+      <ul class="grid">
+        {problem.cards.map((c, i) => (
+          <li class="card reveal" style={`--i:${i % 2}`}>
+            <div class="head">
+              <span class="tag">{c.tag}</span>
+              <span class="num">{c.idx}</span>
+            </div>
+            <h3 class="name">{c.title}</h3>
+            <p class="desc">{c.desc}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .outer { border: var(--hair-w) solid var(--hair); }
+  .top { padding: clamp(1.6rem, 4vw, 2.6rem); }
+  .top .badge { margin-bottom: 1.2rem; }
+  .section-title { max-width: 22ch; }
+
+  .divider { border-top: var(--hair-w) solid var(--hair); }
+
+  .grid {
+    list-style: none; padding: 0; margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Every card carries top + left hairlines; the outer box supplies the outer
+     edges, so interior lines read as a clean 2x2 rule set with no doubling. */
+  .card {
+    padding: clamp(1.5rem, 3.5vw, 2.4rem);
+    border-top: var(--hair-w) solid var(--hair);
+    display: flex; flex-direction: column;
+  }
+  .card:nth-child(odd) { border-inline-end: var(--hair-w) solid var(--hair); }
+
+  .head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1rem;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-size: 0.64rem; letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.12; letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+    max-width: 20ch;
+  }
+  .desc { font-size: var(--step-small); color: var(--text-dim); line-height: 1.6; }
+
+  @media (max-width: 680px) {
+    .grid { grid-template-columns: 1fr; }
+    .card:nth-child(odd) { border-inline-end: 0; }
+  }
+</style>

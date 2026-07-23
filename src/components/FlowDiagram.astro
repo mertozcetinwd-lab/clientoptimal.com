@@ -1,0 +1,128 @@
+---
+// rig.ai-style solution diagram: a labelled flow with azure dots travelling the
+// connectors (SVG animateMotion, zero JS). This is the honest replacement for the
+// abstract "plate" figurines — a schematic of how a build actually runs, not
+// decoration. The heading + lead explain it, so the SVG is aria-hidden.
+---
+
+<section class="section flow" id="how-it-runs">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>How it runs</p>
+    <h2 class="section-title reveal">Built once. Runs on its own.</h2>
+    <p class="lead intro reveal">
+      A task comes in, an agent does the work, it runs on a schedule instead of a
+      to-do list, and the result lands where you already look. Nothing leaves that
+      you have not approved.
+    </p>
+
+    <div class="diagram reveal">
+      <svg viewBox="0 0 660 260" role="presentation" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <path id="f-in" d="M145,130 L235,130"></path>
+          <path id="f-out" d="M425,130 L515,130"></path>
+        </defs>
+
+        <!-- machine boundary -->
+        <rect x="212" y="14" width="236" height="232" rx="2" class="boundary"></rect>
+        <rect x="222" y="7" width="120" height="14" class="tag-bg"></rect>
+        <text x="228" y="17" class="tag-t">YOUR SETUP</text>
+
+        <!-- task in -->
+        <g class="node">
+          <rect x="25" y="106" width="120" height="48"></rect>
+          <text x="85" y="126" class="lbl">YOUR TASK</text>
+          <text x="85" y="140" class="sub">THE REPETITIVE BIT</text>
+        </g>
+
+        <!-- core -->
+        <g class="node core">
+          <rect x="235" y="80" width="190" height="100"></rect>
+          <text x="330" y="112" class="core-t">CLIENT OPTIMAL</text>
+          <text x="330" y="128" class="accent-t">&#x2713; BUILT FROM THE APIS</text>
+          <line x1="252" y1="146" x2="408" y2="146" class="hair"></line>
+          <text x="278" y="162" class="sub">BUILD</text>
+          <text x="330" y="162" class="sub">RUN</text>
+          <text x="382" y="162" class="sub">WATCH</text>
+        </g>
+
+        <!-- result out -->
+        <g class="node">
+          <rect x="515" y="106" width="120" height="48"></rect>
+          <text x="575" y="126" class="lbl">RESULT</text>
+          <text x="575" y="140" class="accent-t">WHERE YOU LOOK</text>
+        </g>
+
+        <!-- approve (top) -->
+        <g class="node ghost">
+          <rect x="270" y="21" width="120" height="30"></rect>
+          <text x="330" y="39" class="sub">YOU APPROVE</text>
+        </g>
+        <line x1="330" y1="51" x2="330" y2="80" class="conn short"></line>
+
+        <!-- schedule (bottom) -->
+        <g class="node ghost">
+          <rect x="270" y="205" width="120" height="30"></rect>
+          <text x="330" y="223" class="sub">ON A SCHEDULE</text>
+        </g>
+        <line x1="330" y1="180" x2="330" y2="205" class="conn short"></line>
+
+        <!-- flow connectors -->
+        <line x1="145" y1="130" x2="235" y2="130" class="conn"></line>
+        <line x1="425" y1="130" x2="515" y2="130" class="conn"></line>
+
+        <!-- travelling dots -->
+        <rect x="-2" y="-2" width="4" height="4" class="dot">
+          <animateMotion dur="2s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <mpath href="#f-in"></mpath>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite"></animate>
+        </rect>
+        <rect x="-2" y="-2" width="4" height="4" class="dot">
+          <animateMotion dur="2s" begin="1s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <mpath href="#f-out"></mpath>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" begin="1s" repeatCount="indefinite"></animate>
+        </rect>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 1.4rem; max-width: 22ch; }
+  .intro { margin-bottom: 3rem; }
+
+  .diagram {
+    border: var(--hair-w) solid var(--hair);
+    background: var(--bg-2);
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+  .diagram svg { width: 100%; height: auto; display: block; }
+
+  .boundary { fill: none; stroke: var(--hair); stroke-width: 1; stroke-dasharray: 4 4; }
+  .tag-bg { fill: var(--bg-2); }
+  .tag-t {
+    font-family: var(--font-mono); font-size: 6px; letter-spacing: 2px;
+    fill: var(--muted);
+  }
+
+  .node rect { fill: var(--panel); stroke: var(--hair-2); stroke-width: 1; }
+  .node.core rect { stroke: var(--accent); }
+  .node.ghost rect { fill: none; stroke: var(--hair); }
+
+  .lbl { font-family: var(--font-mono); font-size: 8px; letter-spacing: 1.2px; fill: var(--text); text-anchor: middle; }
+  .core-t { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; fill: var(--text); text-anchor: middle; font-weight: 600; }
+  .sub { font-family: var(--font-mono); font-size: 6px; letter-spacing: 1px; fill: var(--muted); text-anchor: middle; }
+  .accent-t { font-family: var(--font-mono); font-size: 6px; letter-spacing: 1px; fill: var(--accent); text-anchor: middle; }
+
+  .hair { stroke: var(--hair); stroke-width: 0.5; }
+  .conn { stroke: var(--hair-2); stroke-width: 1; }
+  .conn.short { stroke: var(--hair); stroke-dasharray: 3 3; }
+  .dot { fill: var(--accent); }
+
+  @media (max-width: 560px) {
+    /* The diagram is dense; let it scroll rather than shrink to illegibility. */
+    .diagram { overflow-x: auto; }
+    .diagram svg { min-width: 520px; }
+  }
+</style>

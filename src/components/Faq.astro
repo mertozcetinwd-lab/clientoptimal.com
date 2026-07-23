@@ -1,0 +1,72 @@
+---
+// rig.ai-style FAQ. Native <details>/<summary> so it needs zero JS and stays
+// accessible by default. Honest, generalist answers from site.js.
+import { faq } from '../data/site.js';
+---
+
+<section class="section faq" id="faq">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{faq.eyebrow}</p>
+    <h2 class="section-title reveal">{faq.title}</h2>
+
+    <ul class="list">
+      {faq.items.map((item, i) => (
+        <li class="row reveal" style={`--i:${Math.min(i, 4)}`}>
+          <details name="faq">
+            <summary>
+              <span class="q">{item.q}</span>
+              <span class="mark" aria-hidden="true"></span>
+            </summary>
+            <p class="a">{item.a}</p>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 2.4rem; }
+  .list { list-style: none; padding: 0; margin: 0; }
+
+  .row { border-top: var(--hair-w) solid var(--hair); }
+  .row:last-child { border-bottom: var(--hair-w) solid var(--hair); }
+
+  summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding-block: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+
+  .q {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.2; letter-spacing: -0.02em;
+  }
+
+  /* Plus/minus mark drawn with two bars; the vertical one hides when open. */
+  .mark {
+    position: relative; flex: none;
+    width: 16px; height: 16px;
+  }
+  .mark::before, .mark::after {
+    content: ''; position: absolute; inset: 0; margin: auto;
+    background: var(--accent);
+  }
+  .mark::before { width: 16px; height: 2px; }
+  .mark::after { width: 2px; height: 16px; transition: transform var(--t-med) var(--ease); }
+  details[open] .mark::after { transform: scaleY(0); }
+
+  .a {
+    padding-bottom: 1.6rem;
+    max-width: var(--measure);
+    color: var(--text-dim);
+    font-size: var(--step-body);
+    line-height: var(--lh-body);
+  }
+
+  summary:hover .q { color: var(--accent); }
+  @media (max-width: 520px) { .q { font-size: var(--step-body); } }
+</style>

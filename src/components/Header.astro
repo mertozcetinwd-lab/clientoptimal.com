@@ -2,9 +2,14 @@
 // Sticky, not fixed, and no bottom bar. mertozcetin.com's twin chrome rails
 // are Mert's signature; a business site wants the browser to feel normal.
 import { meta, nav, contact } from '../data/site.js';
+
+// The homepage opens on a full-screen near-black 3D hero, so the header renders
+// dark ("over-hero") to blend into it, then a scroll script swaps it back to the
+// themed solid once you pass the hero. Server-rendered initial state = no flash.
+const isHome = Astro.url.pathname === '/';
 ---
 
-<header class="hdr">
+<header class:list={['hdr', isHome && 'over-hero']} data-home={isHome ? '' : null}>
   <div class="wrap inner">
     <a class="brand" href="/">
       <span class="dot" aria-hidden="true"></span>
@@ -25,13 +30,49 @@ import { meta, nav, contact } from '../data/site.js';
   </div>
 </header>
 
+<script>
+  // Homepage only: the header renders .over-hero (dark, server-rendered) and
+  // drops it once the viewport scrolls past the near-black hero, returning to the
+  // themed solid. Passive scroll listener, cheap.
+  (function () {
+    const hdr = document.querySelector('.hdr');
+    if (!hdr || hdr.dataset.home !== '') return;
+    const sync = () => {
+      const overHero = window.scrollY < window.innerHeight - hdr.offsetHeight - 4;
+      hdr.classList.toggle('over-hero', overHero);
+    };
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+  })();
+</script>
+
 <style>
   .hdr {
     position: sticky; top: 0; z-index: 100;
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: var(--hair-w) solid var(--hair);
+    transition: background-color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
   }
+
+  /* Over the near-black hero: a solid dark bar that blends into it, white type.
+     The scroll script removes .over-hero once you scroll past the hero, and the
+     header returns to the themed solid above. Colours transition for both. */
+  .hdr.over-hero {
+    background: #020306;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+  .hdr.over-hero .brand { color: #fff; }
+  .hdr.over-hero .nav a { color: rgba(255, 255, 255, 0.6); }
+  .hdr.over-hero .nav a:hover { color: #fff; }
+  .hdr.over-hero .themes { border-color: rgba(255, 255, 255, 0.22); }
+  .hdr.over-hero .themes button { color: rgba(255, 255, 255, 0.6); }
+  .hdr.over-hero .themes button:hover { color: #fff; }
+  .hdr.over-hero .themes button[aria-pressed='true'] { background: #fff; color: #020306; }
+  .hdr.over-hero .talk { color: #fff; border-color: rgba(255, 255, 255, 0.25); }
+  .hdr.over-hero .talk:hover { border-color: #fff; }
+  .brand, .nav a, .themes button, .talk { transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease); }
   .inner {
     height: var(--header-h);
     display: flex; align-items: center; gap: 1.5rem;

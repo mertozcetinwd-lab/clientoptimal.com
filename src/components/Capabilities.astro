@@ -1,14 +1,14 @@
 ---
-import Plate from './Plate.astro';
 import { capabilities } from '../data/site.js';
 ---
 
 <section class="section" id="build">
   <div class="wrap">
-    {/* The homepage services overview. Generalist now: these six are the kinds of
+    {/* The homepage services overview. Generalist: these six are the kinds of
         build Client Optimal takes on, each shipped at least once (that is why none
         needed inventing). Reactivation is one offer among these, detailed in full
-        on the future /services page. */}
+        on the future /services page. The abstract "plate" figurines were dropped;
+        the cards are rig.ai-style bordered blocks now. */}
     <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>Services</p>
     <h2 class="section-title reveal">What I actually build.</h2>
     <p class="lead intro reveal">
@@ -20,10 +20,10 @@ import { capabilities } from '../data/site.js';
     <ul class="grid">
       {capabilities.map((c, i) => (
         <li class="cell reveal" style={`--i:${i % 3}`}>
-          <div class="plate-wrap" aria-hidden="true">
-            <Plate kind={c.plate} seed={i * 13 + 3} ratio="16 / 9" />
+          <div class="chead">
+            <span class="num">{c.idx}</span>
+            <span class="tag">{c.tag}</span>
           </div>
-          <p class="idx">{c.idx} / {c.tag}</p>
           <h3 class="name">{c.title}</h3>
           <p class="desc">{c.desc}</p>
         </li>
@@ -34,30 +34,37 @@ import { capabilities } from '../data/site.js';
 
 <style>
   .section-title { margin-block: 1.2rem 1.4rem; max-width: 24ch; }
-  .intro { margin-bottom: 3rem; }
+  .intro { margin-bottom: 3.4rem; }
 
   .grid {
     list-style: none; padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.8rem, 3.5vw, 3rem);
+    gap: clamp(1.6rem, 3vw, 2.4rem);
   }
 
-  .cell { display: flex; flex-direction: column; }
-
-  .plate-wrap {
-    border: var(--hair-w) solid var(--hair);
-    margin-bottom: 1.2rem;
-    opacity: 0.75;
-    transition: opacity var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+  /* rig.ai card: an accent rule across the top, number + tag on one line, then
+     the title and copy. No decorative figure. */
+  .cell {
+    display: flex; flex-direction: column;
+    border-top: 2px solid var(--accent);
+    padding-top: 1.3rem;
   }
-  .cell:hover .plate-wrap { opacity: 1; border-color: var(--hair-2); }
 
-  .idx {
-    font-family: var(--font-mono);
-    font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  .chead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; margin-bottom: 1.1rem;
+  }
+  .num {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.9rem; line-height: 1;
+    letter-spacing: -0.02em;
     color: var(--accent);
-    margin-bottom: 0.5rem;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
   }
 
   .name {
