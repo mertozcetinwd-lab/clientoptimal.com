@@ -152,8 +152,9 @@ if (kind === 'graph') {
      page load and 4 of 6 figures looked dead as a result.
 
      Everything is slow and low-amplitude on purpose. Six figures all twitching
-     reads worse than six static ones. The global prefers-reduced-motion block in
-     tokens.css stops all of it for anyone who asks. */
+     reads worse than six static ones. This subtlety is also why the site stopped
+     gating motion on prefers-reduced-motion (see tokens.css) — none of it is the
+     kind of movement that setting exists to stop. */
 
   .edge {
     stroke: var(--text); stroke-width: 0.75; opacity: 0.26;

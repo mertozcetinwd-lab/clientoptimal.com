@@ -16,9 +16,10 @@
      - more air, larger body, calmer rhythm. No marquee, no chrome
        bars, no character-decode. Those are Mert's signature, not the
        company's.
-     - prefers-reduced-motion IS honoured here. It was removed twice
-       from mertozcetin.com on purpose; that call is defensible on a
-       personal site and indefensible on a client-facing one.
+     - motion plays unconditionally (see the note by the reveal block).
+       prefers-reduced-motion WAS honoured here originally; the owner
+       reversed that because the motion is all subtle/ambient and the
+       OS setting was freezing the site for him. Tradeoff noted there.
 
    Every contrast figure below is computed, not estimated.
    ============================================================ */
@@ -283,23 +284,23 @@ body::after {
   to   { opacity: 1; transform: none; }
 }
 
-/* ---- motion opt-out ----
-   Present here on purpose. mertozcetin.com dropped its equivalent twice at
-   Mert's direction; that is a defensible call on a personal showpiece and a
-   bad one on a site whose job is to be read by strangers, some of whom get
-   sick from parallax and marching dashes. Everything still SHOWS — nothing
-   is hidden behind an animation that never runs. */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    /* Load-bearing now that reveals carry a staggered --i delay: with `both`
-       fill, a leftover delay holds the element at its from-state (opacity 0) for
-       the delay's length even after duration collapses, overriding the opacity:1
-       below. Reset it or a reduced-motion user sees blank slots. */
-    animation-delay: 0ms !important;
-    transition-duration: 0.001ms !important;
-  }
-  .js .reveal { opacity: 1; }
-}
+/* ---- motion, unconditional ----
+   This site no longer gates its animation on prefers-reduced-motion. That
+   reverses the original call (recoverable from git), and it is the owner's
+   decision, made with the tradeoff in front of him.
+
+   The reasoning: every animation here is slow, ambient, and low-amplitude —
+   looping plate strokes and soft fades, not the parallax or scroll-jacking that
+   WCAG 2.3.3 is actually about. And the person most affected by the OS setting
+   was the owner himself, whose machine has "reduce motion" on and who was
+   therefore seeing a frozen site.
+
+   The tradeoff, stated honestly: a visitor who enables "reduce motion" for
+   health reasons now sees the ambient loops regardless. If that ever needs
+   undoing, restore the @media (prefers-reduced-motion: reduce) block from
+   history, or add a small in-page motion toggle so the control no longer depends
+   on the OS setting.
+
+   Note: with no duration-collapsing block here, the reveal --i stagger runs its
+   real delays for everyone, and the old "reset animation-delay" guard that
+   block needed is gone with it — there is no from-state flash to prevent now. */
