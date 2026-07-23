@@ -31,7 +31,10 @@
   --panel:         #0e3a54;
   --text:          #e8e4d9;   /* bone — 10.98:1 on --bg */
   --text-dim:      rgba(232, 228, 217, 0.74);
-  --muted:         rgba(232, 228, 217, 0.54);
+  /* Was 0.54 = 4.26:1, which fails WCAG AA (4.5:1) for the small labels that use
+     it — eyebrows, nav links, footer. Raised to 0.64 = ~4.9:1. `--muted` is the
+     quietest text on the site and it still has to be legible, not just present. */
+  --muted:         rgba(232, 228, 217, 0.64);
   --hair:          rgba(232, 228, 217, 0.16);
   --hair-2:        rgba(232, 228, 217, 0.32);
 
@@ -52,7 +55,10 @@
   --panel:         #f2efe7;
   --text:          #0a2f45;   /* petrol ink — 10.98:1 on --bg */
   --text-dim:      rgba(10, 47, 69, 0.76);
-  --muted:         rgba(10, 47, 69, 0.58);
+  /* Was 0.58 = 3.49:1, a clearer AA failure than the dark theme's. Raised to
+     0.74 = ~4.9:1. Same reason as the dark block above: the small labels that
+     use --muted must clear 4.5:1, not merely read as "dim". */
+  --muted:         rgba(10, 47, 69, 0.74);
   --hair:          rgba(10, 47, 69, 0.16);
   --hair-2:        rgba(10, 47, 69, 0.30);
 

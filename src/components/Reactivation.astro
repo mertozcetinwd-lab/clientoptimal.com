@@ -1,0 +1,87 @@
+---
+// The offer, front and centre. This is the section that turns a generic
+// "AI automation" homepage into a database-reactivation homepage: the economic
+// logic in the lead, then three concrete steps. Sits immediately after the hero
+// so the first thing below the fold is how the offer actually works.
+//
+// Every string comes from site.js (reactivation). No metrics, no invented
+// results: each step describes what happens, not what it returns.
+import { reactivation } from '../data/site.js';
+---
+
+<section class="section react" id="how-it-works">
+  <div class="wrap">
+    <p class="eyebrow">{reactivation.eyebrow}</p>
+    <h2 class="section-title reveal">{reactivation.title}</h2>
+    <p class="lead intro reveal">{reactivation.lead}</p>
+
+    <ol class="steps">
+      {reactivation.steps.map((s) => (
+        <li class="step reveal">
+          <span class="num" aria-hidden="true">{s.idx}</span>
+          <h3 class="name">{s.title}</h3>
+          <p class="desc">{s.desc}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* A touch wider than the global 20ch cap: the offer headline is the longest
+     line on the page and reads better across three lines than five. */
+  .react .section-title { max-width: 28ch; margin-block: 1.2rem 1.4rem; }
+  .intro { margin-bottom: 3.4rem; }
+
+  .steps {
+    list-style: none; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.8rem, 3.5vw, 3.2rem);
+    counter-reset: none;
+  }
+
+  .step {
+    display: flex; flex-direction: column;
+    padding-top: 1.4rem;
+    border-top: 2px solid var(--accent);
+  }
+
+  /* Big amber index. Real text (01/02/03), so it clears AA in both themes as
+     --accent (6.88:1 dark, 5.03:1 light). aria-hidden because the <h3> already
+     carries the step's meaning; the number is a visual anchor, not content. */
+  .num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+  }
+
+  .desc {
+    font-size: var(--step-small);
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; gap: 0; }
+    /* On one column the top borders would stack into a heavy ladder, so each
+       step becomes a hairline-separated row with the number inline instead. */
+    .step {
+      border-top: var(--hair-w) solid var(--hair);
+      padding-block: 1.8rem;
+    }
+    .step:first-child { border-top: 2px solid var(--accent); }
+    .num { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  }
+</style>

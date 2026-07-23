@@ -23,18 +23,25 @@
 export const meta = {
   name: 'Client Optimal',
   legalName: 'Client Optimal LLC',
-  tagline: 'AI automation and agentic workflows. Shipped, not demoed.',
+  // Tagline now names the hero offer instead of the whole practice. It feeds the
+  // <title>, so it doubles as the SEO headline: "Client Optimal · Win back...".
+  tagline: 'Win back the customers you already have',
+  // The meta description and OG blurb. Keyword-forward (database reactivation,
+  // dormant customers, win back) and honest: it describes the mechanism, never a
+  // result. ~150 chars, under the truncation limit.
   description:
-    'Client Optimal builds AI automations and agentic workflows: the unglamorous, repetitive work, running unattended.',
+    'AI database reactivation for small businesses. Personalized email and SMS that win back your dormant past customers, from the list you already own. No ad spend.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
   effectiveDate: 'July 18, 2026',
 };
 
+// Nav leads with the hero offer now. "How we work" (the principles band) drops
+// out of the nav to keep it to three; the section still lives on the page.
 export const nav = [
+  { label: 'Reactivation', href: '/#how-it-works' },
   { label: 'What we build', href: '/#build' },
-  { label: 'How we work', href: '/#how' },
   { label: 'The work', href: '/#proof' },
 ];
 
@@ -52,12 +59,45 @@ export const contact = {
   github: 'https://github.com/mertozcetinwd-lab',
 };
 
+// The hero now names the offer in the first two lines. The old hero ("the
+// automations you keep meaning to build") was generic AI-automation positioning
+// and never mentioned reactivation at all, so a visitor could not tell what this
+// company actually sells. Outcome first, mechanism in the lead, no invented
+// numbers anywhere.
 export const hero = {
-  eyebrow: 'AI automation and agentic workflows',
-  title: 'We build the automations you keep meaning to build.',
-  lead: 'The repetitive work that eats your week, running unattended. Designed, built, and shipped end to end.',
-  cta: { label: 'Start a conversation', href: contact.linkedin },
-  secondary: { label: 'Read the code', href: '#proof' },
+  eyebrow: 'AI database reactivation',
+  title: 'Win back the customers you already have.',
+  lead: 'Most of your past customers stopped buying for no real reason. Client Optimal goes back through your list and reaches each one with a personalized email or text, written by AI in your voice and reviewed before it sends. No ad spend, no new data. You already own the asset.',
+  cta: { label: 'See if your list is worth it', href: contact.linkedin },
+  secondary: { label: 'See how it works', href: '#how-it-works' },
+};
+
+// The offer, explained. This is the section that makes reactivation
+// unmistakable: the economic logic, then the three concrete steps. Every line
+// describes what happens, not what it returns. The risk-reversal ("I will tell
+// you if it is not worth it") is a real, honest trust signal that costs nothing
+// to make because it is true, and it is the same promise the closing CTA makes.
+export const reactivation = {
+  eyebrow: 'How it works',
+  title: 'The cheapest customer to win is one you already have.',
+  lead: 'They bought from you once. They know your name and they had a reason. Reaching them again costs nothing like finding a stranger, and most businesses never do it. That is the whole opportunity, and it is sitting in a spreadsheet you already own.',
+  steps: [
+    {
+      idx: '01',
+      title: 'Start from your list',
+      desc: 'Your past customers, exported from whatever you already use. No new data to buy, no ads to run. If the list is too small or too cold to be worth it, I tell you that up front instead of billing you to find out.',
+    },
+    {
+      idx: '02',
+      title: 'AI writes to the person, not the segment',
+      desc: 'Each message is drafted for the individual from what you already know about them, in your voice, not a blast with a name pasted in. Email, and SMS only where you have permission to text them. I am not in the business of getting you fined.',
+    },
+    {
+      idx: '03',
+      title: 'You approve, it sends, replies come to you',
+      desc: 'You see the messages before they go out and stay in control of the tone. Replies land in your own inbox, and the whole thing runs on a schedule instead of a to-do list you never get to.',
+    },
+  ],
 };
 
 // What gets built. Adapted from the capability categories on mertozcetin.com
@@ -141,7 +181,11 @@ export const principles = [
 export const proof = {
   eyebrow: 'The work',
   title: 'Read the code.',
-  lead: 'Client Optimal is early, and asking you to take claims on faith would be a waste of your time. Here is the work instead, public and readable. Judge it directly.',
+  // Bridges the honest gap: the hero offer is reactivation, but none of these
+  // repos is a reactivation system yet. Rather than hide that, name it and turn
+  // it into the point: same class of build, public and readable, judge it
+  // before you hand over a list. Still zero invented proof.
+  lead: 'Client Optimal is early, so asking you to take results on faith would waste your time. Here is the work instead, public and readable. None of it is the reactivation system itself yet, but it is the same class of build: scheduled agents, lead scoring, tools wired into one flow. See how I build before you hand me your list.',
   repos: [
     {
       name: 'ai-lead-qualifier',
@@ -182,10 +226,14 @@ export const proof = {
   ],
 };
 
+// Closing CTA, anchored to the offer and deliberately low-friction: it asks for
+// a description, not a data export. Nobody sends a stranger their customer list
+// on the first message, so the ask is a conversation, and the honest "I will
+// tell you if it is not worth it" carries straight through from the offer.
 export const cta = {
   eyebrow: 'Start here',
-  title: 'What are you doing by hand that you shouldn’t be?',
-  lead: 'If you can describe the process, it can probably be automated. Tell me what it is and I will tell you honestly whether it is worth building.',
+  title: 'Not sure your list is worth reactivating? Ask me.',
+  lead: 'Tell me roughly how many past customers you have and what you sell. I will give you a straight answer on whether reactivation is worth doing, before you send a single row of data.',
 };
 
 export const legalNav = [

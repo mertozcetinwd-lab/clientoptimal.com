@@ -1,14 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import Reactivation from '../components/Reactivation.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Principles from '../components/Principles.astro';
 import Proof from '../components/Proof.astro';
 import ContactCta from '../components/ContactCta.astro';
 ---
 
+{/* Order carries the argument: name the offer (Hero), explain it (Reactivation),
+    then widen to the rest of the practice (Capabilities), how it's built
+    (Principles), the public proof, and the ask. Reactivation gets the prime slot
+    right under the fold. */}
 <Base>
   <Hero />
+  <Reactivation />
   <Capabilities />
   <Principles />
   <Proof />
