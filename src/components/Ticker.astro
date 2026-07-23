@@ -1,0 +1,64 @@
+---
+// RIG-borrowed marquee strip. A thin band of what the studio does, scrolling
+// under the hero. Pure CSS: the track holds the list TWICE and translates by
+// -50% (exactly one copy), so the loop is seamless with zero JS. Decorative, so
+// the whole strip is aria-hidden — every phrase already appears as real content
+// in the sections below.
+//
+// Honest content only: capability nouns and how-it-runs phrases, no metrics.
+const items = [
+  'Automations',
+  'Tool-using agents',
+  'Research pipelines',
+  'Internal tools',
+  'Direct API wiring',
+  'Runs unattended',
+  'Shipped, not demoed',
+  'Remote',
+];
+const row = [...items, ...items];
+---
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    {row.map((t) => (
+      <span class="item"><span class="sep">/</span>{t}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    border-block: var(--hair-w) solid var(--hair);
+    background: var(--bg-2);
+    /* Sits above the fixed grain overlay (z-index 1) so the band reads as solid. */
+    position: relative;
+    z-index: 2;
+  }
+  .track {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding-block: 0.7rem;
+    animation: ticker 42s linear infinite;
+    will-change: transform;
+  }
+  .item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding-inline: 1.1rem;
+    font-family: var(--font-mono);
+    font-size: var(--step-eyebrow);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sep { color: var(--accent); }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>

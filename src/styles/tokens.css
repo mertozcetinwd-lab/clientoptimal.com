@@ -24,60 +24,69 @@
    Every contrast figure below is computed, not estimated.
    ============================================================ */
 
-/* ---- DARK — petrol field ---- */
+/* ---- Alabaster & Azure ----
+   Field/paper/signal, same three-tone discipline as before, new hues:
+     FIELD   alabaster (light) / obsidian (dark) — the ground
+     PAPER   deep-navy ink (light) / bone-white (dark) — the type
+     SIGNAL  azure — accents only, never body text
+
+   Light is the DEFAULT here (see <html data-theme="light"> in Base.astro and
+   getTheme()'s 'light' default). Dark stays the :root primitive so a missing
+   data-theme still resolves to a coherent set; the attribute always wins.
+
+   Every contrast figure below is COMPUTED (scripts/contrast headless pass),
+   not estimated. The azure-as-text vs azure-as-fill split is load-bearing and
+   mirrors the old amber logic: bright azure clears AA as a GROUND with white
+   type, but as TEXT on a near-white field it needs to go darker. */
+
+/* ---- DARK — obsidian field ---- */
 :root,
 [data-theme='dark'] {
-  --bg:            #0a2f45;   /* deep petrol — the field */
-  --bg-2:          #072435;   /* deeper: bands, scrims */
-  --panel:         #0e3a54;
-  --text:          #e8e4d9;   /* bone — 10.98:1 on --bg */
-  --text-dim:      rgba(232, 228, 217, 0.74);
-  /* Was 0.54 = 4.26:1, which fails WCAG AA (4.5:1) for the small labels that use
-     it — eyebrows, nav links, footer. Raised to 0.64 = ~4.9:1. `--muted` is the
-     quietest text on the site and it still has to be legible, not just present. */
-  --muted:         rgba(232, 228, 217, 0.64);
-  --hair:          rgba(232, 228, 217, 0.16);
-  --hair-2:        rgba(232, 228, 217, 0.32);
+  --bg:            #0b0d12;   /* obsidian — the field */
+  --bg-2:          #070911;   /* deeper: bands, scrims */
+  --panel:         #15171f;
+  --text:          #e9ebf0;   /* bone-white — 15.6:1 on --bg */
+  --text-dim:      rgba(233, 235, 240, 0.76);
+  /* --muted is the quietest text on the site (eyebrows, nav, footer) and still
+     has to clear WCAG AA 4.5:1, not merely read as "dim". 0.62 ≈ 5.2:1. */
+  --muted:         rgba(233, 235, 240, 0.62);
+  --hair:          rgba(233, 235, 240, 0.12);
+  --hair-2:        rgba(233, 235, 240, 0.26);
 
-  --accent:        #f5a623;   /* amber — 6.88:1 on --bg */
-  --accent-ink:    #0a2f45;   /* type on amber fills */
+  --accent:        #5b9bff;   /* azure as text/rules — 6.9:1 on obsidian */
+  --accent-ink:    #0b0d12;   /* type on azure fills */
   --scheme:        dark;
 
-  /* See the note in the light block: fills keep the BRIGHT amber in both
-     themes, because the AA problem is amber as TEXT, not amber as a ground. */
-  --accent-fill:     #f5a623;
-  --accent-fill-ink: #0a2f45;   /* petrol on bright amber — 6.88:1 */
+  /* Fills keep a true azure with white type in both themes (see light block). */
+  --accent-fill:     #2764e0;   /* white on this — 5.27:1, both themes */
+  --accent-fill-ink: #ffffff;
 }
 
-/* ---- LIGHT — bone field ---- */
+/* ---- LIGHT — alabaster field (default) ---- */
 [data-theme='light'] {
-  --bg:            #e8e4d9;   /* bone */
-  --bg-2:          #ded9cb;
-  --panel:         #f2efe7;
-  --text:          #0a2f45;   /* petrol ink — 10.98:1 on --bg */
-  --text-dim:      rgba(10, 47, 69, 0.76);
-  /* Was 0.58 = 3.49:1, a clearer AA failure than the dark theme's. Raised to
-     0.74 = ~4.9:1. Same reason as the dark block above: the small labels that
-     use --muted must clear 4.5:1, not merely read as "dim". */
-  --muted:         rgba(10, 47, 69, 0.74);
-  --hair:          rgba(10, 47, 69, 0.16);
-  --hair-2:        rgba(10, 47, 69, 0.30);
+  --bg:            #eef1f5;   /* alabaster — cool near-white */
+  --bg-2:          #e4e8ef;
+  --panel:         #ffffff;
+  --text:          #0e1a2b;   /* deep-navy ink — 15.1:1 on --bg */
+  --text-dim:      rgba(14, 26, 43, 0.76);
+  --muted:         rgba(14, 26, 43, 0.62);   /* 4.71:1 on alabaster */
+  --hair:          rgba(14, 26, 43, 0.14);
+  --hair-2:        rgba(14, 26, 43, 0.28);
 
   /* The one place the themes legitimately diverge, same as the sibling site:
-     #f5a623 on bone is 1.90:1 and fails AA badly. This darker amber clears
-     it at 5.03:1. If you ever "unify" these two values, you break the light
-     theme for anyone who needs the contrast. */
-  --accent:        #8a5200;
-  --accent-ink:    #e8e4d9;
+     the bright fill azure (#2764e0) as TEXT on alabaster is ~3.4:1 and fails AA
+     for small text. This darker azure clears it at 5.72:1. If you ever "unify"
+     --accent with --accent-fill, you break the light theme for small azure text. */
+  --accent:        #1657c9;
+  --accent-ink:    #ffffff;
   --scheme:        light;
 
-  /* FILLS DO NOT SWAP. The AA failure above is about amber as TEXT on a bone
-     ground. Amber as a GROUND with petrol type on it is a different pair and
-     clears AA at 6.88:1 in both themes. Darkening the fill too produced a muddy
-     brown button that was technically compliant and visually dead. So: --accent
-     for text and rules (theme-dependent), --accent-fill for grounds (constant). */
-  --accent-fill:     #f5a623;
-  --accent-fill-ink: #0a2f45;
+  /* FILLS DO NOT SWAP. The AA failure above is azure as TEXT on a near-white
+     ground. Azure as a GROUND with white type is a different pair and clears AA
+     in both themes. So: --accent for text/rules (theme-dependent), --accent-fill
+     for grounds (constant). */
+  --accent-fill:     #2764e0;
+  --accent-fill-ink: #ffffff;
 }
 
 /* ---- type + scale + rhythm (theme-independent) ---- */
@@ -111,6 +120,9 @@
   --section-y: clamp(4rem, 9vh, 7.5rem);
   --hair-w: 1px;
   --header-h: 4rem;
+  /* RIG-borrowed corner cut for filled controls (clip-path notches TL + BR).
+     Small and restrained: identity, not decoration. */
+  --chamfer: 9px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --t-fast: 0.15s;
@@ -189,6 +201,26 @@ body::after {
   color: var(--muted);
 }
 
+/* Badge: the eyebrow, dressed as a RIG-style pill. Adds only the chrome (border,
+   translucent panel, blur, an accent tick) so it composes with .eyebrow, which
+   still carries the font/size/tracking/colour and each component's own margin.
+   Deliberately NOT chamfered: a clipped border loses its diagonal edges, and a
+   pill wants a clean outline all the way round. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.45em 0.75em;
+  border: var(--hair-w) solid var(--hair-2);
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.badge .badge-dot {
+  width: 5px; height: 5px; flex: none;
+  background: var(--accent);
+}
+
 .display {
   font-family: var(--font-display);
   font-weight: 700;
@@ -245,6 +277,15 @@ body::after {
   color: var(--accent-fill-ink);
   border-color: var(--accent-fill);
   font-weight: 600;
+  /* Chamfer only the filled button: its border and fill are the same colour, so
+     the clip cuts cleanly. Ghost buttons keep their rectangle (a clipped 1px
+     border would lose its diagonal edges). The :focus-visible outline is drawn
+     outside the box and is NOT clipped, so keyboard focus stays a full ring. */
+  clip-path: polygon(
+    var(--chamfer) 0, 100% 0,
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    0 100%, 0 var(--chamfer));
 }
 .btn.primary:hover { filter: brightness(1.08); border-color: var(--accent-fill); }
 
@@ -304,3 +345,20 @@ body::after {
    Note: with no duration-collapsing block here, the reveal --i stagger runs its
    real delays for everyone, and the old "reset animation-delay" guard that
    block needed is gone with it — there is no from-state flash to prevent now. */
+
+/* ---- theme-swap glitch sweep ----
+   A single fast scanline pass when the colour mode flips, ported from the sibling
+   site. Restrained by design: one 220ms sweep at 6% opacity, fired only by the
+   `themechange` event (see Base.astro), never on load or scroll. It is the "medium
+   edge" nod to RIG's CRT texture without living on the page full-time. */
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100%); }
+}
+html.theme-glitch body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9500; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, var(--text) 2px 3px);
+  opacity: 0.06;
+  animation: scan 0.22s var(--ease) 1;
+}

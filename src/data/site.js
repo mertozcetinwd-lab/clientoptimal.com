@@ -23,25 +23,27 @@
 export const meta = {
   name: 'Client Optimal',
   legalName: 'Client Optimal LLC',
-  // Tagline now names the hero offer instead of the whole practice. It feeds the
-  // <title>, so it doubles as the SEO headline: "Client Optimal · Win back...".
-  tagline: 'Win back the customers you already have',
-  // The meta description and OG blurb. Keyword-forward (database reactivation,
-  // dormant customers, win back) and honest: it describes the mechanism, never a
-  // result. ~150 chars, under the truncation limit.
+  // Tagline names the whole practice now, not one offer. It feeds the <title>, so
+  // it doubles as the SEO headline: "Client Optimal · Automation that earns its keep".
+  tagline: 'Automation that earns its keep',
+  // The meta description and OG blurb. Generalist and honest: it names the kinds of
+  // build (automations, agents, tools) and the way they are built, never a result.
+  // ~155 chars, under the truncation limit.
   description:
-    'AI database reactivation for small businesses. Personalized email and SMS that win back your dormant past customers, from the list you already own. No ad spend.',
+    'AI automation studio for small businesses. Custom automations, agents, and internal tools, built end to end from the APIs up and shipped to run on their own.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
   effectiveDate: 'July 18, 2026',
 };
 
-// Nav leads with the hero offer now. "How we work" (the principles band) drops
-// out of the nav to keep it to three; the section still lives on the page.
+// Generalist nav: three neutral nouns pointing at the three homepage sections.
+// The old "Reactivation" item is gone because that section moved off the homepage
+// to a future /services page. Anchors: #build (Capabilities), #how (Principles),
+// #proof (Proof).
 export const nav = [
-  { label: 'Reactivation', href: '/#how-it-works' },
-  { label: 'What we build', href: '/#build' },
+  { label: 'Services', href: '/#build' },
+  { label: 'Approach', href: '/#how' },
   { label: 'The work', href: '/#proof' },
 ];
 
@@ -59,24 +61,23 @@ export const contact = {
   github: 'https://github.com/mertozcetinwd-lab',
 };
 
-// The hero now names the offer in the first two lines. The old hero ("the
-// automations you keep meaning to build") was generic AI-automation positioning
-// and never mentioned reactivation at all, so a visitor could not tell what this
-// company actually sells. Outcome first, mechanism in the lead, no invented
-// numbers anywhere.
+// Generalist hero. The site used to lead with one offer (database reactivation);
+// it now positions the whole studio, because Client Optimal builds more than
+// win-back campaigns. Names the breadth and the way it is built, no invented
+// numbers anywhere. Reactivation is now one service among several, detailed on
+// the (future) /services page.
 export const hero = {
-  eyebrow: 'AI database reactivation',
-  title: 'Win back the customers you already have.',
-  lead: 'Most of your past customers stopped buying for no real reason. Client Optimal goes back through your list and reaches each one with a personalized email or text, written by AI in your voice and reviewed before it sends. No ad spend, no new data. You already own the asset.',
-  cta: { label: 'See if your list is worth it', href: contact.linkedin },
-  secondary: { label: 'See how it works', href: '#how-it-works' },
+  eyebrow: 'AI automation studio',
+  title: 'Automation that earns its keep.',
+  lead: 'Client Optimal builds the automations, agents, and internal tools that do the work you keep doing by hand. Wired straight from the APIs, shipped to run on a schedule, and built to fail loudly instead of quietly. One person, remote, no template.',
+  cta: { label: 'Start a conversation', href: contact.linkedin },
+  secondary: { label: 'See what I build', href: '#build' },
 };
 
-// The offer, explained. This is the section that makes reactivation
-// unmistakable: the economic logic, then the three concrete steps. Every line
-// describes what happens, not what it returns. The risk-reversal ("I will tell
-// you if it is not worth it") is a real, honest trust signal that costs nothing
-// to make because it is true, and it is the same promise the closing CTA makes.
+// The reactivation offer, explained. NOTE: this no longer renders on the
+// homepage (the site is generalist now). It is kept here to feed the future
+// dedicated /services page, where reactivation gets its full spotlight. Every
+// line describes what happens, not what it returns.
 export const reactivation = {
   eyebrow: 'How it works',
   title: 'The cheapest customer to win is one you already have.',
@@ -181,11 +182,10 @@ export const principles = [
 export const proof = {
   eyebrow: 'The work',
   title: 'Read the code.',
-  // Bridges the honest gap: the hero offer is reactivation, but none of these
-  // repos is a reactivation system yet. Rather than hide that, name it and turn
-  // it into the point: same class of build, public and readable, judge it
-  // before you hand over a list. Still zero invented proof.
-  lead: 'Client Optimal is early, so asking you to take results on faith would waste your time. Here is the work instead, public and readable. None of it is the reactivation system itself yet, but it is the same class of build: scheduled agents, lead scoring, tools wired into one flow. See how I build before you hand me your list.',
+  // Honest bridge for a young studio: no results to point at yet, so point at the
+  // code instead. Same class of build the client would get, public and readable.
+  // Still zero invented proof.
+  lead: 'Client Optimal is early, so asking you to take results on faith would waste your time. Here is the work instead, public and readable: scheduled agents, lead scoring, research pipelines, tools wired into one flow. The same class of build I would ship for you. See how I build before you hire me.',
   repos: [
     {
       name: 'ai-lead-qualifier',
@@ -226,14 +226,13 @@ export const proof = {
   ],
 };
 
-// Closing CTA, anchored to the offer and deliberately low-friction: it asks for
-// a description, not a data export. Nobody sends a stranger their customer list
-// on the first message, so the ask is a conversation, and the honest "I will
-// tell you if it is not worth it" carries straight through from the offer.
+// Closing CTA, generalist and deliberately low-friction: it asks for a
+// description of the task, not a commitment. The honest "I will tell you straight
+// whether it is worth it" is a real trust signal that costs nothing to make.
 export const cta = {
   eyebrow: 'Start here',
-  title: 'Not sure your list is worth reactivating? Ask me.',
-  lead: 'Tell me roughly how many past customers you have and what you sell. I will give you a straight answer on whether reactivation is worth doing, before you send a single row of data.',
+  title: 'Have something you keep doing by hand? Let us automate it.',
+  lead: 'Tell me what the task is and how often it eats your week. I will give you a straight answer on whether it is worth automating, and roughly what it would take, before you commit to anything.',
 };
 
 export const legalNav = [

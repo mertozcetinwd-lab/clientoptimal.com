@@ -5,7 +5,8 @@ export const THEMES = ['dark', 'light'];
 const KEY = 'co-theme';
 
 export function getTheme() {
-  return document.documentElement.getAttribute('data-theme') || 'dark';
+  // Light is the default now (Alabaster & Azure). Matches <html data-theme="light">.
+  return document.documentElement.getAttribute('data-theme') || 'light';
 }
 
 export function setTheme(t) {

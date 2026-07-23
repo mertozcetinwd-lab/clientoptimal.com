@@ -40,7 +40,7 @@ const orgLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,6 +93,17 @@ const orgLd = {
       import { initReveals } from '../scripts/reveal.js';
       initThemeControls();
       initReveals();
+
+      // Restrained CRT nod: one quick scanline sweep when the colour mode flips.
+      // Fires only on the theme engine's `themechange` event, so it never runs on
+      // load or scroll. The class self-removes after the 220ms animation.
+      let glitchT;
+      window.addEventListener('themechange', () => {
+        const root = document.documentElement;
+        root.classList.add('theme-glitch');
+        clearTimeout(glitchT);
+        glitchT = setTimeout(() => root.classList.remove('theme-glitch'), 240);
+      });
     </script>
   </body>
 </html>
