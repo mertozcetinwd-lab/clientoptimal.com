@@ -1,0 +1,30 @@
+---
+// /services — the services and approach page.
+//
+// Plain Astro end to end: no React island, so this route ships none of the
+// homepage's three.js/Tailwind payload. Base.astro boots the theme controls and
+// scroll reveals for every page, so nothing extra is wired here.
+//
+// Order carries the argument: what gets built (ServicesGrid), how a project runs
+// (Engagement, which owns the #approach anchor the nav points at), who it suits
+// and who it does not (FitCheck), then the ask.
+//
+// Deliberately absent: a second FAQ (the homepage owns that one, and repeating it
+// is filler), the Ticker (a homepage signature), and any restatement of the
+// Principles band. Reactivation is intentionally unsurfaced here too.
+import Base from '../layouts/Base.astro';
+import ServicesHero from '../components/ServicesHero.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import Engagement from '../components/Engagement.astro';
+import FitCheck from '../components/FitCheck.astro';
+import ContactCta from '../components/ContactCta.astro';
+import { servicesMeta } from '../data/site.js';
+---
+
+<Base title={servicesMeta.title} description={servicesMeta.description}>
+  <ServicesHero />
+  <ServicesGrid />
+  <Engagement />
+  <FitCheck />
+  <ContactCta />
+</Base>

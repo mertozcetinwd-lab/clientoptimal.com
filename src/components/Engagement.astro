@@ -1,0 +1,73 @@
+---
+// How a project actually runs, start to finish. This is the "approach" half of
+// the page and owns the #approach anchor the nav points at.
+//
+// No pricing anywhere by decision: the honest line is "you get a rough number
+// before you commit", which step 01 says. Nothing here promises an outcome,
+// because /terms carries a no-guarantees clause.
+//
+// Distinct from the homepage's FlowDiagram (#how-it-runs), which describes how a
+// finished system runs at RUNTIME. This describes the engagement.
+import { engagement } from '../data/site.js';
+---
+
+<section class="section band" id="approach">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{engagement.eyebrow}</p>
+    <h2 class="section-title reveal">{engagement.title}</h2>
+    <p class="lead intro reveal">{engagement.lead}</p>
+
+    <ol class="steps">
+      {engagement.steps.map((s, i) => (
+        <li class="step reveal" style={`--i:${i}`}>
+          <span class="idx">{s.idx}</span>
+          <div class="text">
+            <h3 class="name">{s.title}</h3>
+            <p class="desc">{s.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* The one tonal shift on this page, same device Principles uses on the
+     homepage: it keeps a long read from feeling like one unbroken field. */
+  .band { background: var(--bg-2); }
+
+  .section-title { margin-block: 1.2rem 1.4rem; max-width: 22ch; }
+  .intro { margin-bottom: 3rem; }
+
+  .steps { list-style: none; padding: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 2rem;
+    border-top: var(--hair-w) solid var(--hair);
+  }
+  .step:last-child { border-bottom: var(--hair-w) solid var(--hair); }
+
+  .idx {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--accent);
+    padding-top: 0.45rem;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+  }
+
+  .desc { color: var(--text-dim); max-width: var(--measure); }
+
+  @media (max-width: 600px) {
+    .step { grid-template-columns: 1fr; gap: 0.5rem; }
+    .idx { padding-top: 0; }
+  }
+</style>

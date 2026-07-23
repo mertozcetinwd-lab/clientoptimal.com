@@ -29,6 +29,11 @@ import { capabilities } from '../data/site.js';
         </li>
       ))}
     </ul>
+
+    {/* This affordance was held back until the route actually existed. */}
+    <p class="more reveal">
+      <a class="link" href="/services">What each one includes, and how a project runs &rarr;</a>
+    </p>
   </div>
 </section>
 
@@ -75,6 +80,13 @@ import { capabilities } from '../data/site.js';
   }
 
   .desc { font-size: var(--step-small); color: var(--text-dim); line-height: 1.6; }
+
+  .more {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    font-family: var(--font-mono);
+    font-size: var(--step-small);
+    letter-spacing: 0.04em;
+  }
 
   @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }

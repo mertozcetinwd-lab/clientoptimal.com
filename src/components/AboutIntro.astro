@@ -1,0 +1,43 @@
+---
+// The about page's one content section. Short by design: this page exists to put
+// a person behind the business, not to restate the services.
+import { about } from '../data/site.js';
+---
+
+<section class="about">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{about.eyebrow}</p>
+    <h1 class="display title reveal">{about.title}</h1>
+    <p class="lead intro reveal">{about.lead}</p>
+
+    <div class="prose">
+      {about.paras.map((p, i) => (
+        <p class="para reveal" style={`--i:${i}`}>{p}</p>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* No top border: first thing under the header, so a hairline there would read
+     as a stray rule rather than a divider. */
+  .about { padding-block: clamp(3rem, 8vh, 5.5rem) var(--section-y); }
+
+  .title {
+    font-size: var(--step-h2);
+    max-width: 16ch;
+    margin-block: 1.4rem 1.5rem;
+  }
+
+  .intro { margin-bottom: 2.8rem; }
+
+  /* Reading column, not the full 1140px wrap. Body prose past --measure is
+     genuinely harder to read and this page is nothing but prose. */
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: var(--measure);
+  }
+  .para { color: var(--text-dim); }
+</style>

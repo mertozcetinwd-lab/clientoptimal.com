@@ -1,0 +1,89 @@
+---
+// Honest qualification: who this works for and who it does not. The right-hand
+// column is the more useful one, and it is where the no-guarantees stance from
+// /terms shows up in plain language. Nothing here claims a result.
+//
+// Bordered outer box with interior hairlines, the same idiom as ProblemGrid.
+import { fit } from '../data/site.js';
+---
+
+<section class="section" id="fit">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{fit.eyebrow}</p>
+    <h2 class="section-title reveal">{fit.title}</h2>
+    <p class="lead intro reveal">{fit.lead}</p>
+
+    <div class="outer">
+      <div class="col good reveal">
+        <h3 class="colhead">{fit.good.title}</h3>
+        <ul class="list">
+          {fit.good.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <div class="col bad reveal" style="--i:1">
+        <h3 class="colhead">{fit.bad.title}</h3>
+        <ul class="list">
+          {fit.bad.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 1.4rem; max-width: 22ch; }
+  .intro { margin-bottom: 3rem; }
+
+  .outer {
+    border: var(--hair-w) solid var(--hair);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .col { padding: clamp(1.5rem, 3.5vw, 2.4rem); }
+  /* Interior rule only; the outer box supplies the edges, so nothing doubles. */
+  .col.good { border-inline-end: var(--hair-w) solid var(--hair); }
+
+  .colhead {
+    font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+  .good .colhead { color: var(--accent); }
+  .bad .colhead { color: var(--muted); }
+
+  .list { list-style: none; padding: 0; }
+  .list li {
+    position: relative;
+    padding-left: 1.4rem;
+    padding-block: 0.75rem;
+    border-top: var(--hair-w) solid var(--hair);
+    font-size: var(--step-small);
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+  .list li:first-child { border-top: 0; padding-top: 0; }
+
+  /* Geometric marks rather than glyphs or emoji: a filled accent square for the
+     good column, a hollow muted dash for the other. Decorative, so they are
+     drawn in CSS and never read out. */
+  .list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.35rem;
+    width: 7px; height: 7px;
+  }
+  .list li:first-child::before { top: 0.6rem; }
+  .good .list li::before { background: var(--accent); }
+  .bad .list li::before { border-top: 2px solid var(--muted); height: 0; }
+
+  @media (max-width: 700px) {
+    .outer { grid-template-columns: 1fr; }
+    .col.good {
+      border-inline-end: 0;
+      border-bottom: var(--hair-w) solid var(--hair);
+    }
+  }
+</style>

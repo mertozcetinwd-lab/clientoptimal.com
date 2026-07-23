@@ -1,0 +1,19 @@
+---
+// /about — a short page putting a person behind the business, ending with the
+// handoff to the personal site.
+//
+// Deliberately short and with no ContactCta: the header carries a permanent
+// "Get in touch" button, and Mert asked for the mertozcetin.com link to be the
+// last thing on the page. Adding a closing CTA under it would bury that.
+//
+// Plain Astro, so this route ships no React and no Tailwind.
+import Base from '../layouts/Base.astro';
+import AboutIntro from '../components/AboutIntro.astro';
+import Elsewhere from '../components/Elsewhere.astro';
+import { aboutMeta } from '../data/site.js';
+---
+
+<Base title={aboutMeta.title} description={aboutMeta.description}>
+  <AboutIntro />
+  <Elsewhere />
+</Base>

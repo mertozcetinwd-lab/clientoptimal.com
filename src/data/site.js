@@ -13,9 +13,14 @@
 // happen on the one page whose job is to be believed.
 //
 // What this site proves instead is CAPABILITY, not track record: what gets
-// built, the principles behind how, and six public repos anyone can read.
-// "Read the code" is a stronger claim than an invented number, and it is one
-// Mert can actually back.
+// built, and the principles behind how.
+//
+// NOTE (2026-07-23): it used to also point at six public repos ("Read the
+// code"), which was the strongest evidence on the site. Mert removed that
+// section, so the live pages now carry NO external evidence at all. The
+// constraint above is therefore stricter than before, not looser: with nothing
+// left to point at, any drift into implied results has nothing honest holding it
+// down. The `proof` export below is kept but renders nowhere.
 //
 // Voice: references/voice.md in the parent AIOS. Casual, direct, blunt, no
 // corporate polish, no hype, NO EM DASHES.
@@ -37,14 +42,17 @@ export const meta = {
   effectiveDate: 'July 18, 2026',
 };
 
-// Generalist nav: three neutral nouns pointing at the three homepage sections.
-// The old "Reactivation" item is gone because that section moved off the homepage
-// to a future /services page. Anchors: #build (Capabilities), #how (Principles),
-// #proof (Proof).
+// Down to one item on Mert's call 2026-07-23. "Approach" was dropped from the
+// header by request; "The work" had to go with it, because its target (the
+// #proof repo section) was removed from the homepage in the same pass and a nav
+// item pointing at a section that no longer exists is a dead link.
+//
+// Nothing is orphaned: the approach content still lives at /services#approach,
+// reachable from the services page, and the header's "Get in touch" button
+// already covers contact (which is why no Contact item was added here).
 export const nav = [
-  { label: 'Services', href: '/#build' },
-  { label: 'Approach', href: '/#how' },
-  { label: 'The work', href: '/#proof' },
+  { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
 ];
 
 export const contact = {
@@ -59,13 +67,15 @@ export const contact = {
   // hello@clientoptimal.com forwarding here instead.
   email: 'mertozcetinwd@gmail.com',
   github: 'https://github.com/mertozcetinwd-lab',
+  // Mert's personal site. Separate brand, same person; the /about page sends
+  // people there rather than restating a portfolio inside the business site.
+  personalSite: 'https://mertozcetin.com',
+  personalSiteShow: 'mertozcetin.com',
 };
 
-// Generalist hero. The site used to lead with one offer (database reactivation);
-// it now positions the whole studio, because Client Optimal builds more than
-// win-back campaigns. Names the breadth and the way it is built, no invented
-// numbers anywhere. Reactivation is now one service among several, detailed on
-// the (future) /services page.
+// NOTE: unused. The homepage hero is the React island (ui/experience-hero.tsx),
+// which carries its own copy. This object is the pre-island wording, kept only as
+// a reference for the voice. If you change the live hero, change it there.
 export const hero = {
   eyebrow: 'AI automation studio',
   title: 'Automation that earns its keep.',
@@ -74,10 +84,11 @@ export const hero = {
   secondary: { label: 'See what I build', href: '#build' },
 };
 
-// The reactivation offer, explained. NOTE: this no longer renders on the
-// homepage (the site is generalist now). It is kept here to feed the future
-// dedicated /services page, where reactivation gets its full spotlight. Every
-// line describes what happens, not what it returns.
+// The reactivation offer, explained. NOTE: DORMANT AND DELIBERATELY UNSURFACED.
+// It is on no page. It came off the homepage when the site went generalist, and
+// Mert's call (2026-07-23) was to keep /services generalist too, so reactivation
+// is not linked from anywhere. Kept, with its component (Reactivation.astro), in
+// case it is ever wanted as a named offer again. Do not assume it renders.
 export const reactivation = {
   eyebrow: 'How it works',
   title: 'The cheapest customer to win is one you already have.',
@@ -139,48 +150,80 @@ export const problem = {
 // (src/data/site.js) and rewritten from first-person portfolio voice into
 // service voice. Every one of these describes something already built at
 // least once, which is why none of them needed inventing.
+//
+// `desc` is the one-liner the homepage grid shows. `includes` is the detail the
+// /services page shows underneath it: three concrete things that get BUILT, never
+// a result the client should expect. That distinction is the whole reason this
+// file opens with a hard-constraint block, so keep the bullets mechanical.
+//
+// (The old `plate` key is gone. It named a generative SVG figure per card, and
+// Plate.astro no longer exists in this repo.)
 export const capabilities = [
   {
     idx: '01',
     tag: 'Automate',
     title: 'Automations',
     desc: 'Inbox triage, data pipelines, the work you do the same way every week. Runs on a schedule with nobody watching it.',
-    plate: 'flow',
+    includes: [
+      'A scheduled job that runs without you starting it',
+      'Retries and an error path for when a step fails',
+      'A log you can read to see what it did and when',
+    ],
   },
   {
     idx: '02',
     tag: 'Orchestrate',
     title: 'Agents',
     desc: 'Tool-using agents that make the call, take the action, and know when to stop. Not a chatbot bolted onto a form.',
-    plate: 'graph',
+    includes: [
+      'Tool access with explicit limits on what it may touch',
+      'A stopping condition, so it cannot loop forever',
+      'A human approval step wherever the action is irreversible',
+    ],
   },
   {
     idx: '03',
     tag: 'Engineer',
     title: 'Systems',
     desc: 'The durable, file-based infrastructure everything else runs on. Guardrails, logging, and error paths included.',
-    plate: 'contour',
+    includes: [
+      'Configuration in plain files, not buried in a vendor UI',
+      'Logging and error branches from the first commit',
+      'Written notes on how it works and where it can break',
+    ],
   },
   {
     idx: '04',
     tag: 'Research',
     title: 'Research',
     desc: 'Multi-perspective briefings that map where the experts actually disagree, then peer-review their own conclusions.',
-    plate: 'graph',
+    includes: [
+      'Gathering across several sources, not one search',
+      'Structured output you can hand to somebody else',
+      'Citations kept attached, so you can check the claim',
+    ],
   },
   {
     idx: '05',
     tag: 'Compose',
     title: 'Documents',
     desc: 'Reports and decks that build themselves, look at the result, critique it, and fix it. Presentation-ready on demand.',
-    plate: 'contour',
+    includes: [
+      'Generation from your own data and template',
+      'A self-critique pass before it hands anything over',
+      'Export to the format you actually send, Docs, Word or Slides',
+    ],
   },
   {
     idx: '06',
     tag: 'Connect',
     title: 'Integrations',
     desc: 'Wiring the tools you already pay for, Gmail to ClickUp to Stripe, into one flow instead of six tabs.',
-    plate: 'flow',
+    includes: [
+      'Direct API wiring between the tools you already pay for',
+      'One flow to follow instead of six tabs to check',
+      'No third-party automation platform sitting in the middle',
+    ],
   },
 ];
 
@@ -213,6 +256,9 @@ export const principles = [
 // Honest framing of a real weakness, turned into the strongest section on the
 // page. Client Optimal is early. Rather than dressing that up, point at the
 // code. Every repo below is public and really exists.
+// DORMANT: removed from the homepage 2026-07-23 and rendered on no page. Kept,
+// with Proof.astro, in case the repo section is ever wanted back. Do not assume
+// it renders.
 export const proof = {
   eyebrow: 'The work',
   title: 'Read the code.',
@@ -298,6 +344,122 @@ export const faq = {
   ],
 };
 
+/* ============================================================
+   /services — the services and approach page
+   ============================================================ */
+
+// Head copy for the page. Base.astro takes { title, description }; the title uses
+// a middle dot because em dashes are out.
+export const servicesMeta = {
+  title: 'Services · Client Optimal',
+  description:
+    'What Client Optimal builds: automations, agents, systems, research, documents and integrations. How a project runs, and who it is a good fit for.',
+};
+
+export const servicesHero = {
+  eyebrow: 'Services and approach',
+  title: 'What I build, and how the work actually goes.',
+  lead: 'Six kinds of build, all of them shipped at least once. Below them is the honest version of how a project runs from your first message to a system running on its own, and who this is a bad fit for.',
+  cta: { label: 'Start a conversation', href: contact.linkedin },
+  secondary: { label: 'How a project runs', href: '#approach' },
+};
+
+// How an engagement actually runs. Deliberately NO pricing: the honest line is
+// "you get a rough number before you commit", which is what the FAQ already says.
+// Nothing here promises an outcome, because /terms carries a no-guarantees clause.
+export const engagement = {
+  eyebrow: 'Approach',
+  title: 'From first message to running system.',
+  lead: 'No discovery-call theatre and no retainer you cannot leave. Four steps, and you know the cost and the shape of the thing before anything gets built.',
+  steps: [
+    {
+      idx: '01',
+      title: 'Scope',
+      desc: 'You tell me the task and how often it eats your week. I work out what it touches and what it would take, then give you a rough number. If it is not worth automating, I say so instead of billing you to find out.',
+    },
+    {
+      idx: '02',
+      title: 'Build',
+      desc: 'I build it end to end, wired straight from the APIs rather than assembled on a no-code platform. You see it working on real cases before it goes anywhere near a customer.',
+    },
+    {
+      idx: '03',
+      title: 'Handover',
+      desc: 'It ships running. The rules live in plain files you can open and change, and you get written notes on what it does, what it touches, and where it is most likely to break.',
+    },
+    {
+      idx: '04',
+      title: 'After',
+      desc: 'It runs on its own on a schedule. When something changes on your side I am reachable, but nothing renews silently and nothing is locked to me. The build is yours.',
+    },
+  ],
+};
+
+// Honest qualification. The "not a fit" column is where the no-guarantees stance
+// lives, and it is the most useful thing on the page for the wrong prospect.
+export const fit = {
+  eyebrow: 'Fit',
+  title: 'Worth checking before you write.',
+  lead: 'Automation pays off on repetition. If a job is different every single time, a person is still the right tool and I will tell you that.',
+  good: {
+    title: 'A good fit if',
+    items: [
+      'The task is repetitive and follows rules you could write down',
+      'It happens weekly or daily, not once a quarter',
+      'You can describe the steps you take today, even roughly',
+      'The data already lives somewhere: an inbox, a sheet, a CRM',
+      'You want to own the thing that gets built',
+    ],
+  },
+  bad: {
+    title: 'Probably not if',
+    items: [
+      'Every case is a judgement call with no pattern behind it',
+      'The process changes faster than it could be built',
+      'You want someone to administer a no-code subscription for you',
+      'You are shopping for guaranteed revenue numbers. Automation is engineering, not a promise about your figures',
+      'Nobody on your side can answer questions about how the work is done today',
+    ],
+  },
+};
+
+/* ============================================================
+   /about — who is behind this
+   ============================================================ */
+
+export const aboutMeta = {
+  title: 'About · Client Optimal',
+  description:
+    'Client Optimal is one person: Mert Ozcetin, remote, on US Eastern hours. What that means for how the work gets built, and where to find the rest of it.',
+};
+
+// EVERY claim here is traceable to something already true and stated elsewhere in
+// this repo: one person (meta.founder), remote on US Eastern (meta.location /
+// meta.hours), pre-revenue with no client list (the hard constraint at the top of
+// this file), direct APIs and plain-file config and ship-not-demo (principles).
+//
+// Nothing about background, education, employment history or years of experience,
+// because none of that is established anywhere and this file does not get to
+// invent it. If Mert wants those in, he supplies the facts and they go here.
+export const about = {
+  eyebrow: 'About',
+  title: 'Hi. I am Mert.',
+  lead: 'I run Client Optimal. It is one person, remote, on US Eastern hours, which means the person who scopes your build is the person who builds it and the person you email afterwards.',
+  paras: [
+    'I build automations, tool-using agents, and the internal tools that sit underneath them. Wired straight from the APIs rather than assembled on a no-code platform, because fewer moving parts is most of the advantage a small operation has.',
+    'Client Optimal is early. There is no client list on this site because there is not one worth showing yet, and inventing one is the quickest way to lose exactly the sort of person I want to work with. So the site argues from how I build instead of who I have billed.',
+    'That way of working is boring on purpose. Configuration in plain files you can open and change, logging and error paths from the first commit, and a preference for something that runs unattended over something that demos well once. If a job is not worth automating, I would rather say so than bill you to find out.',
+  ],
+};
+
+// The link out to the personal site. Kept as its own section so it reads as a
+// deliberate handoff rather than a footer afterthought.
+export const elsewhere = {
+  eyebrow: 'Elsewhere',
+  title: 'The rest of it.',
+  lead: 'Client Optimal is the business. The personal site is where the building actually gets shown: projects, how they are put together, and what I am working through at the moment.',
+};
+
 export const legalNav = [
   { label: 'Privacy', href: '/privacy' },
   { label: 'Terms', href: '/terms' },
@@ -308,3 +470,4 @@ export const legalNav = [
 capabilities.forEach((c, i) => { c.idx = String(i + 1).padStart(2, '0'); });
 principles.forEach((p, i) => { p.idx = String(i + 1).padStart(2, '0'); });
 problem.cards.forEach((c, i) => { c.idx = String(i + 1).padStart(2, '0'); });
+engagement.steps.forEach((s, i) => { s.idx = String(i + 1).padStart(2, '0'); });

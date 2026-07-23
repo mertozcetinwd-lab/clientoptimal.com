@@ -1,0 +1,56 @@
+---
+// The handoff to mertozcetin.com, at the foot of the about page.
+//
+// Link styling follows ContactCta's `.way` idiom: small mono label, big display
+// value, underline drawing on hover. The underline lives on the CHILD span, never
+// on the .reveal element, because the reveal animation's `both` fill outranks a
+// hover rule on the same node (documented at length in tokens.css).
+import { elsewhere, contact } from '../data/site.js';
+---
+
+<section class="section else" id="elsewhere">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{elsewhere.eyebrow}</p>
+    <h2 class="section-title reveal">{elsewhere.title}</h2>
+    <p class="lead intro reveal">{elsewhere.lead}</p>
+
+    <a class="way" href={contact.personalSite} target="_blank" rel="noopener">
+      <span class="label">Personal site</span>
+      <span class="val">{contact.personalSiteShow}</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 1.4rem; }
+  .intro { margin-bottom: 2.4rem; }
+
+  .way {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .val {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    transition: background-size var(--t-med) var(--ease);
+    padding-bottom: 2px;
+  }
+  .way:hover .val, .way:focus-visible .val { background-size: 100% 2px; }
+
+  @media (max-width: 520px) { .val { word-break: break-all; } }
+</style>

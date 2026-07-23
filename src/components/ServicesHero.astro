@@ -1,0 +1,39 @@
+---
+// Page hero for /services. Deliberately NOT the homepage's 3D React island: that
+// costs ~1MB of three.js and belongs to the front door only. This is plain Astro
+// and token CSS, so /services ships zero React and zero Tailwind.
+//
+// First real use of the .btn / .btn.primary primitives and the --step-hero type
+// step, all of which have been sitting unused in tokens.css.
+import { servicesHero } from '../data/site.js';
+---
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{servicesHero.eyebrow}</p>
+    <h1 class="display title reveal">{servicesHero.title}</h1>
+    <p class="lead intro reveal">{servicesHero.lead}</p>
+    <div class="ctas reveal" style="--i:1">
+      <a class="btn primary" href={servicesHero.cta.href} target="_blank" rel="noopener">
+        {servicesHero.cta.label}
+      </a>
+      <a class="btn" href={servicesHero.secondary.href}>{servicesHero.secondary.label}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* No top border: this is the first thing under the header, so a hairline there
+     would read as a stray rule rather than a section divider. */
+  .hero { padding-block: clamp(3rem, 8vh, 5.5rem) var(--section-y); }
+
+  .title {
+    font-size: var(--step-hero);
+    max-width: 18ch;
+    margin-block: 1.4rem 1.5rem;
+  }
+
+  .intro { margin-bottom: 2.6rem; }
+
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+</style>

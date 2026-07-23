@@ -11,9 +11,25 @@ const isHome = Astro.url.pathname === '/';
 
 <header class:list={['hdr', isHome && 'over-hero']} data-home={isHome ? '' : null}>
   <div class="wrap inner">
+    {/* The favicon mark, inlined and stripped of its tile.
+        public/favicon.svg draws the same C and dot on a solid obsidian square,
+        which a tab icon needs to stay visible but a header does not: on the light
+        theme it would paste a black chip onto the alabaster bar. So the rect is
+        dropped and the stroke is currentColor, which means the mark inherits
+        .brand's colour and follows the theme (and the white over-hero override)
+        for free. Only the dot is pinned, to --accent-fill, so the brand blue
+        stays one constant colour rather than shifting with the theme.
+
+        If favicon.svg is ever redrawn, redraw this path with it. */}
     <a class="brand" href="/">
-      <span class="dot" aria-hidden="true"></span>
-      {meta.name}
+      <svg class="mark" viewBox="8 8 48 48" aria-hidden="true" focusable="false">
+        <path d="M44 20.5a17 17 0 1 0 0 23" fill="none" stroke="currentColor"
+              stroke-width="7" stroke-linecap="square" />
+        <circle cx="47" cy="32" r="5" fill="var(--accent-fill)" />
+      </svg>
+      {/* The link is now image-only, so the accessible name has to come from
+          somewhere. Real text beats aria-label for AT and crawlers alike. */}
+      <span class="sr-only">{meta.name}</span>
     </a>
 
     <nav class="nav" aria-label="Primary">
@@ -70,26 +86,26 @@ const isHome = Astro.url.pathname === '/';
   .hdr.over-hero .themes button { color: rgba(255, 255, 255, 0.6); }
   .hdr.over-hero .themes button:hover { color: #fff; }
   .hdr.over-hero .themes button[aria-pressed='true'] { background: #fff; color: #020306; }
-  .hdr.over-hero .talk { color: #fff; border-color: rgba(255, 255, 255, 0.25); }
-  .hdr.over-hero .talk:hover { border-color: #fff; }
-  .brand, .nav a, .themes button, .talk { transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease); }
+  /* .talk gets NO over-hero override: it is a filled azure button now, and it
+     reads correctly on both the near-black hero and the themed bar. Tinting its
+     border white here would only outline the fill. */
+  .brand, .nav a, .themes button { transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease); }
   .inner {
     height: var(--header-h);
     display: flex; align-items: center; gap: 1.5rem;
   }
 
   .brand {
-    display: inline-flex; align-items: center; gap: 0.55rem;
-    font-family: var(--font-display);
-    font-weight: 700; font-size: 0.98rem;
-    letter-spacing: -0.02em;
+    display: inline-flex; align-items: center;
     text-decoration: none;
-    white-space: nowrap;
+    /* currentColor feeds the mark's stroke; the over-hero rule swaps this to
+       #fff and the mark follows without a second override. */
+    color: var(--text);
   }
-  .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
+  .mark {
+    width: 28px; height: 28px;
     flex: none;
+    display: block;
   }
 
   .nav {
@@ -120,16 +136,30 @@ const isHome = Astro.url.pathname === '/';
   .themes button:hover { color: var(--text); }
   .themes button[aria-pressed='true'] { background: var(--text); color: var(--bg); }
 
+  /* Filled azure, matching .btn.primary: same --accent-fill ground and white ink
+     (5.27:1, AA in both themes), and the same TL/BR chamfer, because every other
+     filled control on the site carries it and an unchamfered one would read as an
+     oversight. --accent-fill deliberately, not --accent: the bright azure is the
+     GROUND token and stays constant across themes; --accent is the darker
+     text/rules token and would muddy a fill. */
   .talk {
     font-family: var(--font-mono);
     font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 600;
     text-decoration: none;
     padding: 0.6em 1em;
-    border: var(--hair-w) solid var(--hair-2);
+    background: var(--accent-fill);
+    color: var(--accent-fill-ink);
+    border: var(--hair-w) solid var(--accent-fill);
     white-space: nowrap;
-    transition: border-color var(--t-fast) var(--ease);
+    clip-path: polygon(
+      var(--chamfer) 0, 100% 0,
+      100% calc(100% - var(--chamfer)),
+      calc(100% - var(--chamfer)) 100%,
+      0 100%, 0 var(--chamfer));
+    transition: filter var(--t-fast) var(--ease);
   }
-  .talk:hover { border-color: var(--text); }
+  .talk:hover { filter: brightness(1.08); }
 
   /* Sacrifice order, most expendable first: the duplicate CTA goes, then the
      theme toggle. NAV LINKS ARE NEVER HIDDEN. Dropping them below a breakpoint
@@ -145,7 +175,7 @@ const isHome = Astro.url.pathname === '/';
       row-gap: 0.15rem;
       padding-block: 0.7rem;
     }
-    .brand { font-size: 0.92rem; }
+    .mark { width: 24px; height: 24px; }
     .right { margin-inline-start: auto; }
     .nav {
       order: 3;
@@ -172,7 +202,13 @@ const isHome = Astro.url.pathname === '/';
   @media (pointer: coarse) {
     .nav a { min-height: 44px; display: inline-flex; align-items: center; }
     .themes button { min-height: 44px; }
+    /* The brand is an icon-only link now, so its hit area is the 24px mark
+       unless it is padded out to the same minimum as everything else. */
+    .brand { min-height: 44px; min-width: 44px; }
     .talk { min-height: 44px; display: inline-flex; align-items: center; }
-    .nav a:active, .themes button:active, .talk:active { color: var(--text); }
+    .nav a:active, .themes button:active { color: var(--text); }
+    /* The filled button dims instead of flipping colour: var(--text) on the azure
+       ground would be navy-on-blue and unreadable in the light theme. */
+    .talk:active { filter: brightness(0.94); }
   }
 </style>
