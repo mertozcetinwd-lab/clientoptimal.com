@@ -16,8 +16,8 @@ import { reactivation } from '../data/site.js';
     <p class="lead intro reveal">{reactivation.lead}</p>
 
     <ol class="steps">
-      {reactivation.steps.map((s) => (
-        <li class="step reveal">
+      {reactivation.steps.map((s, i) => (
+        <li class="step reveal" style={`--i:${i}`}>
           <span class="num" aria-hidden="true">{s.idx}</span>
           <h3 class="name">{s.title}</h3>
           <p class="desc">{s.desc}</p>

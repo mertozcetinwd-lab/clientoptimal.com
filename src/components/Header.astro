@@ -123,4 +123,15 @@ import { meta, nav, contact } from '../data/site.js';
   @media (max-width: 380px) {
     .themes { display: none; }
   }
+
+  /* Touch devices get 44px-minimum tap targets (WCAG 2.5.5 / platform guidance)
+     without touching the compact mouse layout — scoped to coarse pointers only,
+     so nothing changes on desktop. Also gives an :active colour flip, since a
+     finger has no hover to signal the press. */
+  @media (pointer: coarse) {
+    .nav a { min-height: 44px; display: inline-flex; align-items: center; }
+    .themes button { min-height: 44px; }
+    .talk { min-height: 44px; display: inline-flex; align-items: center; }
+    .nav a:active, .themes button:active, .talk:active { color: var(--text); }
+  }
 </style>

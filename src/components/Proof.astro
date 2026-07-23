@@ -9,8 +9,8 @@ import { proof } from '../data/site.js';
     <p class="lead intro reveal">{proof.lead}</p>
 
     <ul class="list">
-      {proof.repos.map((r) => (
-        <li class="repo reveal">
+      {proof.repos.map((r, i) => (
+        <li class="repo reveal" style={`--i:${Math.min(i, 4)}`}>
           <a class="hit" href={r.href} target="_blank" rel="noopener">
             <div class="head">
               <h3 class="name">{r.name}</h3>

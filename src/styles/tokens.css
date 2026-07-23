@@ -129,6 +129,10 @@ a { color: inherit; }
 html {
   color-scheme: var(--scheme);
   scroll-behavior: smooth;
+  /* The header is sticky and 4rem tall, so an anchor jump (#build, #how-it-works,
+     #proof) would otherwise land the section heading UNDER the header. Offset the
+     scroll target by the header height plus a little breathing room. */
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
   -webkit-text-size-adjust: 100%;
 }
 body {
@@ -231,6 +235,10 @@ body::after {
               border-color var(--t-fast) var(--ease);
 }
 .btn:hover { border-color: var(--text); }
+/* Pressed feedback for touch, where there is no hover. A 1px nudge reads as a
+   physical press without shifting neighbours. Not on a .reveal element, so the
+   entrance animation's `both` fill can't eat it. */
+.btn:active { transform: translateY(1px); }
 .btn.primary {
   background: var(--accent-fill);
   color: var(--accent-fill-ink);
@@ -261,8 +269,14 @@ body::after {
    mertozcetin.com. Corollary: never hover-transform a `.reveal` element; the
    animation's `both` fill outranks it. Put the transform on a child. */
 .js .reveal { opacity: 0; }
+/* Reveals now cascade. Items in a grid/list carry a build-time --i index, so a
+   row of cards enters in sequence (0/60/120ms) rather than popping in together.
+   Zero JS: the index is written into the markup by Astro. Duration tightened
+   0.7s -> 0.6s to match a subtle scroll-reveal (300-600ms) rather than drift.
+   Elements without --i default to 0 and are unchanged. */
 .js .reveal.in {
-  animation: rise 0.7s var(--ease) both;
+  animation: rise 0.6s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 @keyframes rise {
   from { opacity: 0; transform: translateY(14px); }
@@ -280,6 +294,11 @@ body::after {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    /* Load-bearing now that reveals carry a staggered --i delay: with `both`
+       fill, a leftover delay holds the element at its from-state (opacity 0) for
+       the delay's length even after duration collapses, overriding the opacity:1
+       below. Reset it or a reduced-motion user sees blank slots. */
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
   }
   .js .reveal { opacity: 1; }

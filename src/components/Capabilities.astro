@@ -18,7 +18,7 @@ import { capabilities } from '../data/site.js';
 
     <ul class="grid">
       {capabilities.map((c, i) => (
-        <li class="cell reveal">
+        <li class="cell reveal" style={`--i:${i % 3}`}>
           <div class="plate-wrap" aria-hidden="true">
             <Plate kind={c.plate} seed={i * 13 + 3} ratio="16 / 9" />
           </div>

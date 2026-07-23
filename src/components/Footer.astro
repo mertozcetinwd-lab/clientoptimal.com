@@ -49,4 +49,9 @@ const year = new Date().getFullYear();
   @media (max-width: 640px) {
     .dim { margin-inline-start: 0; width: 100%; }
   }
+
+  /* 44px tap targets for the footer links on touch, mouse layout untouched. */
+  @media (pointer: coarse) {
+    .links a { min-height: 44px; display: inline-flex; align-items: center; }
+  }
 </style>

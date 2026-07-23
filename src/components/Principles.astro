@@ -12,8 +12,8 @@ import { principles } from '../data/site.js';
     </p>
 
     <ol class="list">
-      {principles.map((p) => (
-        <li class="row reveal">
+      {principles.map((p, i) => (
+        <li class="row reveal" style={`--i:${i}`}>
           <span class="idx">{p.idx}</span>
           <div class="text">
             <h3 class="name">{p.title}</h3>
