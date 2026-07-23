@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Petrol field, bone C, amber dot. Same three tones as the site, so the
-       tab icon and the page are visibly one thing. -->
-  <rect width="64" height="64" fill="#0a2f45"/>
+  <!-- Obsidian field, alabaster C, azure dot. Same three tones as the site and
+       the OG card, so the tab icon and the page are visibly one thing. A dark
+       ground keeps the mark legible at 16px on either tab bar. -->
+  <rect width="64" height="64" fill="#0b0d12"/>
   <path d="M44 20.5a17 17 0 1 0 0 23"
-        fill="none" stroke="#e8e4d9" stroke-width="7"
+        fill="none" stroke="#eef1f5" stroke-width="7"
         stroke-linecap="square"/>
-  <circle cx="47" cy="32" r="5" fill="#f5a623"/>
+  <circle cx="47" cy="32" r="5" fill="#3f7dff"/>
 </svg>

@@ -137,14 +137,17 @@ export const Component = () => {
             <div className="relative w-2.5 h-2.5 rounded-full" style={{ background: AZURE }}>
               <div className="absolute inset-0 rounded-full animate-ping opacity-40" style={{ background: AZURE }} />
             </div>
-            <span className="font-mono text-[11px] font-bold text-white tracking-[0.2em] uppercase">AI Automation Studio</span>
+            <span className="font-mono text-[11px] font-bold text-white tracking-[0.2em] uppercase">AI Consulting Agency</span>
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
             <h1 className="text-[clamp(3.5rem,9.5vw,11.5rem)] font-black leading-[0.87] tracking-tighter text-white uppercase">
-              Automation <br /> <span className="text-outline">Studio</span>
+              Client <br /> <span className="text-outline">Optimal</span>
             </h1>
-            <p className="mt-8 font-mono text-[11px] text-white/45 uppercase tracking-[0.35em] max-w-sm leading-relaxed">
+            {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this
+                island (tokens.css's unlayered `* { margin: 0 }` outranks @layer).
+                See the note in tailwind.css. */}
+            <p className="hero-lede font-mono text-[11px] text-white/45 uppercase tracking-[0.35em] max-w-sm leading-relaxed">
               Automations, agents, and internal tools. Built end to end and shipped to run on their own.
             </p>
           </div>
@@ -177,10 +180,11 @@ export const Component = () => {
               {item.type === 'progress' ? (
                 <div className="flex justify-between items-end mt-2">
                   <h4 className="text-2xl sm:text-3xl font-bold text-white tracking-tighter">{item.val}</h4>
-                  <div className="h-[2px] w-20 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full w-[45%]" style={{ background: AZURE }}>
-                      <div className="h-full w-full animate-loading" style={{ background: AZURE }} />
-                    </div>
+                  {/* One bar, one third of the track, sweeping right the way through.
+                      It used to be a static 45% azure block with a second azure bar
+                      sliding inside it, which read as "fill, then snap". */}
+                  <div className="h-[2px] w-20 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full w-1/3 rounded-full animate-loading" style={{ background: AZURE }} />
                   </div>
                 </div>
               ) : item.type === 'data' ? (

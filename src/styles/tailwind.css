@@ -35,9 +35,28 @@
   }
 }
 
-/* Sliding signal bar in the AVAILABILITY cell. */
+/* ---- margin trap: read before using Tailwind margin utilities here ----
+   tokens.css contains an UNLAYERED `* { margin: 0 }`. Unlayered declarations beat
+   anything inside @layer regardless of specificity, and every Tailwind utility
+   lives in @layer utilities, so mt-14 and friends silently compute to 0 here.
+   That is why the hero lede looked glued to the headline even with a margin class
+   on it. Margins in this island must come from an unlayered rule like the one
+   below (`.hero-lede` is 0,1,0 and beats the `*` reset) or from an inline style.
+
+   Do NOT write a star-slash sequence inside a CSS comment (e.g. spelling those
+   utilities as mt-star-slash-mb-star): it closes the comment early, and the text
+   that follows is then parsed as a selector which swallows the next rule. That
+   silently deleted this exact declaration once already. */
+.hero-lede { margin-top: 3.5rem; }
+
+/* Sliding signal bar in the AVAILABILITY cell.
+   The bar is 1/3 of its track, so translating 300% of its OWN width carries it the
+   full track length: it starts fully off the left edge and finishes fully off the
+   right, which is what makes the loop point invisible. It used to stop at 100%,
+   leaving the bar mid-track when the animation wrapped — hence the visible snap.
+   Linear, because easing makes it stall at the ends before jumping. */
 @keyframes loading-slide {
   0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  100% { transform: translateX(300%); }
 }
-.animate-loading { animation: loading-slide 2.4s ease-in-out infinite; }
+.animate-loading { animation: loading-slide 2.4s linear infinite; }
