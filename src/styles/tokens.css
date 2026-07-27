@@ -203,7 +203,7 @@ body::after {
 }
 
 /* Badge: the eyebrow, dressed as a RIG-style pill. Adds only the chrome (border,
-   translucent panel, blur, an accent tick) so it composes with .eyebrow, which
+   translucent panel, an accent tick) so it composes with .eyebrow, which
    still carries the font/size/tracking/colour and each component's own margin.
    Deliberately NOT chamfered: a clipped border loses its diagonal edges, and a
    pill wants a clean outline all the way round. */
@@ -213,9 +213,7 @@ body::after {
   gap: 0.55em;
   padding: 0.45em 0.75em;
   border: var(--hair-w) solid var(--hair-2);
-  background: color-mix(in srgb, var(--panel) 55%, transparent);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
 }
 .badge .badge-dot {
   width: 5px; height: 5px; flex: none;
