@@ -168,7 +168,7 @@ export const Component = () => {
           <ambientLight intensity={0.4} />
           <spotLight position={[50, 50, 50]} intensity={3} color={PALETTE[theme].accent} />
           <LiquidBackground theme={theme} />
-          <Monolith theme={theme} />
+          {theme === 'dark' && <Monolith theme={theme} />}
         </Canvas>
       </div>
 
