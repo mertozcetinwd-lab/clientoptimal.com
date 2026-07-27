@@ -31,19 +31,19 @@ import { reactivation } from '../data/site.js';
   /* A touch wider than the global 20ch cap: the offer headline is the longest
      line on the page and reads better across three lines than five. */
   .react .section-title { max-width: 28ch; margin-block: 1.2rem 1.4rem; }
-  .intro { margin-bottom: 3.4rem; }
+  .intro { margin-bottom: 3.8rem; }
 
   .steps {
     list-style: none; padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.8rem, 3.5vw, 3.2rem);
+    gap: clamp(2rem, 4vw, 3.6rem);
     counter-reset: none;
   }
 
   .step {
     display: flex; flex-direction: column;
-    padding-top: 1.4rem;
+    padding-top: 1.6rem;
     border-top: 2px solid var(--accent);
   }
 
@@ -53,18 +53,18 @@ import { reactivation } from '../data/site.js';
   .num {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.7rem);
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--accent);
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
   }
 
   .name {
     font-family: var(--font-display);
     font-size: var(--step-h3);
     font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.8rem;
   }
 
   .desc {
@@ -79,7 +79,7 @@ import { reactivation } from '../data/site.js';
        step becomes a hairline-separated row with the number inline instead. */
     .step {
       border-top: var(--hair-w) solid var(--hair);
-      padding-block: 1.8rem;
+      padding-block: 2rem;
     }
     .step:first-child { border-top: 2px solid var(--accent); }
     .num { font-size: 1.5rem; margin-bottom: 0.6rem; }

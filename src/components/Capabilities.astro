@@ -39,13 +39,13 @@ import { capabilities } from '../data/site.js';
 
 <style>
   .section-title { margin-block: 1.2rem 1.4rem; max-width: 24ch; }
-  .intro { margin-bottom: 3.4rem; }
+  .intro { margin-bottom: 3.8rem; }
 
   .grid {
     list-style: none; padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.6rem, 3vw, 2.4rem);
+    gap: clamp(1.8rem, 3.5vw, 3rem);
   }
 
   /* rig.ai card: an accent rule across the top, number + tag on one line, then
@@ -53,16 +53,16 @@ import { capabilities } from '../data/site.js';
   .cell {
     display: flex; flex-direction: column;
     border-top: 2px solid var(--accent);
-    padding-top: 1.3rem;
+    padding-top: 1.6rem;
   }
 
   .chead {
     display: flex; align-items: baseline; justify-content: space-between;
-    gap: 1rem; margin-bottom: 1.1rem;
+    gap: 1rem; margin-bottom: 1.3rem;
   }
   .num {
     font-family: var(--font-display);
-    font-weight: 700; font-size: 1.9rem; line-height: 1;
+    font-weight: 700; font-size: 2.1rem; line-height: 1;
     letter-spacing: -0.02em;
     color: var(--accent);
   }
@@ -82,7 +82,7 @@ import { capabilities } from '../data/site.js';
   .desc { font-size: var(--step-small); color: var(--text-dim); line-height: 1.6; }
 
   .more {
-    margin-top: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(2.4rem, 4.5vw, 3.5rem);
     font-family: var(--font-mono);
     font-size: var(--step-small);
     letter-spacing: 0.04em;

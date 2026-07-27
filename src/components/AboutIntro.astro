@@ -21,22 +21,22 @@ import { about } from '../data/site.js';
 <style>
   /* No top border: first thing under the header, so a hairline there would read
      as a stray rule rather than a divider. */
-  .about { padding-block: clamp(3rem, 8vh, 5.5rem) var(--section-y); }
+  .about { padding-block: clamp(3.2rem, 9vh, 6rem) var(--section-y); }
 
   .title {
     font-size: var(--step-h2);
-    max-width: 16ch;
+    max-width: 18ch;
     margin-block: 1.4rem 1.5rem;
   }
 
-  .intro { margin-bottom: 2.8rem; }
+  .intro { margin-bottom: 3.2rem; }
 
-  /* Reading column, not the full 1140px wrap. Body prose past --measure is
+  /* Reading column, not the full wrap. Body prose past --measure is
      genuinely harder to read and this page is nothing but prose. */
   .prose {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.7rem;
     max-width: var(--measure);
   }
   .para { color: var(--text-dim); }

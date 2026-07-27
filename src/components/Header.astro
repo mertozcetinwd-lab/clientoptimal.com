@@ -103,7 +103,7 @@ const isHome = Astro.url.pathname === '/';
     color: var(--text);
   }
   .mark {
-    width: 28px; height: 28px;
+    width: 48px; height: 48px;
     flex: none;
     display: block;
   }
@@ -114,7 +114,7 @@ const isHome = Astro.url.pathname === '/';
   }
   .nav a {
     font-family: var(--font-mono);
-    font-size: 0.74rem; letter-spacing: 0.06em;
+    font-size: 1rem; letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--muted);
     text-decoration: none;
@@ -128,9 +128,9 @@ const isHome = Astro.url.pathname === '/';
   .themes button {
     background: none; border: 0; cursor: pointer;
     font-family: var(--font-mono);
-    font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--muted);
-    padding: 0.42em 0.7em;
+    padding: 0.6em 0.95em;
     transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
   }
   .themes button:hover { color: var(--text); }
@@ -144,10 +144,10 @@ const isHome = Astro.url.pathname === '/';
      text/rules token and would muddy a fill. */
   .talk {
     font-family: var(--font-mono);
-    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
     font-weight: 600;
     text-decoration: none;
-    padding: 0.6em 1em;
+    padding: 0.85em 1.4em;
     background: var(--accent-fill);
     color: var(--accent-fill-ink);
     border: var(--hair-w) solid var(--accent-fill);
@@ -175,7 +175,7 @@ const isHome = Astro.url.pathname === '/';
       row-gap: 0.15rem;
       padding-block: 0.7rem;
     }
-    .mark { width: 24px; height: 24px; }
+    .mark { width: 36px; height: 36px; }
     .right { margin-inline-start: auto; }
     .nav {
       order: 3;

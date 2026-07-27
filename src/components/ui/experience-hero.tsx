@@ -86,8 +86,13 @@ export const Component = () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         revealRef.current,
-        { filter: 'blur(30px)', opacity: 0, scale: 1.02 },
-        { filter: 'blur(0px)', opacity: 1, scale: 1, duration: 2.2, ease: 'expo.out' }
+        { filter: 'blur(24px)', opacity: 0, scale: 1.02 },
+        {
+          filter: 'blur(0px)', opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out',
+          onComplete: () => {
+            if (revealRef.current) revealRef.current.style.filter = 'none';
+          },
+        }
       );
 
       gsap.from('.command-cell', {
@@ -130,24 +135,24 @@ export const Component = () => {
 
       <div
         ref={revealRef}
-        className="relative z-10 w-full flex flex-col md:flex-row p-8 md:p-14 lg:p-20 min-h-screen items-center md:items-stretch gap-10"
+        className="relative z-10 w-full flex flex-col md:flex-row p-8 md:p-14 lg:p-28 min-h-screen items-center md:items-stretch gap-14"
       >
         <div className="flex-1 min-w-0 flex flex-col justify-between pb-12 md:pb-8 w-full">
           <div className="flex items-center gap-3">
             <div className="relative w-2.5 h-2.5 rounded-full" style={{ background: AZURE }}>
               <div className="absolute inset-0 rounded-full animate-ping opacity-40" style={{ background: AZURE }} />
             </div>
-            <span className="font-mono text-[11px] font-bold text-white tracking-[0.2em] uppercase">AI Consulting Agency</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-white tracking-[0.2em] uppercase">AI Consulting Agency</span>
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
-            <h1 className="text-[clamp(3.5rem,9.5vw,11.5rem)] font-black leading-[0.87] tracking-tighter text-white uppercase">
+            <h1 className="text-[clamp(4.5rem,11vw,15rem)] font-black leading-[0.86] tracking-tighter text-white uppercase">
               Client <br /> <span className="text-outline">Optimal</span>
             </h1>
             {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this
                 island (tokens.css's unlayered `* { margin: 0 }` outranks @layer).
                 See the note in tailwind.css. */}
-            <p className="hero-lede font-mono text-[11px] text-white/45 uppercase tracking-[0.35em] max-w-sm leading-relaxed">
+            <p className="hero-lede font-mono text-[clamp(12px,1.05vw,17px)] text-white/45 uppercase tracking-[0.35em] max-w-lg leading-relaxed">
               Automations, agents, and internal tools. Built end to end and shipped to run on their own.
             </p>
           </div>
@@ -159,27 +164,27 @@ export const Component = () => {
             rel="noopener noreferrer"
             className="w-fit flex items-center gap-6 group lg:-translate-y-20 no-underline"
           >
-            <div className="w-14 h-14 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-white transition-all duration-500 overflow-hidden">
+            <div className="w-16 h-16 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-white transition-all duration-500 overflow-hidden">
               <svg
-                width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                 className="group-hover:stroke-black stroke-white transition-colors duration-500"
               >
                 <path d="M7 17L17 7M17 7H8M17 7V16" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <span className="font-mono text-[11px] font-bold text-white uppercase tracking-[0.2em]">Start a conversation</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-white uppercase tracking-[0.2em]">Start a conversation</span>
           </a>
         </div>
 
-        <div className="w-full md:w-80 lg:w-96 flex-shrink-0 flex flex-col gap-4 justify-center z-20">
+        <div className="w-full md:w-[26rem] lg:w-[32rem] flex-shrink-0 flex flex-col gap-6 justify-center z-20">
           {cells.map((item) => (
-            <div key={item.id} className="command-cell glass-panel p-6 sm:p-7 block">
-              <span className="font-mono text-[9px] text-white/25 uppercase tracking-widest block mb-3">
+            <div key={item.id} className="command-cell glass-panel p-8 sm:p-9 block">
+              <span className="font-mono text-[clamp(10px,0.85vw,13px)] text-white/25 uppercase tracking-widest block mb-3">
                 {item.id} // {item.title}
               </span>
               {item.type === 'progress' ? (
                 <div className="flex justify-between items-end mt-2">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-white tracking-tighter">{item.val}</h4>
+                  <h4 className="text-4xl sm:text-5xl font-bold text-white tracking-tighter">{item.val}</h4>
                   {/* One bar, one third of the track, sweeping right the way through.
                       It used to be a static 45% azure block with a second azure bar
                       sliding inside it, which read as "fill, then snap". */}
@@ -191,7 +196,7 @@ export const Component = () => {
                 <div className="mt-4 flex flex-col gap-3">
                   {item.rows!.map((r, i) => (
                     <React.Fragment key={i}>
-                      <div className="flex justify-between text-[10px] font-mono text-white/50">
+                      <div className="flex justify-between text-[clamp(11px,0.95vw,14px)] font-mono text-white/50">
                         <span>{r[0]}</span>
                         <span>{r[1]}</span>
                       </div>
@@ -200,7 +205,7 @@ export const Component = () => {
                   ))}
                 </div>
               ) : (
-                <h3 className="text-sm font-medium text-white/70 mt-3 leading-snug">
+                <h3 className="text-[clamp(14px,1.1vw,19px)] font-medium text-white/70 mt-3 leading-snug">
                   Remote, <span className="italic text-white">end to end</span>. Built to run on its own, not demoed once.
                 </h3>
               )}

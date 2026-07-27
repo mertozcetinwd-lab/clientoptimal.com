@@ -31,9 +31,9 @@ import { problem } from '../data/site.js';
 
 <style>
   .outer { border: var(--hair-w) solid var(--hair); }
-  .top { padding: clamp(1.6rem, 4vw, 2.6rem); }
+  .top { padding: clamp(1.8rem, 4.5vw, 3rem); }
   .top .badge { margin-bottom: 1.2rem; }
-  .section-title { max-width: 22ch; }
+  .section-title { max-width: 24ch; }
 
   .divider { border-top: var(--hair-w) solid var(--hair); }
 
@@ -46,7 +46,7 @@ import { problem } from '../data/site.js';
   /* Every card carries top + left hairlines; the outer box supplies the outer
      edges, so interior lines read as a clean 2x2 rule set with no doubling. */
   .card {
-    padding: clamp(1.5rem, 3.5vw, 2.4rem);
+    padding: clamp(1.7rem, 4vw, 2.8rem);
     border-top: var(--hair-w) solid var(--hair);
     display: flex; flex-direction: column;
   }
@@ -54,7 +54,7 @@ import { problem } from '../data/site.js';
 
   .head {
     display: flex; align-items: baseline; justify-content: space-between;
-    gap: 1rem; margin-bottom: 1rem;
+    gap: 1rem; margin-bottom: 1.2rem;
   }
   .tag {
     font-family: var(--font-mono);
@@ -71,7 +71,7 @@ import { problem } from '../data/site.js';
     font-family: var(--font-display);
     font-size: var(--step-h3);
     font-weight: 700; line-height: 1.12; letter-spacing: -0.02em;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.8rem;
     max-width: 20ch;
   }
   .desc { font-size: var(--step-small); color: var(--text-dim); line-height: 1.6; }
