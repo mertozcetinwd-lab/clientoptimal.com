@@ -26,6 +26,7 @@ const PALETTE = {
     shaderBase: new THREE.Color(0.945, 0.955, 0.965),
     shaderPeak: new THREE.Color(0.90, 0.925, 0.945),
   },
+
 };
 
 const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {
@@ -82,11 +83,16 @@ const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
       meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.25;
     }
   });
+  // Light mode needs a matte, nearly-background object so the monolith doesn't
+  // read as a dark blob over the headline. Dark mode keeps the chrome sculpture.
+  const mat = theme === 'dark'
+    ? { color: PALETTE.dark.monolith, metalness: 1.0, roughness: 0.05, distort: 0.4 }
+    : { color: PALETTE.light.monolith, metalness: 0.15, roughness: 0.55, distort: 0.25 };
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef}>
         <icosahedronGeometry args={[13, 1]} />
-        <MeshDistortMaterial color={PALETTE[theme].monolith} speed={4} distort={0.4} roughness={0.05} metalness={1.0} />
+        <MeshDistortMaterial color={mat.color} speed={4} distort={mat.distort} roughness={mat.roughness} metalness={mat.metalness} />
       </mesh>
     </Float>
   );
@@ -168,7 +174,7 @@ export const Component = () => {
           <ambientLight intensity={0.4} />
           <spotLight position={[50, 50, 50]} intensity={3} color={PALETTE[theme].accent} />
           <LiquidBackground theme={theme} />
-          {theme === 'dark' && <Monolith theme={theme} />}
+          <Monolith theme={theme} />
         </Canvas>
       </div>
 
