@@ -53,13 +53,14 @@
   --hair:          rgba(233, 235, 240, 0.12);
   --hair-2:        rgba(233, 235, 240, 0.26);
 
-  --accent:        #5b9bff;   /* azure as text/rules — 6.9:1 on obsidian */
-  --accent-ink:    #0b0d12;   /* type on azure fills */
+  --accent:        var(--text);   /* monochrome accent: text on field */
+  --accent-ink:    var(--bg);     /* type on accent fills */
   --scheme:        dark;
 
-  /* Fills keep a true azure with white type in both themes (see light block). */
-  --accent-fill:     #2764e0;   /* white on this — 5.27:1, both themes */
-  --accent-fill-ink: #ffffff;
+  /* Fills track text colour, so buttons and other filled accents stay legible
+     in both themes without relying on azure. */
+  --accent-fill:     var(--text);
+  --accent-fill-ink: var(--bg);
 }
 
 /* ---- LIGHT — alabaster field (default) ---- */
@@ -73,20 +74,14 @@
   --hair:          rgba(14, 26, 43, 0.14);
   --hair-2:        rgba(14, 26, 43, 0.28);
 
-  /* The one place the themes legitimately diverge, same as the sibling site:
-     the bright fill azure (#2764e0) as TEXT on alabaster is ~3.4:1 and fails AA
-     for small text. This darker azure clears it at 5.72:1. If you ever "unify"
-     --accent with --accent-fill, you break the light theme for small azure text. */
-  --accent:        #1657c9;
-  --accent-ink:    #ffffff;
+  /* Accent matches text/field, keeping the site monochrome outside the hero.
+     The hero overrides back to azure locally. */
+  --accent:        var(--text);
+  --accent-ink:    var(--bg);
   --scheme:        light;
 
-  /* FILLS DO NOT SWAP. The AA failure above is azure as TEXT on a near-white
-     ground. Azure as a GROUND with white type is a different pair and clears AA
-     in both themes. So: --accent for text/rules (theme-dependent), --accent-fill
-     for grounds (constant). */
-  --accent-fill:     #2764e0;
-  --accent-fill-ink: #ffffff;
+  --accent-fill:     var(--text);
+  --accent-fill-ink: var(--bg);
 }
 
 /* ---- type + scale + rhythm (theme-independent) ---- */
