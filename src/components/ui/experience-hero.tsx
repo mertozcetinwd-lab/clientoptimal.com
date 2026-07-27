@@ -22,9 +22,9 @@ const PALETTE = {
   },
   light: {
     accent: '#1657c9',
-    monolith: '#eef1f5',
-    shaderBase: new THREE.Color(0.945, 0.955, 0.965),
-    shaderPeak: new THREE.Color(0.90, 0.925, 0.945),
+    monolith: '#ffffff',
+    shaderBase: new THREE.Color(0.965, 0.97, 0.98),
+    shaderPeak: new THREE.Color(0.94, 0.955, 0.97),
   },
 
 };
