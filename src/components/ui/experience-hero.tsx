@@ -176,8 +176,7 @@ export const Component = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full bg-[var(--bg)] flex flex-col overflow-hidden"
-      style={{ '--hero-accent': PALETTE[theme].accent } as React.CSSProperties}
+      className="relative min-h-screen w-full bg-[var(--bg)] flex flex-col selection:bg-[var(--accent)] selection:text-[var(--accent-ink)] overflow-hidden"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 60], fov: 35 }}>
@@ -198,8 +197,8 @@ export const Component = () => {
       >
         <div className="flex-1 min-w-0 flex flex-col justify-between pb-12 md:pb-8 w-full">
           <div className="flex items-center gap-3">
-            <div className="relative w-2.5 h-2.5 rounded-full bg-[var(--hero-accent)]">
-              <div className="absolute inset-0 rounded-full animate-ping opacity-40 bg-[var(--hero-accent)]" />
+            <div className="relative w-2.5 h-2.5 rounded-full bg-[var(--accent)]">
+              <div className="absolute inset-0 rounded-full animate-ping opacity-40 bg-[var(--accent)]" />
             </div>
             <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] tracking-[0.2em] uppercase">AI Consulting Agency</span>
           </div>
@@ -248,7 +247,7 @@ export const Component = () => {
                       It used to be a static 45% azure block with a second azure bar
                       sliding inside it, which read as "fill, then snap". */}
                   <div className="h-[2px] w-20 bg-[var(--hair)] rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 rounded-full animate-loading bg-[var(--hero-accent)]" />
+                    <div className="h-full w-1/3 rounded-full animate-loading bg-[var(--accent)]" />
                   </div>
                 </div>
               ) : item.type === 'data' ? (
