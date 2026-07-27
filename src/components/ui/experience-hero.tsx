@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -11,15 +11,35 @@ import '../../styles/tailwind.css';
 // ABSOLUTE within the hero section rather than fixed over the whole page (this
 // site has many sections below the hero).
 
-const AZURE = '#3f7dff';
 const LINKEDIN = 'https://www.linkedin.com/in/mert-ozcetin/';
 
-const LiquidBackground = () => {
+const PALETTE = {
+  dark: {
+    accent: '#3f7dff',
+    monolith: '#0a0c12',
+    shaderBase: new THREE.Color(0.004, 0.006, 0.012),
+    shaderPeak: new THREE.Color(0.03, 0.05, 0.11),
+  },
+  light: {
+    accent: '#1657c9',
+    monolith: '#d8e0ea',
+    shaderBase: new THREE.Color(0.933, 0.945, 0.961),
+    shaderPeak: new THREE.Color(0.86, 0.89, 0.92),
+  },
+};
+
+const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const { viewport } = useThree();
+  const colors = PALETTE[theme];
   const uniforms = useMemo(
-    () => ({ uTime: { value: 0 }, uMouse: { value: new THREE.Vector2(0, 0) } }),
-    []
+    () => ({
+      uTime: { value: 0 },
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uBase: { value: colors.shaderBase.clone() },
+      uPeak: { value: colors.shaderPeak.clone() },
+    }),
+    [colors.shaderBase, colors.shaderPeak]
   );
 
   useFrame((state) => {
@@ -39,13 +59,15 @@ const LiquidBackground = () => {
         uniforms={uniforms}
         vertexShader={`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`}
         fragmentShader={`
-          uniform float uTime; uniform vec2 uMouse; varying vec2 vUv;
+          uniform float uTime; uniform vec2 uMouse;
+          uniform vec3 uBase; uniform vec3 uPeak;
+          varying vec2 vUv;
           void main() {
             vec2 uv = vUv; float t = uTime * 0.15;
             vec2 m = uMouse * 0.1;
             float color = smoothstep(0.0, 1.0, (sin(uv.x * 8.0 + t + m.x * 12.0) + sin(uv.y * 6.0 - t + m.y * 12.0)) * 0.5 + 0.5);
             // faint azure glow instead of neutral grey, to tie into the brand
-            gl_FragColor = vec4(mix(vec3(0.004, 0.006, 0.012), vec3(0.03, 0.05, 0.11), color), 1.0);
+            gl_FragColor = vec4(mix(uBase, uPeak, color), 1.0);
           }
         `}
       />
@@ -53,7 +75,7 @@ const LiquidBackground = () => {
   );
 };
 
-const Monolith = () => {
+const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   useFrame((state) => {
     if (meshRef.current) {
@@ -64,7 +86,7 @@ const Monolith = () => {
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef}>
         <icosahedronGeometry args={[13, 1]} />
-        <MeshDistortMaterial color="#0a0c12" speed={4} distort={0.4} roughness={0.05} metalness={1.0} />
+        <MeshDistortMaterial color={PALETTE[theme].monolith} speed={4} distort={0.4} roughness={0.05} metalness={1.0} />
       </mesh>
     </Float>
   );
@@ -77,7 +99,24 @@ const cells = [
   { id: '003', title: 'HOW I WORK', type: 'text' as const },
 ];
 
+function useSiteTheme() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof document === 'undefined') return 'light';
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    const read = () => setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+    read();
+    window.addEventListener('themechange', read);
+    return () => window.removeEventListener('themechange', read);
+  }, []);
+
+  return theme;
+}
+
 export const Component = () => {
+  const theme = useSiteTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
@@ -122,14 +161,14 @@ export const Component = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full bg-[#020306] flex flex-col selection:bg-white selection:text-black overflow-hidden"
+      className="relative min-h-screen w-full bg-[var(--bg)] flex flex-col selection:bg-[var(--accent)] selection:text-[var(--accent-ink)] overflow-hidden"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 60], fov: 35 }}>
           <ambientLight intensity={0.4} />
-          <spotLight position={[50, 50, 50]} intensity={3} color={AZURE} />
-          <LiquidBackground />
-          <Monolith />
+          <spotLight position={[50, 50, 50]} intensity={3} color={PALETTE[theme].accent} />
+          <LiquidBackground theme={theme} />
+          <Monolith theme={theme} />
         </Canvas>
       </div>
 
@@ -139,20 +178,20 @@ export const Component = () => {
       >
         <div className="flex-1 min-w-0 flex flex-col justify-between pb-12 md:pb-8 w-full">
           <div className="flex items-center gap-3">
-            <div className="relative w-2.5 h-2.5 rounded-full" style={{ background: AZURE }}>
-              <div className="absolute inset-0 rounded-full animate-ping opacity-40" style={{ background: AZURE }} />
+            <div className="relative w-2.5 h-2.5 rounded-full bg-[var(--accent)]">
+              <div className="absolute inset-0 rounded-full animate-ping opacity-40 bg-[var(--accent)]" />
             </div>
-            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-white tracking-[0.2em] uppercase">AI Consulting Agency</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] tracking-[0.2em] uppercase">AI Consulting Agency</span>
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
-            <h1 className="text-[clamp(4.5rem,11vw,15rem)] font-black leading-[0.86] tracking-tighter text-white uppercase">
+            <h1 className="text-[clamp(4.5rem,11vw,15rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
               Client <br /> <span className="text-outline">Optimal</span>
             </h1>
             {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this
                 island (tokens.css's unlayered `* { margin: 0 }` outranks @layer).
                 See the note in tailwind.css. */}
-            <p className="hero-lede font-mono text-[clamp(12px,1.05vw,17px)] text-white/45 uppercase tracking-[0.35em] max-w-lg leading-relaxed">
+            <p className="hero-lede font-mono text-[clamp(12px,1.05vw,17px)] text-[var(--muted)] uppercase tracking-[0.35em] max-w-lg leading-relaxed">
               Automations, agents, and internal tools. Built end to end and shipped to run on their own.
             </p>
           </div>
@@ -164,49 +203,49 @@ export const Component = () => {
             rel="noopener noreferrer"
             className="w-fit flex items-center gap-6 group lg:-translate-y-20 no-underline"
           >
-            <div className="w-16 h-16 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-white transition-all duration-500 overflow-hidden">
+            <div className="w-16 h-16 rounded-full border border-[var(--hair)] flex items-center justify-center group-hover:bg-[var(--text)] transition-all duration-500 overflow-hidden">
               <svg
                 width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                className="group-hover:stroke-black stroke-white transition-colors duration-500"
+                className="stroke-[var(--text)] group-hover:stroke-[var(--bg)] transition-colors duration-500"
               >
                 <path d="M7 17L17 7M17 7H8M17 7V16" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-white uppercase tracking-[0.2em]">Start a conversation</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] uppercase tracking-[0.2em]">Start a conversation</span>
           </a>
         </div>
 
         <div className="w-full md:w-[26rem] lg:w-[32rem] flex-shrink-0 flex flex-col gap-6 justify-center z-20">
           {cells.map((item) => (
             <div key={item.id} className="command-cell glass-panel p-8 sm:p-9 block">
-              <span className="font-mono text-[clamp(10px,0.85vw,13px)] text-white/25 uppercase tracking-widest block mb-3">
+              <span className="font-mono text-[clamp(10px,0.85vw,13px)] text-[var(--muted)] uppercase tracking-widest block mb-3">
                 {item.id} // {item.title}
               </span>
               {item.type === 'progress' ? (
                 <div className="flex justify-between items-end mt-2">
-                  <h4 className="text-4xl sm:text-5xl font-bold text-white tracking-tighter">{item.val}</h4>
+                  <h4 className="text-4xl sm:text-5xl font-bold text-[var(--text)] tracking-tighter">{item.val}</h4>
                   {/* One bar, one third of the track, sweeping right the way through.
                       It used to be a static 45% azure block with a second azure bar
                       sliding inside it, which read as "fill, then snap". */}
-                  <div className="h-[2px] w-20 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 rounded-full animate-loading" style={{ background: AZURE }} />
+                  <div className="h-[2px] w-20 bg-[var(--hair)] rounded-full overflow-hidden">
+                    <div className="h-full w-1/3 rounded-full animate-loading bg-[var(--accent)]" />
                   </div>
                 </div>
               ) : item.type === 'data' ? (
                 <div className="mt-4 flex flex-col gap-3">
                   {item.rows!.map((r, i) => (
                     <React.Fragment key={i}>
-                      <div className="flex justify-between text-[clamp(11px,0.95vw,14px)] font-mono text-white/50">
+                      <div className="flex justify-between text-[clamp(11px,0.95vw,14px)] font-mono text-[var(--text-dim)]">
                         <span>{r[0]}</span>
                         <span>{r[1]}</span>
                       </div>
-                      {i < item.rows!.length - 1 && <div className="h-[1px] w-full bg-white/5" />}
+                      {i < item.rows!.length - 1 && <div className="h-[1px] w-full bg-[var(--hair)]" />}
                     </React.Fragment>
                   ))}
                 </div>
               ) : (
-                <h3 className="text-[clamp(14px,1.1vw,19px)] font-medium text-white/70 mt-3 leading-snug">
-                  Remote, <span className="italic text-white">end to end</span>. Built to run on its own, not demoed once.
+                <h3 className="text-[clamp(14px,1.1vw,19px)] font-medium text-[var(--text-dim)] mt-3 leading-snug">
+                  Remote, <span className="italic text-[var(--text)]">end to end</span>. Built to run on its own, not demoed once.
                 </h3>
               )}
             </div>

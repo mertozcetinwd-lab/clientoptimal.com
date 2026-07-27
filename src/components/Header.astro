@@ -9,7 +9,7 @@ import { meta, nav, contact } from '../data/site.js';
 const isHome = Astro.url.pathname === '/';
 ---
 
-<header class:list={['hdr', isHome && 'over-hero']} data-home={isHome ? '' : null}>
+<header class:list={['hdr']} data-home={isHome ? '' : null}>
   <div class="wrap inner">
     {/* The favicon mark, inlined and stripped of its tile.
         public/favicon.svg draws the same C and dot on a solid obsidian square,
@@ -53,13 +53,18 @@ const isHome = Astro.url.pathname === '/';
   (function () {
     const hdr = document.querySelector('.hdr');
     if (!hdr || hdr.dataset.home !== '') return;
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const sync = () => {
-      const overHero = window.scrollY < window.innerHeight - hdr.offsetHeight - 4;
+      const overHero = isDark && window.scrollY < window.innerHeight - hdr.offsetHeight - 4;
       hdr.classList.toggle('over-hero', overHero);
     };
     sync();
     window.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
+    window.addEventListener('themechange', (e) => {
+      isDark = e.detail?.theme === 'dark';
+      sync();
+    });
   })();
 </script>
 

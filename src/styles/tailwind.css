@@ -16,21 +16,21 @@
 
 /* ---- custom classes the hero component references ---- */
 @layer components {
-  /* Glassmorphic command-deck cell. */
+  /* Glassmorphic command-deck cell. Reacts to the site theme via tokens.css. */
   .glass-panel {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: color-mix(in srgb, var(--text) 4%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
   }
   /* Outlined display word (second line of the headline). */
   .text-outline {
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+    -webkit-text-stroke: 1.5px color-mix(in srgb, var(--text) 80%, transparent);
   }
   /* Faint dot mask laid over the whole hero for texture. */
   .bento-mask {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px);
+    background-image: radial-gradient(color-mix(in srgb, var(--text) 50%, transparent) 0.5px, transparent 0.5px);
     background-size: 6px 6px;
   }
 }
