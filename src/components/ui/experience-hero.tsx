@@ -23,8 +23,8 @@ const PALETTE = {
   light: {
     accent: '#1657c9',
     monolith: '#ffffff',
-    shaderBase: new THREE.Color(0.965, 0.97, 0.98),
-    shaderPeak: new THREE.Color(0.94, 0.955, 0.97),
+    shaderBase: new THREE.Color(0.975, 0.98, 0.985),
+    shaderPeak: new THREE.Color(0.96, 0.97, 0.98),
   },
 
 };
@@ -85,14 +85,23 @@ const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
   });
   // Light mode needs a matte, nearly-background object so the monolith doesn't
   // read as a dark blob over the headline. Dark mode keeps the chrome sculpture.
-  const mat = theme === 'dark'
-    ? { color: PALETTE.dark.monolith, metalness: 1.0, roughness: 0.05, distort: 0.4 }
-    : { color: PALETTE.light.monolith, metalness: 0.15, roughness: 0.55, distort: 0.25 };
+  const isDark = theme === 'dark';
+  const mat = isDark
+    ? { color: PALETTE.dark.monolith, metalness: 1.0, roughness: 0.05, distort: 0.4, emissive: '#000000', emissiveIntensity: 0 }
+    : { color: PALETTE.light.monolith, metalness: 0, roughness: 0.95, distort: 0.15, emissive: '#ffffff', emissiveIntensity: 0.35 };
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef}>
         <icosahedronGeometry args={[13, 1]} />
-        <MeshDistortMaterial color={mat.color} speed={4} distort={mat.distort} roughness={mat.roughness} metalness={mat.metalness} />
+        <MeshDistortMaterial
+          color={mat.color}
+          speed={4}
+          distort={mat.distort}
+          roughness={mat.roughness}
+          metalness={mat.metalness}
+          emissive={mat.emissive}
+          emissiveIntensity={mat.emissiveIntensity}
+        />
       </mesh>
     </Float>
   );
@@ -171,8 +180,12 @@ export const Component = () => {
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 60], fov: 35 }}>
-          <ambientLight intensity={0.4} />
-          <spotLight position={[50, 50, 50]} intensity={3} color={PALETTE[theme].accent} />
+          <ambientLight intensity={theme === 'dark' ? 0.4 : 1.2} />
+          <spotLight
+            position={[50, 50, 50]}
+            intensity={theme === 'dark' ? 3 : 0.8}
+            color={theme === 'dark' ? PALETTE.dark.accent : '#ffffff'}
+          />
           <LiquidBackground theme={theme} />
           <Monolith theme={theme} />
         </Canvas>
