@@ -1,0 +1,276 @@
+---
+// /work/lead-engine — a case study for a nonprofit prospecting engine.
+//
+// All figures are hardcoded from the anonymised source file:
+// automations/aydiner-demo/florida-nonprofits-11-ANON.csv
+// No invented metrics, no client names, no cities, no EINs, no websites.
+import Base from '../../layouts/Base.astro';
+import ContactCta from '../../components/ContactCta.astro';
+
+const title = 'Lead engine · Client Optimal';
+const description =
+  'A prospecting engine built from two free public datasets. It grades every claim it cannot evidence, and returns "unclear" rather than invent a lead.';
+
+const rows = [
+  {
+    label: 'Organisation A',
+    revenue: '$4.7M',
+    donorDistress: 50,
+    contactConfidence: 'high',
+    score: 58,
+  },
+  {
+    label: 'Organisation B',
+    revenue: '$2.9M',
+    donorDistress: 50,
+    contactConfidence: 'none',
+    score: 56,
+  },
+  {
+    label: 'Organisation C',
+    revenue: '$4.2M',
+    donorDistress: 35,
+    contactConfidence: 'low',
+    score: 42,
+  },
+  {
+    label: 'Organisation D',
+    revenue: '$3.9M',
+    donorDistress: 35,
+    contactConfidence: 'none',
+    score: 38,
+  },
+  {
+    label: 'Organisation E',
+    revenue: '$3.6M',
+    donorDistress: 25,
+    contactConfidence: 'none',
+    score: 28,
+  },
+  {
+    label: 'Organisation F',
+    revenue: '$2.2M',
+    donorDistress: 22,
+    contactConfidence: 'high',
+    score: 25,
+  },
+  {
+    label: 'Organisation G',
+    revenue: '$3.4M',
+    donorDistress: 20,
+    contactConfidence: 'none',
+    score: 23,
+  },
+  {
+    label: 'Organisation H',
+    revenue: '$4.1M',
+    donorDistress: 12,
+    contactConfidence: 'none',
+    score: 22,
+  },
+  {
+    label: 'Organisation I',
+    revenue: '$3.9M',
+    donorDistress: 12,
+    contactConfidence: 'none',
+    score: 18,
+  },
+  {
+    label: 'Organisation J',
+    revenue: '$3.7M',
+    donorDistress: 10,
+    contactConfidence: 'none',
+    score: 16,
+  },
+  {
+    label: 'Organisation K',
+    revenue: '$2.7M',
+    donorDistress: 10,
+    contactConfidence: 'none',
+    score: 16,
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="section hero" aria-labelledby="lead-engine-title">
+    <div class="wrap">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>Case study</p>
+      <h1 class="section-title reveal" id="lead-engine-title">A lead engine that says less than it knows.</h1>
+      <p class="lead intro reveal">
+        Finding prospects actually worth contacting is slow, manual work. This engine starts from two free public datasets: the US Department of Education's IPEDS, and ProPublica's Form 990 API. No paid data vendor. No scraping. No account needed for either.
+      </p>
+    </div>
+  </section>
+
+  <section class="section funnel" aria-labelledby="funnel-title">
+    <div class="wrap">
+      <h2 class="section-title reveal" id="funnel-title">The funnel.</h2>
+      <div class="figures">
+        <div class="figure reveal">
+          <span class="num">412</span>
+          <span class="label">organisations examined</span>
+        </div>
+        <div class="figure reveal">
+          <span class="num">43</span>
+          <span class="label">inside the target size band</span>
+        </div>
+        <div class="figure reveal">
+          <span class="num">11</span>
+          <span class="label">showing measurable financial distress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section output" aria-labelledby="output-title">
+    <div class="wrap">
+      <h2 class="section-title reveal" id="output-title">The output.</h2>
+      <p class="lead intro reveal">
+        The 11 organisations that made the final cut. Labels and revenue bands are anonymised because this is real client research.
+      </p>
+
+      <div class="table-wrap reveal">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Organisation</th>
+              <th scope="col">Revenue band</th>
+              <th scope="col">Donor-distress score</th>
+              <th scope="col">Contact confidence</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td class="org">{r.label}</td>
+                <td>{r.revenue}</td>
+                <td>{r.donorDistress}</td>
+                <td class={`confidence ${r.contactConfidence}`}>{r.contactConfidence}</td>
+                <td class="score">{r.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">Data is anonymised because it is real client research. No organisation names, cities, EINs, websites or people's names appear on this page.</p>
+    </div>
+  </section>
+
+  <section class="section differentiator" aria-labelledby="diff-title">
+    <div class="wrap">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>Differentiator</p>
+      <h2 class="section-title reveal" id="diff-title">It refuses to assert anything it cannot evidence.</h2>
+      <div class="body body-measure reveal">
+        <p>
+          The engine grades the confidence of every contact name it finds. If a name cannot be grounded, it returns "unclear" instead of inventing a lead.
+        </p>
+        <p>
+          Of the 11 organisations above, only 3 had a findable contact name. That number is unflattering and it is included on purpose. A tool that never says "unclear" has simply stopped checking.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ContactCta />
+</Base>
+
+<style>
+  .hero .section-title { max-width: 18ch; }
+  .intro { margin-top: 1.4rem; }
+
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 3vw, 2.6rem);
+    margin-top: 3.2rem;
+  }
+  .figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+    border: var(--hair-w) solid var(--hair);
+  }
+  .figure .num {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2.4rem + 2.8vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .figure .label {
+    font-size: var(--step-small);
+    color: var(--text-dim);
+    line-height: 1.45;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin-top: 2.4rem;
+    border: var(--hair-w) solid var(--hair);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step-small);
+  }
+  thead th {
+    text-align: left;
+    padding: 1rem 1.2rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: var(--hair-w) solid var(--hair);
+    background: color-mix(in srgb, var(--panel) 50%, transparent);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 1.1rem 1.2rem;
+    border-top: var(--hair-w) solid var(--hair);
+    color: var(--text-dim);
+  }
+  tbody tr:first-child td { border-top: 0; }
+  td.org {
+    font-family: var(--font-mono);
+    color: var(--text);
+  }
+  td.score {
+    font-family: var(--font-mono);
+    color: var(--text);
+    font-weight: 500;
+  }
+  td.confidence {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+  td.confidence.high { color: var(--accent); }
+  td.confidence.low { color: var(--text-dim); }
+  td.confidence.none { color: var(--muted); }
+
+  .note {
+    margin-top: 1.2rem;
+    font-size: var(--step-small);
+    color: var(--muted);
+  }
+
+  .differentiator .section-title { max-width: 24ch; }
+  .differentiator .body {
+    margin-top: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .figures { grid-template-columns: 1fr; }
+  }
+</style>
