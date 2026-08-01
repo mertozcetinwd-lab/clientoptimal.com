@@ -11,7 +11,11 @@ const year = new Date().getFullYear();
       {legalNav.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
+    {/* The personal site was reachable from /about only, which is the page fewest
+        people get to. Same person, and each site is a reason to believe the
+        other; a footer link costs nothing and works from anywhere. */}
     <nav class="col links" aria-label="Elsewhere">
+      <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a>
       <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
       <a href={contact.github} target="_blank" rel="noopener">GitHub</a>
       <a href={`mailto:${contact.email}`}>Email</a>
