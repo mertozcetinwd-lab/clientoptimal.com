@@ -6,6 +6,7 @@ import ProblemGrid from '../components/ProblemGrid.astro';
 import FlowDiagram from '../components/FlowDiagram.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Principles from '../components/Principles.astro';
+import WorkBand from '../components/WorkBand.astro';
 import Faq from '../components/Faq.astro';
 import ContactCta from '../components/ContactCta.astro';
 ---
@@ -15,8 +16,14 @@ import ContactCta from '../components/ContactCta.astro';
     client-only React island (three/@react-three/fiber has no SSR path);
     everything below stays plain Astro + hand-authored CSS.
 
-    The "Read the code" repo section (Proof.astro) was removed on Mert's call
-    2026-07-23. It is no longer on any page. */}
+    Proof arrives at WorkBand, between the principles and the questions: the
+    principles make a claim about how the work is built, the band shows one that
+    was, and the FAQ then answers what the reader objects to. Earlier would
+    interrupt the problem/solution run; later lands after they have decided.
+
+    The "Read the code" repo section (Proof.astro) stays off this page, per Mert's
+    call 2026-07-23. It now renders at the foot of /work instead, under the case
+    study, where it is corroboration rather than the whole argument. */}
 <Base>
   {/* This wrapper is load-bearing, do not remove it.
 
@@ -39,6 +46,7 @@ import ContactCta from '../components/ContactCta.astro';
   <FlowDiagram />
   <Capabilities />
   <Principles />
+  <WorkBand />
   <Faq />
   <ContactCta />
 </Base>

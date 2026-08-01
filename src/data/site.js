@@ -42,15 +42,20 @@ export const meta = {
   effectiveDate: 'July 18, 2026',
 };
 
-// Down to one item on Mert's call 2026-07-23. "Approach" was dropped from the
-// header by request; "The work" had to go with it, because its target (the
-// #proof repo section) was removed from the homepage in the same pass and a nav
-// item pointing at a section that no longer exists is a dead link.
+// "Work" came back 2026-07-31, pointing at a REAL page this time. It was dropped
+// on 2026-07-23 because its only target was the #proof repo strip, which came off
+// the homepage in the same pass, and a nav item aimed at a section that no longer
+// exists is a dead link. /work is now a route with a written case study on it, so
+// the original objection is gone.
 //
-// Nothing is orphaned: the approach content still lives at /services#approach,
-// reachable from the services page, and the header's "Get in touch" button
-// already covers contact (which is why no Contact item was added here).
+// "Approach" stays dropped, by request. That content still lives at
+// /services#approach, and the header's "Get in touch" button covers contact,
+// which is why there is no Contact item here.
+//
+// Three items is the ceiling. Header.astro scrolls the nav sideways below 560px
+// rather than hiding or wrapping it; a fourth would start to crowd that.
 export const nav = [
+  { label: 'Work', href: '/work' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
 ];
@@ -253,19 +258,84 @@ export const principles = [
   },
 ];
 
-// Honest framing of a real weakness, turned into the strongest section on the
-// page. Client Optimal is early. Rather than dressing that up, point at the
-// code. Every repo below is public and really exists.
-// DORMANT: removed from the homepage 2026-07-23 and rendered on no page. Kept,
-// with Proof.astro, in case the repo section is ever wanted back. Do not assume
-// it renders.
-export const proof = {
+// ---------------------------------------------------------------------------
+// The work. Added 2026-07-31.
+//
+// The site argued entirely from method before this: the problem, how a build
+// runs, the services, the principles. All of it a claim about HOW Mert works and
+// none of it a thing he has built. /work/lead-engine had been written and was
+// linked from nowhere, so it may as well not have existed.
+//
+// There is ONE case study and that is not a placeholder for more. Every figure on
+// it traces to automations/aydiner-demo/florida-nonprofits-11-ANON.csv in the
+// parent AIOS repo. Nothing here is invented, and a second entry gets added when a
+// second one is genuinely written, not to make the page look busier.
+// ---------------------------------------------------------------------------
+export const workMeta = {
+  title: 'The work · Client Optimal',
+  description:
+    'One build documented in full: a prospecting engine on two free public datasets that grades what it cannot evidence and returns "unclear" rather than invent a lead.',
+};
+
+// Copy for /work. The single-entry problem is met head on rather than designed
+// around: a young studio with one write-up beats a young studio with five logos
+// it cannot back, and saying so is more convincing than hiding it.
+export const work = {
   eyebrow: 'The work',
-  title: 'Read the code.',
-  // Honest bridge for a young studio: no results to point at yet, so point at the
-  // code instead. Same class of build the client would get, public and readable.
-  // Still zero invented proof.
-  lead: 'Client Optimal is early, so asking you to take results on faith would waste your time. Here is the work instead, public and readable: scheduled agents, lead scoring, research pipelines, tools wired into one flow. The same class of build I would ship for you. See how I build before you hire me.',
+  title: 'One build, documented properly.',
+  lead: 'Client Optimal is early, so there is no wall of logos here. There is one job written up in full instead: where the data came from, what the engine decided, and the unflattering number it prints on purpose. More get added as they ship.',
+};
+
+// Copy for the homepage band. Deliberately different from the /work heading: on
+// the homepage this section's job is to cash the cheque the four principles just
+// wrote, so it names the method first and the build second.
+export const workBand = {
+  eyebrow: 'The work',
+  title: 'What that looks like on a real job.',
+  lead: 'Everything above is a claim about how I build. Here is one that got built, and the numbers it actually returned.',
+  // No "see all work" link here on purpose. The card already goes straight to the
+  // case study, and with one write-up a second link would promise a list that is
+  // not there. Add it when /work holds more than the homepage shows.
+};
+
+// Rendered by CaseStudyCard.astro on both /work and the homepage. `figures` is
+// the same 412 / 43 / 11 funnel printed on the case study itself; if one changes,
+// change both, because a homepage that disagrees with its own case study is worse
+// than a homepage with no figures on it.
+export const caseStudies = [
+  {
+    href: '/work/lead-engine',
+    kicker: 'Nonprofit prospecting',
+    title: 'A lead engine that says less than it knows.',
+    summary:
+      'Two free public datasets in, a ranked prospect list out. It grades the confidence of every contact name it finds, and returns “unclear” rather than invent one.',
+    figures: [
+      { num: '412', label: 'organisations examined' },
+      { num: '43', label: 'inside the target size band' },
+      { num: '11', label: 'showing measurable financial distress' },
+    ],
+    stack: 'Python · IPEDS · ProPublica Form 990 API',
+  },
+];
+
+// Every repo below is public and really exists.
+//
+// Was dormant from 2026-07-23 to 2026-07-31, when it came off the homepage. It is
+// back, but LOWER and SMALLER: it renders at the foot of /work, underneath the
+// case study, and on no other page. That distinction is the whole reason it is
+// defensible again. The 2026-07-23 objection was that a raw list of repo links was
+// the only proof on the HOMEPAGE, which asks a buyer to go read source code to
+// find out whether to hire someone. Sitting under a written case study on a
+// dedicated page, the same list is corroboration for a reader who wants it, and
+// costs nothing to a reader who does not.
+//
+// The lead lost the "no results, so read the code instead" argument it used to
+// carry. The case study makes that case better, and repeating it here would make
+// the page apologise twice.
+export const proof = {
+  eyebrow: 'Source',
+  title: 'Or read the code.',
+  lead: 'Every repo below is public. Scheduled agents, lead scoring, research pipelines, tools wired into one flow. The same class of build you would get, open to read before you decide anything.',
   repos: [
     {
       name: 'ai-lead-qualifier',

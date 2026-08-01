@@ -1,0 +1,46 @@
+---
+// /work — the case-study index, and the route the header's "Work" item points at.
+//
+// One entry. That is the honest state of things and the page is built to say so
+// rather than pad itself: the heading claims one build documented properly, and
+// the repo strip underneath is corroboration, not filler pretending to be more
+// case studies. No placeholder cards, ever. When a second write-up exists it gets
+// pushed into `caseStudies` and this page needs no other change.
+import Base from '../../layouts/Base.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import Proof from '../../components/Proof.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import { workMeta, work, caseStudies } from '../../data/site.js';
+---
+
+<Base title={workMeta.title} description={workMeta.description}>
+  <section class="section head" aria-labelledby="work-title">
+    <div class="wrap">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{work.eyebrow}</p>
+      <h1 class="section-title reveal" id="work-title">{work.title}</h1>
+      <p class="lead intro reveal">{work.lead}</p>
+
+      <ul class="studies">
+        {caseStudies.map((s) => (
+          <li><CaseStudyCard study={s} heading="h2" /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Proof />
+  <ContactCta />
+</Base>
+
+<style>
+  .head .section-title { margin-block: 1.2rem 1.4rem; max-width: 20ch; }
+  .intro { margin-bottom: 3.2rem; }
+
+  .studies {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+// Homepage proof band. Sits between Principles and Faq: the four principles make
+// the claim, this cashes it, and the FAQ then handles what the reader objects to.
+// Any earlier and it interrupts the problem/solution run; any later and it lands
+// after the reader has already decided.
+import { workBand, caseStudies } from '../data/site.js';
+import CaseStudyCard from './CaseStudyCard.astro';
+
+const study = caseStudies[0];
+---
+
+<section class="section band" id="work">
+  <div class="wrap">
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{workBand.eyebrow}</p>
+    <h2 class="section-title reveal">{workBand.title}</h2>
+    <p class="lead intro reveal">{workBand.lead}</p>
+
+    <CaseStudyCard study={study} heading="h3" />
+  </div>
+</section>
+
+<style>
+  .section-title { margin-block: 1.2rem 1.4rem; }
+  .intro { margin-bottom: 3.2rem; }
+</style>

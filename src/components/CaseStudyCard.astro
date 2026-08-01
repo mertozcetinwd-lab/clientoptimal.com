@@ -1,0 +1,147 @@
+---
+// One case study, as a card. Rendered on /work and on the homepage band, so the
+// two can never drift apart.
+//
+// The whole card is the link target, following Proof.astro's `.hit` idiom: a
+// title-sized text link is a poor hit area on a phone, and there is nothing else
+// inside the card competing for the tap.
+interface Props { study: any; heading?: 'h2' | 'h3' }
+const { study, heading = 'h3' } = Astro.props;
+const H = heading;
+---
+
+<article class="card reveal">
+  <a class="hit" href={study.href}>
+    <p class="kicker">{study.kicker}</p>
+    <H class="title">{study.title}</H>
+    <p class="summary">{study.summary}</p>
+
+    <ul class="figures">
+      {study.figures.map((f: any) => (
+        <li class="figure">
+          <span class="num">{f.num}</span>
+          <span class="label">{f.label}</span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="foot">
+      <span class="stack">{study.stack}</span>
+      <span class="go" aria-hidden="true">Read the case study →</span>
+    </p>
+  </a>
+</article>
+
+<style>
+  .card {
+    border: var(--hair-w) solid var(--hair);
+    /* Same TL/BR chamfer every other panel on the site carries. */
+    clip-path: polygon(
+      var(--chamfer) 0, 100% 0,
+      100% calc(100% - var(--chamfer)),
+      calc(100% - var(--chamfer)) 100%,
+      0 100%, 0 var(--chamfer));
+  }
+
+  /* The hover lives HERE and not on .card, because .card is the .reveal element
+     and the reveal animation's `both` fill outranks a hover rule on the same
+     node. Same trap documented in tokens.css and worked around in Elsewhere. */
+  .hit {
+    display: block;
+    padding: clamp(1.6rem, 3.5vw, 3rem);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--t-fast) var(--ease);
+  }
+  .hit:hover { background: color-mix(in srgb, var(--text) 4%, transparent); }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+    max-width: 22ch;
+    margin-block: 0.9rem 1rem;
+    color: var(--text);
+  }
+
+  /* Body size, not small. This is the only case study on the site and the summary
+     is the sentence that decides whether anyone clicks; at --step-small it read
+     like a caption under the title rather than the pitch. */
+  .summary {
+    font-size: var(--step-body);
+    line-height: 1.55;
+    color: var(--text-dim);
+    max-width: 54ch;
+  }
+
+  .figures {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+  .figure { display: flex; flex-direction: column; gap: 0.5rem; }
+  .num {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 1.9rem + 2.2vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .label {
+    font-size: var(--step-small);
+    line-height: 1.4;
+    color: var(--text-dim);
+  }
+
+  .foot {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    gap: 0.6rem 1.5rem;
+    margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+    padding-top: 1.4rem;
+    border-top: var(--hair-w) solid var(--hair);
+  }
+  .stack, .go {
+    font-family: var(--font-mono);
+    font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .stack { color: var(--muted); }
+
+  /* Always visible, unlike Proof.astro's hover-revealed `.go`. That idiom works
+     on a list of six rows where the rule between them already reads as "these are
+     links"; a single standalone card has nothing to signal it is clickable at all,
+     so hiding the only affordance until hover left the flagship item on the page
+     looking inert. Hover draws the underline instead, following the `.val` idiom
+     in Elsewhere.astro. */
+  .go {
+    color: var(--accent);
+    margin-inline-start: auto;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size var(--t-med) var(--ease);
+    padding-bottom: 3px;
+  }
+  .hit:hover .go, .hit:focus-visible .go { background-size: 100% 1px; }
+
+  @media (max-width: 620px) {
+    .figures { grid-template-columns: 1fr; gap: 1.2rem; }
+    /* Once the stack label wraps, "auto" would push the CTA to the far right of
+       its own line. Left-align both. */
+    .go { margin-inline-start: 0; }
+  }
+</style>
