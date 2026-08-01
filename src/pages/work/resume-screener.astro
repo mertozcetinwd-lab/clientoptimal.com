@@ -1,0 +1,162 @@
+---
+// /work/resume-screener — the buyer's version.
+//
+// mertozcetin.com/work/resume-screener tells the engineering story: the model is
+// a witness, verify_evidence is the load-bearing check, the three rules live in
+// code. This page opens on the RISK instead, because the person reading it is
+// deciding whether to put an AI anywhere near their hiring, and the honest answer
+// to "why not just use one of the tools that already exist" is the whole pitch.
+//
+// Every claim here is checkable in screener/judge.py in the AIS-OS repo. The
+// sample resumes are synthetic; the job description is screener/sample/job-
+// description.md and really does carry eight requirements.
+import Base from '../../layouts/Base.astro';
+import ContactCta from '../../components/ContactCta.astro';
+
+const title = 'Resume screener · Client Optimal';
+const description =
+  'A screening tool that has to cite the line justifying every verdict. Claims it cannot ground in the document are discarded before they reach you.';
+
+const rules = [
+  {
+    n: '01',
+    title: 'No quote, no claim',
+    body: 'A verdict only counts if it is tied to a line copied out of the resume. The model can propose “met”, but the report never sees it unless that exact text is found in the document.',
+  },
+  {
+    n: '02',
+    title: 'Silence is not a no',
+    body: 'A resume that never mentions a skill is not evidence the person lacks it. “Not met” needs something in the document that actually contradicts the requirement. Everything else comes back “unclear”.',
+  },
+  {
+    n: '03',
+    title: 'Nothing about the person',
+    body: 'Age, gender, nationality, race, religion, marital status, health and photographs are stripped out before the text is sent anywhere. The system does not read them, store them or report them.',
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="section hero" aria-labelledby="screener-title">
+    <div class="wrap">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>Case study</p>
+      <h1 class="section-title reveal" id="screener-title">A screener that has to show its work.</h1>
+      <p class="lead intro reveal">
+        Every AI screening tool on the market will read a resume and tell you whether the person is a fit. They are good at it, and they are also entirely willing to invent the sentence that justifies the answer.
+      </p>
+    </div>
+  </section>
+
+  <section class="section risk" aria-labelledby="risk-title">
+    <div class="wrap">
+      <h2 class="section-title reveal" id="risk-title">Which is a problem twice over.</h2>
+      <div class="body body-measure reveal">
+        <p>
+          The first cost is your time. A confident yes built on a quote that was never in the document sends you into an interview you did not need to take, and a confident no loses you someone you should have met.
+        </p>
+        <p>
+          The second is worse. A rejection with a fabricated reason attached to a real person's name is the kind of thing that ends up in front of a lawyer, and “the AI said so” has never once been a defence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section rules-sec" aria-labelledby="rules-title">
+    <div class="wrap">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>The fix</p>
+      <h2 class="section-title reveal" id="rules-title">Three rules, written into the code.</h2>
+      <p class="lead intro reveal">
+        Not asked for in a prompt, where the model is free to ignore them. Enforced afterwards, on every verdict, before anything reaches the report.
+      </p>
+
+      <ol class="rules">
+        {rules.map((r) => (
+          <li class="rule reveal">
+            <span class="n">{r.n}</span>
+            <h3 class="rt">{r.title}</h3>
+            <p class="rb">{r.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section run" aria-labelledby="run-title">
+    <div class="wrap">
+      <h2 class="section-title reveal" id="run-title">What happened when it ran.</h2>
+      <div class="body body-measure reveal">
+        <p>
+          Against a real job description with eight requirements, the model returned a confident “met” for one candidate and cited a line about running Kubernetes clusters at scale for six years. That sentence appears nowhere in the resume. The check did not find it, the quote was thrown away, and the verdict dropped to “unclear”. Genuine quotes in the same batch passed through untouched.
+        </p>
+        <p>
+          Another candidate came back <strong>0 of 8</strong>. That was checked by hand and it was right: an IT technician against an engineering role. The tool returned nothing rather than finding something.
+        </p>
+        <p>
+          Expect “unclear” to be common. That is the design working, not the tool failing. A screener that always has an answer has stopped checking.
+        </p>
+      </div>
+
+      <p class="note">Sample resumes are synthetic and contain no real personal data.</p>
+    </div>
+  </section>
+
+  <ContactCta />
+</Base>
+
+<style>
+  .hero .section-title { max-width: 17ch; }
+  .intro { margin-top: 1.4rem; }
+  .rules-sec .intro { margin-bottom: 3.2rem; }
+
+  .risk .section-title, .run .section-title { max-width: 20ch; }
+  .body {
+    margin-top: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .body strong { color: var(--text); font-weight: 600; }
+
+  .rules {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.4rem, 3vw, 2.6rem);
+  }
+  .rule {
+    border-top: var(--hair-w) solid var(--hair);
+    padding-top: 1.2rem;
+  }
+  .n {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem; letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
+  .rt {
+    font-family: var(--font-display);
+    font-size: var(--step-h3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+    margin-bottom: 0.7rem;
+  }
+  .rb {
+    font-size: var(--step-small);
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+
+  .note {
+    margin-top: 2rem;
+    font-size: var(--step-small);
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .rules { grid-template-columns: 1fr; }
+  }
+</style>

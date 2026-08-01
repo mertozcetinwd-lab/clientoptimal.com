@@ -16,10 +16,39 @@ const study = caseStudies[0];
     <p class="lead intro reveal">{workBand.lead}</p>
 
     <CaseStudyCard study={study} heading="h3" />
+
+    <a class="more" href={workBand.cta.href}>
+      <span class="lbl">{workBand.cta.label}</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </section>
 
 <style>
   .section-title { margin-block: 1.2rem 1.4rem; }
   .intro { margin-bottom: 3.2rem; }
+
+  .more {
+    display: inline-flex; align-items: baseline; gap: 0.6rem;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  /* Underline on the child span, not the anchor: the anchor is the flex row and
+     an underline there would run under the arrow too. */
+  .more .lbl {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size var(--t-med) var(--ease);
+    padding-bottom: 3px;
+  }
+  .more:hover .lbl, .more:focus-visible .lbl { background-size: 100% 1px; }
+
+  @media (pointer: coarse) {
+    .more { min-height: 44px; align-items: center; }
+  }
 </style>

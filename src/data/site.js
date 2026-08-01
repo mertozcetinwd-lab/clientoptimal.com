@@ -266,24 +266,25 @@ export const principles = [
 // none of it a thing he has built. /work/lead-engine had been written and was
 // linked from nowhere, so it may as well not have existed.
 //
-// There is ONE case study and that is not a placeholder for more. Every figure on
-// it traces to automations/aydiner-demo/florida-nonprofits-11-ANON.csv in the
-// parent AIOS repo. Nothing here is invented, and a second entry gets added when a
-// second one is genuinely written, not to make the page look busier.
+// Entries are added when one is genuinely written, never to make the page look
+// busier, and every figure on every card traces to something real. Nothing here
+// is invented.
 // ---------------------------------------------------------------------------
 export const workMeta = {
   title: 'The work · Client Optimal',
   description:
-    'One build documented in full: a prospecting engine on two free public datasets that grades what it cannot evidence and returns "unclear" rather than invent a lead.',
+    'Builds documented in full: a prospecting engine on free public data, and a resume screener that has to cite the line justifying every verdict.',
 };
 
-// Copy for /work. The single-entry problem is met head on rather than designed
-// around: a young studio with one write-up beats a young studio with five logos
-// it cannot back, and saying so is more convincing than hiding it.
+// Copy for /work. Deliberately COUNT-FREE. It read "One build, documented
+// properly" while one existed and went wrong the moment a second was written --
+// the same trap the sibling site solved by deriving its number. There is no
+// number to derive here, so the wording just does not depend on one, and the
+// honest "no wall of logos" argument holds at one entry or ten.
 export const work = {
   eyebrow: 'The work',
-  title: 'One build, documented properly.',
-  lead: 'Client Optimal is early, so there is no wall of logos here. There is one job written up in full instead: where the data came from, what the engine decided, and the unflattering number it prints on purpose. More get added as they ship.',
+  title: 'Each build, written up in full.',
+  lead: 'Client Optimal is early, so there is no wall of logos here. Each job is written up properly instead: where the data came from, what the system decided, and the unflattering number it prints on purpose. More get added as they ship.',
 };
 
 // Copy for the homepage band. Deliberately different from the /work heading: on
@@ -293,9 +294,11 @@ export const workBand = {
   eyebrow: 'The work',
   title: 'What that looks like on a real job.',
   lead: 'Everything above is a claim about how I build. Here is one that got built, and the numbers it actually returned.',
-  // No "see all work" link here on purpose. The card already goes straight to the
-  // case study, and with one write-up a second link would promise a list that is
-  // not there. Add it when /work holds more than the homepage shows.
+  // The homepage shows ONE card and /work now holds more, so this link finally
+  // has something behind it. It was deliberately absent while the two were the
+  // same thing, because a "see all" that leads to the page you just read is worse
+  // than no link at all.
+  cta: { label: 'See the rest of the work', href: '/work' },
 };
 
 // Rendered by CaseStudyCard.astro on both /work and the homepage. `figures` is
@@ -315,6 +318,23 @@ export const caseStudies = [
       { num: '11', label: 'showing measurable financial distress' },
     ],
     stack: 'Python · IPEDS · ProPublica Form 990 API',
+  },
+  {
+    href: '/work/resume-screener',
+    kicker: 'Hiring',
+    title: 'A screener that has to show its work.',
+    summary:
+      'Reads a job post, assesses each resume against it, and cites the line justifying every verdict. A claim it cannot ground in the document is thrown away before it reaches you.',
+    // "0 of 8" is the odd one out and it is deliberate: it is the number the tool
+    // was willing to return rather than find something, and it is the same
+    // argument the lead engine makes with "3 of 11". Verified by hand -- an IT
+    // technician against an engineering role.
+    figures: [
+      { num: '8', label: 'requirements read from the job post' },
+      { num: '3', label: 'rules enforced in code, not asked for in a prompt' },
+      { num: '0 of 8', label: 'the score it was willing to return' },
+    ],
+    stack: 'Python · Claude API · pypdf · python-docx',
   },
 ];
 
