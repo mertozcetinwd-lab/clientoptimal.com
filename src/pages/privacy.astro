@@ -9,8 +9,14 @@
 // a legal representation. Claiming to collect data you do not collect is its
 // own kind of false statement.
 //
-// If the site ever gains a form, analytics, or a newsletter, THIS FILE MUST
-// CHANGE IN THE SAME COMMIT.
+// UPDATED 2026-08-21: the site gained its first form -- the SMS opt-in at
+// /text-me -- and this file changed in the same commit, as the note below
+// required. The "no contact forms" claim was removed because it became false.
+//
+// If the site gains ANOTHER form, analytics, or a newsletter, THIS FILE MUST
+// CHANGE IN THE SAME COMMIT. The SMS section is also a carrier compliance
+// artefact: the 10DLC campaign cites this policy, and carriers require that it
+// forbid sharing opt-in data with third parties. Do not weaken that paragraph.
 import Legal from '../layouts/Legal.astro';
 import { contact } from '../data/site.js';
 ---
@@ -21,16 +27,23 @@ import { contact } from '../data/site.js';
 >
   <h2>The short version</h2>
   <p>
-    This website has <strong>no contact forms, no analytics, no cookies, and no
-    tracking of any kind</strong>. It is a set of static pages. We do not build
-    a profile of you, we do not sell or rent information about you, and there is
-    no advertising network involved in any part of it.
+    This website has <strong>no analytics, no cookies, and no tracking of any
+    kind</strong>. We do not build a profile of you, we do not sell or rent
+    information about you, and there is no advertising network involved in any
+    part of it.
+  </p>
+  <p>
+    There is <strong>exactly one form</strong> on this site: the
+    <a href="/text-me">text me the demo</a> page, where you can ask us to send
+    you a recording by SMS. It is the only place we collect anything, it is
+    entirely optional, and what happens to that information is described in
+    full below.
   </p>
 
   <h2>What this website collects</h2>
   <p>
-    Nothing that we choose to collect. We set no cookies and run no analytics
-    or tracking scripts.
+    Nothing at all, unless you fill in the SMS opt-in form. We set no cookies
+    and run no analytics or tracking scripts.
   </p>
   <p>
     One honest caveat: like any website, this one is served by a hosting
@@ -39,6 +52,41 @@ import { contact } from '../data/site.js';
     requested. That is a normal function of serving a web page and of keeping
     the service running and secure. We do not use those logs to identify or
     profile visitors.
+  </p>
+
+  <h2>Text messages, and what we do with your number</h2>
+  <p>
+    If you submit the form on the <a href="/text-me">text me the demo</a> page,
+    you are giving us express written consent to send you text messages about
+    the demo you asked for and follow-up about that service.
+    <strong>Message frequency may vary.</strong>
+    <strong>Standard message and data rates may apply.</strong>
+  </p>
+  <p>
+    Consent to receive text messages is <strong>not a condition of any
+    purchase</strong>. The checkbox is never pre-ticked, and SMS consent is
+    asked for separately from anything else.
+  </p>
+  <p>
+    <strong>To stop receiving messages, reply STOP to any message.</strong> That
+    removes your number permanently and automatically, and we check that
+    suppression list at the moment of sending rather than when a batch is built,
+    so an opt-out always takes effect. Reply <strong>HELP</strong> for help, or
+    email <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+  </p>
+  <p>
+    When you submit the form we record your name, business name, phone number,
+    the date and time, your IP address, and the exact version of the consent
+    wording shown to you. We keep that record so we can demonstrate, if a
+    carrier or regulator ever asks, that you agreed and what you agreed to.
+  </p>
+  <p>
+    <strong>We do not sell, rent, share, or otherwise disclose your mobile
+    number or your SMS consent to any third party for their marketing
+    purposes</strong>, and no third party receives it for any purpose other
+    than delivering the message you asked for. Messages are delivered through
+    our telephony provider, who transmits them on our behalf and is not
+    permitted to use your number for anything else.
   </p>
 
   <h2>If you contact us</h2>

@@ -67,10 +67,10 @@ export const contact = {
   linkedin: 'https://www.linkedin.com/in/mert-ozcetin/',
   linkedinShow: 'linkedin.com/in/mert-ozcetin',
   company: 'https://www.linkedin.com/company/client-optimal',
-  // TODO Mert: a gmail on a business site is honest but reads weak. Cloudflare
-  // Email Routing on this domain is free and takes ten minutes if you want
-  // hello@clientoptimal.com forwarding here instead.
-  email: 'mertozcetinwd@gmail.com',
+  // Moved off gmail 2026-08-19. A registered 10DLC brand with an EIN listing a personal
+  // gmail is the most obvious mismatch a carrier reviewer sees on the page. Domain is on
+  // Microsoft 365 (MX -> clientoptimal-com.mail.protection.outlook.com, verified live).
+  email: 'mert@clientoptimal.com',
   github: 'https://github.com/mertozcetinwd-lab',
   // Mert's personal site. Separate brand, same person; the /about page sends
   // people there rather than restating a portfolio inside the business site.
