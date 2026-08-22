@@ -21,7 +21,13 @@ const year = new Date().getFullYear();
       <a href={`mailto:${contact.email}`}>Email</a>
     </nav>
 
-    <p class="col dim">{meta.location} · {meta.hours}</p>
+    {/* Postal address and a clickable phone are A2P 10DLC requirements, not styling.
+        A reviewer cross-checks this address against the 10DLC brand registration. */}
+    <p class="col addr">
+      <a href={`tel:${contact.phone}`}>{contact.phoneShow}</a>
+      <span aria-hidden="true"> · </span>
+      <span>{contact.address}</span>
+    </p>
   </div>
 </footer>
 
@@ -42,7 +48,9 @@ const year = new Date().getFullYear();
     text-transform: uppercase;
     color: var(--muted);
   }
-  .dim { margin-inline-start: auto; }
+  .addr { margin-inline-start: auto; text-transform: none; letter-spacing: 0.02em; }
+  .addr a { color: var(--muted); text-decoration: none; }
+  .addr a:hover { color: var(--text); text-decoration: underline; }
   .links { display: flex; gap: 1.1rem; }
   .links a {
     text-decoration: none;

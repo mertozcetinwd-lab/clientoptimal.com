@@ -1,0 +1,64 @@
+---
+// CONTACT PAGE — an A2P 10DLC requirement, not a nicety.
+//
+// The campaign registration checklist asks for a page carrying a business phone
+// (clickable tel:), a business email (clickable mailto:), and a REAL street address
+// (no PO boxes), with the legal business name matching the EIN registration exactly.
+//
+// A carrier reviewer cross-checks the address here against the 10DLC brand record.
+// A mismatch between the two is a named rejection cause, so if the registered address
+// ever changes it must change in src/data/site.js AND on the brand registration.
+//
+// Values live in site.js so this page and the footer can never drift apart.
+import Legal from '../layouts/Legal.astro';
+import { meta, contact } from '../data/site.js';
+---
+
+<Legal
+  title="Contact"
+  kicker="One person answers all of these. Usually within a day."
+>
+  <h2>Client Optimal LLC</h2>
+  <p>
+    Client Optimal is a one-person AI automation studio run by {meta.founder}.
+    There is no support queue and no contact form to disappear into &mdash; every
+    address below reaches the same person.
+  </p>
+
+  <h2>Email</h2>
+  <p>
+    <a href={`mailto:${contact.email}`}>{contact.email}</a><br />
+    The fastest way to reach us, and the one we check most.
+  </p>
+
+  <h2>Phone</h2>
+  <p>
+    <a href={`tel:${contact.phone}`}>{contact.phoneShow}</a><br />
+    Business hours, {meta.hours}.
+  </p>
+
+  <h2>Mailing address</h2>
+  <p>
+    {meta.legalName}<br />
+    {contact.address}
+  </p>
+
+  <h2>Elsewhere</h2>
+  <p>
+    <a href={contact.linkedin} target="_blank" rel="noopener">{contact.linkedinShow}</a><br />
+    <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a>
+  </p>
+
+  <h2>About text messages</h2>
+  <p>
+    If you asked us to text you a demo and want it to stop, reply{' '}
+    <strong>STOP</strong> to any message and your number is removed permanently
+    and automatically. Reply <strong>HELP</strong> for help, or email{' '}
+    <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+  </p>
+  <p>
+    <strong>Mobile information will not be shared with third parties or
+    affiliates for marketing or promotional purposes.</strong> The full detail is
+    in our <a href="/privacy">Privacy Policy</a>.
+  </p>
+</Legal>

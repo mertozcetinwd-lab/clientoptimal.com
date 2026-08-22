@@ -55,6 +55,11 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
           urgent it is, and texting the details through. No pitch, just the
           recording.
         </p>
+        <p class="lead" style="margin-top:.8rem">
+          <strong>Your choice how you get it</strong> &mdash; tick the box for a text, or
+          just leave your email instead. Either works, and you never have to
+          agree to texts to see the demo.
+        </p>
       </header>
 
       <form class="form" method="post" action={ENDPOINT}>
@@ -71,21 +76,31 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
         </label>
 
         <label class="field">
-          <span class="label">Mobile number</span>
+          <span class="label">Mobile number <span class="opt">(if you want it by text)</span></span>
           <input
             type="tel"
             name="phone"
-            required
             inputmode="tel"
             autocomplete="tel"
             placeholder="(352) 555-0142"
           />
         </label>
 
+        <label class="field">
+          <span class="label">Email <span class="opt">(if you would rather not be texted)</span></span>
+          <input type="email" name="email" autocomplete="email" placeholder="you@yourcompany.com" />
+        </label>
+
         {/* THE CONSENT BLOCK. Unchecked by default, SMS-only, all four
-            disclosures present. Do not restructure. */}
+            disclosures present. Do not restructure.
+
+            The checkbox is deliberately NOT `required`. The A2P checklist asks that a
+            visitor be able to submit the form WITHOUT opting in -- a required box makes
+            SMS consent a condition of getting the thing, which is the exact pattern the
+            rule exists to stop. Leave it optional and let the email field carry the
+            people who say no. */}
         <label class="consent">
-          <input type="checkbox" name="sms_consent" value="yes" required />
+          <input type="checkbox" name="sms_consent" value="yes" />
           <span>
             By checking this box and providing your phone number, you agree to
             receive text messages from <strong>Client Optimal</strong> about the
@@ -102,16 +117,17 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
         <button type="submit" class="submit">Text me the demo</button>
 
         <p class="fine">
-          Consent to receive texts is not a condition of any purchase. We do not
-          sell, rent, or share your number with anyone.
+          Consent to receive texts is not a condition of anything &mdash; leave the box
+          unticked and give us an email instead. We do not sell, rent, or share your
+          number or your consent with anyone.
         </p>
       </form>
 
       <aside class="alt">
         <p>
-          Rather not give a number? Email{' '}
-          <a href={`mailto:${contact.email}`}>{contact.email}</a> and I'll send
-          the same recording back.
+          Questions first? Email{' '}
+          <a href={`mailto:${contact.email}`}>{contact.email}</a> or see the{' '}
+          <a href="/contact">contact page</a>.
         </p>
       </aside>
     </div>
@@ -188,6 +204,7 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
   .submit:hover { opacity: 0.88; }
 
   .fine { font-size: 0.78rem; color: var(--muted); margin: 0; }
+  .opt { color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 400; }
 
   .alt {
     margin-top: 2.5rem;

@@ -71,6 +71,14 @@ export const contact = {
   // gmail is the most obvious mismatch a carrier reviewer sees on the page. Domain is on
   // Microsoft 365 (MX -> clientoptimal-com.mail.protection.outlook.com, verified live).
   email: 'mert@clientoptimal.com',
+  // Phone and postal address are A2P 10DLC REQUIREMENTS, not decoration. The campaign
+  // checklist asks for a clickable business phone and a real street address (no PO boxes),
+  // and a reviewer cross-checks the address here against the 10DLC brand registration --
+  // a mismatch is a named rejection cause. If either changes, change it in BOTH places.
+  phone: '+18133171539',
+  phoneShow: '(813) 317-1539',
+  // Doola registered agent. Deliberately not Mert's home address.
+  address: '7901 4th St N, Ste 300, St. Petersburg, FL 33702',
   github: 'https://github.com/mertozcetinwd-lab',
   // Mert's personal site. Separate brand, same person; the /about page sends
   // people there rather than restating a portfolio inside the business site.
@@ -553,6 +561,7 @@ export const elsewhere = {
 export const legalNav = [
   { label: 'Privacy', href: '/privacy' },
   { label: 'Terms', href: '/terms' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 // Derived, never typed by hand. Hand-numbering on the sibling site once
