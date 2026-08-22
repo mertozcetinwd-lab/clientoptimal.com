@@ -37,10 +37,23 @@ import { meta, contact } from '../data/site.js';
     Business hours, {meta.hours}.
   </p>
 
+  <h2>Registered address</h2>
+  <p>
+    {meta.legalName}<br />
+    {contact.addressRegistered}
+  </p>
+  <p>
+    This is the address on file for the business and the one on our A2P 10DLC
+    brand registration.
+  </p>
+
   <h2>Mailing address</h2>
   <p>
     {meta.legalName}<br />
-    {contact.address}
+    {contact.addressMailing}
+  </p>
+  <p>
+    Post reaches us faster here.
   </p>
 
   <h2>Elsewhere</h2>

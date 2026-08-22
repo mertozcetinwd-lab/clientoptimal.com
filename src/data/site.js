@@ -77,8 +77,21 @@ export const contact = {
   // a mismatch is a named rejection cause. If either changes, change it in BOTH places.
   phone: '+18133171539',
   phoneShow: '(813) 317-1539',
-  // Doola registered agent. Deliberately not Mert's home address.
-  address: '7901 4th St N, Ste 300, St. Petersburg, FL 33702',
+  // TWO ADDRESSES, ON PURPOSE.
+  //
+  // `addressRegistered` MUST match the address on the 10DLC brand registration
+  // (B3S433C), which in turn had to match the IRS record for the EIN -- TCR validates
+  // legal name, EIN and legal address against IRS/DUNS, and inconsistent business info
+  // is cited as roughly 80% of TCR rejections. The brand came back VERIFIED, which is
+  // the proof this address is the one the IRS holds. DO NOT change it to match the
+  // mailing address; change the mailing address instead.
+  //
+  // `addressMailing` is Doola's registered agent and is where post should go.
+  //
+  // Showing both removes the mismatch a reviewer would otherwise see between the
+  // brand record and this website.
+  addressRegistered: '1216 SW 2nd Ave, Gainesville, FL 32601',
+  addressMailing: '7901 4th St N, Ste 300, St. Petersburg, FL 33702',
   github: 'https://github.com/mertozcetinwd-lab',
   // Mert's personal site. Separate brand, same person; the /about page sends
   // people there rather than restating a portfolio inside the business site.
