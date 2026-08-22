@@ -23,6 +23,11 @@
 //     unambiguous opt-in path per page.
 //   - Do not remove the disclosures to make the page prettier. They are why the
 //     campaign is approvable.
+//   - The words "including marketing messages" are LOAD-BEARING. Marketing is a
+//     registered sub-use-case on the 10DLC campaign, and Telnyx names "marketing use
+//     cases not explicitly mentioned in the opt-in language" as a rejection cause.
+//     This sentence is also quoted verbatim in the campaign's Message Flow field, so
+//     changing it here without changing it there creates a mismatch a reviewer checks.
 //   - WHITESPACE: Astro collapses the newline between a text node and a following
 //     tag, so a line ending in text before an element needs an explicit {' '}.
 //     Without it the rendered copy reads "may vary.Standard" and "See ourPrivacy
@@ -33,7 +38,7 @@
 import Base from '../layouts/Base.astro';
 import { meta, contact } from '../data/site.js';
 
-const CONSENT_VERSION = '2026-08-21.1';
+const CONSENT_VERSION = '2026-08-22.1';
 
 // The Cloudflare Worker that logs consent. Same free-tier pattern as
 // automations/og-worker/. Until it is deployed the form will not submit.
@@ -103,8 +108,9 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
           <input type="checkbox" name="sms_consent" value="yes" />
           <span>
             By checking this box and providing your phone number, you agree to
-            receive text messages from <strong>Client Optimal</strong> about the
-            AI call-answering demo you requested and follow-up about that
+            receive text messages from <strong>Client Optimal</strong>,{' '}
+            <strong>including marketing messages</strong>, about the AI
+            call-answering demo you requested and follow-up about that
             service. <strong>Message frequency may vary.</strong>{' '}
             <strong>Standard message and data rates may apply.</strong>{' '}
             Reply <strong>STOP</strong> to opt out at any time, or{' '}
