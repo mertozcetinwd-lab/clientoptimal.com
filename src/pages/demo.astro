@@ -66,7 +66,7 @@ const VIDEO_FILE = '';
         <div class="soon">
           <p><strong>The video is going up shortly.</strong></p>
           <p>
-            In the meantime, the short version is below, or just
+            In the meantime, the short version is below, or just{' '}
             <a href={`tel:${contact.phone}`}>call {contact.phoneShow}</a> and ask.
           </p>
         </div>
@@ -102,14 +102,14 @@ const VIDEO_FILE = '';
     <section class="straight">
       <h2>Straight about the limits</h2>
       <ul>
-        <li><b>It handles calls, not texts.</b> Anyone texting your number still reaches
-          you directly, junk included.</li>
-        <li><b>It does not book into a calendar</b> to start with. It takes the details
-          and texts you.</li>
-        <li><b>It will not pretend to be you.</b> It answers as your business and says
-          you will call back.</li>
-        <li><b>One code switches it off.</b> Dial it and everything is exactly as it was,
-          straight away, without calling anyone.</li>
+        <li><span><b>It handles calls, not texts.</b> Anyone texting your number still
+          reaches you directly, junk included.</span></li>
+        <li><span><b>It does not book into a calendar</b> to start with. It takes the
+          details and texts you.</span></li>
+        <li><span><b>It will not pretend to be you.</b> It answers as your business and
+          says you will call back.</span></li>
+        <li><span><b>One code switches it off.</b> Dial it and everything is exactly as
+          it was, straight away, without calling anyone.</span></li>
       </ul>
     </section>
 
@@ -155,7 +155,7 @@ const VIDEO_FILE = '';
   .lede {
     margin: 0;
     max-width: 34rem;
-    color: var(--ink-dim, var(--ink));
+    color: var(--text-dim);
     font-size: 1.03rem;
   }
 
@@ -180,7 +180,7 @@ const VIDEO_FILE = '';
   }
 
   .soon {
-    border: 1px dashed var(--hair, #cdc7b7);
+    border: 1px dashed var(--hair);
     border-radius: 6px;
     padding: 1.6rem 1.3rem;
     text-align: center;
@@ -191,7 +191,7 @@ const VIDEO_FILE = '';
   .soon p:last-child {
     margin: 0;
     font-size: 0.94rem;
-    color: var(--ink-dim, var(--ink));
+    color: var(--text-dim);
   }
 
   section {
@@ -216,7 +216,7 @@ const VIDEO_FILE = '';
     counter-increment: step;
     position: relative;
     padding: 0.85rem 1rem 0.85rem 3.1rem;
-    border: 1px solid var(--hair, #cdc7b7);
+    border: 1px solid var(--hair);
     border-radius: 5px;
   }
   .how li::before {
@@ -227,8 +227,8 @@ const VIDEO_FILE = '';
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--bg, #e8e4d9);
+    background: var(--text);
+    color: var(--bg);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.76rem;
     display: flex;
@@ -241,7 +241,7 @@ const VIDEO_FILE = '';
   }
   .how span {
     font-size: 0.94rem;
-    color: var(--ink-dim, var(--ink));
+    color: var(--text-dim);
   }
 
   .straight ul {
@@ -281,16 +281,16 @@ const VIDEO_FILE = '';
     border-radius: 4px;
     padding: 0.6rem 1.1rem;
     background: var(--accent);
-    color: var(--bg, #e8e4d9);
+    color: var(--bg);
     border: 1px solid var(--accent);
   }
   .btn.ghost {
     background: none;
-    color: var(--ink);
-    border-color: var(--hair, #cdc7b7);
+    color: var(--text);
+    border-color: var(--hair);
   }
   .btn:focus-visible {
-    outline: 2px solid var(--ink);
+    outline: 2px solid var(--text);
     outline-offset: 2px;
   }
 </style>
