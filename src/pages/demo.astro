@@ -1,0 +1,296 @@
+---
+// THE DEMO PAGE. Built 2026-08-23.
+//
+// This is the landing page for the VSL link. It exists on THIS domain for one
+// reason that is not aesthetic: the A2P 10DLC campaign registered against Client
+// Optimal's EIN declares clientoptimal.com in its message flow and samples.
+// Carriers check that links embedded in traffic match the registered brand, and
+// an unknown third-party domain in cold SMS is a filtering trigger.
+//
+// So the video may be recorded and hosted anywhere. The LINK that goes out is
+// always clientoptimal.com/demo.
+//
+// TO PUBLISH THE VIDEO:
+//   1. Upload the recording (YouTube unlisted, or Loom).
+//   2. Paste the embed URL into VIDEO_URL below.
+//      YouTube: https://www.youtube-nocookie.com/embed/XXXXXXXXXXX
+//      Loom:    https://www.loom.com/embed/XXXXXXXXXXXXXXXX
+//   3. Deploy.
+//
+// Until VIDEO_URL is set the page shows a plain "coming shortly" state rather
+// than a broken player. It is safe to deploy empty.
+//
+// VOICE: references/voice.md. Casual, direct, no hype, NO EM DASHES.
+// HARD CONSTRAINT from site.js: zero clients, so nothing here may imply
+// results, client counts, testimonials or track record.
+import Base from '../layouts/Base.astro';
+import { meta, contact } from '../data/site.js';
+
+// Paste the embed URL here once the video is up. Empty string = placeholder state.
+const VIDEO_URL = '';
+
+// Optional: a direct file fallback if the video is self-hosted rather than embedded.
+const VIDEO_FILE = '';
+---
+
+<Base
+  title={`See it answer a missed call · ${meta.name}`}
+  description="A ninety second look at what happens when a call you cannot take goes to an assistant instead of voicemail."
+>
+  <main class="demo">
+    <header class="intro">
+      <p class="eyebrow">For contractors</p>
+      <h1>What happens to the calls you miss</h1>
+      <p class="lede">
+        Ninety seconds. Your phone rings first, every time. This is only what happens
+        when you cannot pick it up.
+      </p>
+    </header>
+
+    <div class="player">
+      {VIDEO_URL ? (
+        <div class="frame">
+          <iframe
+            src={VIDEO_URL}
+            title="Client Optimal demo"
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      ) : VIDEO_FILE ? (
+        <div class="frame">
+          <video src={VIDEO_FILE} controls playsinline preload="metadata"></video>
+        </div>
+      ) : (
+        <div class="soon">
+          <p><strong>The video is going up shortly.</strong></p>
+          <p>
+            In the meantime, the short version is below, or just
+            <a href={`tel:${contact.phone}`}>call {contact.phoneShow}</a> and ask.
+          </p>
+        </div>
+      )}
+    </div>
+
+    <section class="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>
+          <b>Someone calls your number</b>
+          <span>The same number that is already on your truck, your website and your
+            Google listing. Nothing about it changes.</span>
+        </li>
+        <li>
+          <b>Your phone rings, about three times</b>
+          <span>You always get first shot. Pick up and that is the end of it, nothing
+            else happens.</span>
+        </li>
+        <li>
+          <b>If you cannot get to it, an assistant answers</b>
+          <span>In your business's name. It finds out who is calling and what the job
+            is, and it knows what counts as an emergency because you told it.</span>
+        </li>
+        <li>
+          <b>You get a text</b>
+          <span>Their name, their number, the job, and whether it is urgent. Instead of
+            a voicemail you might hear tomorrow.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="straight">
+      <h2>Straight about the limits</h2>
+      <ul>
+        <li><b>It handles calls, not texts.</b> Anyone texting your number still reaches
+          you directly, junk included.</li>
+        <li><b>It does not book into a calendar</b> to start with. It takes the details
+          and texts you.</li>
+        <li><b>It will not pretend to be you.</b> It answers as your business and says
+          you will call back.</li>
+        <li><b>One code switches it off.</b> Dial it and everything is exactly as it was,
+          straight away, without calling anyone.</li>
+      </ul>
+    </section>
+
+    <section class="cta">
+      <h2>Worth a look?</h2>
+      <p>
+        Setup takes about twenty minutes and I do it with you. Easiest thing is just to
+        ring me and ask what you want to know.
+      </p>
+      <p class="ctarow">
+        <a class="btn" href={`tel:${contact.phone}`}>Call {contact.phoneShow}</a>
+        <a class="btn ghost" href={`mailto:${contact.email}`}>Email instead</a>
+      </p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .demo {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 4vw, 2rem) 5rem;
+  }
+
+  .intro {
+    margin-bottom: 1.8rem;
+  }
+  .eyebrow {
+    margin: 0 0 0.6rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.9rem, 5.5vw, 2.7rem);
+    line-height: 1.06;
+    letter-spacing: -0.033em;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 34rem;
+    color: var(--ink-dim, var(--ink));
+    font-size: 1.03rem;
+  }
+
+  /* 16:9 without an aspect-ratio hack that collapses on older Safari */
+  .frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 1px 2px #0a2f450d, 0 12px 34px #0a2f4514;
+  }
+  .frame iframe,
+  .frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .soon {
+    border: 1px dashed var(--hair, #cdc7b7);
+    border-radius: 6px;
+    padding: 1.6rem 1.3rem;
+    text-align: center;
+  }
+  .soon p {
+    margin: 0 0 0.4rem;
+  }
+  .soon p:last-child {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--ink-dim, var(--ink));
+  }
+
+  section {
+    margin-top: 2.8rem;
+  }
+  h2 {
+    margin: 0 0 0.9rem;
+    font-size: 1.28rem;
+    letter-spacing: -0.022em;
+  }
+
+  .how ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .how li {
+    counter-increment: step;
+    position: relative;
+    padding: 0.85rem 1rem 0.85rem 3.1rem;
+    border: 1px solid var(--hair, #cdc7b7);
+    border-radius: 5px;
+  }
+  .how li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0.9rem;
+    top: 0.9rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bg, #e8e4d9);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.76rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .how b {
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .how span {
+    font-size: 0.94rem;
+    color: var(--ink-dim, var(--ink));
+  }
+
+  .straight ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .straight li {
+    display: flex;
+    gap: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .straight li::before {
+    content: '';
+    flex: none;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.62rem;
+  }
+
+  .ctarow {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .btn {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.1rem;
+    background: var(--accent);
+    color: var(--bg, #e8e4d9);
+    border: 1px solid var(--accent);
+  }
+  .btn.ghost {
+    background: none;
+    color: var(--ink);
+    border-color: var(--hair, #cdc7b7);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+</style>
