@@ -208,7 +208,7 @@ export const Component = () => {
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
-            <h1 className="text-[clamp(2.6rem,6.4vw,8rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
+            <h1 className="text-[clamp(2.35rem,5.8vw,7.2rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
               Client <br /> <span className="text-outline">Optimal</span>
             </h1>
             {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this

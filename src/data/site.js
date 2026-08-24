@@ -52,9 +52,12 @@ export const meta = {
 // /services#approach, and the header's "Get in touch" button covers contact,
 // which is why there is no Contact item here.
 //
-// Three items is the ceiling. Header.astro scrolls the nav sideways below 560px
+// Four items is the ceiling (Demo added 2026-08-24). Header.astro scrolls the nav sideways below 560px
 // rather than hiding or wrapping it; a fourth would start to crowd that.
 export const nav = [
+  // Demo leads: it is the one page cold outreach points at, and the funnel runs
+  // watch it -> see it built before -> what that costs -> who I am.
+  { label: 'Demo', href: '/demo' },
   { label: 'Work', href: '/work' },
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },

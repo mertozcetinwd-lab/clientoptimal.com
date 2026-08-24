@@ -101,16 +101,20 @@
      every actual sentence below the fold.
      Ratios are preserved -- the hierarchy is identical, the whole thing is just
      roughly a third smaller at the top end and ~12% smaller in body copy. Display
-     sizes were cut hardest because they were the ones shouting. */
-  --step-eyebrow: 0.72rem;
-  --step-small:   clamp(0.84rem, 0.8rem + 0.16vw, 0.94rem);
-  --step-body:    clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
-  --step-lead:    clamp(1.1rem, 1rem + 0.5vw, 1.38rem);
-  --step-h3:      clamp(1.3rem, 1.1rem + 0.9vw, 1.85rem);
-  --step-h2:      clamp(1.8rem, 1.4rem + 1.9vw, 2.9rem);
+     sizes were cut hardest because they were the ones shouting.
+
+     TRIMMED AGAIN 2026-08-24, same call, "a tiny bit smaller": another ~10% off
+     the display end, ~4% off body, and the header bar down from 6.5rem to 5.9rem.
+     Body stays at or above 0.97rem so running text never drops under ~15.5px. */
+  --step-eyebrow: 0.7rem;
+  --step-small:   clamp(0.82rem, 0.79rem + 0.14vw, 0.9rem);
+  --step-body:    clamp(0.97rem, 0.94rem + 0.18vw, 1.07rem);
+  --step-lead:    clamp(1.05rem, 0.96rem + 0.45vw, 1.28rem);
+  --step-h3:      clamp(1.22rem, 1.05rem + 0.8vw, 1.68rem);
+  --step-h2:      clamp(1.65rem, 1.3rem + 1.7vw, 2.6rem);
   /* For in-page hero blocks that still need to read like a statement rather than
      a poster. The site wordmark has its own sizing in the hero island. */
-  --step-hero:    clamp(2.1rem, 1.6rem + 2.4vw, 3.4rem);
+  --step-hero:    clamp(1.95rem, 1.5rem + 2.15vw, 3.05rem);
 
   /* Archivo is a grotesk with generous sidebearings — display sizes need
      pulling in, body sizes do not. */
@@ -124,7 +128,7 @@
   --gutter: clamp(1.4rem, 0.8rem + 3vw, 3.4rem);
   --section-y: clamp(5rem, 11vh, 9.5rem);
   --hair-w: 1px;
-  --header-h: 6.5rem;
+  --header-h: 5.9rem;
   /* RIG-borrowed corner cut for filled controls (clip-path notches TL + BR).
      Small and restrained: identity, not decoration. */
   --chamfer: 9px;
