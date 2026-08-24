@@ -92,7 +92,11 @@ const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={meshRef}>
-        <icosahedronGeometry args={[13, 1]} />
+        {/* Radius dropped 13 -> 8 on 2026-08-23. At 13 the sculpture spanned the
+            whole hero; it was only tolerable before because a 15rem headline sat
+            on top of it. With the type scaled down it became the loudest thing on
+            the page, and on a phone it covered the screen. */}
+        <icosahedronGeometry args={[8, 1]} />
         <MeshDistortMaterial
           color={mat.color}
           speed={4}
@@ -204,7 +208,7 @@ export const Component = () => {
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
-            <h1 className="text-[clamp(4.5rem,11vw,15rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
+            <h1 className="text-[clamp(2.6rem,6.4vw,8rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
               Client <br /> <span className="text-outline">Optimal</span>
             </h1>
             {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this
