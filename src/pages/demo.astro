@@ -25,6 +25,7 @@
 // results, client counts, testimonials or track record.
 import Base from '../layouts/Base.astro';
 import { meta, contact } from '../data/site.js';
+import VoiceOrb from '../components/ui/VoiceOrb';
 
 // Paste the embed URL here once the video is up. Empty string = placeholder state.
 const VIDEO_URL = 'https://www.youtube-nocookie.com/embed/wDe3INaG8ZI?rel=0&playsinline=1';
@@ -46,6 +47,14 @@ const VIDEO_FILE = '';
         strangers, and to anything you cannot pick up.
       </p>
     </header>
+
+    <div class="interactive-demo">
+      <VoiceOrb client:only="react" />
+    </div>
+
+    <div class="divider">
+      <span>Or watch the ninety second recording</span>
+    </div>
 
     <div class="player">
       {VIDEO_URL ? (
@@ -159,6 +168,36 @@ const VIDEO_FILE = '';
     max-width: 34rem;
     color: var(--text-dim);
     font-size: 1.03rem;
+  }
+
+  .interactive-demo {
+    margin-bottom: 2.2rem;
+  }
+  .divider {
+    text-align: center;
+    margin: 2.5rem 0 1.5rem;
+    position: relative;
+  }
+  .divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--hair);
+    z-index: 0;
+  }
+  .divider span {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    padding: 0 1rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   /* 16:9 without an aspect-ratio hack that collapses on older Safari */

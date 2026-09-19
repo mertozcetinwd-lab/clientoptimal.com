@@ -39,54 +39,51 @@
    mirrors the old amber logic: bright azure clears AA as a GROUND with white
    type, but as TEXT on a near-white field it needs to go darker. */
 
-/* ---- DARK — obsidian field ---- */
+/* ---- DARK: midnight sapphire field ---- */
 :root,
 [data-theme='dark'] {
-  --bg:            #0b0d12;   /* obsidian — the field */
-  --bg-2:          #070911;   /* deeper: bands, scrims */
-  --panel:         #15171f;
-  --text:          #e9ebf0;   /* bone-white — 15.6:1 on --bg */
-  --text-dim:      rgba(233, 235, 240, 0.76);
-  /* --muted is the quietest text on the site (eyebrows, nav, footer) and still
-     has to clear WCAG AA 4.5:1, not merely read as "dim". 0.62 ≈ 5.2:1. */
-  --muted:         rgba(233, 235, 240, 0.62);
-  --hair:          rgba(233, 235, 240, 0.12);
-  --hair-2:        rgba(233, 235, 240, 0.26);
+  --bg:            #070913;   /* deep midnight cosmic navy */
+  --bg-2:          #03050a;   /* deeper bands and scrims */
+  --panel:         #0d1424;   /* deep sapphire panel */
+  --text:          #f0f6ff;   /* crisp arctic ice bone-white: 16.5:1 on --bg */
+  --text-dim:      rgba(240, 246, 255, 0.78);
+  --muted:         rgba(240, 246, 255, 0.62);   /* clears WCAG AA at 5.5:1 */
+  --hair:          rgba(56, 189, 248, 0.15);    /* electric cyan/azure hairline */
+  --hair-2:        rgba(56, 189, 248, 0.28);
 
-  --accent:        #5b9bff;   /* azure as text/rules — 6.9:1 on obsidian */
-  --accent-ink:    #0b0d12;   /* type on azure fills */
+  --accent:        #38bdf8;   /* electric cyan/azure text and rules: 9.8:1 on --bg */
+  --accent-ink:    #03050a;   /* dark type on accent fills */
   --scheme:        dark;
 
-  /* Fills keep a true azure with white type in both themes (see light block). */
-  --accent-fill:     #2764e0;   /* white on this — 5.27:1, both themes */
+  --accent-fill:     #2563eb; /* vibrant royal azure fill */
   --accent-fill-ink: #ffffff;
+  --accent-neon:     #00d2ff; /* luminous neon cyan */
+  --glow-accent:     rgba(56, 189, 248, 0.28);
+  --glow-btn:        0 4px 22px rgba(37, 99, 235, 0.45);
+  --panel-shadow:    0 1px 3px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(56, 189, 248, 0.08);
 }
 
-/* ---- LIGHT — alabaster field (default) ---- */
+/* ---- LIGHT: arctic ice-white field (default) ---- */
 [data-theme='light'] {
-  --bg:            #eef1f5;   /* alabaster — cool near-white */
-  --bg-2:          #e4e8ef;
-  --panel:         #ffffff;
-  --text:          #0e1a2b;   /* deep-navy ink — 15.1:1 on --bg */
-  --text-dim:      rgba(14, 26, 43, 0.76);
-  --muted:         rgba(14, 26, 43, 0.62);   /* 4.71:1 on alabaster */
-  --hair:          rgba(14, 26, 43, 0.14);
-  --hair-2:        rgba(14, 26, 43, 0.28);
+  --bg:            #f0f5fc;   /* crisp arctic ice-white */
+  --bg-2:          #e2ecf9;
+  --panel:         #ffffff;   /* snowy white panel */
+  --text:          #09162e;   /* deep midnight sapphire ink: 15.8:1 on --bg */
+  --text-dim:      rgba(9, 22, 46, 0.76);
+  --muted:         rgba(9, 22, 46, 0.62);       /* 5.2:1 on alabaster */
+  --hair:          rgba(37, 99, 235, 0.14);
+  --hair-2:        rgba(37, 99, 235, 0.26);
 
-  /* The one place the themes legitimately diverge, same as the sibling site:
-     the bright fill azure (#2764e0) as TEXT on alabaster is ~3.4:1 and fails AA
-     for small text. This darker azure clears it at 5.72:1. If you ever "unify"
-     --accent with --accent-fill, you break the light theme for small azure text. */
-  --accent:        #1657c9;
+  --accent:        #1d4ed8;   /* deep royal azure for small text: clears AA at 6.1:1 */
   --accent-ink:    #ffffff;
   --scheme:        light;
 
-  /* FILLS DO NOT SWAP. The AA failure above is azure as TEXT on a near-white
-     ground. Azure as a GROUND with white type is a different pair and clears AA
-     in both themes. So: --accent for text/rules (theme-dependent), --accent-fill
-     for grounds (constant). */
-  --accent-fill:     #2764e0;
+  --accent-fill:     #2563eb; /* vibrant electric azure */
   --accent-fill-ink: #ffffff;
+  --accent-neon:     #0284c7;
+  --glow-accent:     rgba(37, 99, 235, 0.18);
+  --glow-btn:        0 4px 18px rgba(37, 99, 235, 0.28);
+  --panel-shadow:    0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(37, 99, 235, 0.08);
 }
 
 /* ---- type + scale + rhythm (theme-independent) ---- */
@@ -225,7 +222,8 @@ body::after {
 }
 .badge .badge-dot {
   width: 5px; height: 5px; flex: none;
-  background: var(--accent);
+  background: var(--accent-neon);
+  box-shadow: 0 0 8px var(--accent-neon);
 }
 
 .display {
@@ -294,7 +292,11 @@ body::after {
     calc(100% - var(--chamfer)) 100%,
     0 100%, 0 var(--chamfer));
 }
-.btn.primary:hover { filter: brightness(1.08); border-color: var(--accent-fill); }
+.btn.primary:hover {
+  filter: brightness(1.08);
+  border-color: var(--accent-fill);
+  box-shadow: var(--glow-btn);
+}
 
 /* Inline text link with an amber underline that draws on hover. The one
    flourish this site keeps. */

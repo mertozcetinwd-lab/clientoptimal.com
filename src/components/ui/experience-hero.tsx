@@ -15,18 +15,17 @@ const LINKEDIN = 'https://www.linkedin.com/in/mert-ozcetin/';
 
 const PALETTE = {
   dark: {
-    accent: '#3f7dff',
-    monolith: '#0a0c12',
-    shaderBase: new THREE.Color(0.004, 0.006, 0.012),
-    shaderPeak: new THREE.Color(0.03, 0.05, 0.11),
+    accent: '#38bdf8',
+    monolith: '#070913',
+    shaderBase: new THREE.Color(0.007, 0.014, 0.038),
+    shaderPeak: new THREE.Color(0.045, 0.13, 0.32),
   },
   light: {
-    accent: '#1657c9',
+    accent: '#1d4ed8',
     monolith: '#ffffff',
-    shaderBase: new THREE.Color(0.975, 0.98, 0.985),
-    shaderPeak: new THREE.Color(0.96, 0.97, 0.98),
+    shaderBase: new THREE.Color(0.94, 0.96, 0.99),
+    shaderPeak: new THREE.Color(0.88, 0.93, 0.98),
   },
-
 };
 
 const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {

@@ -80,8 +80,8 @@ const isHome = Astro.url.pathname === '/';
      The scroll script removes .over-hero once you scroll past the hero, and the
      header returns to the themed solid above. Colours transition for both. */
   .hdr.over-hero {
-    background: #020306;
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: #070913;
+    border-bottom-color: rgba(56, 189, 248, 0.12);
   }
   .hdr.over-hero .brand { color: #fff; }
   .hdr.over-hero .nav a { color: rgba(255, 255, 255, 0.6); }
@@ -161,9 +161,12 @@ const isHome = Astro.url.pathname === '/';
       100% calc(100% - var(--chamfer)),
       calc(100% - var(--chamfer)) 100%,
       0 100%, 0 var(--chamfer));
-    transition: filter var(--t-fast) var(--ease);
+    transition: filter var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
   }
-  .talk:hover { filter: brightness(1.08); }
+  .talk:hover {
+    filter: brightness(1.08);
+    box-shadow: var(--glow-btn);
+  }
 
   /* Sacrifice order, most expendable first: the duplicate CTA goes, then the
      theme toggle. NAV LINKS ARE NEVER HIDDEN. Dropping them below a breakpoint
