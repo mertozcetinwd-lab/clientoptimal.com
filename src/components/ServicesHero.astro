@@ -1,44 +1,28 @@
 ---
-// Page hero for /services. Deliberately NOT the homepage's 3D React island: that
-// costs ~1MB of three.js and belongs to the front door only. This is plain Astro
-// and token CSS, so /services ships zero React and zero Tailwind.
-//
-// First real use of the .btn / .btn.primary primitives and the --step-hero type
-// step, all of which have been sitting unused in tokens.css.
 import { servicesHero } from '../data/site.js';
 ---
 
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{servicesHero.eyebrow}</p>
-    <h1 class="display title reveal">{servicesHero.title}</h1>
-    <p class="lead intro reveal">{servicesHero.lead}</p>
-    <div class="ctas reveal" style="--i:1">
-      <a
-        class="btn primary"
-        href={servicesHero.cta.href}
-        target={servicesHero.cta.href.startsWith('http') ? '_blank' : undefined}
-        rel={servicesHero.cta.href.startsWith('http') ? 'noopener' : undefined}
-      >
-        {servicesHero.cta.label}
-      </a>
-      <a class="btn" href={servicesHero.secondary.href}>{servicesHero.secondary.label}</a>
+<section class="route-page-intro route-services-hero">
+  <div class="route-wrap route-services-hero__grid">
+    <div>
+      <h1 class="route-page-title">A call route, built around your phone system.</h1>
+      <div class="route-services-hero__actions">
+        <a class="route-button" href={servicesHero.cta.href}>{servicesHero.cta.label}<span aria-hidden="true">↗</span></a>
+        <a class="route-link" href={servicesHero.secondary.href}>{servicesHero.secondary.label}<span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <div class="route-services-hero__aside">
+      <p>{servicesHero.lead}</p>
+      <span class="route-annotation">Scope / configure / test / support</span>
     </div>
   </div>
 </section>
 
 <style>
-  /* No top border: this is the first thing under the header, so a hairline there
-     would read as a stray rule rather than a section divider. */
-  .hero { padding-block: clamp(3.2rem, 9vh, 6rem) var(--section-y); }
-
-  .title {
-    font-size: var(--step-hero);
-    max-width: 20ch;
-    margin-block: 1.4rem 1.5rem;
-  }
-
-  .intro { margin-bottom: 3rem; }
-
-  .ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .route-services-hero__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr); align-items: end; gap: clamp(2.5rem, 8vw, 8rem); }
+  .route-services-hero .route-page-title { max-width: 10ch; font-size: clamp(3.5rem, 8vw, 8rem); line-height: 0.9; letter-spacing: -0.065em; }
+  .route-services-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; margin-top: 2rem; }
+  .route-services-hero__aside { padding-top: 1rem; border-top: 2px solid var(--accent); }
+  .route-services-hero__aside p { margin-bottom: 1.1rem; color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; }
+  @media (max-width: 760px) { .route-services-hero__grid { grid-template-columns: 1fr; } }
 </style>

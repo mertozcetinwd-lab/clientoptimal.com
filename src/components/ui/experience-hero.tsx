@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, MeshDistortMaterial } from '@react-three/drei';
+import { Canvas, useThree } from '@react-three/fiber';
+import { MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import '../../styles/tailwind.css';
@@ -11,7 +11,7 @@ import '../../styles/tailwind.css';
 // ABSOLUTE within the hero section rather than fixed over the whole page (this
 // site has many sections below the hero).
 
-const LINKEDIN = 'https://www.linkedin.com/in/mert-ozcetin/';
+// The hero CTA opens the disclosed browser sample; the second CTA goes to contact.
 
 const PALETTE = {
   dark: {
@@ -29,7 +29,6 @@ const PALETTE = {
 };
 
 const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
   const { viewport } = useThree();
   const colors = PALETTE[theme];
   const uniforms = useMemo(
@@ -42,17 +41,8 @@ const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {
     [colors.shaderBase, colors.shaderPeak]
   );
 
-  useFrame((state) => {
-    const { clock, mouse } = state;
-    if (meshRef.current) {
-      const mat = meshRef.current.material as THREE.ShaderMaterial;
-      mat.uniforms.uTime.value = clock.getElapsedTime();
-      mat.uniforms.uMouse.value.lerp(mouse, 0.05);
-    }
-  });
-
   return (
-    <mesh ref={meshRef} scale={[viewport.width, viewport.height, 1]}>
+    <mesh scale={[viewport.width, viewport.height, 1]}>
       <planeGeometry args={[1, 1]} />
       <shaderMaterial
         transparent
@@ -76,12 +66,6 @@ const LiquidBackground = ({ theme }: { theme: 'dark' | 'light' }) => {
 };
 
 const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.25;
-    }
-  });
   // Light mode needs a matte, nearly-background object so the monolith doesn't
   // read as a dark blob over the headline. Dark mode keeps the chrome sculpture.
   const isDark = theme === 'dark';
@@ -89,8 +73,7 @@ const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
     ? { color: PALETTE.dark.monolith, metalness: 1.0, roughness: 0.05, distort: 0.4, emissive: '#000000', emissiveIntensity: 0 }
     : { color: PALETTE.light.monolith, metalness: 0, roughness: 0.95, distort: 0.15, emissive: '#ffffff', emissiveIntensity: 0.35 };
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh ref={meshRef}>
+      <mesh>
         {/* Radius dropped 13 -> 8 on 2026-08-23. At 13 the sculpture spanned the
             whole hero; it was only tolerable before because a 15rem headline sat
             on top of it. With the type scaled down it became the loudest thing on
@@ -106,15 +89,14 @@ const Monolith = ({ theme }: { theme: 'dark' | 'light' }) => {
           emissiveIntensity={mat.emissiveIntensity}
         />
       </mesh>
-    </Float>
   );
 };
 
 const cells = [
-  { id: '001', title: 'AVAILABILITY', val: 'Open', type: 'progress' as const },
-  { id: '002', title: 'WHAT I BUILD', type: 'data' as const,
-    rows: [ ['Automations', 'Agents'], ['Systems', 'Tools'] ] },
-  { id: '003', title: 'HOW I WORK', type: 'text' as const },
+  { id: '001', title: 'SERVICE MODEL', val: 'Custom setup', type: 'status' as const },
+  { id: '002', title: 'PROPOSED FLOW', type: 'data' as const,
+    rows: [ ['Approved script', 'AI disclosure'], ['Exceptions', 'Human follow-up'] ] },
+  { id: '003', title: 'DRAFT LIMITS', type: 'text' as const },
 ];
 
 function useSiteTheme() {
@@ -137,7 +119,6 @@ export const Component = () => {
   const theme = useSiteTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -156,22 +137,6 @@ export const Component = () => {
         x: 60, opacity: 0, stagger: 0.1, duration: 1.5, ease: 'power4.out', delay: 1, clearProps: 'all',
       });
 
-      const handleMouseMove = (e: MouseEvent) => {
-        if (!ctaRef.current) return;
-        const rect = ctaRef.current.getBoundingClientRect();
-        const dist = Math.hypot(e.clientX - (rect.left + rect.width / 2), e.clientY - (rect.top + rect.height / 2));
-        if (dist < 150) {
-          gsap.to(ctaRef.current, {
-            x: (e.clientX - (rect.left + rect.width / 2)) * 0.4,
-            y: (e.clientY - (rect.top + rect.height / 2)) * 0.4,
-            duration: 0.6,
-          });
-        } else {
-          gsap.to(ctaRef.current, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
-        }
-      };
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -203,27 +168,26 @@ export const Component = () => {
             <div className="relative w-2.5 h-2.5 rounded-full bg-[var(--accent)]">
               <div className="absolute inset-0 rounded-full animate-ping opacity-40 bg-[var(--accent)]" />
             </div>
-            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] tracking-[0.2em] uppercase">AI Consulting Agency</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] tracking-[0.2em] uppercase">AI Voice Agent Implementation</span>
           </div>
 
           <div className="max-w-4xl lg:-translate-y-8 pr-12">
-            <h1 className="text-[clamp(2.35rem,5.8vw,7.2rem)] font-black leading-[0.86] tracking-tighter text-[var(--text)] uppercase">
-              Client <br /> <span className="text-outline">Optimal</span>
+            <h1 className="text-[clamp(2.35rem,5.8vw,7.2rem)] font-black leading-[0.9] tracking-tighter text-[var(--text)] uppercase">
+              AI call intake <br /> <span className="text-outline">with a person in the loop.</span>
             </h1>
             {/* .hero-lede, not mt-14: Tailwind margin utilities are dead in this
                 island (tokens.css's unlayered `* { margin: 0 }` outranks @layer).
                 See the note in tailwind.css. */}
             <p className="hero-lede font-mono text-[clamp(12px,1.05vw,17px)] text-[var(--muted)] uppercase tracking-[0.35em] max-w-lg leading-relaxed">
-              Automations, agents, and internal tools. Built end to end and shipped to run on their own.
+              Custom inbound call handling for {'{{initial audience}}'}. The assistant identifies as AI, follows approved questions, and sends exceptions to {'{{human follow-up route}}'}. Phone setup, price, support, and launch timing are still to confirm.
             </p>
           </div>
 
-          <a
-            ref={ctaRef}
-            href={LINKEDIN}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-fit flex items-center gap-6 group lg:-translate-y-20 no-underline"
+          <div className="flex items-center gap-8 lg:-translate-y-20">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-voice-widget'))}
+            className="w-fit flex items-center gap-6 group no-underline"
           >
             <div className="w-16 h-16 rounded-full border border-[var(--hair)] flex items-center justify-center group-hover:bg-[var(--text)] transition-all duration-500 overflow-hidden">
               <svg
@@ -233,8 +197,15 @@ export const Component = () => {
                 <path d="M7 17L17 7M17 7H8M17 7V16" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] uppercase tracking-[0.2em]">Start a conversation</span>
+            <span className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] uppercase tracking-[0.2em]">Hear the sample</span>
+          </button>
+          <a
+            href="/contact"
+            className="font-mono text-[clamp(12px,1vw,15px)] font-bold text-[var(--text)] uppercase tracking-[0.2em] underline decoration-[var(--hair-2)] underline-offset-8 hover:decoration-[var(--accent)] transition-colors no-underline"
+          >
+            <span className="border-b border-[var(--hair-2)] pb-2">Discuss a call flow</span>
           </a>
+          </div>
         </div>
 
         <div className="w-full md:w-[26rem] lg:w-[32rem] flex-shrink-0 flex flex-col gap-6 justify-center z-20">
@@ -243,15 +214,10 @@ export const Component = () => {
               <span className="font-mono text-[clamp(10px,0.85vw,13px)] text-[var(--muted)] uppercase tracking-widest block mb-3">
                 {item.id} // {item.title}
               </span>
-              {item.type === 'progress' ? (
+              {item.type === 'status' ? (
                 <div className="flex justify-between items-end mt-2">
-                  <h4 className="text-4xl sm:text-5xl font-bold text-[var(--text)] tracking-tighter">{item.val}</h4>
-                  {/* One bar, one third of the track, sweeping right the way through.
-                      It used to be a static 45% azure block with a second azure bar
-                      sliding inside it, which read as "fill, then snap". */}
-                  <div className="h-[2px] w-20 bg-[var(--hair)] rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 rounded-full animate-loading bg-[var(--accent)]" />
-                  </div>
+                  <h4 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tighter">{item.val}</h4>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)]" aria-hidden="true" />
                 </div>
               ) : item.type === 'data' ? (
                 <div className="mt-4 flex flex-col gap-3">
@@ -267,7 +233,7 @@ export const Component = () => {
                 </div>
               ) : (
                 <h3 className="text-[clamp(14px,1.1vw,19px)] font-medium text-[var(--text-dim)] mt-3 leading-snug">
-                  Remote, <span className="italic text-[var(--text)]">end to end</span>. Built to run on its own, not demoed once.
+                  No quotes, bookings, dispatch, or callback-time promises in this draft.
                 </h3>
               )}
             </div>

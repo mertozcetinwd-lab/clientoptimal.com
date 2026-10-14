@@ -38,10 +38,10 @@ const VIDEO_FILE = '';
   title="AI call intake sample · Client Optimal"
   description="Review a sample AI voice interaction and the proposed inbound call intake flow. Audio processing and implementation limits are disclosed."
 >
-  <main class="demo">
+  <div class="demo">
     <header class="intro">
-      <p class="eyebrow">Sample, not a client deployment</p>
       <h1>Hear a browser sample of AI call intake</h1>
+      <p class="route-annotation">Illustrative sample / not a client deployment</p>
       <p class="lede">
         The recording and interactive sample are demonstrations, not customer
         calls or proof of a client result. The interactive sample sends microphone
@@ -59,15 +59,23 @@ const VIDEO_FILE = '';
 
     <div class="player">
       {VIDEO_URL ? (
-        <div class="frame">
-          <iframe
-            src={VIDEO_URL}
-            title="Illustrative AI call intake sample"
-            loading="lazy"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <>
+          <div class="frame">
+            <iframe
+              src={VIDEO_URL}
+              title="Illustrative AI call intake sample"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="video-fallback">
+            Having trouble with the embed?{' '}
+            <a href="https://www.youtube.com/watch?v=wDe3INaG8ZI" target="_blank" rel="noopener noreferrer">
+              Open the recorded sample on YouTube <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        </>
       ) : VIDEO_FILE ? (
         <div class="frame">
           <video src={VIDEO_FILE} controls playsinline preload="metadata"></video>
@@ -137,7 +145,7 @@ const VIDEO_FILE = '';
         <a class="btn ghost" href={`mailto:${contact.email}`}>Email instead</a>
       </p>
     </section>
-  </main>
+  </div>
 </Base>
 
 <style>
@@ -221,6 +229,14 @@ const VIDEO_FILE = '';
     border: 0;
     display: block;
   }
+    .video-fallback {
+      margin-top: 0.85rem;
+      color: var(--text-dim);
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+    .video-fallback a { color: var(--text); text-decoration-color: var(--accent); }
+    .video-fallback a:hover { color: var(--accent); }
 
   .soon {
     border: 1px dashed var(--hair);
@@ -335,5 +351,47 @@ const VIDEO_FILE = '';
   .btn:focus-visible {
     outline: 2px solid var(--text);
     outline-offset: 2px;
+  }
+
+  .demo {
+    width: min(calc(100% - 2 * var(--gutter)), var(--wrap));
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding: clamp(3.5rem, 8vw, 7rem) 0;
+  }
+  .demo .intro { align-self: start; max-width: 47rem; margin: 0; }
+  .demo h1 { max-width: 10ch; margin-bottom: 1.2rem; font-family: var(--font-display); font-size: clamp(3.3rem, 7.5vw, 7rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.065em; }
+  .demo .intro .route-annotation { margin-bottom: 1.1rem; }
+  .demo .lede { margin-top: 1rem; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.65; }
+  .demo .interactive-demo { grid-column: 2; grid-row: 1; align-self: stretch; display: grid; align-items: center; min-height: 25rem; padding: clamp(1rem, 3vw, 2.3rem); border-top: 2px solid var(--accent); border-bottom: 1px solid var(--hair); background: var(--bg-2); }
+  .demo .divider, .demo .player, .demo .cta { grid-column: 1 / -1; }
+  .demo .divider { margin-top: 0; }
+  .demo .divider span { background: var(--bg); }
+  .demo .player { margin-top: -1.5rem; }
+  .demo .frame { border-radius: 0; box-shadow: none; outline: 1px solid var(--hair); }
+  .demo .how, .demo .straight { align-self: start; margin-top: 1rem; padding-top: 1.2rem; border-top: 1px solid var(--accent); }
+  .demo .how { grid-column: 1; }
+  .demo .straight { grid-column: 2; }
+  .demo section { margin-top: 0; }
+  .demo h2 { margin-bottom: 1.2rem; font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 650; letter-spacing: -0.045em; }
+  .demo .how ol { gap: 0; }
+  .demo .how li { padding: 1.1rem 0 1.1rem 3rem; border: 0; border-top: 1px solid var(--hair); border-radius: 0; }
+  .demo .how li:last-child { border-bottom: 1px solid var(--hair); }
+  .demo .how li::before { left: 0; top: 1.05rem; width: 1.6rem; height: 1.6rem; border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); }
+  .demo .how span { display: block; line-height: 1.6; }
+  .demo .straight ul { gap: 0; }
+  .demo .straight li { padding-block: 0.9rem; border-top: 1px solid var(--hair); line-height: 1.6; }
+  .demo .straight li:last-child { border-bottom: 1px solid var(--hair); }
+  .demo .cta { margin-top: 1.5rem; padding: clamp(1.5rem, 4vw, 3rem); background: var(--bg-2); }
+  .demo .cta > p { max-width: 60ch; color: var(--text-dim); }
+  .demo .ctarow { margin-top: 1.5rem; }
+  .demo .btn { border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); border-color: var(--accent-fill); }
+  .demo .btn.ghost { background: transparent; color: var(--text); border-color: var(--hair-2); }
+  @media (max-width: 780px) {
+    .demo { grid-template-columns: 1fr; }
+    .demo .interactive-demo { grid-column: 1; grid-row: auto; min-height: 21rem; }
+    .demo .how, .demo .straight { grid-column: 1; }
   }
 </style>

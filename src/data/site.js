@@ -15,12 +15,8 @@
 // What this site proves instead is CAPABILITY, not track record: what gets
 // built, and the principles behind how.
 //
-// NOTE (2026-07-23): it used to also point at six public repos ("Read the
-// code"), which was the strongest evidence on the site. Mert removed that
-// section, so the live pages now carry NO external evidence at all. The
-// constraint above is therefore stricter than before, not looser: with nothing
-// left to point at, any drift into implied results has nothing honest holding it
-// down. The `proof` export below is kept but renders nowhere.
+// The portfolio and public-repository sections are not part of this business
+// site. Its browser sample is a demo, not evidence of a client deployment.
 //
 // Voice: references/voice.md in the parent AIOS. Casual, direct, blunt, no
 // corporate polish, no hype, NO EM DASHES.
@@ -45,27 +41,19 @@ export const meta = {
   effectiveDate: 'October 13, 2026',
 };
 
-// "Work" came back 2026-07-31, pointing at a REAL page this time. It was dropped
-// on 2026-07-23 because its only target was the #proof repo strip, which came off
-// the homepage in the same pass, and a nav item aimed at a section that no longer
-// exists is a dead link. /work is now a route with a written case study on it, so
-// the original objection is gone.
-//
 // "Approach" stays dropped, by request. That content still lives at
 // /services#approach, and the header's "Get in touch" button covers contact,
 // which is why there is no Contact item here.
 //
-// Four items is the ceiling (Demo added 2026-08-24). Header.astro scrolls the nav sideways below 560px
-// rather than hiding or wrapping it; a fourth would start to crowd that.
+// Keep the short navigation readable on mobile; Header.astro scrolls it sideways
+// below 560px rather than hiding or wrapping it.
 //
 // 2026-09-19: "Services" reads as "Voice agent" now. Same route, same anchor
 // structure, no redirects needed.
 export const nav = [
-  // Demo leads: it is the one page cold outreach points at, and the funnel runs
-  // watch it -> see it built before -> what that costs -> who I am.
+  // Keep the live sample and the implementation offer easy to reach.
   { label: 'Demo', href: '/demo' },
   { label: 'Voice agent', href: '/services' },
-  { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
 ];
 
@@ -260,140 +248,6 @@ export const principles = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// The work. Added 2026-07-31.
-//
-// The site argued entirely from method before this: the problem, how a build
-// runs, the services, the principles. All of it a claim about HOW Mert works and
-// none of it a thing he has built. /work/lead-engine had been written and was
-// linked from nowhere, so it may as well not have existed.
-//
-// Entries are added when one is genuinely written, never to make the page look
-// busier, and every figure on every card traces to something real. Nothing here
-// is invented.
-// ---------------------------------------------------------------------------
-export const workMeta = {
-  title: 'The work · Client Optimal',
-  description:
-    'Builds documented in full: a prospecting engine on free public data, and a resume screener that has to cite the line justifying every verdict.',
-};
-
-// Copy for /work. Deliberately COUNT-FREE. It read "One build, documented
-// properly" while one existed and went wrong the moment a second was written --
-// the same trap the sibling site solved by deriving its number. There is no
-// number to derive here, so the wording just does not depend on one, and the
-// honest "no wall of logos" argument holds at one entry or ten.
-export const work = {
-  eyebrow: 'The work',
-  title: 'Each build, written up in full.',
-  lead: 'Client Optimal is early, so there is no wall of logos here. Each job is written up properly instead: where the data came from, what the system decided, and the unflattering number it prints on purpose. More get added as they ship.',
-};
-
-// Copy for the homepage band. Deliberately different from the /work heading: on
-// the homepage this section's job is to cash the cheque the four principles just
-// wrote, so it names the method first and the build second.
-export const workBand = {
-  eyebrow: 'The work',
-  title: 'See the work that exists.',
-  lead: 'The published case studies document earlier engineering projects. They are not voice-agent client results. The browser demo is a sample interaction, not a customer deployment.',
-  cta: { label: 'See the rest of the work', href: '/work' },
-};
-
-// Rendered by CaseStudyCard.astro on both /work and the homepage. `figures` is
-// the same 412 / 43 / 11 funnel printed on the case study itself; if one changes,
-// change both, because a homepage that disagrees with its own case study is worse
-// than a homepage with no figures on it.
-export const caseStudies = [
-  {
-    href: '/work/lead-engine',
-    kicker: 'Nonprofit prospecting',
-    title: 'A lead engine that says less than it knows.',
-    summary:
-      'Two free public datasets in, a ranked prospect list out. It grades the confidence of every contact name it finds, and returns “unclear” rather than invent one.',
-    figures: [
-      { num: '412', label: 'organisations examined' },
-      { num: '43', label: 'inside the target size band' },
-      { num: '11', label: 'showing measurable financial distress' },
-    ],
-    stack: 'Python · IPEDS · ProPublica Form 990 API',
-  },
-  {
-    href: '/work/resume-screener',
-    kicker: 'Hiring',
-    title: 'A screener that has to show its work.',
-    summary:
-      'Reads a job post, assesses each resume against it, and cites the line justifying every verdict. A claim it cannot ground in the document is thrown away before it reaches you.',
-    // "0 of 8" is the odd one out and it is deliberate: it is the number the tool
-    // was willing to return rather than find something, and it is the same
-    // argument the lead engine makes with "3 of 11". Verified by hand -- an IT
-    // technician against an engineering role.
-    figures: [
-      { num: '8', label: 'requirements read from the job post' },
-      { num: '3', label: 'rules enforced in code, not asked for in a prompt' },
-      { num: '0 of 8', label: 'the score it was willing to return' },
-    ],
-    stack: 'Python · Claude API · pypdf · python-docx',
-  },
-];
-
-// Every repo below is public and really exists.
-//
-// Was dormant from 2026-07-23 to 2026-07-31, when it came off the homepage. It is
-// back, but LOWER and SMALLER: it renders at the foot of /work, underneath the
-// case study, and on no other page. That distinction is the whole reason it is
-// defensible again. The 2026-07-23 objection was that a raw list of repo links was
-// the only proof on the HOMEPAGE, which asks a buyer to go read source code to
-// find out whether to hire someone. Sitting under a written case study on a
-// dedicated page, the same list is corroboration for a reader who wants it, and
-// costs nothing to a reader who does not.
-//
-// The lead lost the "no results, so read the code instead" argument it used to
-// carry. The case study makes that case better, and repeating it here would make
-// the page apologise twice.
-export const proof = {
-  eyebrow: 'Source',
-  title: 'Or read the code.',
-  lead: 'Every repo below is public. Scheduled agents, lead scoring, research pipelines, tools wired into one flow. The same class of build you would get, open to read before you decide anything.',
-  repos: [
-    {
-      name: 'ai-lead-qualifier',
-      desc: 'Scores and tiers inbound leads against a written ideal-customer profile, and returns a validated verdict. The rubric is a markdown file, so changing what counts as a good lead is an edit, not a deploy.',
-      stack: 'Next.js, Trigger.dev, Claude API, Supabase, Stripe',
-      href: 'https://github.com/mertozcetinwd-lab/ai-lead-qualifier',
-    },
-    {
-      name: 'phase3-automations',
-      desc: 'A scheduled research agent. Crawls sources, hands what it finds to Claude to condense, appends the result to a spreadsheet. Typed env access and retry logic underneath, because it runs on a cron.',
-      stack: 'Trigger.dev, Claude SDK, Firecrawl, Google Sheets',
-      href: 'https://github.com/mertozcetinwd-lab/phase3-automations',
-    },
-    {
-      name: 'phase3-automations2',
-      desc: 'A small JSON payload about a company goes in. A written strategy report comes out as a real Word document, filed in Google Drive. Logs every step, survives its own errors, never stops to ask a question.',
-      stack: 'Trigger.dev, Claude API, Google Drive, GitHub Actions',
-      href: 'https://github.com/mertozcetinwd-lab/phase3-automations2',
-    },
-    {
-      name: 'daily-digest',
-      desc: 'Turns Claude loose on live AI news with web search, formats the result, and files it as a page in a Notion database. Runs on command rather than a cron, which was a deliberate call to stop it burning credits daily.',
-      stack: 'Trigger.dev, Claude web search, Notion API',
-      href: 'https://github.com/mertozcetinwd-lab/daily-digest',
-    },
-    {
-      name: 'n8n-quote-generator',
-      desc: 'Type a project brief and the hours; an n8n workflow prices it and returns an itemized quotation ready to send. A serverless proxy holds the webhook server-side so the browser never sees it.',
-      stack: 'React, Vite, TypeScript, Vercel, n8n',
-      href: 'https://github.com/mertozcetinwd-lab/n8n-quote-generator',
-    },
-    {
-      name: 'mertozcetin.com',
-      desc: 'Mert’s portfolio, built with Claude Code. Zero runtime dependencies, two typefaces, three colours, and a set of generative plates the site draws for itself at build time.',
-      stack: 'Astro, hand-authored CSS, vanilla JS',
-      href: 'https://github.com/mertozcetinwd-lab/mertozcetin.com',
-    },
-  ],
-};
-
 // Closing CTA, generalist and deliberately low-friction: it asks for a
 // description of the task, not a commitment. The honest "I will tell you straight
 // whether it is worth it" is a real trust signal that costs nothing to make.
@@ -545,7 +399,7 @@ export const industries = {
 export const aboutMeta = {
   title: 'About · Client Optimal',
   description:
-    'Client Optimal is a one-person AI voice agent implementation studio run by Mert Ozcetin. Review the sample, service scope, and existing engineering work.',
+    'Client Optimal is a one-person AI voice agent implementation studio run by Mert Ozcetin. Learn about the sample, implementation process, and ongoing support.',
 };
 
 // EVERY claim here is traceable to something already true and stated elsewhere in
@@ -562,7 +416,7 @@ export const about = {
   lead: 'I run Client Optimal, a one-person implementation studio working remotely on US Eastern hours. I am the contact for scoping, building, and handover.',
   paras: [
     'The current focus is custom AI voice-agent implementation and ongoing support: map the phone route, agree what the assistant may ask, choose a human fallback, and test the flow before launch. Provider, integration, support scope, response terms, and price depend on the project.',
-    'The browser interaction on this site is a sample, not a customer deployment. The case studies on the Work page cover earlier engineering projects; they are not voice-agent client results.',
+    'The browser interaction on this site is a sample, not a customer deployment.',
     'A project starts with the business model and call path. If the service, revenue model, or caller needs are a poor fit, I will say so before proposing a build.',
   ],
 };

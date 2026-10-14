@@ -24,14 +24,15 @@ const report = await page.evaluate(() => {
   const track = bar?.parentElement;
   const cs = (el) => (el ? getComputedStyle(el) : null);
   const eyebrow = [...document.querySelectorAll('section span')]
-    .find((s) => /consulting|automation studio/i.test(s.textContent || ''));
+    .find((s) => /voice agents/i.test(s.textContent || ''));
   return {
     canvas: !!document.querySelector('section canvas'),
     cells: document.querySelectorAll('.command-cell').length,
     eyebrow: (eyebrow?.textContent || '').trim(),
     headline: (h1?.textContent || '').trim().replace(/\s+/g, ' '),
     descMarginTop: cs(desc)?.marginTop,
-    cta: (document.querySelector('section a[href*="linkedin"] span')?.textContent || '').trim(),
+    cta: (document.querySelector('section button span')?.textContent || '').trim(),
+    bookCta: (document.querySelector('section a[href^="tel:"]')?.textContent || '').trim(),
     // availability bar: one child, 1/3 of track, linear infinite sweep
     barChildren: track ? track.children.length : null,
     barWidth: bar ? Math.round(bar.getBoundingClientRect().width) : null,

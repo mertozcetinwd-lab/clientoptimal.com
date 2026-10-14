@@ -1,13 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-
-// The Fluid Cloud orb, extracted verbatim from VoiceOrb.tsx (2026-09-19) so the
-// floating VoiceAgentWidget launcher and the /demo card can share one shader
-// implementation instead of two drifting copies. WebGL Fluid Cloud Shader Orb
-// (Siri / Hume / Apple Intelligence aesthetic), strict tokens.css discipline.
+import React, { useEffect, useRef } from 'react';
+import VoiceOrbStill from './VoiceOrbStill';
 
 export type OrbState = 'idle' | 'connecting' | 'listening' | 'speaking' | 'error';
 
-// Self-contained WebGL Fluid Cloud Shader Orb
+// An original audio-reactive cloud field in Client Optimal's existing blue palette.
+// The SVG beneath the canvas remains visible if WebGL is unavailable.
 export function FluidCloudOrb({
   state,
   volume,
@@ -22,12 +19,30 @@ export function FluidCloudOrb({
   title?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animRef = useRef<number | null>(null);
+  const stateRef = useRef(state);
+  const volumeRef = useRef(volume);
+  const refreshRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    stateRef.current = state;
+    volumeRef.current = volume;
+    refreshRef.current?.();
+  }, [state, volume]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true });
+
+    let gl: WebGLRenderingContext | null = null;
+    try {
+      gl = canvas.getContext('webgl', {
+        alpha: true,
+        antialias: true,
+        premultipliedAlpha: true,
+      });
+    } catch {
+      return;
+    }
     if (!gl) return;
 
     const vsSource = `
@@ -89,17 +104,19 @@ export function FluidCloudOrb({
           sin(p.y * 2.4 + t * 0.68 + warp.y * 3.2),
           cos(p.x * 2.1 - t * 0.61 + warp.x * 3.0)
         );
-        vec2 warped = p + (warp - 0.5) * (1.18 + u_activity * 0.38) + curl * (0.035 + u_activity * 0.07);
+        vec2 warped = p + (warp - 0.5) * (1.18 + u_activity * 0.38)
+          + curl * (0.035 + u_activity * 0.07);
         float broad = fbm(warped * 0.92 + vec2(t * 0.14, -t * 0.18));
         float folded = fbm(warped * 1.66 + vec2(-t * 0.23, t * 0.19) + 5.2);
         float field = mix(broad, folded, 0.3 + u_activity * 0.14);
 
-        float horizon = 0.46 + 0.08 * sin((uv.x + warp.x * 0.2) * 5.4 + t * 0.42) + 0.16 * (broad - 0.5);
+        float horizon = 0.46 + 0.08 * sin((uv.x + warp.x * 0.2) * 5.4 + t * 0.42)
+          + 0.16 * (broad - 0.5);
         float upper = smoothstep(horizon - 0.12, horizon + 0.08, uv.y);
         float band = exp(-pow((uv.y - horizon) * (5.2 + u_activity * 0.8), 2.0));
         float cloud = smoothstep(0.24, 0.79, field);
 
-        // Electric Azure & Arctic Ice Blue palette
+        // Restore the original animated arctic-blue supernova palette from the older orb.
         vec3 deepBlue = vec3(0.08, 0.25, 0.78);
         vec3 brightBlue = vec3(0.22, 0.48, 0.98);
         vec3 lightLavender = vec3(0.65, 0.82, 0.99);
@@ -122,98 +139,188 @@ export function FluidCloudOrb({
       }
     `;
 
-    function createShader(type: number, src: string) {
+    const createShader = (type: number, source: string) => {
       const shader = gl!.createShader(type);
       if (!shader) return null;
-      gl!.shaderSource(shader, src);
+      gl!.shaderSource(shader, source);
       gl!.compileShader(shader);
       if (!gl!.getShaderParameter(shader, gl!.COMPILE_STATUS)) {
         gl!.deleteShader(shader);
         return null;
       }
       return shader;
+    };
+
+    const vertex = createShader(gl.VERTEX_SHADER, vsSource);
+    const fragment = createShader(gl.FRAGMENT_SHADER, fsSource);
+    if (!vertex || !fragment) {
+      if (vertex) gl.deleteShader(vertex);
+      if (fragment) gl.deleteShader(fragment);
+      return;
     }
 
-    const vs = createShader(gl.VERTEX_SHADER, vsSource);
-    const fs = createShader(gl.FRAGMENT_SHADER, fsSource);
-    if (!vs || !fs) return;
+    const program = gl.createProgram();
+    if (!program) {
+      gl.deleteShader(vertex);
+      gl.deleteShader(fragment);
+      return;
+    }
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertex);
+      gl.deleteShader(fragment);
+      return;
+    }
 
-    const prog = gl.createProgram();
-    if (!prog) return;
-    gl.attachShader(prog, vs);
-    gl.attachShader(prog, fs);
-    gl.linkProgram(prog);
+    const buffer = gl.createBuffer();
+    if (!buffer) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertex);
+      gl.deleteShader(fragment);
+      return;
+    }
 
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const pixels = Math.round(size * dpr);
+    canvas.width = pixels;
+    canvas.height = pixels;
+    gl.viewport(0, 0, pixels, pixels);
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const px = Math.round(size * dpr);
-    canvas.width = px;
-    canvas.height = px;
-    gl.viewport(0, 0, px, px);
+    const position = gl.getAttribLocation(program, 'a_position');
+    const resolution = gl.getUniformLocation(program, 'u_resolution');
+    const time = gl.getUniformLocation(program, 'u_time');
+    const activity = gl.getUniformLocation(program, 'u_activity');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    if (resolution) gl.uniform2f(resolution, pixels, pixels);
 
-    const aPos = gl.getAttribLocation(prog, 'a_position');
-    const uRes = gl.getUniformLocation(prog, 'u_resolution');
-    const uTime = gl.getUniformLocation(prog, 'u_time');
-    const uAct = gl.getUniformLocation(prog, 'u_activity');
-
-    gl.useProgram(prog);
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform2f(uRes, px, px);
-
-    const start = performance.now();
-    let currentAct = 0.15;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reducedMotion = motionPreference.matches;
+    let inView = true;
+    let pageVisible = document.visibilityState !== 'hidden';
+    let frameId: number | null = null;
+    let lastFrame: number | null = null;
+    let lastReducedRender = 0;
+    let elapsed = 0;
+    let currentActivity = 0.14;
 
     const render = (now: number) => {
-      const elapsed = (now - start) / 1000;
-      const targetAct =
-        state === 'speaking'
-          ? Math.max(0.42, volume)
-          : state === 'listening'
-          ? Math.max(0.22, volume)
-          : 0.13;
-      currentAct += (targetAct - currentAct) * 0.1;
+      if (lastFrame !== null) {
+        elapsed += Math.min(Math.max(now - lastFrame, 0), 100) / 1000;
+      }
+      lastFrame = now;
 
-      gl.uniform1f(uTime, elapsed * (0.75 + currentAct * 0.7));
-      gl.uniform1f(uAct, currentAct);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      const rawVolume = Number.isFinite(volumeRef.current) ? volumeRef.current : 0;
+      const level = Math.max(0, Math.min(1, rawVolume));
+      const currentState = stateRef.current;
+      const targetActivity = currentState === 'speaking'
+        ? Math.max(0.42, level)
+        : currentState === 'listening'
+          ? Math.max(0.24, level)
+          : currentState === 'connecting'
+            ? 0.3
+            : 0.14;
+      currentActivity += (targetActivity - currentActivity) * (reducedMotion ? 1 : 0.12);
 
-      animRef.current = requestAnimationFrame(render);
+      // Reduced motion keeps the colors gently drifting rather than freezing the orb completely.
+      const motionSpeed = reducedMotion ? 0.64 : 0.75 + currentActivity * 0.7;
+      if (time) gl!.uniform1f(time, elapsed * motionSpeed);
+      if (activity) gl!.uniform1f(activity, currentActivity);
+      gl!.drawArrays(gl!.TRIANGLES, 0, 6);
     };
 
-    animRef.current = requestAnimationFrame(render);
+    const stop = () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = null;
+      lastFrame = null;
+      lastReducedRender = 0;
+    };
+
+    const frame = (now: number) => {
+      frameId = null;
+      if (!inView || !pageVisible) return;
+      if (!reducedMotion || now - lastReducedRender >= 33) {
+        render(now);
+        if (reducedMotion) lastReducedRender = now;
+      }
+      frameId = requestAnimationFrame(frame);
+    };
+
+    const schedule = () => {
+      if (frameId === null && inView && pageVisible) {
+        frameId = requestAnimationFrame(frame);
+      }
+    };
+
+    const onVisibilityChange = () => {
+      pageVisible = document.visibilityState !== 'hidden';
+      if (pageVisible) schedule();
+      else stop();
+    };
+    const onMotionChange = (event: MediaQueryListEvent) => {
+      reducedMotion = event.matches;
+      stop();
+      schedule();
+    };
+
+    let observer: IntersectionObserver | null = null;
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) schedule();
+        else stop();
+      }, { rootMargin: '48px' });
+      observer.observe(canvas);
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    motionPreference.addEventListener('change', onMotionChange);
+    refreshRef.current = schedule;
+    schedule();
 
     return () => {
-      if (animRef.current) cancelAnimationFrame(animRef.current);
-      gl.deleteProgram(prog);
-      gl.deleteShader(vs);
-      gl.deleteShader(fs);
-      gl.deleteBuffer(buf);
+      refreshRef.current = null;
+      stop();
+      observer?.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      motionPreference.removeEventListener('change', onMotionChange);
+      gl!.deleteBuffer(buffer);
+      gl!.deleteProgram(program);
+      gl!.deleteShader(vertex);
+      gl!.deleteShader(fragment);
     };
-  }, [size, state, volume]);
+  }, [size]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!onClick || (event.key !== 'Enter' && event.key !== ' ')) return;
+    event.preventDefault();
+    onClick();
+  };
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      className="fluid-orb"
+      style={{ width: size, height: size }}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-label={onClick ? title : undefined}
+      aria-hidden={onClick ? undefined : true}
       onClick={onClick}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        cursor: onClick ? 'pointer' : 'default',
-        boxShadow: '0 8px 36px rgba(37, 99, 235, 0.32), 0 0 40px rgba(56, 189, 248, 0.25)',
-        display: 'block',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-      }}
-      title={title}
-    />
+      onKeyDown={handleKeyDown}
+    >
+      <VoiceOrbStill size={size} />
+      <canvas ref={canvasRef} className="fluid-orb__canvas" aria-hidden="true" />
+    </div>
   );
 }
 

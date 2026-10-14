@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T09:30:12Z",
+  "title": "Design System: Client Optimal",
+  "extensions": {
+    "colorMeta": {
+      "light-field": {
+        "role": "neutral",
+        "displayName": "Light Field",
+        "canonical": "#f0f5fc",
+        "tonalRamp": [
+          "oklch(15% 0.011 256.7 / 1.00)",
+          "oklch(25% 0.011 256.7 / 1.00)",
+          "oklch(35% 0.011 256.7 / 1.00)",
+          "oklch(45% 0.011 256.7 / 1.00)",
+          "oklch(55% 0.011 256.7 / 1.00)",
+          "oklch(65% 0.011 256.7 / 1.00)",
+          "oklch(75% 0.011 256.7 / 1.00)",
+          "oklch(95% 0.011 256.7 / 1.00)"
+        ]
+      },
+      "light-band": {
+        "role": "neutral",
+        "displayName": "Light Band",
+        "canonical": "#e2ecf9",
+        "tonalRamp": [
+          "oklch(15% 0.021 254.9 / 1.00)",
+          "oklch(25% 0.021 254.9 / 1.00)",
+          "oklch(35% 0.021 254.9 / 1.00)",
+          "oklch(45% 0.021 254.9 / 1.00)",
+          "oklch(55% 0.021 254.9 / 1.00)",
+          "oklch(65% 0.021 254.9 / 1.00)",
+          "oklch(75% 0.021 254.9 / 1.00)",
+          "oklch(95% 0.021 254.9 / 1.00)"
+        ]
+      },
+      "light-panel": {
+        "role": "neutral",
+        "displayName": "Light Panel",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9 / 1.00)",
+          "oklch(25% 0.000 89.9 / 1.00)",
+          "oklch(35% 0.000 89.9 / 1.00)",
+          "oklch(45% 0.000 89.9 / 1.00)",
+          "oklch(55% 0.000 89.9 / 1.00)",
+          "oklch(65% 0.000 89.9 / 1.00)",
+          "oklch(75% 0.000 89.9 / 1.00)",
+          "oklch(95% 0.000 89.9 / 1.00)"
+        ]
+      },
+      "light-ink": {
+        "role": "neutral",
+        "displayName": "Light Ink",
+        "canonical": "#09162e",
+        "tonalRamp": [
+          "oklch(15% 0.051 261.5 / 1.00)",
+          "oklch(25% 0.051 261.5 / 1.00)",
+          "oklch(35% 0.051 261.5 / 1.00)",
+          "oklch(45% 0.051 261.5 / 1.00)",
+          "oklch(55% 0.051 261.5 / 1.00)",
+          "oklch(65% 0.051 261.5 / 1.00)",
+          "oklch(75% 0.051 261.5 / 1.00)",
+          "oklch(95% 0.051 261.5 / 1.00)"
+        ]
+      },
+      "light-ink-dim": {
+        "role": "neutral",
+        "displayName": "Light Ink Dim",
+        "canonical": "rgba(9, 22, 46, 0.76)",
+        "tonalRamp": [
+          "oklch(15% 0.051 261.5 / 0.76)",
+          "oklch(25% 0.051 261.5 / 0.76)",
+          "oklch(35% 0.051 261.5 / 0.76)",
+          "oklch(45% 0.051 261.5 / 0.76)",
+          "oklch(55% 0.051 261.5 / 0.76)",
+          "oklch(65% 0.051 261.5 / 0.76)",
+          "oklch(75% 0.051 261.5 / 0.76)",
+          "oklch(95% 0.051 261.5 / 0.76)"
+        ]
+      },
+      "light-muted": {
+        "role": "neutral",
+        "displayName": "Light Muted",
+        "canonical": "rgba(9, 22, 46, 0.62)",
+        "tonalRamp": [
+          "oklch(15% 0.051 261.5 / 0.62)",
+          "oklch(25% 0.051 261.5 / 0.62)",
+          "oklch(35% 0.051 261.5 / 0.62)",
+          "oklch(45% 0.051 261.5 / 0.62)",
+          "oklch(55% 0.051 261.5 / 0.62)",
+          "oklch(65% 0.051 261.5 / 0.62)",
+          "oklch(75% 0.051 261.5 / 0.62)",
+          "oklch(95% 0.051 261.5 / 0.62)"
+        ]
+      },
+      "light-hairline": {
+        "role": "neutral",
+        "displayName": "Light Hairline",
+        "canonical": "rgba(37, 99, 235, 0.14)",
+        "tonalRamp": [
+          "oklch(15% 0.215 262.9 / 0.14)",
+          "oklch(25% 0.215 262.9 / 0.14)",
+          "oklch(35% 0.215 262.9 / 0.14)",
+          "oklch(45% 0.215 262.9 / 0.14)",
+          "oklch(55% 0.215 262.9 / 0.14)",
+          "oklch(65% 0.215 262.9 / 0.14)",
+          "oklch(75% 0.215 262.9 / 0.14)",
+          "oklch(95% 0.215 262.9 / 0.14)"
+        ]
+      },
+      "light-hairline-strong": {
+        "role": "neutral",
+        "displayName": "Light Hairline Strong",
+        "canonical": "rgba(37, 99, 235, 0.26)",
+        "tonalRamp": [
+          "oklch(15% 0.215 262.9 / 0.26)",
+          "oklch(25% 0.215 262.9 / 0.26)",
+          "oklch(35% 0.215 262.9 / 0.26)",
+          "oklch(45% 0.215 262.9 / 0.26)",
+          "oklch(55% 0.215 262.9 / 0.26)",
+          "oklch(65% 0.215 262.9 / 0.26)",
+          "oklch(75% 0.215 262.9 / 0.26)",
+          "oklch(95% 0.215 262.9 / 0.26)"
+        ]
+      },
+      "light-accent": {
+        "role": "primary",
+        "displayName": "Light Accent",
+        "canonical": "#1d4ed8",
+        "tonalRamp": [
+          "oklch(15% 0.217 264.4 / 1.00)",
+          "oklch(25% 0.217 264.4 / 1.00)",
+          "oklch(35% 0.217 264.4 / 1.00)",
+          "oklch(45% 0.217 264.4 / 1.00)",
+          "oklch(55% 0.217 264.4 / 1.00)",
+          "oklch(65% 0.217 264.4 / 1.00)",
+          "oklch(75% 0.217 264.4 / 1.00)",
+          "oklch(95% 0.217 264.4 / 1.00)"
+        ]
+      },
+      "light-neon": {
+        "role": "primary",
+        "displayName": "Light Neon",
+        "canonical": "#0284c7",
+        "tonalRamp": [
+          "oklch(15% 0.139 242.0 / 1.00)",
+          "oklch(25% 0.139 242.0 / 1.00)",
+          "oklch(35% 0.139 242.0 / 1.00)",
+          "oklch(45% 0.139 242.0 / 1.00)",
+          "oklch(55% 0.139 242.0 / 1.00)",
+          "oklch(65% 0.139 242.0 / 1.00)",
+          "oklch(75% 0.139 242.0 / 1.00)",
+          "oklch(95% 0.139 242.0 / 1.00)"
+        ]
+      },
+      "dark-field": {
+        "role": "neutral",
+        "displayName": "Dark Field",
+        "canonical": "#070913",
+        "tonalRamp": [
+          "oklch(15% 0.022 273.5 / 1.00)",
+          "oklch(25% 0.022 273.5 / 1.00)",
+          "oklch(35% 0.022 273.5 / 1.00)",
+          "oklch(45% 0.022 273.5 / 1.00)",
+          "oklch(55% 0.022 273.5 / 1.00)",
+          "oklch(65% 0.022 273.5 / 1.00)",
+          "oklch(75% 0.022 273.5 / 1.00)",
+          "oklch(95% 0.022 273.5 / 1.00)"
+        ]
+      },
+      "dark-band": {
+        "role": "neutral",
+        "displayName": "Dark Band",
+        "canonical": "#03050a",
+        "tonalRamp": [
+          "oklch(15% 0.015 261.3 / 1.00)",
+          "oklch(25% 0.015 261.3 / 1.00)",
+          "oklch(35% 0.015 261.3 / 1.00)",
+          "oklch(45% 0.015 261.3 / 1.00)",
+          "oklch(55% 0.015 261.3 / 1.00)",
+          "oklch(65% 0.015 261.3 / 1.00)",
+          "oklch(75% 0.015 261.3 / 1.00)",
+          "oklch(95% 0.015 261.3 / 1.00)"
+        ]
+      },
+      "dark-panel": {
+        "role": "neutral",
+        "displayName": "Dark Panel",
+        "canonical": "#0d1424",
+        "tonalRamp": [
+          "oklch(15% 0.034 265.4 / 1.00)",
+          "oklch(25% 0.034 265.4 / 1.00)",
+          "oklch(35% 0.034 265.4 / 1.00)",
+          "oklch(45% 0.034 265.4 / 1.00)",
+          "oklch(55% 0.034 265.4 / 1.00)",
+          "oklch(65% 0.034 265.4 / 1.00)",
+          "oklch(75% 0.034 265.4 / 1.00)",
+          "oklch(95% 0.034 265.4 / 1.00)"
+        ]
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "Dark Ink",
+        "canonical": "#f0f6ff",
+        "tonalRamp": [
+          "oklch(15% 0.014 258.3 / 1.00)",
+          "oklch(25% 0.014 258.3 / 1.00)",
+          "oklch(35% 0.014 258.3 / 1.00)",
+          "oklch(45% 0.014 258.3 / 1.00)",
+          "oklch(55% 0.014 258.3 / 1.00)",
+          "oklch(65% 0.014 258.3 / 1.00)",
+          "oklch(75% 0.014 258.3 / 1.00)",
+          "oklch(95% 0.014 258.3 / 1.00)"
+        ]
+      },
+      "dark-ink-dim": {
+        "role": "neutral",
+        "displayName": "Dark Ink Dim",
+        "canonical": "rgba(240, 246, 255, 0.78)",
+        "tonalRamp": [
+          "oklch(15% 0.014 258.3 / 0.78)",
+          "oklch(25% 0.014 258.3 / 0.78)",
+          "oklch(35% 0.014 258.3 / 0.78)",
+          "oklch(45% 0.014 258.3 / 0.78)",
+          "oklch(55% 0.014 258.3 / 0.78)",
+          "oklch(65% 0.014 258.3 / 0.78)",
+          "oklch(75% 0.014 258.3 / 0.78)",
+          "oklch(95% 0.014 258.3 / 0.78)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Dark Muted",
+        "canonical": "rgba(240, 246, 255, 0.62)",
+        "tonalRamp": [
+          "oklch(15% 0.014 258.3 / 0.62)",
+          "oklch(25% 0.014 258.3 / 0.62)",
+          "oklch(35% 0.014 258.3 / 0.62)",
+          "oklch(45% 0.014 258.3 / 0.62)",
+          "oklch(55% 0.014 258.3 / 0.62)",
+          "oklch(65% 0.014 258.3 / 0.62)",
+          "oklch(75% 0.014 258.3 / 0.62)",
+          "oklch(95% 0.014 258.3 / 0.62)"
+        ]
+      },
+      "dark-hairline": {
+        "role": "neutral",
+        "displayName": "Dark Hairline",
+        "canonical": "rgba(56, 189, 248, 0.15)",
+        "tonalRamp": [
+          "oklch(15% 0.139 232.7 / 0.15)",
+          "oklch(25% 0.139 232.7 / 0.15)",
+          "oklch(35% 0.139 232.7 / 0.15)",
+          "oklch(45% 0.139 232.7 / 0.15)",
+          "oklch(55% 0.139 232.7 / 0.15)",
+          "oklch(65% 0.139 232.7 / 0.15)",
+          "oklch(75% 0.139 232.7 / 0.15)",
+          "oklch(95% 0.139 232.7 / 0.15)"
+        ]
+      },
+      "dark-hairline-strong": {
+        "role": "neutral",
+        "displayName": "Dark Hairline Strong",
+        "canonical": "rgba(56, 189, 248, 0.28)",
+        "tonalRamp": [
+          "oklch(15% 0.139 232.7 / 0.28)",
+          "oklch(25% 0.139 232.7 / 0.28)",
+          "oklch(35% 0.139 232.7 / 0.28)",
+          "oklch(45% 0.139 232.7 / 0.28)",
+          "oklch(55% 0.139 232.7 / 0.28)",
+          "oklch(65% 0.139 232.7 / 0.28)",
+          "oklch(75% 0.139 232.7 / 0.28)",
+          "oklch(95% 0.139 232.7 / 0.28)"
+        ]
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "Dark Accent",
+        "canonical": "#38bdf8",
+        "tonalRamp": [
+          "oklch(15% 0.139 232.7 / 1.00)",
+          "oklch(25% 0.139 232.7 / 1.00)",
+          "oklch(35% 0.139 232.7 / 1.00)",
+          "oklch(45% 0.139 232.7 / 1.00)",
+          "oklch(55% 0.139 232.7 / 1.00)",
+          "oklch(65% 0.139 232.7 / 1.00)",
+          "oklch(75% 0.139 232.7 / 1.00)",
+          "oklch(95% 0.139 232.7 / 1.00)"
+        ]
+      },
+      "dark-neon": {
+        "role": "primary",
+        "displayName": "Dark Neon",
+        "canonical": "#00d2ff",
+        "tonalRamp": [
+          "oklch(15% 0.146 220.7 / 1.00)",
+          "oklch(25% 0.146 220.7 / 1.00)",
+          "oklch(35% 0.146 220.7 / 1.00)",
+          "oklch(45% 0.146 220.7 / 1.00)",
+          "oklch(55% 0.146 220.7 / 1.00)",
+          "oklch(65% 0.146 220.7 / 1.00)",
+          "oklch(75% 0.146 220.7 / 1.00)",
+          "oklch(95% 0.146 220.7 / 1.00)"
+        ]
+      },
+      "action-azure": {
+        "role": "primary",
+        "displayName": "Action Azure",
+        "canonical": "#2563eb",
+        "tonalRamp": [
+          "oklch(15% 0.215 262.9 / 1.00)",
+          "oklch(25% 0.215 262.9 / 1.00)",
+          "oklch(35% 0.215 262.9 / 1.00)",
+          "oklch(45% 0.215 262.9 / 1.00)",
+          "oklch(55% 0.215 262.9 / 1.00)",
+          "oklch(65% 0.215 262.9 / 1.00)",
+          "oklch(75% 0.215 262.9 / 1.00)",
+          "oklch(95% 0.215 262.9 / 1.00)"
+        ]
+      },
+      "action-text": {
+        "role": "primary",
+        "displayName": "Action Text",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9 / 1.00)",
+          "oklch(25% 0.000 89.9 / 1.00)",
+          "oklch(35% 0.000 89.9 / 1.00)",
+          "oklch(45% 0.000 89.9 / 1.00)",
+          "oklch(55% 0.000 89.9 / 1.00)",
+          "oklch(65% 0.000 89.9 / 1.00)",
+          "oklch(75% 0.000 89.9 / 1.00)",
+          "oklch(95% 0.000 89.9 / 1.00)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Archivo Variable",
+        "purpose": "Expressive page and route headlines."
+      },
+      "body": {
+        "displayName": "Inter Variable",
+        "purpose": "Readable paragraphs, controls, and supporting copy."
+      },
+      "label": {
+        "displayName": "IBM Plex Mono",
+        "purpose": "Route numbers, status labels, and compact annotations."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel-shadow-light",
+        "value": "0 1px 3px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(37, 99, 235, 0.08)",
+        "purpose": "Soft lift under the white voice-sample panel in light mode."
+      },
+      {
+        "name": "panel-shadow-dark",
+        "value": "0 1px 3px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(56, 189, 248, 0.08)",
+        "purpose": "Separate the voice-sample panel from the deep field in dark mode."
+      },
+      {
+        "name": "action-glow",
+        "value": "0 4px 22px rgba(37, 99, 235, 0.45)",
+        "purpose": "Hover emphasis for a primary voice control."
+      }
+    ],
+    "motion": [
+      {
+        "name": "route-easing",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Ease for interface transitions."
+      },
+      {
+        "name": "fast-transition",
+        "value": "0.15s",
+        "purpose": "Short control and hover transitions."
+      },
+      {
+        "name": "standard-transition",
+        "value": "0.24s",
+        "purpose": "Theme and larger state transitions."
+      },
+      {
+        "name": "orb-breathe",
+        "value": "3.2s ease-in-out infinite alternate",
+        "purpose": "Low-amplitude breathing loop on the voice sample orb."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "desktop-launcher",
+        "value": "480px"
+      },
+      {
+        "name": "compact-layout",
+        "value": "560px"
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "580px"
+      },
+      {
+        "name": "mobile-home-route",
+        "value": "600px"
+      },
+      {
+        "name": "page-layout",
+        "value": "780px"
+      },
+      {
+        "name": "tablet-home-route",
+        "value": "800px"
+      },
+      {
+        "name": "tablet-navigation",
+        "value": "980px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Call-to-Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled azure action for the main next step.",
+      "html": "<a class=\"ds-button-primary\" href=\"#\">Discuss a call flow <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-button-primary{display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:1.2rem;padding:.75rem 1.15rem;border:1px solid var(--accent-fill);background:var(--accent-fill);color:var(--accent-fill-ink);font:700 .92rem/1.2 var(--font-body);text-decoration:none;transition:filter var(--t-fast) var(--ease),transform var(--t-fast) var(--ease)}.ds-button-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.ds-button-primary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.ds-button-primary:active{transform:translateY(0)}"
+    },
+    {
+      "name": "Quiet Route Link",
+      "kind": "custom",
+      "refersTo": "button-quiet",
+      "description": "Secondary text action with a visible arrow.",
+      "html": "<a class=\"ds-route-link\" href=\"#\">Hear the sample <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-route-link{display:inline-flex;min-height:44px;align-items:center;gap:.8rem;color:var(--text);font:650 1rem/1.3 var(--font-body);text-decoration-color:var(--accent);text-underline-offset:.3em}.ds-route-link:hover{color:var(--accent)}.ds-route-link:focus-visible{outline:2px solid var(--accent);outline-offset:4px}"
+    },
+    {
+      "name": "Header Navigation Link",
+      "kind": "nav",
+      "refersTo": "navigation-link",
+      "description": "Low-noise link that sits beside the filled contact action.",
+      "html": "<nav class=\"ds-site-nav\" aria-label=\"Main navigation\"><a class=\"ds-nav-link\" href=\"#\">Voice agent</a></nav>",
+      "css": ".ds-site-nav{display:flex;align-items:center;gap:1.5rem}.ds-nav-link{display:inline-flex;min-height:44px;align-items:center;color:var(--text-dim);font:400 .84rem/1.4 var(--font-body);text-decoration:none;transition:color var(--t-fast) var(--ease)}.ds-nav-link:hover,.ds-nav-link[aria-current=page]{color:var(--accent)}.ds-nav-link:focus-visible{outline:2px solid var(--accent);outline-offset:4px}"
+    },
+    {
+      "name": "Call Route Stop",
+      "kind": "custom",
+      "refersTo": "route-stop",
+      "description": "Numbered waypoint with a short title and one approved exchange.",
+      "html": "<li class=\"ds-route-stop\"><span class=\"ds-route-label\">01 / OPEN</span><h3>Say it is AI.</h3><p><b>Assistant</b><span>“I’m an AI assistant for the team.”</span></p></li>",
+      "css": ".ds-route-stop{padding:0 1.5rem 1rem 0;border-inline-start:1px solid var(--hair-2)}.ds-route-label{color:var(--accent);font:500 .65rem/1.5 var(--font-mono);letter-spacing:.1em}.ds-route-stop h3{margin:.7rem 0 1rem;color:var(--text);font:650 1.6rem/1.05 var(--font-display);letter-spacing:-.04em}.ds-route-stop p{display:grid;gap:.3rem;color:var(--text-dim);font:400 .88rem/1.5 var(--font-body)}.ds-route-stop b{color:var(--muted);font:500 .63rem/1.5 var(--font-mono);letter-spacing:.08em;text-transform:uppercase}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "text-field",
+      "description": "Simple field with a mono label and a persistent focus cue.",
+      "html": "<label class=\"ds-field\"><span>Your name</span><input type=\"text\" autocomplete=\"name\"></label>",
+      "css": ".ds-field{display:grid;gap:.4rem;color:var(--text)}.ds-field>span{color:var(--muted);font:500 .68rem/1.5 var(--font-mono);letter-spacing:.1em;text-transform:uppercase}.ds-field input{width:100%;padding:.7rem .8rem;border:1px solid var(--hair);border-radius:2px;background:transparent;color:var(--text);font:inherit}.ds-field input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}"
+    },
+    {
+      "name": "FAQ Disclosure",
+      "kind": "custom",
+      "refersTo": "faq-summary",
+      "description": "Rule-separated disclosure with an accent plus/minus indicator.",
+      "html": "<details class=\"ds-faq\"><summary>What happens on a project? <span aria-hidden=\"true\"></span></summary><p>The call flow is scoped with the business.</p></details>",
+      "css": ".ds-faq{border-top:1px solid var(--hair);color:var(--text)}.ds-faq:last-child{border-bottom:1px solid var(--hair)}.ds-faq summary{display:flex;min-height:76px;align-items:center;justify-content:space-between;gap:1.5rem;padding-block:1.1rem;cursor:pointer;list-style:none;font:650 1.25rem/1.25 var(--font-display)}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.ds-faq summary span{width:1rem;height:1rem;border-block:1px solid var(--accent)}.ds-faq[open] summary span{border-bottom:0}.ds-faq p{max-width:68ch;padding:0 2rem 1.7rem 0;color:var(--text-dim);line-height:1.7}"
+    },
+    {
+      "name": "Header Contact Action",
+      "kind": "button",
+      "refersTo": "navigation-contact",
+      "description": "Compact filled action at the edge of the sticky header.",
+      "html": "<a class=\"ds-nav-contact\" href=\"#\">Talk through a call <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-nav-contact{display:inline-flex;min-height:42px;align-items:center;gap:.65rem;padding:0 .85rem;border:1px solid var(--accent-fill);background:var(--accent-fill);color:var(--accent-fill-ink);font:700 .78rem/1.3 var(--font-body);text-decoration:none;transition:filter var(--t-fast) var(--ease)}.ds-nav-contact:hover{filter:brightness(1.08)}.ds-nav-contact:focus-visible{outline:2px solid var(--accent);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Call Route",
+    "overview": "An assured, experimental system built from one visible path. Editorial display type sets the pace, a bright route line marks the next move, and compact mono labels make the operating logic feel legible. The interface stays text-led, precise, and open rather than framing each idea in a card.\n\nLight and dark themes share the same hierarchy and accent logic. The surface changes between icy blue-white and midnight navy while the route signal remains vivid. Use motion sparingly to reveal sequence or confirm an interaction.",
+    "keyCharacteristics": [
+      "Large Archivo statements balanced by calm Inter paragraphs.",
+      "One continuous call route, with a visible human handoff.",
+      "Square controls, fine dividers, and small uppercase route labels.",
+      "Light and dark themes use the existing paired color values."
+    ],
+    "rules": [
+      {
+        "name": "The Theme Pair Rule",
+        "body": "Keep both existing theme palettes intact. Do not substitute a third brand accent or use the action fill as small text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Label Rule",
+        "body": "Reserve mono and wide tracking for labels that identify a route step, mode, or status. Use Inter for sentences.",
+        "section": "typography"
+      },
+      {
+        "name": "The Route-First Rule",
+        "body": "Let the path organize the explanation. Use cards only where a sample or discrete reference needs its own surface.",
+        "section": "layout"
+      },
+      {
+        "name": "The Signal Rule",
+        "body": "Use light and shadow to distinguish an interactive sample or action, not to decorate every section.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the paired light and dark palette values.",
+      "Do label illustrative routes and samples clearly.",
+      "Do keep AI disclosure, approved intake, and human handoff distinct in route examples.",
+      "Do make focus and active states visible on interactive controls."
+    ],
+    "donts": [
+      "Don't add a new accent color or replace the current type family roles.",
+      "Don't turn every content group into an equal card grid.",
+      "Don't make mono the default for long copy.",
+      "Don't use decorative glows on the route rail or body text."
+    ]
+  }
+}

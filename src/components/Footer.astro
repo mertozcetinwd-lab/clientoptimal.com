@@ -3,67 +3,57 @@ import { meta, contact, legalNav } from '../data/site.js';
 const year = new Date().getFullYear();
 ---
 
-<footer class="ftr">
-  <div class="wrap inner">
-    <p class="col">© {year} {meta.legalName}</p>
+<footer class="route-footer">
+  <div class="route-wrap">
+    <ol class="route-footer__path" aria-label="A considered call route">
+      <li class="route-footer__stop">Identify as AI</li>
+      <li class="route-footer__stop">Follow approved intake</li>
+      <li class="route-footer__stop">Escalate to a person</li>
+      <li class="route-footer__stop">Support by agreement</li>
+    </ol>
+    <div class="route-footer__main">
+      <div class="route-footer__brand">
+        <a href="/" aria-label={`${meta.name} home`}>
+          <svg viewBox="0 0 34 34" aria-hidden="true" width="34">
+            <path d="M3 17h8l4-8 5 16 4-8h7" fill="none" stroke="currentColor" stroke-width="1.7" />
+          </svg>
+          <span>{meta.name}</span>
+        </a>
+        <p>Custom AI voice-agent implementation and ongoing support for suitable inbound call workflows.</p>
+      </div>
 
-    <nav class="col links" aria-label="Legal">
-      {legalNav.map((l) => <a href={l.href}>{l.label}</a>)}
-    </nav>
+      <nav class="route-footer__column" aria-label="Explore">
+        <h2>Explore</h2>
+        <ul class="route-footer__links">
+          <li><a href="/services">Implementation &amp; support</a></li>
+          <li><a href="/demo">Hear the sample</a></li>
+          <li><a href="/about">About Mert</a></li>
+        </ul>
+      </nav>
 
-    {/* The personal site was reachable from /about only, which is the page fewest
-        people get to. Same person, and each site is a reason to believe the
-        other; a footer link costs nothing and works from anywhere. */}
-    <nav class="col links" aria-label="Elsewhere">
-      <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a>
-      <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-      <a href={contact.github} target="_blank" rel="noopener">GitHub</a>
-      <a href={`mailto:${contact.email}`}>Email</a>
-    </nav>
-
-    {/* Postal address and a clickable phone are A2P 10DLC requirements, not styling.
-        A reviewer cross-checks this address against the 10DLC brand registration. */}
-    <p class="col addr">
-      <a href={`tel:${contact.phone}`}>{contact.phoneShow}</a>
-      <span aria-hidden="true"> · </span>
-      <span>{contact.addressRegistered}</span>
-    </p>
+      <div class="route-footer__column">
+        <h2>Contact &amp; details</h2>
+        <ul class="route-footer__links">
+          <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li><a href={`tel:${contact.phone}`}>{contact.phoneShow}</a></li>
+          {legalNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+        <p class="route-footer__address">{meta.legalName}<br />{contact.addressRegistered}</p>
+      </div>
+    </div>
+    <div class="route-footer__bottom">
+      <span>© {year} {meta.legalName}</span>
+      <nav aria-label="Elsewhere">
+        <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a>
+        <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={contact.github} target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
   </div>
 </footer>
 
 <style>
-  .ftr {
-    border-top: var(--hair-w) solid var(--hair);
-    padding-block: 2.4rem;
-    margin-top: var(--section-y);
-  }
-  .inner {
-    display: flex; flex-wrap: wrap; align-items: center;
-    gap: 0.8rem 2rem;
-  }
-  .col {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .addr { margin-inline-start: auto; text-transform: none; letter-spacing: 0.02em; }
-  .addr a { color: var(--muted); text-decoration: none; }
-  .addr a:hover { color: var(--text); text-decoration: underline; }
-  .links { display: flex; gap: 1.1rem; }
-  .links a {
-    text-decoration: none;
-    transition: color var(--t-fast) var(--ease);
-  }
-  .links a:hover { color: var(--text); }
-
-  @media (max-width: 640px) {
-    .dim { margin-inline-start: 0; width: 100%; }
-  }
-
-  /* 44px tap targets for the footer links on touch, mouse layout untouched. */
-  @media (pointer: coarse) {
-    .links a { min-height: 44px; display: inline-flex; align-items: center; }
-  }
+  .route-footer__bottom nav { display: flex; flex-wrap: wrap; gap: 1.1rem; }
+  .route-footer__bottom nav a { color: var(--muted); text-decoration-color: var(--hair-2); }
+  .route-footer__bottom nav a:hover { color: var(--accent); }
 </style>

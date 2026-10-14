@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { RetellWebClient } from 'retell-client-js-sdk';
+import VoiceOrbStill from './VoiceOrbStill';
 
 // Client Optimal Voice AI Interactive Demo
 // Powered by Retell AI WebRTC engine and real-time WebGL Fluid Cloud Orb.
@@ -267,21 +268,15 @@ export default function VoiceOrb() {
       {/* 3D Visualizer Orb Stage */}
       <div className="orb-stage">
         <div className={`orb-halo ${isCallActive ? 'active' : ''}`} />
-        {audioConsent ? (
-          <React.Suspense fallback={<div className="orb-loading" aria-hidden="true" />}>
+        <React.Suspense fallback={<VoiceOrbStill size={250} />}>
             <FluidCloudOrb
               state={orbState}
-              volume={orbState === 'speaking' ? outputVolume : inputVolume}
-              onClick={isCallActive ? stopCall : startCall}
+              volume={audioConsent ? (orbState === 'speaking' ? outputVolume : inputVolume) : 0}
+              onClick={audioConsent ? (isCallActive ? stopCall : startCall) : undefined}
               size={250}
-              title={isCallActive ? 'Click to end the sample' : 'Start the sample'}
+              title={audioConsent ? (isCallActive ? 'End the sample call' : 'Start the sample call') : undefined}
             />
-          </React.Suspense>
-        ) : (
-          <div className="orb-idle" aria-hidden="true">
-            <span />
-          </div>
-        )}
+        </React.Suspense>
       </div>
 
       {/* State & Call Status HUD */}
@@ -526,29 +521,6 @@ export default function VoiceOrb() {
           margin: 1.2rem 0;
         }
 
-        .orb-loading,
-        .orb-idle {
-          width: 250px;
-          height: 250px;
-          border: 1px solid var(--hair-2);
-          border-radius: 50%;
-          background: radial-gradient(circle at 44% 36%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%);
-        }
-
-        .orb-idle {
-          display: grid;
-          place-items: center;
-          box-shadow: 0 0 68px color-mix(in srgb, var(--accent) 14%, transparent);
-        }
-
-        .orb-idle span {
-          width: 60%;
-          height: 60%;
-          border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--hair-2));
-          border-radius: 50%;
-          background: radial-gradient(circle at 44% 36%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 74%);
-        }
-
         .orb-halo {
           position: absolute;
           inset: 10px;
@@ -561,12 +533,6 @@ export default function VoiceOrb() {
 
         .orb-halo.active {
           opacity: 0.95;
-          animation: haloBreathe 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes haloBreathe {
-          0% { transform: scale(0.96); opacity: 0.7; }
-          100% { transform: scale(1.15); opacity: 1; }
         }
 
         .status-hud {

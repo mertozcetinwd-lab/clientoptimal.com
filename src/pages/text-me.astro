@@ -53,8 +53,8 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
   <section class="optin">
     <div class="wrap">
       <header class="head">
-        <p class="eyebrow">{meta.name}</p>
         <h1 class="display title">Hear what it sounds like.</h1>
+        <p class="eyebrow">{meta.name} / sample request</p>
         <p class="lead">
           A short recorded sample of an AI voice interaction for a fictional
           service business. It is a demonstration, not a customer call or client
@@ -227,4 +227,18 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
     text-decoration-color: var(--accent);
     text-underline-offset: 3px;
   }
+
+  .optin { padding-block: clamp(3.5rem, 8vw, 7rem); }
+  .optin > .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.75fr); gap: clamp(2rem, 8vw, 8rem); align-items: start; }
+  .optin .head { position: sticky; top: 7.5rem; border-bottom: 0; margin: 0; padding: 0; }
+  .optin .title { max-width: 9ch; margin: 0; font-family: var(--font-display); font-size: clamp(3.3rem, 7.4vw, 7rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.065em; }
+  .optin .eyebrow { display: block; margin-block: 1.2rem; }
+  .optin .lead { line-height: 1.68; }
+  .optin .form { max-width: none; padding-top: 1rem; border-top: 2px solid var(--accent); }
+  .optin .field { gap: 0.5rem; }
+  .optin .field input { min-height: 48px; border-radius: 0; border-color: var(--hair-2); background: var(--bg); }
+  .optin .consent { border-radius: 0; border-color: var(--hair-2); background: var(--bg-2); font-size: 0.88rem; }
+  .optin .submit { min-height: 48px; padding-inline: 1.3rem; border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); }
+  .optin .alt { grid-column: 2; margin-top: -6rem; }
+  @media (max-width: 760px) { .optin > .wrap { grid-template-columns: 1fr; } .optin .head { position: static; } .optin .alt { grid-column: 1; margin-top: -1rem; } }
 </style>

@@ -148,9 +148,7 @@ a { color: inherit; }
 html {
   color-scheme: var(--scheme);
   scroll-behavior: smooth;
-  /* The header is sticky and 4rem tall, so an anchor jump (#build, #how-it-works,
-     #proof) would otherwise land the section heading UNDER the header. Offset the
-     scroll target by the header height plus a little breathing room. */
+  /* Keep any in-page anchor target clear beneath the sticky header. */
   scroll-padding-top: calc(var(--header-h) + 1.25rem);
   -webkit-text-size-adjust: 100%;
 }

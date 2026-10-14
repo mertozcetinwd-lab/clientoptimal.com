@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { RetellWebClient } from 'retell-client-js-sdk';
 import type { OrbState } from './FluidCloudOrb';
+import VoiceOrbStill from './VoiceOrbStill';
 
 const FluidCloudOrb = React.lazy(() => import('./FluidCloudOrb'));
 
@@ -401,10 +402,19 @@ export default function VoiceAgentWidget() {
         className={`va-launcher ${callActive ? 'live' : ''}`}
         onClick={openWidget}
         title={COPY.launcherTooltip}
+        aria-label={COPY.launcherTooltip}
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        <span className="va-orb" aria-hidden="true" />
+        <span className="va-orb" aria-hidden="true">
+          <React.Suspense fallback={<VoiceOrbStill size={36} />}>
+            <FluidCloudOrb
+              state={callActive ? (phase as OrbState) : 'idle'}
+              volume={callActive ? orbVolume : 0}
+              size={36}
+            />
+          </React.Suspense>
+        </span>
         <span className="va-launcher-text">
           <span className="va-launcher-kicker">AI receptionist</span>
           <span className="va-launcher-cta">{COPY.launcherLabel}</span>
@@ -469,23 +479,18 @@ export default function VoiceAgentWidget() {
 
                 <div className="va-stage">
                   <div className={`va-halo ${callActive ? 'active' : ''}`} aria-hidden="true" />
-                  <React.Suspense fallback={<div className="va-orb-loading" aria-hidden="true" />}>
-                    {audioConsent ? (
-                      <FluidCloudOrb
-                        state={
-                          phase === 'error'
+                  <React.Suspense fallback={<VoiceOrbStill size={150} />}>
+                    <FluidCloudOrb
+                      state={
+                        !audioConsent || phase === 'ended'
+                          ? 'idle'
+                          : phase === 'error'
                             ? 'error'
-                            : phase === 'ended'
-                              ? 'idle'
-                              : (phase as OrbState)
-                        }
-                        volume={orbVolume}
-                        size={150}
-                        title={undefined}
-                      />
-                    ) : (
-                      <div className="va-orb-loading" aria-hidden="true" />
-                    )}
+                            : (phase as OrbState)
+                      }
+                      volume={audioConsent && callActive ? orbVolume : 0}
+                      size={150}
+                    />
                   </React.Suspense>
                 </div>
 
@@ -570,9 +575,12 @@ export default function VoiceAgentWidget() {
           bottom: clamp(0.9rem, 2.5vw, 1.6rem);
           z-index: 9000;
           display: inline-flex;
+          width: 52px;
+          height: 52px;
           align-items: center;
-          gap: 0.7rem;
-          padding: 0.55rem 0.95rem 0.55rem 0.6rem;
+          justify-content: center;
+          padding: 6px;
+          border-radius: 50%;
           background: var(--panel);
           color: var(--text);
           border: var(--hair-w) solid var(--hair-2);
@@ -591,34 +599,19 @@ export default function VoiceAgentWidget() {
           outline-offset: 3px;
         }
         .va-orb {
-          width: 38px;
-          height: 38px;
+          position: relative;
+          display: block;
+          width: 36px;
+          height: 36px;
           flex: none;
-          border-radius: 50%;
-          background:
-            radial-gradient(circle at 32% 30%, rgba(240, 246, 255, 0.95) 0%, rgba(101, 168, 255, 0.9) 28%, #2563eb 62%, #0b2a8a 100%);
-          box-shadow:
-            0 0 14px rgba(37, 99, 235, 0.55),
-            0 0 34px rgba(56, 189, 248, 0.35),
-            inset 0 -4px 10px rgba(3, 5, 10, 0.35);
-          animation: va-breathe 3.2s ease-in-out infinite alternate;
-        }
-        .va-launcher.live .va-orb {
-          box-shadow:
-            0 0 18px rgba(37, 99, 235, 0.85),
-            0 0 46px rgba(0, 210, 255, 0.55),
-            inset 0 -4px 10px rgba(3, 5, 10, 0.35);
-          animation-duration: 1.4s;
-        }
-        @keyframes va-breathe {
-          from { transform: scale(0.96); filter: brightness(0.94); }
-          to   { transform: scale(1.05); filter: brightness(1.08); }
         }
         .va-launcher-text {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          line-height: 1.2;
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
         }
         .va-launcher-kicker {
           font-family: var(--font-mono);
@@ -730,13 +723,6 @@ export default function VoiceAgentWidget() {
           justify-content: center;
           margin-top: 1rem;
         }
-        .va-orb-loading {
-          width: 150px;
-          height: 150px;
-          border: 1px solid var(--hair-2);
-          border-radius: 50%;
-          background: radial-gradient(circle at 44% 36%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%);
-        }
         .va-halo {
           position: absolute;
           inset: 6px;
@@ -748,11 +734,6 @@ export default function VoiceAgentWidget() {
         }
         .va-halo.active {
           opacity: 0.95;
-          animation: va-halo 3s ease-in-out infinite alternate;
-        }
-        @keyframes va-halo {
-          from { transform: scale(0.96); opacity: 0.7; }
-          to { transform: scale(1.12); opacity: 1; }
         }
         .va-status {
           min-height: 1.4em;

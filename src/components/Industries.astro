@@ -1,68 +1,51 @@
 ---
-// General call-pattern fit criteria. The offer is industry-neutral, and each
-// business still needs an appropriate call flow and human follow-up route.
 import { industries } from '../data/site.js';
 ---
 
-<section class="section" id="industries">
-  <div class="wrap">
-    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{industries.eyebrow}</p>
-    <h2 class="section-title reveal">{industries.title}</h2>
-    <p class="lead intro reveal">{industries.lead}</p>
+<section class="route-section" id="fit">
+  <div class="route-wrap">
+    <header class="route-section__head">
+      <div>
+        <h2 class="route-section__title">{industries.title}</h2>
+        <p class="route-annotation route-patterns__annotation">Fit / call patterns</p>
+      </div>
+      <p class="route-section__lead">{industries.lead}</p>
+    </header>
 
-    <ul class="grid">
-      {industries.patterns.map((t, i) => (
-        <li class="cell reveal" style={`--i:${i % 3}`}>
-          <span class="name">{t.name}</span>
-          <span class="desc">{t.desc}</span>
+    <ol class="route-patterns">
+      {industries.patterns.map((pattern, index) => (
+        <li class="route-patterns__item">
+          <span class="route-patterns__index">0{index + 1}</span>
+          <h3>{pattern.name}</h3>
+          <p>{pattern.desc}</p>
+          <span class="route-patterns__mark" aria-hidden="true">↗</span>
         </li>
       ))}
-    </ul>
-
-    <p class="note reveal">{industries.note}</p>
+    </ol>
+    <p class="route-patterns__note">{industries.note}</p>
   </div>
 </section>
 
 <style>
-  .section-title { margin-block: 1.2rem 1.4rem; max-width: 24ch; }
-  .intro { margin-bottom: 3.8rem; }
-
-  .grid {
-    list-style: none; padding: 0; margin: 0;
+  .route-patterns__annotation { margin-top: 1.2rem; }
+  .route-patterns { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+  .route-patterns__item {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: var(--hair-w) solid var(--hair);
-    border-inline-start: var(--hair-w) solid var(--hair);
+    grid-template-columns: 4rem minmax(12rem, 0.72fr) minmax(0, 1.28fr) 2rem;
+    align-items: start;
+    gap: 1rem;
+    padding-block: 1.65rem;
+    border-bottom: 1px solid var(--hair);
   }
-
-  .cell {
-    display: flex; flex-direction: column; gap: 0.5rem;
-    padding: clamp(1.4rem, 3vw, 2.1rem);
-    border-bottom: var(--hair-w) solid var(--hair);
-    border-inline-end: var(--hair-w) solid var(--hair);
+  .route-patterns__index { padding-top: 0.35rem; color: var(--accent); font-family: var(--font-mono); font-size: 0.68rem; }
+  .route-patterns__item h3 { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.15; letter-spacing: -0.03em; }
+  .route-patterns__item p { max-width: 58ch; color: var(--text-dim); line-height: 1.65; }
+  .route-patterns__mark { justify-self: end; color: var(--accent); font-size: 1.2rem; }
+  .route-patterns__note { max-width: 70ch; margin-top: 1.25rem; color: var(--muted); font-size: 0.8rem; line-height: 1.6; }
+  @media (max-width: 680px) {
+    .route-patterns__item { grid-template-columns: 2.3rem minmax(0, 1fr) 1.4rem; gap: 0.5rem 0.8rem; }
+    .route-patterns__item h3 { grid-column: 2; }
+    .route-patterns__item p { grid-column: 2; }
+    .route-patterns__mark { grid-column: 3; grid-row: 1; }
   }
-
-  .name {
-    font-family: var(--font-display);
-    font-size: var(--step-h3);
-    font-weight: 700; letter-spacing: -0.02em;
-  }
-
-  .desc {
-    font-size: var(--step-small);
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  .note {
-    margin-top: 1.8rem;
-    font-family: var(--font-mono);
-    font-size: var(--step-eyebrow);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 </style>

@@ -1,157 +1,183 @@
----
-import { hero } from '../data/site.js';
----
-
-<section class="hero" aria-labelledby="home-title">
-  <div class="wrap layout">
-    <div class="copy">
-      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{hero.eyebrow}</p>
-      <h1 id="home-title" class="display title">{hero.title}</h1>
-      <p class="lead intro">{hero.lead}</p>
-      <div class="actions">
-        <a class="btn primary" href={hero.cta.href}>{hero.cta.label}</a>
-        <a class="btn" href={hero.secondary.href}>{hero.secondary.label}</a>
+<section class="route-hero" aria-labelledby="home-title">
+  <div class="route-wrap">
+    <div class="route-hero__opening">
+      <div class="route-hero__headline">
+        <h1 id="home-title">Every call gets a <span>clear next move.</span></h1>
+        <p>Custom AI voice agents, shaped around the calls your business actually receives.</p>
+        <div class="route-hero__actions">
+          <a class="route-button" href="/contact">Discuss a call flow <span aria-hidden="true">↗</span></a>
+          <a class="route-link" href="/demo">Hear the sample <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-      <p class="audience">
-        For suitable businesses with routine inbound calls and a person available for follow-up.
-      </p>
+
+      <aside class="route-hero__principle" aria-label="Routing principle">
+        <span class="route-annotation">Routing principle / 01</span>
+        <p>Let the assistant handle the agreed questions. Keep a person in the route for everything else.</p>
+        <a href="/services#fit-check">Check whether your calls fit <span aria-hidden="true">↗</span></a>
+      </aside>
     </div>
 
-    <aside class="flow-card" aria-label="Proposed inbound call flow">
-      <div class="card-head">
-        <div>
-          <p class="eyebrow">Proposed call flow</p>
-          <p class="card-subtitle">A sample structure, scoped per business</p>
-        </div>
-        <svg class="signal" viewBox="0 0 116 48" role="img" aria-label="Static voice waveform illustration">
-          <path d="M2 24h10l5-12 7 24 7-18 7 12 6-6h9l5-16 7 32 7-24 7 14 6-6h9l5-10 7 20 7-10h9" />
-        </svg>
-      </div>
-      <ol class="steps">
-        <li>
-          <span class="number">01</span>
-          <div><strong>Inbound call</strong><small>Phone route scoped per project</small></div>
+    <div class="route-map" aria-label="Illustrative inbound call route">
+      <div class="route-map__rail" aria-hidden="true"><span></span><span></span><span></span></div>
+      <ol class="route-map__stops">
+        <li class="route-map__stop">
+          <span class="route-map__number">01 / OPEN</span>
+          <h2>Say it is AI.</h2>
+          <p class="route-map__exchange"><b>Assistant</b><span>“I’m an AI assistant for the team.”</span></p>
         </li>
-        <li>
-          <span class="number">02</span>
-          <div><strong>AI disclosure</strong><small>Identify the assistant before questions</small></div>
+        <li class="route-map__stop">
+          <span class="route-map__number">02 / INTAKE</span>
+          <h2>Ask what is approved.</h2>
+          <p class="route-map__exchange"><b>Assistant</b><span>“What service are you calling about?”</span></p>
         </li>
-        <li>
-          <span class="number">03</span>
-          <div><strong>Approved intake</strong><small>Name · callback · service · location</small></div>
-        </li>
-        <li>
-          <span class="number">04</span>
-          <div><strong>Human follow-up</strong><small>Route and response terms agreed before go-live</small></div>
+        <li class="route-map__stop route-map__stop--human">
+          <span class="route-map__number">03 / HANDOFF</span>
+          <h2>Bring in a person.</h2>
+          <p class="route-map__exchange"><b>Person</b><span>Urgent, unclear, or out-of-scope calls follow the agreed route.</span></p>
         </li>
       </ol>
-      <p class="card-note">Concept only. Not a customer call or client result.</p>
-    </aside>
+      <p class="route-map__caption"><span>Illustrative call route</span><span>Not a client deployment</span></p>
+    </div>
   </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-    padding-block: clamp(4.5rem, 10vh, 7.5rem) clamp(3.5rem, 8vh, 6rem);
-    background:
-      radial-gradient(ellipse at 82% 22%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 42%),
-      var(--bg);
-  }
-  .layout {
+  .route-hero { padding-block: clamp(2rem, 4vw, 3.6rem) clamp(1.8rem, 3.5vw, 3rem); }
+  .route-hero__opening {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
-    gap: clamp(2.5rem, 7vw, 7rem);
-    align-items: center;
+    grid-template-columns: minmax(0, 1.48fr) minmax(15rem, 0.52fr);
+    align-items: end;
+    gap: clamp(2.2rem, 7vw, 8rem);
+    padding-bottom: clamp(2rem, 3.5vw, 3rem);
   }
-  .copy { max-width: 48rem; }
-  .title {
-    max-width: 11ch;
-    margin-block: 1.6rem 1.5rem;
-    font-size: clamp(3.2rem, 7vw, 7rem);
-    line-height: 0.92;
-    letter-spacing: -0.065em;
+  .route-hero__headline h1 {
+    max-width: 12ch;
+    font-family: var(--font-display);
+    font-size: clamp(3.6rem, 8vw, 8rem);
+    font-weight: 720;
+    line-height: 0.86;
+    letter-spacing: -0.075em;
     text-wrap: balance;
   }
-  .intro { max-width: 43rem; }
-  .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
-  .audience {
+  .route-hero__headline h1 span { color: var(--accent); }
+  .route-hero__headline > p {
     max-width: 39rem;
-    margin-top: 1.6rem;
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: 0.67rem;
-    letter-spacing: 0.07em;
-    line-height: 1.7;
-    text-transform: uppercase;
+    margin-top: 1.8rem;
+    color: var(--text-dim);
+    font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+    line-height: 1.55;
   }
-  .audience span { color: var(--accent); }
-  .flow-card {
-    min-width: 0;
-    border: var(--hair-w) solid var(--hair-2);
-    background: color-mix(in srgb, var(--panel) 88%, transparent);
-    padding: clamp(1.3rem, 3vw, 2.2rem);
-    box-shadow: 0 24px 70px color-mix(in srgb, var(--text) 8%, transparent);
+  .route-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.7rem; margin-top: 1.8rem; }
+  .route-hero__principle { border-top: 2px solid var(--accent); padding-top: 1rem; }
+  .route-hero__principle p {
+    margin-block: 0.9rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
   }
-  .card-head {
-    display: flex;
+  .route-hero__principle a {
+    display: inline-flex;
+    min-height: 44px;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.2rem;
-    padding-bottom: 1.3rem;
-    border-bottom: var(--hair-w) solid var(--hair);
+    gap: 0.55rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    text-decoration-color: var(--accent);
   }
-  .card-head .eyebrow { margin: 0 0 0.35rem; color: var(--accent); }
-  .card-subtitle { color: var(--muted); font-size: var(--step-small); }
-  .signal { width: clamp(4.5rem, 8vw, 7rem); flex: none; }
-  .signal path {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 1.5;
-    stroke-linecap: square;
-    stroke-linejoin: round;
-    opacity: 0.9;
+  .route-map { position: relative; padding-top: 1.65rem; }
+  .route-map__rail {
+    position: absolute;
+    top: 0.35rem;
+    right: 1rem;
+    left: 1rem;
+    height: 1px;
+    background: var(--hair-2);
   }
-  .steps { list-style: none; margin: 0; padding: 0; }
-  .steps li {
+  .route-map__rail::before,
+  .route-map__rail::after,
+  .route-map__rail span {
+    position: absolute;
+    top: -0.31rem;
+    width: 0.65rem;
+    height: 0.65rem;
+    border: 1px solid var(--accent);
+    background: var(--bg);
+    content: '';
+    transform: rotate(45deg);
+  }
+  .route-map__rail::before { left: 0; }
+  .route-map__rail span:nth-child(1) { left: 50%; }
+  .route-map__rail span:nth-child(2) { right: 0; }
+  .route-map__rail span:nth-child(3) { display: none; }
+  .route-map__stops {
     display: grid;
-    grid-template-columns: 2.3rem minmax(0, 1fr);
-    gap: 0.8rem;
-    align-items: start;
-    padding-block: 1rem;
-    border-bottom: var(--hair-w) solid var(--hair);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-  .number {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    padding-top: 0.12rem;
+  .route-map__stop { min-width: 0; padding: 0 clamp(1rem, 2.4vw, 2.5rem) 0 0; }
+  .route-map__stop + .route-map__stop { padding-left: clamp(1rem, 2.4vw, 2.5rem); border-left: 1px solid var(--hair); }
+  .route-map__number { color: var(--accent); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; }
+  .route-map__stop h2 {
+    margin-block: 0.7rem 1.1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
   }
-  .steps strong { display: block; font-size: var(--step-small); font-weight: 600; }
-  .steps small { display: block; color: var(--text-dim); font-size: 0.74rem; line-height: 1.5; margin-top: 0.25rem; }
-  .card-note {
-    margin-top: 1rem;
+  .route-map__exchange { display: grid; gap: 0.3rem; max-width: 31ch; line-height: 1.5; }
+  .route-map__exchange b { color: var(--muted); font-family: var(--font-mono); font-size: 0.63rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .route-map__exchange span { color: var(--text-dim); font-size: 0.88rem; }
+  .route-map__stop--human { position: relative; }
+  .route-map__stop--human::before {
+    position: absolute;
+    top: -1.35rem;
+    left: 50%;
+    height: 1rem;
+    border-left: 1px dashed var(--accent);
+    content: '';
+  }
+  .route-map__caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.8rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--hair);
     color: var(--muted);
     font-family: var(--font-mono);
     font-size: 0.62rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  @media (max-width: 880px) {
-    .layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .title { max-width: 14ch; }
-    .flow-card { max-width: 43rem; }
+  @media (max-width: 800px) {
+    .route-hero__opening { grid-template-columns: 1fr; gap: 2.2rem; }
+    .route-hero__headline h1 { max-width: 12ch; font-size: clamp(4rem, 14vw, 7rem); }
+    .route-hero__principle { max-width: 29rem; }
   }
-  @media (max-width: 520px) {
-    .hero { padding-block: 3.5rem 3rem; }
-    .title { max-width: 10ch; font-size: clamp(2.7rem, 15vw, 4.2rem); }
-    .actions { display: grid; }
-    .actions .btn { justify-content: center; }
-    .flow-card { padding: 1.1rem; }
-    .card-head { align-items: flex-start; }
-    .signal { width: 4.3rem; }
-    .steps li { grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.55rem; }
+  @media (max-width: 600px) {
+    .route-hero { padding-top: 1.5rem; padding-bottom: 1rem; }
+    .route-hero .route-wrap { display: flex; flex-direction: column; }
+    .route-hero__opening { display: contents; }
+    .route-hero__headline { order: 0; }
+    .route-map { order: 1; }
+    .route-hero__principle { order: 2; margin-top: 2.5rem; }
+    .route-hero__headline h1 { font-size: clamp(3rem, 13vw, 3.8rem); }
+    .route-hero__headline > p { margin-top: 1rem; }
+    .route-hero__actions { align-items: center; flex-direction: row; gap: 0.75rem; margin-top: 1rem; }
+    .route-map { padding-top: 0; margin-top: 1.25rem; }
+    .route-map__rail { top: 0.5rem; right: auto; bottom: 1.2rem; left: 0.34rem; width: 1px; height: auto; }
+    .route-map__rail::before { top: 0; left: -0.31rem; }
+    .route-map__rail span:nth-child(1) { top: 33%; left: -0.31rem; }
+    .route-map__rail span:nth-child(2) { top: 66%; right: auto; left: -0.31rem; }
+    .route-map__stops { grid-template-columns: 1fr; gap: 0; padding-left: 1.8rem; }
+    .route-map__stop, .route-map__stop + .route-map__stop { padding: 0 0 0.7rem; border: 0; }
+    .route-map__stop h2 { margin-block: 0.25rem 0.4rem; }
+    .route-map__stop--human::before { display: none; }
+    .route-map__caption { margin-top: 0.25rem; margin-left: 1.8rem; }
   }
 </style>

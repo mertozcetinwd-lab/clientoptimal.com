@@ -1,37 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import HomepageHero from '../components/HomepageHero.astro';
-import Ticker from '../components/Ticker.astro';
-import ProblemGrid from '../components/ProblemGrid.astro';
-import FlowDiagram from '../components/FlowDiagram.astro';
 import Industries from '../components/Industries.astro';
-import Capabilities from '../components/Capabilities.astro';
+import Engagement from '../components/Engagement.astro';
 import Principles from '../components/Principles.astro';
-import WorkBand from '../components/WorkBand.astro';
 import Faq from '../components/Faq.astro';
 import ContactCta from '../components/ContactCta.astro';
 ---
 
-{/* Voice-agent implementation homepage: an original call-flow hero, use case,
-    proposed call path, suitable call patterns, process, proof, FAQs, and contact.
-
-    Proof arrives at WorkBand, between the principles and the questions: the
-    principles make a claim about how the work is built, the band shows one that
-    was, and the FAQ then answers what the reader objects to. Earlier would
-    interrupt the problem/solution run; later lands after they have decided.
-
-    The "Read the code" repo section (Proof.astro) stays off this page, per Mert's
-    call 2026-07-23. It now renders at the foot of /work instead, under the case
-    study, where it is corroboration rather than the whole argument. */}
+{/* Voice-agent implementation homepage: call flow, suitable call patterns,
+    implementation, ongoing support, FAQs, and a clear next step. */}
 <Base>
   <HomepageHero />
-  <Ticker />
-  <ProblemGrid />
-  <FlowDiagram />
   <Industries />
-  <Capabilities />
+  <Engagement />
   <Principles />
-  <WorkBand />
   <Faq />
   <ContactCta />
 </Base>

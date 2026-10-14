@@ -2,23 +2,19 @@
 import { principles } from '../data/site.js';
 ---
 
-<section class="section band" id="how">
-  <div class="wrap">
-    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>How we work</p>
-    <h2 class="section-title reveal">Boring on purpose.</h2>
-    <p class="lead intro reveal">
-      A convincing demo is only one part of a call system. These requirements
-      define the behavior that must be agreed and checked before a real call is routed.
-    </p>
-
-    <ol class="list">
-      {principles.map((p, i) => (
-        <li class="row reveal" style={`--i:${i}`}>
-          <span class="idx">{p.idx}</span>
-          <div class="text">
-            <h3 class="name">{p.title}</h3>
-            <p class="desc">{p.desc}</p>
-          </div>
+<section class="route-section" id="how">
+  <div class="route-wrap route-principles">
+    <header class="route-principles__intro">
+      <h2 class="route-section__title">A call system should know its limits.</h2>
+      <p class="route-annotation">Build constraints / agreed before launch</p>
+      <p class="route-section__lead">The assistant follows a defined route. A person handles urgent, unclear, and out-of-scope calls. The project documents what happens when any part is unavailable.</p>
+    </header>
+    <ol class="route-principles__list">
+      {principles.map((principle) => (
+        <li class="route-principles__item">
+          <span class="route-principles__index">{principle.idx}</span>
+          <h3>{principle.title}</h3>
+          <p>{principle.desc}</p>
         </li>
       ))}
     </ol>
@@ -26,42 +22,14 @@ import { principles } from '../data/site.js';
 </section>
 
 <style>
-  /* The one tonal shift on the page. Keeps a long read from feeling like one
-     unbroken field. */
-  .band { background: var(--bg-2); }
-
-  .section-title { margin-block: 1.2rem 1.4rem; }
-  .intro { margin-bottom: 3.6rem; }
-
-  .list { list-style: none; padding: 0; }
-
-  .row {
-    display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: 2rem;
-    padding-block: 2.4rem;
-    border-top: var(--hair-w) solid var(--hair);
-  }
-  .row:last-child { border-bottom: var(--hair-w) solid var(--hair); }
-
-  .idx {
-    font-family: var(--font-mono);
-    font-size: 0.78rem; letter-spacing: 0.1em;
-    color: var(--accent);
-    padding-top: 0.5rem;
-  }
-
-  .name {
-    font-family: var(--font-display);
-    font-size: var(--step-h3);
-    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
-    margin-bottom: 0.8rem;
-  }
-
-  .desc { color: var(--text-dim); max-width: var(--measure); }
-
-  @media (max-width: 600px) {
-    .row { grid-template-columns: 1fr; gap: 0.5rem; }
-    .idx { padding-top: 0; }
-  }
+  .route-principles { display: grid; grid-template-columns: minmax(14rem, 0.78fr) minmax(0, 1.22fr); gap: clamp(2.5rem, 8vw, 9rem); align-items: start; }
+  .route-principles__intro { position: sticky; top: 7rem; }
+  .route-principles__intro .route-section__title { margin-bottom: 1.25rem; }
+  .route-principles__intro .route-section__lead { margin-top: 1.7rem; }
+  .route-principles__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+  .route-principles__item { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0.35rem 1rem; padding-block: 1.5rem; border-bottom: 1px solid var(--hair); }
+  .route-principles__index { grid-row: span 2; color: var(--accent); font-family: var(--font-mono); font-size: 0.68rem; padding-top: 0.22rem; }
+  .route-principles__item h3 { font-family: var(--font-display); font-size: clamp(1.25rem, 1.8vw, 1.65rem); line-height: 1.2; letter-spacing: -0.03em; }
+  .route-principles__item p { max-width: 60ch; color: var(--text-dim); font-size: 0.92rem; line-height: 1.65; }
+  @media (max-width: 760px) { .route-principles { grid-template-columns: 1fr; } .route-principles__intro { position: static; } }
 </style>
