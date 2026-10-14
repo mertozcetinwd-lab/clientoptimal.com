@@ -24,8 +24,8 @@ const {
 const isDemo = Astro.url.pathname.replace(/\/+$/, '') === '/demo';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-// Absolute URL for the social card image. Social scrapers reject relative paths.
-const ogImage = new URL('/og.png', Astro.site).href;
+// Version the URL when the artwork changes so social scrapers refresh cached cards.
+const ogImage = new URL('/og.png?v=20261014-voice-agent', Astro.site).href;
 
 // Organization structured data. A small static business site gets nothing from a
 // framework of schema, but a single Organization node helps search engines
