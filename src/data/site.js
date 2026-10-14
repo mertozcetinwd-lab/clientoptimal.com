@@ -217,7 +217,7 @@ export const capabilities = [
     desc: 'Select a provider and call route after checking the current phone system, required features, data settings, and operating cost.',
     includes: [
       'Confirm phone provider and forwarding behavior',
-      'Choose where intake summaries go: {{approved route}}',
+      'Agree a business-approved destination for intake summaries',
       'Document provider fees and required account settings',
     ],
   },
@@ -229,7 +229,7 @@ export const capabilities = [
     includes: [
       'Test with fictional caller details',
       'Check escalation and endpoint failure behavior',
-      'Record launch, support, and retention terms: {{confirm}}',
+      'Document launch, support, and retention terms before go-live',
     ],
   },
 ];

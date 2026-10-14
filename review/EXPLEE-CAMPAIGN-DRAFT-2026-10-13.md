@@ -1,7 +1,7 @@
 # Explee campaign draft
 
 **State:** Draft only. Do not import, enrich, schedule, or send.
-**Website readiness:** Not ready. The current public site still describes the older generalist AI automation offer; the updated voice-agent site remains local.
+**Website:** This draft targets the general AI voice-agent implementation and ongoing-support offer. Confirm the production page before using Explee to infer from the website URL. This draft does not authorize importing leads, scheduling, or sending.
 **Balance:** Unknown. No Explee account was accessed or created.
 
 ## Explicit inputs for a future review

@@ -1,13 +1,13 @@
 # ClientOptimal.com voice-agent redesign review
 
 **Prepared:** October 13, 2026
-**State:** Website changes are committed locally on `codex/clientoptimal-general-voice-agent`. No remote push or publication was made. The earlier brief prohibits deployment, and this repository reports a Vercel deployment check on its current site commit, so a branch push could start a preview deployment.
+**State:** Pre-release review snapshot prepared October 13, 2026. Mert later authorized pushing this redesign to production and updating the live site.
 
 ## 1. Current state
 
-The public site at [clientoptimal.com](https://clientoptimal.com/) still presents a broad AI automation offer. It does not yet reflect the general AI voice-agent implementation and ongoing-support direction selected for this site. The local project already contained substantial uncommitted voice-agent work, including a Retell browser sample, a floating demo widget, an Astro/React site, and a token endpoint used by local development. The local working tree was already dirty before this redesign. Those changes were preserved. This review did not touch `.env`, call the token endpoint, start a Retell sample, or change a provider setting.
+At the start of this review, the public site at [clientoptimal.com](https://clientoptimal.com/) still presented a broad AI automation offer. It did not yet reflect the general AI voice-agent implementation and ongoing-support direction selected for this site. The local project already contained substantial uncommitted voice-agent work, including a Retell browser sample, a floating demo widget, an Astro/React site, and a token endpoint used for local development. The local working tree was already dirty before this redesign. Those changes were preserved. This review did not touch `.env`, call the token endpoint, start a Retell sample, or change a provider setting.
 
-The redesigned local homepage now explains a proposed call-intake flow and says which choices remain open. The local sample says it is an AI sample, not a client deployment. Existing engineering case studies are explicitly identified as unrelated to voice-agent results. The public site remains unchanged, so the offer and design are not ready for Explee website inference or publication.
+The redesigned homepage explains a proposed call-intake flow and how fit is assessed. The local sample says it is an AI sample, not a client deployment. Existing engineering case studies are explicitly identified as unrelated to voice-agent results. Mert later authorized updating the public site. The campaign draft remains separate from Explee and is not ready to import, schedule, or send.
 
 Key gaps found and addressed in the prototype:
 
@@ -105,7 +105,7 @@ The visualizer code is a remaining performance tradeoff: the production build st
 
 ## 8. Explee readiness and credit record
 
-**Readiness: not ready to infer or run from the current public site.** The live site has not been updated. The Explee public site says its agent can infer an offer from a website, find prospects, generate emails, and help book meetings. Feeding it today's ClientOptimal.com URL could anchor it to the old generalist copy. The campaign document beside this report supplies explicit inputs instead, but there is no account-side field or draft preview to confirm because we did not sign in or create an account.
+**Website offer alignment is one prerequisite, not campaign authorization.** This review began while the public site still showed the older generalist AI automation offer. Mert later authorized the voice-agent update. The Explee campaign document supplies explicit inputs, but there is no account-side field or draft preview to confirm because no account was accessed or created. The campaign remains paused pending the lead list, sender, geography, schedule, and cost review.
 
 The public pricing page advertises **$30 in starter credits** and **750 emails**, an advertised arithmetic equivalent of $0.04 per email. The page also markets estimates of 2 to 6 warm leads, one meeting, and $1 to $20 cost per lead. These are Explee claims, not audited outcomes or a confirmed user balance. The terms say pay-as-you-go Agent use needs a saved card, usage is charged per email, the user can be liable for off-session charges after authorizing the Agent to work, and Explee may use company name, logo, and use-case details for promotion subject to its stated opt-out process. No card, account, or campaign was created.
 
@@ -133,7 +133,7 @@ Files changed or added in the nested website repository include:
 - `public/robots.txt`, `public/sitemap.xml`, both review documents, and `review/screenshots/`.
 - Root `references/teardown-and-rebuild-playbook.md` received one operational note about unknown usage balance and provider cost disclosure.
 
-`npm run build` completed after the latest copy edits and generated 11 static pages. It reports one chunk above 500 KB, noted above. Homepage screenshots at 1440px and 390px were refreshed and visually inspected after the copy changes; the existing demo screenshots remain current because that page was not changed in this pass. The demo control was not clicked. No automated tests were added or run. The local preview server was stopped after capture. Website changes are committed locally; the remote push is on hold to avoid a possible Vercel preview deployment under the earlier no-deploy instruction. No deployment, live edit, account change, or external message was made.
+`npm run build` completed after the latest copy edits and generated 11 static pages. It reports one chunk above 500 KB, noted above. Homepage and demo screenshots at 1440px and 390px were refreshed and visually inspected after the copy changes. The demo control was not clicked. No automated tests were added or run. The local preview server was stopped after capture. Mert later authorized a production update. This review records the design and campaign research, not the deployment result. No account change or external message was made.
 
 ## 10. Decisions for Mert
 
