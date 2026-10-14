@@ -47,7 +47,8 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
 
 <Base
   title={`Text me the demo · ${meta.name}`}
-  description="See what the AI receptionist sounds like answering a real call. We'll text you a 90-second demo."
+  description="Request a recorded sample of an AI voice interaction by email or, with separate consent, by text."
+  noindex
 >
   <section class="optin">
     <div class="wrap">
@@ -55,13 +56,13 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
         <p class="eyebrow">{meta.name}</p>
         <h1 class="display title">Hear what it sounds like.</h1>
         <p class="lead">
-          A 90-second recording of the AI receptionist picking up a call the
-          owner missed &mdash; taking the caller's name, what they need, how
-          urgent it is, and texting the details through. No pitch, just the
-          recording.
+          A short recorded sample of an AI voice interaction for a fictional
+          service business. It is a demonstration, not a customer call or client
+          result. The sample illustrates a possible intake flow; a real setup
+          depends on the business's phone system and approved script.
         </p>
         <p class="lead" style="margin-top:.8rem">
-          <strong>Your choice how you get it</strong> &mdash; tick the box for a text, or
+          <strong>Your choice how you get it</strong>: tick the box for a text, or
           just leave your email instead. Either works, and you never have to
           agree to texts to see the demo.
         </p>
@@ -123,7 +124,7 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
         <button type="submit" class="submit">Text me the demo</button>
 
         <p class="fine">
-          Consent to receive texts is not a condition of anything &mdash; leave the box
+          Consent to receive texts is not a condition of anything. Leave the box
           unticked and give us an email instead. We do not sell, rent, or share your
           number or your consent with anyone.
         </p>

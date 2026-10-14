@@ -1,54 +1,39 @@
 ---
-// RIG-borrowed marquee strip. A thin band of what the studio does, scrolling
-// under the hero. Pure CSS: the track holds the list TWICE and translates by
-// -50% (exactly one copy), so the loop is seamless with zero JS. Decorative, so
-// the whole strip is aria-hidden — every phrase already appears as real content
-// in the sections below.
-//
-// Honest content only: capability nouns and how-it-runs phrases, no metrics.
+// A static, accessible summary of the proposed call-flow requirements.
 const items = [
-  'Automations',
-  'Tool-using agents',
-  'Research pipelines',
-  'Internal tools',
-  'Direct API wiring',
-  'Runs unattended',
-  'Shipped, not demoed',
-  'Remote',
+  'AI disclosure first',
+  'Approved intake questions',
+  'Human fallback',
+  'No assumed booking',
+  'Phone route to confirm',
+  'Written handover',
 ];
-const row = [...items, ...items];
 ---
 
-<div class="ticker" aria-hidden="true">
-  <div class="track">
-    {row.map((t) => (
-      <span class="item"><span class="sep">/</span>{t}</span>
-    ))}
-  </div>
-</div>
+<ul class="ticker" aria-label="Call flow requirements">
+  {items.map((t) => <li class="item"><span class="sep" aria-hidden="true">/</span>{t}</li>)}
+</ul>
 
 <style>
   .ticker {
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem 0;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0.5rem;
     border-block: var(--hair-w) solid var(--hair);
     background: var(--bg-2);
     /* Sits above the fixed grain overlay (z-index 1) so the band reads as solid. */
     position: relative;
     z-index: 2;
   }
-  .track {
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    padding-block: 0.85rem;
-    animation: ticker 42s linear infinite;
-    will-change: transform;
-  }
   .item {
     display: inline-flex;
     align-items: center;
     gap: 1.2rem;
-    padding-inline: 1.3rem;
+    padding: 0.5rem 1rem;
     font-family: var(--font-mono);
     font-size: var(--step-eyebrow);
     letter-spacing: 0.16em;
@@ -57,8 +42,4 @@ const row = [...items, ...items];
   }
   .sep { color: var(--accent); }
 
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
 </style>

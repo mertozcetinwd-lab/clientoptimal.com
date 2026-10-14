@@ -1,0 +1,157 @@
+---
+import { hero } from '../data/site.js';
+---
+
+<section class="hero" aria-labelledby="home-title">
+  <div class="wrap layout">
+    <div class="copy">
+      <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{hero.eyebrow}</p>
+      <h1 id="home-title" class="display title">{hero.title}</h1>
+      <p class="lead intro">{hero.lead}</p>
+      <div class="actions">
+        <a class="btn primary" href={hero.cta.href}>{hero.cta.label}</a>
+        <a class="btn" href={hero.secondary.href}>{hero.secondary.label}</a>
+      </div>
+      <p class="audience">
+        For suitable businesses with routine inbound calls and a person available for follow-up.
+      </p>
+    </div>
+
+    <aside class="flow-card" aria-label="Proposed inbound call flow">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow">Proposed call flow</p>
+          <p class="card-subtitle">A sample structure, scoped per business</p>
+        </div>
+        <svg class="signal" viewBox="0 0 116 48" role="img" aria-label="Static voice waveform illustration">
+          <path d="M2 24h10l5-12 7 24 7-18 7 12 6-6h9l5-16 7 32 7-24 7 14 6-6h9l5-10 7 20 7-10h9" />
+        </svg>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="number">01</span>
+          <div><strong>Inbound call</strong><small>Phone route: &#123;&#123;confirm&#125;&#125;</small></div>
+        </li>
+        <li>
+          <span class="number">02</span>
+          <div><strong>AI disclosure</strong><small>Identify the assistant before questions</small></div>
+        </li>
+        <li>
+          <span class="number">03</span>
+          <div><strong>Approved intake</strong><small>Name · callback · service · location</small></div>
+        </li>
+        <li>
+          <span class="number">04</span>
+          <div><strong>Human follow-up</strong><small>Route and response time: &#123;&#123;confirm&#125;&#125;</small></div>
+        </li>
+      </ol>
+      <p class="card-note">Concept only. Not a customer call or client result.</p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.5rem, 10vh, 7.5rem) clamp(3.5rem, 8vh, 6rem);
+    background:
+      radial-gradient(ellipse at 82% 22%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 42%),
+      var(--bg);
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+  }
+  .copy { max-width: 48rem; }
+  .title {
+    max-width: 11ch;
+    margin-block: 1.6rem 1.5rem;
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+    text-wrap: balance;
+  }
+  .intro { max-width: 43rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+  .audience {
+    max-width: 39rem;
+    margin-top: 1.6rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.07em;
+    line-height: 1.7;
+    text-transform: uppercase;
+  }
+  .audience span { color: var(--accent); }
+  .flow-card {
+    min-width: 0;
+    border: var(--hair-w) solid var(--hair-2);
+    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    padding: clamp(1.3rem, 3vw, 2.2rem);
+    box-shadow: 0 24px 70px color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding-bottom: 1.3rem;
+    border-bottom: var(--hair-w) solid var(--hair);
+  }
+  .card-head .eyebrow { margin: 0 0 0.35rem; color: var(--accent); }
+  .card-subtitle { color: var(--muted); font-size: var(--step-small); }
+  .signal { width: clamp(4.5rem, 8vw, 7rem); flex: none; }
+  .signal path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+    opacity: 0.9;
+  }
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 2.3rem minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: start;
+    padding-block: 1rem;
+    border-bottom: var(--hair-w) solid var(--hair);
+  }
+  .number {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding-top: 0.12rem;
+  }
+  .steps strong { display: block; font-size: var(--step-small); font-weight: 600; }
+  .steps small { display: block; color: var(--text-dim); font-size: 0.74rem; line-height: 1.5; margin-top: 0.25rem; }
+  .card-note {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 880px) {
+    .layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .title { max-width: 14ch; }
+    .flow-card { max-width: 43rem; }
+  }
+  @media (max-width: 520px) {
+    .hero { padding-block: 3.5rem 3rem; }
+    .title { max-width: 10ch; font-size: clamp(2.7rem, 15vw, 4.2rem); }
+    .actions { display: grid; }
+    .actions .btn { justify-content: center; }
+    .flow-card { padding: 1.1rem; }
+    .card-head { align-items: flex-start; }
+    .signal { width: 4.3rem; }
+    .steps li { grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0.55rem; }
+  }
+</style>

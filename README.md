@@ -6,7 +6,7 @@ Sibling to [mertozcetin.com](https://github.com/mertozcetinwd-lab/mertozcetin.co
 
 ## Stack
 
-Astro 7, hand-authored scoped CSS, three self-hosted typefaces. No framework, no CSS library, no analytics, no cookies, no tracking. Total client JS is about **1.1KB**, inlined, and it does two things: swaps the theme and fires scroll reveals.
+Astro 7 with hand-authored CSS and React 19 islands for the interactive browser voice sample and floating sample launcher. The demo uses Retell's browser SDK and a Three.js visualizer. Astro emits static pages; the interactive demo and launcher add client JavaScript. Theme preference is stored in local storage. No first-party analytics are currently installed. Third-party YouTube and Retell services load only with their respective sample features.
 
 ```
 npm install
@@ -45,9 +45,9 @@ Type is a three-way split: Archivo carries display, Inter carries body, IBM Plex
 
 ## The legal pages are not boilerplate
 
-`/privacy` and `/terms` were written from what this site actually does, and they are load-bearing. `/privacy` doubles as the published spec for the LinkedIn posting workflow: it commits to publishing only to its own founder's account, to reading no other member's data, to never scraping, and to taking no automated action on anyone else's posts.
+`/privacy` and `/terms` describe the website's actual collection and service scope. `/privacy` also documents the LinkedIn publishing workflow and the Retell browser sample. Confirm current provider settings before representing audio retention, recording, or model use as settled.
 
-**If a change to that workflow would break one of those statements, the workflow changes, not the page.** If this site ever gains a form, analytics, or cookies, `/privacy` changes in the same commit.
+**If a change to a workflow would break one of those statements, update the workflow or the page in the same change.**
 
 ## Licence
 

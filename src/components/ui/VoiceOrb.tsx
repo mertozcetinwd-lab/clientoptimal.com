@@ -4,220 +4,16 @@ import { RetellWebClient } from 'retell-client-js-sdk';
 // Client Optimal Voice AI Interactive Demo
 // Powered by Retell AI WebRTC engine and real-time WebGL Fluid Cloud Orb.
 // Strictly adheres to Client Optimal design system (tokens.css).
+//
+// 2026-09-19: the orb canvas now comes from the shared FluidCloudOrb component;
+// the shader implementation is unchanged and lives in FluidCloudOrb.tsx.
+import type { OrbState } from './FluidCloudOrb';
 
-export type OrbState = 'idle' | 'connecting' | 'listening' | 'speaking' | 'error';
+const FluidCloudOrb = React.lazy(() => import('./FluidCloudOrb'));
 
 interface TranscriptEntry {
   role: 'agent' | 'user';
   text: string;
-}
-
-// Self-contained WebGL Fluid Cloud Shader Orb (Siri / Hume / Apple Intelligence aesthetic)
-function FluidCloudOrb({
-  state,
-  volume,
-  onClick,
-  size = 250,
-}: {
-  state: OrbState;
-  volume: number;
-  onClick: () => void;
-  size?: number;
-}) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true });
-    if (!gl) return;
-
-    const vsSource = `
-      attribute vec2 a_position;
-      void main() {
-        gl_Position = vec4(a_position, 0.0, 1.0);
-      }
-    `;
-
-    const fsSource = `
-      precision highp float;
-      uniform vec2 u_resolution;
-      uniform float u_time;
-      uniform float u_activity;
-
-      float hash(vec2 p) {
-        p = fract(p * vec2(123.34, 456.21));
-        p += dot(p, p + 45.32);
-        return fract(p.x * p.y);
-      }
-
-      float noise(vec2 p) {
-        vec2 i = floor(p);
-        vec2 f = fract(p);
-        vec2 u = f * f * (3.0 - 2.0 * f);
-        return mix(
-          mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-          mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
-          u.y
-        );
-      }
-
-      float fbm(vec2 p) {
-        float value = 0.0;
-        float amplitude = 0.52;
-        mat2 rotation = mat2(0.80, 0.60, -0.60, 0.80);
-        for (int octave = 0; octave < 5; octave++) {
-          value += amplitude * noise(p);
-          p = rotation * p * 1.92 + vec2(9.7, 4.3);
-          amplitude *= 0.5;
-        }
-        return value;
-      }
-
-      void main() {
-        vec2 uv = gl_FragCoord.xy / u_resolution;
-        vec2 centered = uv - 0.5;
-        float radius = length(centered);
-        float edge = 1.0 - smoothstep(0.485, 0.5, radius);
-        if (edge <= 0.0) discard;
-
-        vec2 p = centered * 2.0;
-        float t = u_time;
-        vec2 warp = vec2(
-          fbm(p * 1.02 + vec2(t * 0.34, -t * 0.24)),
-          fbm(p * 1.08 + vec2(-t * 0.27, t * 0.32) + vec2(6.7, 2.9))
-        );
-        vec2 curl = vec2(
-          sin(p.y * 2.4 + t * 0.68 + warp.y * 3.2),
-          cos(p.x * 2.1 - t * 0.61 + warp.x * 3.0)
-        );
-        vec2 warped = p + (warp - 0.5) * (1.18 + u_activity * 0.38) + curl * (0.035 + u_activity * 0.07);
-        float broad = fbm(warped * 0.92 + vec2(t * 0.14, -t * 0.18));
-        float folded = fbm(warped * 1.66 + vec2(-t * 0.23, t * 0.19) + 5.2);
-        float field = mix(broad, folded, 0.3 + u_activity * 0.14);
-
-        float horizon = 0.46 + 0.08 * sin((uv.x + warp.x * 0.2) * 5.4 + t * 0.42) + 0.16 * (broad - 0.5);
-        float upper = smoothstep(horizon - 0.12, horizon + 0.08, uv.y);
-        float band = exp(-pow((uv.y - horizon) * (5.2 + u_activity * 0.8), 2.0));
-        float cloud = smoothstep(0.24, 0.79, field);
-
-        // Electric Azure & Arctic Ice Blue palette
-        vec3 deepBlue = vec3(0.08, 0.25, 0.78);
-        vec3 brightBlue = vec3(0.22, 0.48, 0.98);
-        vec3 lightLavender = vec3(0.65, 0.82, 0.99);
-        vec3 milk = vec3(0.95, 0.97, 1.0);
-
-        vec3 color = mix(lightLavender, brightBlue, upper);
-        float upperDepth = upper * (0.14 + smoothstep(0.42, 0.78, folded) * 0.5);
-        color = mix(color, deepBlue, upperDepth);
-
-        float milkAmount = clamp(band * (0.42 + cloud * 0.62), 0.0, 0.88);
-        color = mix(color, milk, milkAmount);
-
-        float lowerMist = (1.0 - upper) * smoothstep(0.58, 0.9, broad) * 0.18;
-        color = mix(color, milk, lowerMist);
-
-        float grain = (noise(gl_FragCoord.xy * 0.64) - 0.5) / 255.0;
-        color += grain;
-
-        gl_FragColor = vec4(color * edge, edge);
-      }
-    `;
-
-    function createShader(type: number, src: string) {
-      const shader = gl!.createShader(type);
-      if (!shader) return null;
-      gl!.shaderSource(shader, src);
-      gl!.compileShader(shader);
-      if (!gl!.getShaderParameter(shader, gl!.COMPILE_STATUS)) {
-        gl!.deleteShader(shader);
-        return null;
-      }
-      return shader;
-    }
-
-    const vs = createShader(gl.VERTEX_SHADER, vsSource);
-    const fs = createShader(gl.FRAGMENT_SHADER, fsSource);
-    if (!vs || !fs) return;
-
-    const prog = gl.createProgram();
-    if (!prog) return;
-    gl.attachShader(prog, vs);
-    gl.attachShader(prog, fs);
-    gl.linkProgram(prog);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-      gl.STATIC_DRAW
-    );
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const px = Math.round(size * dpr);
-    canvas.width = px;
-    canvas.height = px;
-    gl.viewport(0, 0, px, px);
-
-    const aPos = gl.getAttribLocation(prog, 'a_position');
-    const uRes = gl.getUniformLocation(prog, 'u_resolution');
-    const uTime = gl.getUniformLocation(prog, 'u_time');
-    const uAct = gl.getUniformLocation(prog, 'u_activity');
-
-    gl.useProgram(prog);
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform2f(uRes, px, px);
-
-    const start = performance.now();
-    let currentAct = 0.15;
-
-    const render = (now: number) => {
-      const elapsed = (now - start) / 1000;
-      const targetAct =
-        state === 'speaking'
-          ? Math.max(0.42, volume)
-          : state === 'listening'
-          ? Math.max(0.22, volume)
-          : 0.13;
-      currentAct += (targetAct - currentAct) * 0.1;
-
-      gl.uniform1f(uTime, elapsed * (0.75 + currentAct * 0.7));
-      gl.uniform1f(uAct, currentAct);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-      animRef.current = requestAnimationFrame(render);
-    };
-
-    animRef.current = requestAnimationFrame(render);
-
-    return () => {
-      if (animRef.current) cancelAnimationFrame(animRef.current);
-      gl.deleteProgram(prog);
-      gl.deleteShader(vs);
-      gl.deleteShader(fs);
-      gl.deleteBuffer(buf);
-    };
-  }, [size, state, volume]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      onClick={onClick}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        cursor: 'pointer',
-        boxShadow: '0 8px 36px rgba(37, 99, 235, 0.32), 0 0 40px rgba(56, 189, 248, 0.25)',
-        display: 'block',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-      }}
-      title="Click to start or stop call"
-    />
-  );
 }
 
 export default function VoiceOrb() {
@@ -225,6 +21,7 @@ export default function VoiceOrb() {
   const [inputVolume, setInputVolume] = useState<number>(0);
   const [outputVolume, setOutputVolume] = useState<number>(0);
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
+  const [audioConsent, setAudioConsent] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [callDuration, setCallDuration] = useState<number>(0);
@@ -315,6 +112,10 @@ export default function VoiceOrb() {
 
   // Start Voice Call with Retell AI
   const startCall = useCallback(async () => {
+    if (!audioConsent) {
+      setErrorMessage('Please agree to send sample audio to Retell AI before starting.');
+      return;
+    }
     try {
       setErrorMessage(null);
       setOrbState('connecting');
@@ -409,7 +210,7 @@ export default function VoiceOrb() {
       setErrorMessage(err instanceof Error ? err.message : 'Failed to connect call');
       stopMicAnalysis();
     }
-  }, [startMicAnalysis, stopMicAnalysis]);
+  }, [audioConsent, startMicAnalysis, stopMicAnalysis]);
 
   // Stop Call
   const stopCall = useCallback(() => {
@@ -451,32 +252,43 @@ export default function VoiceOrb() {
       <div className="voice-card-header">
         <div className="badge">
           <span className={`badge-dot ${isCallActive ? 'live' : ''}`} aria-hidden="true" />
-          <span>{isCallActive ? `LIVE CALL · ${formatTime(callDuration)}` : 'LIVE VOICE DEMO'}</span>
+          <span>{isCallActive ? `SAMPLE · ${formatTime(callDuration)}` : 'BROWSER SAMPLE'}</span>
         </div>
 
-        <h2 className="voice-title">Talk to our AI receptionist</h2>
+        <h2 className="voice-title">AI call intake sample</h2>
         <p className="voice-subtitle">
-          Test how it answers your business name, qualifies the job, flags emergency water or gas
-          leaks, and texts you the details.
+          This interactive sample connects you to an AI voice assistant for a fictional service
+          business. It may not match an approved client call flow. Browser audio goes to Retell AI;
+          no real phone call, customer message, text, or booking is made. Starting may create metered
+          Retell usage billed to Client Optimal; the rate and account balance are unverified.
         </p>
       </div>
 
       {/* 3D Visualizer Orb Stage */}
       <div className="orb-stage">
         <div className={`orb-halo ${isCallActive ? 'active' : ''}`} />
-        <FluidCloudOrb
-          state={orbState}
-          volume={orbState === 'speaking' ? outputVolume : inputVolume}
-          onClick={isCallActive ? stopCall : startCall}
-          size={250}
-        />
+        {audioConsent ? (
+          <React.Suspense fallback={<div className="orb-loading" aria-hidden="true" />}>
+            <FluidCloudOrb
+              state={orbState}
+              volume={orbState === 'speaking' ? outputVolume : inputVolume}
+              onClick={isCallActive ? stopCall : startCall}
+              size={250}
+              title={isCallActive ? 'Click to end the sample' : 'Start the sample'}
+            />
+          </React.Suspense>
+        ) : (
+          <div className="orb-idle" aria-hidden="true">
+            <span />
+          </div>
+        )}
       </div>
 
       {/* State & Call Status HUD */}
       <div className="status-hud">
         <span className={`status-pill ${orbState}`}>
-          {orbState === 'idle' && 'Ready: Click Start Conversation to speak'}
-          {orbState === 'connecting' && 'Establishing secure WebRTC connection...'}
+          {orbState === 'idle' && 'Check the consent box before starting. Use fictional details only.'}
+          {orbState === 'connecting' && 'Connecting the browser sample...'}
           {orbState === 'listening' &&
             (isMuted ? 'Microphone muted' : 'Listening: speak naturally...')}
           {orbState === 'speaking' && 'Assistant speaking...'}
@@ -490,6 +302,21 @@ export default function VoiceOrb() {
         )}
       </div>
 
+      {!isCallActive && (
+        <label className="voice-consent">
+          <input
+            type="checkbox"
+            checked={audioConsent}
+            onChange={(event) => setAudioConsent(event.target.checked)}
+          />
+          <span>
+            I agree to send microphone audio to Retell AI to run this sample. Retention and
+            model-use settings are unverified. Starting may create metered usage billed to Client
+            Optimal; the rate and account balance are unverified. I will use fictional details only.
+          </span>
+        </label>
+      )}
+
       {/* Controls */}
       <div className="controls-row">
         {!isCallActive ? (
@@ -497,6 +324,7 @@ export default function VoiceOrb() {
             type="button"
             className="btn primary start-btn"
             onClick={startCall}
+            disabled={!audioConsent}
           >
             <svg
               width="18"
@@ -508,7 +336,7 @@ export default function VoiceOrb() {
             >
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
-            <span>Start Conversation</span>
+            <span>Start sample</span>
           </button>
         ) : (
           <div className="active-controls">
@@ -600,7 +428,10 @@ export default function VoiceOrb() {
 
       {/* Footer Meta Note */}
       <div className="voice-card-footer">
-        <span className="meta-text">Runs on Retell AI WebRTC · Direct browser audio</span>
+        <span className="meta-text">
+          Audio is processed by Retell AI. Settings unverified.{' '}
+          <a href="/privacy">Privacy details</a>
+        </span>
       </div>
 
       {/* Scoped CSS using exact Client Optimal design tokens */}
@@ -661,6 +492,29 @@ export default function VoiceOrb() {
           color: var(--text-dim);
           margin: 0;
         }
+        .voice-consent {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.7rem;
+          max-width: 34rem;
+          margin: 0.5rem auto 1rem;
+          color: var(--text-dim);
+          font-size: 0.82rem;
+          line-height: 1.5;
+          text-align: left;
+        }
+        .voice-consent input {
+          flex: none;
+          width: 1.1rem;
+          height: 1.1rem;
+          margin-top: 0.1rem;
+          accent-color: var(--accent);
+        }
+        .start-btn:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
 
         .orb-stage {
           position: relative;
@@ -670,6 +524,29 @@ export default function VoiceOrb() {
           align-items: center;
           justify-content: center;
           margin: 1.2rem 0;
+        }
+
+        .orb-loading,
+        .orb-idle {
+          width: 250px;
+          height: 250px;
+          border: 1px solid var(--hair-2);
+          border-radius: 50%;
+          background: radial-gradient(circle at 44% 36%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%);
+        }
+
+        .orb-idle {
+          display: grid;
+          place-items: center;
+          box-shadow: 0 0 68px color-mix(in srgb, var(--accent) 14%, transparent);
+        }
+
+        .orb-idle span {
+          width: 60%;
+          height: 60%;
+          border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--hair-2));
+          border-radius: 50%;
+          background: radial-gradient(circle at 44% 36%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 74%);
         }
 
         .orb-halo {

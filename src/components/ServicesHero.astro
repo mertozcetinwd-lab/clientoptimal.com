@@ -14,7 +14,12 @@ import { servicesHero } from '../data/site.js';
     <h1 class="display title reveal">{servicesHero.title}</h1>
     <p class="lead intro reveal">{servicesHero.lead}</p>
     <div class="ctas reveal" style="--i:1">
-      <a class="btn primary" href={servicesHero.cta.href} target="_blank" rel="noopener">
+      <a
+        class="btn primary"
+        href={servicesHero.cta.href}
+        target={servicesHero.cta.href.startsWith('http') ? '_blank' : undefined}
+        rel={servicesHero.cta.href.startsWith('http') ? 'noopener' : undefined}
+      >
         {servicesHero.cta.label}
       </a>
       <a class="btn" href={servicesHero.secondary.href}>{servicesHero.secondary.label}</a>

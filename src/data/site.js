@@ -1,6 +1,6 @@
 // Every string on clientoptimal.com. One source, so nothing drifts.
 //
-// HARD CONSTRAINT — READ BEFORE EDITING:
+// HARD CONSTRAINT: READ BEFORE EDITING:
 // Client Optimal is pre-revenue with zero clients. NOTHING in this file may
 // imply otherwise. No client counts, no logos, no testimonials, no review
 // stars, no years-in-business, no result percentages.
@@ -24,22 +24,25 @@
 //
 // Voice: references/voice.md in the parent AIOS. Casual, direct, blunt, no
 // corporate polish, no hype, NO EM DASHES.
+//
+// REPOSITIONED 2026-10-13: the site presents general AI voice-agent
+// implementation and ongoing support for suitable inbound call workflows.
+// There are no voice-agent client results or validated deployments, and every
+// unknown stays visible for review.
 
 export const meta = {
   name: 'Client Optimal',
   legalName: 'Client Optimal LLC',
-  // Tagline names the whole practice now, not one offer. It feeds the <title>, so
-  // it doubles as the SEO headline: "Client Optimal · Automation that earns its keep".
-  tagline: 'Automation that earns its keep',
-  // The meta description and OG blurb. Generalist and honest: it names the kinds of
-  // build (automations, agents, tools) and the way they are built, never a result.
-  // ~155 chars, under the truncation limit.
+  // REPOSITIONED 2026-09-19: the AI voice agent is the headline product, so the
+  // tagline and meta description name it directly. Feeds <title> and OG tags.
+  tagline: 'AI voice agent implementation',
+  // Honest: what the agent does, who it is for, no results claimed.
   description:
-    'AI automation studio for small businesses. Custom automations, agents, and internal tools, built end to end from the APIs up and shipped to run on their own.',
+    'Custom AI voice agent implementation and ongoing support for suitable inbound call workflows, with approved scripts and human follow-up.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
-  effectiveDate: 'July 18, 2026',
+  effectiveDate: 'October 13, 2026',
 };
 
 // "Work" came back 2026-07-31, pointing at a REAL page this time. It was dropped
@@ -54,12 +57,15 @@ export const meta = {
 //
 // Four items is the ceiling (Demo added 2026-08-24). Header.astro scrolls the nav sideways below 560px
 // rather than hiding or wrapping it; a fourth would start to crowd that.
+//
+// 2026-09-19: "Services" reads as "Voice agent" now. Same route, same anchor
+// structure, no redirects needed.
 export const nav = [
   // Demo leads: it is the one page cold outreach points at, and the funnel runs
   // watch it -> see it built before -> what that costs -> who I am.
   { label: 'Demo', href: '/demo' },
+  { label: 'Voice agent', href: '/services' },
   { label: 'Work', href: '/work' },
-  { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
 ];
 
@@ -102,15 +108,14 @@ export const contact = {
   personalSiteShow: 'mertozcetin.com',
 };
 
-// NOTE: unused. The homepage hero is the React island (ui/experience-hero.tsx),
-// which carries its own copy. This object is the pre-island wording, kept only as
-// a reference for the voice. If you change the live hero, change it there.
+// The homepage hero uses this copy in a server-rendered Astro component so its
+// offer and call-flow text are visible in the initial HTML.
 export const hero = {
-  eyebrow: 'AI automation studio',
-  title: 'Automation that earns its keep.',
-  lead: 'Client Optimal builds the automations, agents, and internal tools that do the work you keep doing by hand. Wired straight from the APIs, shipped to run on a schedule, and built to fail loudly instead of quietly. One person, remote, no template.',
-  cta: { label: 'Start a conversation', href: contact.linkedin },
-  secondary: { label: 'See what I build', href: '#build' },
+  eyebrow: 'AI voice agent implementation',
+  title: 'AI call intake, with a person in the loop.',
+  lead: 'Client Optimal implements custom AI voice agents for businesses with routine inbound calls, then provides ongoing support under agreed terms. The assistant identifies itself as AI, follows an approved script, captures callback details, and routes exceptions to a person. Phone setup, support scope, availability, response times, pricing, and provider costs are agreed before go-live.',
+  cta: { label: 'Hear the sample', href: '/demo' },
+  secondary: { label: 'Discuss a call flow', href: '/contact' },
 };
 
 // The reactivation offer, explained. NOTE: DORMANT AND DELIBERATELY UNSURFACED.
@@ -144,33 +149,36 @@ export const reactivation = {
 // The problem, rig.ai-style: a bordered 2x2 grid of real failure modes that set
 // up why the services exist. All four are honest, generalist pains (no metrics,
 // no fear-mongering) and each maps to a principle further down the page.
+//
+// 2026-09-19: recast as the missed-call problem in trade terms. Still honest:
+// no metrics, no fear-mongering, nothing a caller could not say themselves.
 export const problem = {
-  eyebrow: 'The problem',
-  title: 'Most automation quietly dies.',
+  eyebrow: 'The use case',
+  title: 'A missed call needs a clear next step.',
   cards: [
     {
       idx: '01',
-      tag: 'Silent failure',
-      title: 'It breaks and nobody notices.',
-      desc: 'A workflow stops running on a Tuesday and you find out a month later, when the numbers look wrong and the trail has gone cold.',
+      tag: 'Call intake',
+      title: 'Capture the reason for the call.',
+      desc: 'An approved script can collect a caller name, callback number, service request, and location before the owner returns the call.',
     },
     {
       idx: '02',
-      tag: 'Vendor lock-in',
-      title: 'You end up renting your own process.',
-      desc: 'Built on a platform that sits between you and your data, and raises the price or changes the rules whenever it decides to.',
+      tag: 'Human fallback',
+      title: 'Put exceptions in a person’s hands.',
+      desc: 'Urgent, unclear, or out-of-scope calls need a named human route and a response rule agreed before launch.',
     },
     {
       idx: '03',
-      tag: 'Demo-ware',
-      title: 'It worked once, on stage.',
-      desc: 'A flashy demo is a different engineering problem than something that runs unattended at 3am with nobody watching it.',
+      tag: 'Clear limits',
+      title: 'Keep promises inside the script.',
+      desc: 'The assistant does not diagnose, quote, book, dispatch, or promise a callback time unless that action is explicitly configured and verified.',
     },
     {
       idx: '04',
-      tag: 'Tab sprawl',
-      title: 'Six tools that do not talk.',
-      desc: 'The work lives in Gmail and ClickUp and Stripe and a spreadsheet, and the integration holding it together is you.',
+      tag: 'Business inputs',
+      title: 'The owner sets the rules.',
+      desc: 'Hours, service area, approved services, intake questions, and callback ownership come from the business before configuration.',
     },
   ],
 };
@@ -187,71 +195,41 @@ export const problem = {
 //
 // (The old `plate` key is gone. It named a generative SVG figure per card, and
 // Plate.astro no longer exists in this repo.)
+//
+// 2026-09-19: the voice agent is 01 and the rest of the grid exists to support
+// it. Every card still describes something already built; none needed inventing.
 export const capabilities = [
   {
     idx: '01',
-    tag: 'Automate',
-    title: 'Automations',
-    desc: 'Inbox triage, data pipelines, the work you do the same way every week. Runs on a schedule with nobody watching it.',
+    tag: 'Call flow',
+    title: 'Scope the intake',
+    desc: 'Map the opening disclosure, approved questions, information to capture, and the point where a person takes over.',
     includes: [
-      'A scheduled job that runs without you starting it',
-      'Retries and an error path for when a step fails',
-      'A log you can read to see what it did and when',
+      'Identify the assistant as AI at the start',
+      'Collect only fields the business approves',
+      'Write a clear path for urgent or unclear requests',
     ],
   },
   {
     idx: '02',
-    tag: 'Orchestrate',
-    title: 'Agents',
-    desc: 'Tool-using agents that make the call, take the action, and know when to stop. Not a chatbot bolted onto a form.',
+    tag: 'Implementation',
+    title: 'Configure the voice agent',
+    desc: 'Select a provider and call route after checking the current phone system, required features, data settings, and operating cost.',
     includes: [
-      'Tool access with explicit limits on what it may touch',
-      'A stopping condition, so it cannot loop forever',
-      'A human approval step wherever the action is irreversible',
+      'Confirm phone provider and forwarding behavior',
+      'Choose where intake summaries go: {{approved route}}',
+      'Document provider fees and required account settings',
     ],
   },
   {
     idx: '03',
-    tag: 'Engineer',
-    title: 'Systems',
-    desc: 'The durable, file-based infrastructure everything else runs on. Guardrails, logging, and error paths included.',
+    tag: 'Verification',
+    title: 'Test and hand over',
+    desc: 'Walk through sample calls, confirm failure paths, and give the business a written operating guide before launch.',
     includes: [
-      'Configuration in plain files, not buried in a vendor UI',
-      'Logging and error branches from the first commit',
-      'Written notes on how it works and where it can break',
-    ],
-  },
-  {
-    idx: '04',
-    tag: 'Research',
-    title: 'Research',
-    desc: 'Multi-perspective briefings that map where the experts actually disagree, then peer-review their own conclusions.',
-    includes: [
-      'Gathering across several sources, not one search',
-      'Structured output you can hand to somebody else',
-      'Citations kept attached, so you can check the claim',
-    ],
-  },
-  {
-    idx: '05',
-    tag: 'Compose',
-    title: 'Documents',
-    desc: 'Reports and decks that build themselves, look at the result, critique it, and fix it. Presentation-ready on demand.',
-    includes: [
-      'Generation from your own data and template',
-      'A self-critique pass before it hands anything over',
-      'Export to the format you actually send, Docs, Word or Slides',
-    ],
-  },
-  {
-    idx: '06',
-    tag: 'Connect',
-    title: 'Integrations',
-    desc: 'Wiring the tools you already pay for, Gmail to ClickUp to Stripe, into one flow instead of six tabs.',
-    includes: [
-      'Direct API wiring between the tools you already pay for',
-      'One flow to follow instead of six tabs to check',
-      'No third-party automation platform sitting in the middle',
+      'Test with fictional caller details',
+      'Check escalation and endpoint failure behavior',
+      'Record launch, support, and retention terms: {{confirm}}',
     ],
   },
 ];
@@ -262,23 +240,23 @@ export const capabilities = [
 export const principles = [
   {
     idx: '01',
-    title: 'Direct APIs over heavy integrations',
-    desc: 'Fewer moving parts, less to break, and no third-party platform sitting between you and your own data. When a vendor changes their pricing, nothing here stops working.',
+    title: 'Disclose before asking',
+    desc: 'The opening says the caller is speaking with AI before the assistant collects details.',
   },
   {
     idx: '02',
-    title: 'Configuration you can read',
-    desc: 'The rules live in plain files, not buried in someone’s UI. Changing what counts as a qualified lead should be an edit, not a support ticket and a deploy.',
+    title: 'Keep answers in scope',
+    desc: 'The script uses business-approved information and routes unclear or out-of-scope requests to a person.',
   },
   {
     idx: '03',
-    title: 'Built to fail loudly',
-    desc: 'Retries, error branches, and logs from day one. The failure mode that actually hurts is the silent one, where a workflow quietly stops running and nobody notices for a month.',
-    },
+    title: 'Give failures an owner',
+    desc: 'The design names who handles a transfer failure, provider outage, or unanswered callback before any number is routed.',
+  },
   {
     idx: '04',
-    title: 'Shipped, not demoed',
-    desc: 'A demo works once, on purpose, while someone watches. Production runs on a Tuesday at 3am with nobody watching. Those are different engineering problems.',
+    title: 'Test before live routing',
+    desc: 'Use fictional scenarios to check the script, transfer path, error behavior, and provider settings before a real call is routed.',
   },
 ];
 
@@ -316,12 +294,8 @@ export const work = {
 // wrote, so it names the method first and the build second.
 export const workBand = {
   eyebrow: 'The work',
-  title: 'What that looks like on a real job.',
-  lead: 'Everything above is a claim about how I build. Here is one that got built, and the numbers it actually returned.',
-  // The homepage shows ONE card and /work now holds more, so this link finally
-  // has something behind it. It was deliberately absent while the two were the
-  // same thing, because a "see all" that leads to the page you just read is worse
-  // than no link at all.
+  title: 'See the work that exists.',
+  lead: 'The published case studies document earlier engineering projects. They are not voice-agent client results. The browser demo is a sample interaction, not a customer deployment.',
   cta: { label: 'See the rest of the work', href: '/work' },
 };
 
@@ -423,58 +397,72 @@ export const proof = {
 // Closing CTA, generalist and deliberately low-friction: it asks for a
 // description of the task, not a commitment. The honest "I will tell you straight
 // whether it is worth it" is a real trust signal that costs nothing to make.
+//
+// 2026-09-19: the ask is now "try the agent", which the site can actually
+// deliver on: the floating widget opens the live demo from any page.
 export const cta = {
   eyebrow: 'Start here',
-  title: 'Have something you keep doing by hand? Let us automate it.',
-  lead: 'Tell me what the task is and how often it eats your week. I will give you a straight answer on whether it is worth automating, and roughly what it would take, before you commit to anything.',
+  title: 'Start with the call flow.',
+  lead: 'Share your phone provider, the calls you want handled, and who should follow up. Client Optimal will scope a custom implementation and confirm the terms before anything goes live.',
 };
 
 // Honest FAQ, rig.ai-style accordion. Answers are generalist and true; nothing
 // implies a track record. "Is my data safe" stays consistent with /privacy.
+//
+// 2026-09-19: rewritten around the voice agent. Every answer stays true to the
+// hard constraint at the top of this file: no results, no track record.
 export const faq = {
   eyebrow: 'Questions',
-  title: 'Before you ask.',
+  title: 'Before we scope it.',
   items: [
     {
-      q: 'What do you actually build?',
-      a: 'Automations, tool-using agents, internal tools, and the systems they run on. Most projects are some mix, wired straight from the APIs rather than a no-code platform in the middle.',
+      q: 'What exactly does the voice agent do?',
+      a: 'The proposed first version identifies itself as AI, follows an approved intake script, and collects a name, callback number, service request, and location. A person handles urgent, unclear, or out-of-scope requests. Booking, quoting, dispatch, and automatic text alerts are not included in this draft.',
     },
     {
-      q: 'How do we work together?',
-      a: 'You tell me the task and how often it eats your week. I scope it, build it, and hand it back running. Remote, end to end. You approve anything that goes out under your name.',
+      q: 'Will my customers know they are talking to an AI?',
+      a: 'The opening script must clearly say that the caller is speaking with an AI assistant. The exact disclosure and call flow are reviewed before a real phone route is enabled.',
+    },
+    {
+      q: 'What happens to my current phone setup?',
+      a: 'That depends on your carrier, phone system, and desired call flow. Those details, the fallback route, and a way to disable forwarding must be confirmed before implementation. No phone changes are assumed in this draft.',
+    },
+    {
+      q: 'Which businesses are a fit?',
+      a: 'Different types of businesses may fit when routine inbound calls can follow an approved script and a person is available for exceptions or callbacks. Fit depends on the actual call types, phone system, privacy needs, and business model.',
     },
     {
       q: 'What does it cost?',
-      a: 'Depends on the build. I will give you a rough number before you commit, and I will tell you plainly if a thing is not worth automating instead of billing you to find out.',
+      a: 'The implementation price, ongoing support fee, covered systems, availability, response times, and any provider or phone-system charges are agreed in writing before work starts.',
     },
     {
-      q: 'Do you only do reactivation?',
-      a: 'No. Database reactivation is one offer, not the whole shop. If a task is repetitive and rule-based, it is a candidate, whatever corner of the business it lives in.',
+      q: 'What ongoing support is available?',
+      a: 'Client Optimal provides ongoing support under agreed terms. The covered systems, support hours, response path, response times, and fees are set out in writing for each project before go-live.',
     },
     {
-      q: 'Is my data safe?',
-      a: 'I prefer direct APIs over third-party platforms, so there are fewer places your data has to live. Nothing runs that you have not approved, and this site itself sets no cookies and runs no analytics.',
+      q: 'How are audio and call records handled?',
+      a: 'The browser sample sends microphone audio to Retell AI to run the conversation. Retention, recording, transcription, and model-use settings have not been verified for this account. Do not share real personal or sensitive details in the sample. A client deployment needs confirmed provider settings and suitable caller notices and consent.',
     },
   ],
 };
 
 /* ============================================================
-   /services — the services and approach page
+   /services: the services and approach page
    ============================================================ */
 
 // Head copy for the page. Base.astro takes { title, description }; the title uses
 // a middle dot because em dashes are out.
 export const servicesMeta = {
-  title: 'Services · Client Optimal',
+  title: 'Voice agent services · Client Optimal',
   description:
-    'What Client Optimal builds: automations, agents, systems, research, documents and integrations. How a project runs, and who it is a good fit for.',
+    'Custom AI voice agent implementation for inbound call intake, with an approved script, human escalation path, testing, and handover.',
 };
 
 export const servicesHero = {
-  eyebrow: 'Services and approach',
-  title: 'What I build, and how the work actually goes.',
-  lead: 'Six kinds of build, all of them shipped at least once. Below them is the honest version of how a project runs from your first message to a system running on its own, and who this is a bad fit for.',
-  cta: { label: 'Start a conversation', href: contact.linkedin },
+  eyebrow: 'Custom implementation',
+  title: 'A scoped call flow, built around your phone system.',
+  lead: 'Client Optimal implements inbound AI voice agents and provides ongoing support under agreed terms. Each project includes clear AI disclosure, approved intake questions, and a defined human handoff. Phone provider, integrations, support scope, availability, response times, pricing, and privacy settings are confirmed for that project.',
+  cta: { label: 'Discuss your call flow', href: '/contact' },
   secondary: { label: 'How a project runs', href: '#approach' },
 };
 
@@ -483,28 +471,28 @@ export const servicesHero = {
 // Nothing here promises an outcome, because /terms carries a no-guarantees clause.
 export const engagement = {
   eyebrow: 'Approach',
-  title: 'From first message to running system.',
-  lead: 'No discovery-call theatre and no retainer you cannot leave. Four steps, and you know the cost and the shape of the thing before anything gets built.',
+  title: 'Map it. Configure it. Test it. Support it.',
+  lead: 'The phone provider, human escalation route, recording settings, price, timeline, and ongoing support terms are confirmed before any live number is changed.',
   steps: [
     {
       idx: '01',
-      title: 'Scope',
-      desc: 'You tell me the task and how often it eats your week. I work out what it touches and what it would take, then give you a rough number. If it is not worth automating, I say so instead of billing you to find out.',
+      title: 'Map the calls',
+      desc: 'You provide the phone provider, current routing, service area, hours, approved services, intake fields, emergency wording, and the person who handles callbacks.',
     },
     {
       idx: '02',
-      title: 'Build',
-      desc: 'I build it end to end, wired straight from the APIs rather than assembled on a no-code platform. You see it working on real cases before it goes anywhere near a customer.',
+      title: 'Agree the script',
+      desc: 'We agree the AI disclosure, approved answers, questions, fallback wording, privacy notices, and any integration in writing. Unknowns stay open until verified.',
     },
     {
       idx: '03',
-      title: 'Handover',
-      desc: 'It ships running. The rules live in plain files you can open and change, and you get written notes on what it does, what it touches, and where it is most likely to break.',
+      title: 'Configure and test',
+      desc: 'Build the agreed call flow, test it with fictional scenarios, and verify what happens when the provider, integration, or human handoff is unavailable.',
     },
     {
       idx: '04',
-      title: 'After',
-      desc: 'It runs on its own on a schedule. When something changes on your side I am reachable, but nothing renews silently and nothing is locked to me. The build is yours.',
+      title: 'Handover and ongoing support',
+      desc: 'You receive a written setup guide, known limitations, disable/fallback steps, provider costs, and ongoing support under the agreed terms. Covered systems, availability, response times, fees, and launch timing are confirmed in writing.',
     },
   ],
 };
@@ -513,38 +501,51 @@ export const engagement = {
 // lives, and it is the most useful thing on the page for the wrong prospect.
 export const fit = {
   eyebrow: 'Fit',
-  title: 'Worth checking before you write.',
-  lead: 'Automation pays off on repetition. If a job is different every single time, a person is still the right tool and I will tell you that.',
+  title: 'A fit depends on the actual call path.',
+  lead: 'Different business types can be a fit. We check the business model, call types, phone setup, privacy needs, and human availability before proposing an implementation.',
   good: {
     title: 'A good fit if',
     items: [
-      'The task is repetitive and follows rules you could write down',
-      'It happens weekly or daily, not once a quarter',
-      'You can describe the steps you take today, even roughly',
-      'The data already lives somewhere: an inbox, a sheet, a CRM',
-      'You want to own the thing that gets built',
+      'Routine inbound calls can be handled with a short approved script',
+      'A named person can return calls or handle exceptions',
+      'You can provide accurate hours, services, coverage, and routing rules',
+      'You want clear AI disclosure and a documented fallback',
+      'You are comfortable with confirmed provider costs and data terms',
     ],
   },
   bad: {
     title: 'Probably not if',
     items: [
-      'Every case is a judgement call with no pattern behind it',
-      'The process changes faster than it could be built',
-      'You want someone to administer a no-code subscription for you',
-      'You are shopping for guaranteed revenue numbers. Automation is engineering, not a promise about your figures',
-      'Nobody on your side can answer questions about how the work is done today',
+      'Callers need emergency dispatch or safety-critical advice',
+      'The business needs the agent to diagnose, quote, or promise a result',
+      'No person is available to receive escalations or callbacks',
+      'The provider cannot meet the required privacy, recording, or routing needs',
+      'The workflow or business model needs additional review before it can be scoped safely',
     ],
   },
 };
 
+// The offer is industry-neutral. A business still needs a suitable call path.
+export const industries = {
+  eyebrow: 'Suitable call patterns',
+  title: 'Start with the calls, not the industry.',
+  lead: 'Businesses in different industries may be a fit when routine calls can follow an approved script and a person can handle exceptions. Each call path is assessed on its own.',
+  patterns: [
+    { name: 'Routine enquiries', desc: 'Questions, service requests, or callback requests with intake fields and answers the business has approved.' },
+    { name: 'Clear human follow-up', desc: 'A named person or team can take urgent, unusual, or out-of-scope calls.' },
+    { name: 'Defined boundaries', desc: 'The agent is not asked to diagnose, promise a price or availability, or make decisions that need a person’s judgment.' },
+  ],
+  note: 'Industry-neutral does not mean every call flow is suitable. Fit depends on the actual business, phone system, and follow-up route.',
+};
+
 /* ============================================================
-   /about — who is behind this
+   /about: who is behind this
    ============================================================ */
 
 export const aboutMeta = {
   title: 'About · Client Optimal',
   description:
-    'Client Optimal is one person: Mert Ozcetin, remote, on US Eastern hours. What that means for how the work gets built, and where to find the rest of it.',
+    'Client Optimal is a one-person AI voice agent implementation studio run by Mert Ozcetin. Review the sample, service scope, and existing engineering work.',
 };
 
 // EVERY claim here is traceable to something already true and stated elsewhere in
@@ -558,11 +559,11 @@ export const aboutMeta = {
 export const about = {
   eyebrow: 'About',
   title: 'Hi. I am Mert.',
-  lead: 'I run Client Optimal. It is one person, remote, on US Eastern hours, which means the person who scopes your build is the person who builds it and the person you email afterwards.',
+  lead: 'I run Client Optimal, a one-person implementation studio working remotely on US Eastern hours. I am the contact for scoping, building, and handover.',
   paras: [
-    'I build automations, tool-using agents, and the internal tools that sit underneath them. Wired straight from the APIs rather than assembled on a no-code platform, because fewer moving parts is most of the advantage a small operation has.',
-    'Client Optimal is early. There is no client list on this site because there is not one worth showing yet, and inventing one is the quickest way to lose exactly the sort of person I want to work with. So the site argues from how I build instead of who I have billed.',
-    'That way of working is boring on purpose. Configuration in plain files you can open and change, logging and error paths from the first commit, and a preference for something that runs unattended over something that demos well once. If a job is not worth automating, I would rather say so than bill you to find out.',
+    'The current focus is custom AI voice-agent implementation and ongoing support: map the phone route, agree what the assistant may ask, choose a human fallback, and test the flow before launch. Provider, integration, support scope, response terms, and price depend on the project.',
+    'The browser interaction on this site is a sample, not a customer deployment. The case studies on the Work page cover earlier engineering projects; they are not voice-agent client results.',
+    'A project starts with the business model and call path. If the service, revenue model, or caller needs are a poor fit, I will say so before proposing a build.',
   ],
 };
 

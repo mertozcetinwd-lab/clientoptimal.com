@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Component as Hero3D } from '../components/ui/experience-hero.tsx';
+import HomepageHero from '../components/HomepageHero.astro';
 import Ticker from '../components/Ticker.astro';
 import ProblemGrid from '../components/ProblemGrid.astro';
 import FlowDiagram from '../components/FlowDiagram.astro';
+import Industries from '../components/Industries.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Principles from '../components/Principles.astro';
 import WorkBand from '../components/WorkBand.astro';
@@ -11,10 +12,8 @@ import Faq from '../components/Faq.astro';
 import ContactCta from '../components/ContactCta.astro';
 ---
 
-{/* Generalist homepage, rig.ai-style flow: a WebGL hero, then the problem, how a
-    build runs, the services, the approach, questions, and the ask. The hero is a
-    client-only React island (three/@react-three/fiber has no SSR path);
-    everything below stays plain Astro + hand-authored CSS.
+{/* Voice-agent implementation homepage: an original call-flow hero, use case,
+    proposed call path, suitable call patterns, process, proof, FAQs, and contact.
 
     Proof arrives at WorkBand, between the principles and the questions: the
     principles make a claim about how the work is built, the band shows one that
@@ -25,38 +24,14 @@ import ContactCta from '../components/ContactCta.astro';
     call 2026-07-23. It now renders at the foot of /work instead, under the case
     study, where it is corroboration rather than the whole argument. */}
 <Base>
-  {/* This wrapper is load-bearing, do not remove it.
-
-      Hero3D is client:only, so Astro renders NOTHING for it on the server and the
-      island is 0px tall until React hydrates and three.js boots. That left the
-      ticker at y=65 and the problem grid at y=108 on first paint, so the page
-      visibly flashed "Most automation quietly dies" before the hero appeared and
-      shoved everything down.
-
-      Reserving the hero's exact box here (100vh, matching the island's
-      min-h-screen) in its exact ground colour fixes the flash and the layout
-      shift together: the first paint is a plain dark field that the hero then
-      fills in place. Keep the height and the colour in sync with
-      ui/experience-hero.tsx (bg-[#020306]). */}
-  <div class="hero-slot">
-    <Hero3D client:only="react" />
-  </div>
+  <HomepageHero />
   <Ticker />
   <ProblemGrid />
   <FlowDiagram />
+  <Industries />
   <Capabilities />
   <Principles />
   <WorkBand />
   <Faq />
   <ContactCta />
 </Base>
-
-<style>
-  /* 100vh, not 100svh: the island itself uses Tailwind's min-h-screen (100vh),
-     and the reserved box has to match it exactly or the swap reintroduces the
-     shift it exists to prevent. */
-  .hero-slot {
-    min-height: 100vh;
-    background: var(--bg);
-  }
-</style>

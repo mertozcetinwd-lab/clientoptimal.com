@@ -24,7 +24,7 @@
 // HARD CONSTRAINT from site.js: zero clients, so nothing here may imply
 // results, client counts, testimonials or track record.
 import Base from '../layouts/Base.astro';
-import { meta, contact } from '../data/site.js';
+import { contact } from '../data/site.js';
 import VoiceOrb from '../components/ui/VoiceOrb';
 
 // Paste the embed URL here once the video is up. Empty string = placeholder state.
@@ -35,16 +35,17 @@ const VIDEO_FILE = '';
 ---
 
 <Base
-  title={`See it answer a missed call · ${meta.name}`}
-  description="A ninety second look at what happens when a call you cannot take goes to an assistant instead of voicemail."
+  title="AI call intake sample · Client Optimal"
+  description="Review a sample AI voice interaction and the proposed inbound call intake flow. Audio processing and implementation limits are disclosed."
 >
   <main class="demo">
     <header class="intro">
-      <p class="eyebrow">For contractors</p>
-      <h1>What happens to the calls you miss</h1>
+      <p class="eyebrow">Sample, not a client deployment</p>
+      <h1>Hear a browser sample of AI call intake</h1>
       <p class="lede">
-        Your regulars still ring your phone first. This is what happens to the
-        strangers, and to anything you cannot pick up.
+        The recording and interactive sample are demonstrations, not customer
+        calls or proof of a client result. The interactive sample sends microphone
+        audio to Retell AI. Read the notice and use fictional details only.
       </p>
     </header>
 
@@ -53,7 +54,7 @@ const VIDEO_FILE = '';
     </div>
 
     <div class="divider">
-      <span>Or watch the ninety second recording</span>
+      <span>Or watch the recorded sample</span>
     </div>
 
     <div class="player">
@@ -61,7 +62,7 @@ const VIDEO_FILE = '';
         <div class="frame">
           <iframe
             src={VIDEO_URL}
-            title="Client Optimal demo"
+            title="Illustrative AI call intake sample"
             loading="lazy"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
@@ -83,52 +84,53 @@ const VIDEO_FILE = '';
     </div>
 
     <section class="how">
-      <h2>How it works</h2>
+      <h2>What a scoped implementation would include</h2>
       <ol>
         <li>
-          <b>Your regulars ring you first</b>
-          <span>Anyone who already has your number gets you, the same as always. Your
-            phone rings about three times. Pick up and that is the end of it.</span>
+          <b>Confirm the phone route</b>
+          <span>The carrier, phone system, call-forwarding rules, coverage, and disable
+            path are checked for the specific business before any number changes.</span>
         </li>
         <li>
-          <b>Calls off your Google listing go to the assistant</b>
-          <span>Those are strangers, and a fair few of them are people selling you SEO.
-            They get handled first and you only hear about the real ones.</span>
+          <b>Disclose that it is AI</b>
+          <span>The approved opening identifies the assistant as AI and explains what
+            the caller can ask for.</span>
         </li>
         <li>
-          <b>If you cannot get to it, an assistant answers</b>
-          <span>In your business's name. It finds out who is calling and what the job
-            is, and it knows what counts as an emergency because you told it.</span>
+          <b>Collect approved intake details</b>
+          <span>For example, the caller's name, callback number, requested service,
+            and location. The business decides which fields and answers are in scope.</span>
         </li>
         <li>
-          <b>You get a text</b>
-          <span>Their name, their number, the job, and whether it is urgent. Instead of
-            a voicemail you might hear tomorrow.</span>
+          <b>Hand exceptions to a person</b>
+          <span>Urgent, unclear, or out-of-scope requests go to &#123;&#123;human handoff route&#125;&#125;.
+            Response timing is &#123;&#123;confirm callback commitment&#125;&#125;.</span>
         </li>
       </ol>
     </section>
 
     <section class="straight">
-      <h2>Straight about the limits</h2>
+      <h2>Limits for this draft</h2>
       <ul>
-        <li><span><b>It handles calls, not texts.</b> Anyone texting your number still
-          reaches you directly, junk included.</span></li>
-        <li><span><b>It does not stop your phone ringing.</b> Sales calls still ring you like
-          they do now. What changes is you never ring one back to find out what they wanted.</span></li>
-        <li><span><b>It does not book into a calendar</b> to start with. It takes the
-          details and texts you.</span></li>
-        <li><span><b>It will not pretend to be you.</b> It answers as your business and
-          says you will call back.</span></li>
-        <li><span><b>One code switches it off.</b> Dial it and everything is exactly as
-          it was, straight away, without calling anyone.</span></li>
+        <li><span><b>No emergency response or dispatch.</b> A voice agent is not a
+          substitute for emergency services or a person who can take the call.</span></li>
+        <li><span><b>No quotes, diagnoses, bookings, or promises.</b> Those are out of
+          scope unless separately configured and verified in a written agreement.</span></li>
+        <li><span><b>No assumed phone integration.</b> Provider, routing, notification
+          destination, and operating costs are &#123;&#123;confirm&#125;&#125;.</span></li>
+        <li><span><b>Human fallback is required.</b> The person, route, response time,
+          and failure behavior need to be agreed before launch.</span></li>
+        <li><span><b>Privacy settings need verification.</b> Recording, transcription,
+          retention, and model-use settings are &#123;&#123;confirm with provider&#125;&#125;.</span></li>
       </ul>
     </section>
 
     <section class="cta">
-      <h2>Worth a look?</h2>
+      <h2>Want to scope your call flow?</h2>
       <p>
-        Setup takes about twenty minutes. Easiest thing is just to
-        ring me and ask what you want to know.
+        Send your phone provider, call types, service area, and preferred human
+        fallback route. Scope, price, timing, and support terms are confirmed
+        before any live setup.
       </p>
       <p class="ctarow">
         <a class="btn" href={`tel:${contact.phone}`}>Call {contact.phoneShow}</a>

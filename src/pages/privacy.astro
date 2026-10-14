@@ -1,11 +1,11 @@
 ---
-// WRITTEN FROM SCRATCH against what this site actually does.
+// Privacy copy must match the optional voice demo, external media, and SMS form.
 //
 // Do NOT replace this with a boilerplate policy pulled from another company.
 // A borrowed Terms/Privacy pair belonging to "Uppit AI LLC" was considered for
 // this page and rejected: it was someone else's copyrighted text, and it
 // described SMS opt-in flows, form fields including budget range, cookies,
-// pixels and analytics vendors, none of which exist here. A privacy policy is
+// pixels and analytics vendors. A privacy policy is
 // a legal representation. Claiming to collect data you do not collect is its
 // own kind of false statement.
 //
@@ -13,8 +13,8 @@
 // /text-me -- and this file changed in the same commit, as the note below
 // required. The "no contact forms" claim was removed because it became false.
 //
-// If the site gains ANOTHER form, analytics, or a newsletter, THIS FILE MUST
-// CHANGE IN THE SAME COMMIT. The SMS section is also a carrier compliance
+// If the site adds another data-collecting feature, update this file in the
+// same change. The SMS section is also a carrier compliance
 // artefact: the 10DLC campaign cites this policy, and carriers require that it
 // forbid sharing opt-in data with third parties. Do not weaken that paragraph.
 import Legal from '../layouts/Legal.astro';
@@ -23,35 +23,44 @@ import { contact } from '../data/site.js';
 
 <Legal
   title="Privacy Policy"
-  kicker="Short, because this website collects almost nothing."
+  kicker="What the website, sample demo, and text request collect."
 >
   <h2>The short version</h2>
   <p>
-    This website has <strong>no analytics, no cookies, and no tracking of any
-    kind</strong>. We do not build a profile of you, we do not sell or rent
-    information about you, and there is no advertising network involved in any
-    part of it.
+    Client Optimal does not currently use first-party analytics. The recorded
+    sample is hosted by YouTube, and the optional browser voice demo connects to
+    Retell AI. Those services may receive technical information when their
+    features load or run. We do not sell or rent personal information.
   </p>
   <p>
-    There is <strong>exactly one form</strong> on this site: the
-    <a href="/text-me">text me the demo</a> page, where you can ask us to send
-    you a recording by SMS. It is the only place we collect anything, it is
-    entirely optional, and what happens to that information is described in
-    full below.
+    The optional <a href="/text-me">text me the demo</a> form collects
+    information for the requested sample and SMS consent. The browser sample
+    requests microphone access only when you choose to start it.
   </p>
 
   <h2>What this website collects</h2>
   <p>
-    Nothing at all, unless you fill in the SMS opt-in form. We set no cookies
-    and run no analytics or tracking scripts.
+    Website hosting and domain providers may record technical request
+    information such as IP address, browser type, and requested page. YouTube
+    and Retell AI are third-party providers used only when their media or voice
+    demo features load or run.
   </p>
   <p>
-    One honest caveat: like any website, this one is served by a hosting
-    provider, and that provider automatically records standard technical
-    request information such as IP address, browser type, and which page was
-    requested. That is a normal function of serving a web page and of keeping
-    the service running and secure. We do not use those logs to identify or
-    profile visitors.
+    The interactive sample sends browser microphone audio to Retell AI over a
+    WebRTC connection. A transcript may be displayed in the browser. The sample
+    does not place a phone call, send a text, create a booking, or handle a real
+    customer request. Do not provide real phone numbers, addresses, payment
+    details, or sensitive information.
+  </p>
+  <p>
+    Retell AI's current terms describe call recording and processing for
+    analytics and service improvement when recording has not been disabled.
+    Client Optimal has not verified the account's recording, transcription,
+    retention, or model-use settings, or the resulting retention period. These
+    settings must be confirmed before the demo is treated as approved for real
+    information or before a client call flow goes live. See
+    <a href="https://www.retellai.com/legal/terms-of-service" target="_blank" rel="noopener">Retell AI's terms</a>
+    and <a href="https://www.retellai.com/legal/privacy-policy" target="_blank" rel="noopener">privacy policy</a>.
   </p>
 
   <h2>Text messages, and what we do with your number</h2>
@@ -117,7 +126,7 @@ import { contact } from '../data/site.js';
     you reply STOP, your number goes onto a suppression list that every send is
     checked against. That list is the only thing standing between you and being
     texted again, so deleting it would undo the very thing you asked for. It
-    holds your number and nothing else &mdash; no name, no message history, no
+    holds your number and nothing else: no name, no message history, no
     other detail.
   </p>
 
@@ -169,26 +178,27 @@ import { contact } from '../data/site.js';
     anyone else's marketing purposes.
   </p>
   <p>
-    For <strong>this website</strong>, the only third parties involved are the
-    infrastructure providers that host it and route its domain, and they only ever
-    see the standard technical request information described above. The separate
-    set of providers used to run our LinkedIn posting workflow is described in the
-    section above, and none of them receive anything about visitors to this site.
+    Providers involved in this website include hosting and domain infrastructure,
+    YouTube for the recorded sample, Retell AI for the optional browser voice
+    demo, and the messaging/consent providers used if you request the demo by
+    text. Their own privacy terms and retention settings also apply.
   </p>
 
   <h2>Retention</h2>
   <p>
     We keep correspondence for as long as it is useful to the conversation or
     the working relationship, and delete it when it is not. Hosting logs are
-    retained by the hosting provider under their own retention schedule.
+    retained by the hosting provider under its own schedule. The retention
+    settings for Retell AI audio and transcript data have not been verified;
+    check the provider settings and terms before using the demo with real details.
   </p>
 
   <h2>Your choices</h2>
   <p>
-    Since we collect nothing on the website itself, there is no account to
-    close, no profile to correct, and no mailing list to leave. If you have
-    emailed or messaged us and want that correspondence deleted, ask and we
-    will delete it.
+    If you have emailed or messaged us and want that correspondence deleted,
+    ask and we will delete it. For third-party demo data, contact the provider
+    directly where applicable; Client Optimal must verify what data the provider
+    retains and whether it can be deleted.
   </p>
 
   <h2>Children</h2>
@@ -199,9 +209,8 @@ import { contact } from '../data/site.js';
 
   <h2>Changes</h2>
   <p>
-    If this website changes in a way that affects privacy, for example by adding
-    a contact form or analytics, this page will be updated at the same time and
-    the effective date above will change.
+    This page should be updated when the demo provider, audio settings, SMS
+    workflow, or data handling changes. Confirm the effective date and provider settings before publication.
   </p>
 
   <h2>Contact</h2>

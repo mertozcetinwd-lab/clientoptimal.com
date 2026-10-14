@@ -1,18 +1,18 @@
 ---
 // rig.ai-style solution diagram: a labelled flow with azure dots travelling the
 // connectors (SVG animateMotion, zero JS). This is the honest replacement for the
-// abstract "plate" figurines — a schematic of how a build actually runs, not
+// abstract "plate" figurines, a schematic of how a build actually runs, not
 // decoration. The heading + lead explain it, so the SVG is aria-hidden.
 ---
 
 <section class="section flow" id="how-it-runs">
   <div class="wrap">
-    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>How it runs</p>
-    <h2 class="section-title reveal">Built once. Runs on its own.</h2>
+    <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>How a call runs</p>
+    <h2 class="section-title reveal">The assistant collects. A person follows up.</h2>
     <p class="lead intro reveal">
-      A task comes in, an agent does the work, it runs on a schedule instead of a
-      to-do list, and the result lands where you already look. Nothing leaves that
-      you have not approved.
+      Proposed flow: an inbound call reaches a disclosed AI assistant, which asks
+      only approved questions. A person handles urgent, unclear, or out-of-scope
+      requests. The phone route and handoff destination are set per business.
     </p>
 
     <div class="diagram reveal">
@@ -30,39 +30,39 @@
         <!-- task in -->
         <g class="node">
           <rect x="25" y="106" width="120" height="48"></rect>
-          <text x="85" y="126" class="lbl">YOUR TASK</text>
-          <text x="85" y="140" class="sub">THE REPETITIVE BIT</text>
+          <text x="85" y="126" class="lbl">INBOUND CALL</text>
+          <text x="85" y="140" class="sub">ROUTING TO CONFIRM</text>
         </g>
 
         <!-- core -->
         <g class="node core">
           <rect x="235" y="80" width="190" height="100"></rect>
-          <text x="330" y="112" class="core-t">CLIENT OPTIMAL</text>
-          <text x="330" y="128" class="accent-t">&#x2713; BUILT FROM THE APIS</text>
+          <text x="330" y="112" class="core-t">AI ASSISTANT</text>
+          <text x="330" y="128" class="accent-t">IDENTIFIES AS AI</text>
           <line x1="252" y1="146" x2="408" y2="146" class="hair"></line>
-          <text x="278" y="162" class="sub">BUILD</text>
-          <text x="330" y="162" class="sub">RUN</text>
-          <text x="382" y="162" class="sub">WATCH</text>
+          <text x="278" y="162" class="sub">ASK</text>
+          <text x="330" y="162" class="sub">CAPTURE</text>
+          <text x="382" y="162" class="sub">ESCALATE</text>
         </g>
 
         <!-- result out -->
         <g class="node">
           <rect x="515" y="106" width="120" height="48"></rect>
-          <text x="575" y="126" class="lbl">RESULT</text>
-          <text x="575" y="140" class="accent-t">WHERE YOU LOOK</text>
+          <text x="575" y="126" class="lbl">HUMAN FOLLOW-UP</text>
+          <text x="575" y="140" class="accent-t">VIA &#123;&#123;ROUTE&#125;&#125;</text>
         </g>
 
         <!-- approve (top) -->
         <g class="node ghost">
           <rect x="270" y="21" width="120" height="30"></rect>
-          <text x="330" y="39" class="sub">YOU APPROVE</text>
+          <text x="330" y="39" class="sub">APPROVED SCRIPT</text>
         </g>
         <line x1="330" y1="51" x2="330" y2="80" class="conn short"></line>
 
         <!-- schedule (bottom) -->
         <g class="node ghost">
           <rect x="270" y="205" width="120" height="30"></rect>
-          <text x="330" y="223" class="sub">ON A SCHEDULE</text>
+          <text x="330" y="223" class="sub">FALLBACK: &#123;&#123;CONFIRM&#125;&#125;</text>
         </g>
         <line x1="330" y1="180" x2="330" y2="205" class="conn short"></line>
 

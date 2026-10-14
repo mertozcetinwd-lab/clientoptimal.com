@@ -1,5 +1,8 @@
 ---
 import { cta, contact } from '../data/site.js';
+
+// Two CTAs above the contact channels: hear the disclosed sample, or discuss
+// the proposed call flow.
 ---
 
 <section class="section cta" id="contact">
@@ -7,6 +10,11 @@ import { cta, contact } from '../data/site.js';
     <p class="eyebrow badge"><span class="badge-dot" aria-hidden="true"></span>{cta.eyebrow}</p>
     <h2 class="section-title big reveal">{cta.title}</h2>
     <p class="lead intro reveal">{cta.lead}</p>
+
+    <div class="acts reveal" style="--i:1">
+      <button type="button" class="btn primary" data-open-voice-widget>Hear the sample</button>
+      <a class="btn" href="/contact">Discuss a call flow</a>
+    </div>
 
     <div class="ways">
       <a class="way" href={contact.linkedin} target="_blank" rel="noopener">
@@ -27,6 +35,11 @@ import { cta, contact } from '../data/site.js';
   .section-title { margin-block: 1.2rem 1.4rem; }
   .big { max-width: 26ch; }
   .intro { margin-bottom: 3.4rem; }
+
+  .acts {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    margin-bottom: 3rem;
+  }
 
   .ways { display: flex; flex-wrap: wrap; gap: 1.2rem 4rem; }
 

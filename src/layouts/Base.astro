@@ -6,15 +6,21 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/tokens.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import VoiceAgentWidget from '../components/ui/VoiceAgentWidget';
 import { meta } from '../data/site.js';
 
-interface Props { title?: string; description?: string }
+interface Props { title?: string; description?: string; noindex?: boolean }
 const {
   // Middle dot, not an em dash. references/voice.md in the parent AIOS rules
   // out em dashes, and a <title> is shipping copy like any other string.
   title = `${meta.name} · ${meta.tagline}`,
   description = meta.description,
+  noindex = false,
 } = Astro.props;
+
+// The floating voice-agent launcher ships on every page EXCEPT /demo, which
+// already carries the full orb card and would end up with two launchers.
+const isDemo = Astro.url.pathname.replace(/\/+$/, '') === '/demo';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // Absolute URL for the social card image. Social scrapers reject relative paths.
@@ -48,6 +54,7 @@ const orgLd = {
     <link rel="canonical" href={canonical} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <meta name="color-scheme" content="dark light" />
     <meta property="og:site_name" content={meta.name} />
     <meta property="og:title" content={title} />
@@ -87,12 +94,26 @@ const orgLd = {
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    {!isDemo && <VoiceAgentWidget client:only="react" />}
 
     <script>
       import { initThemeControls } from '../scripts/theme.js';
       import { initReveals } from '../scripts/reveal.js';
       initThemeControls();
       initReveals();
+
+
+      // Voice widget: any element carrying [data-open-voice-widget] (ContactCta,
+      // future banners) asks the floating island to open the demo modal. The
+      // widget island listens for this window event; without it the buttons
+      // simply do nothing, so this stays optional enhancement, not load-bearing.
+      document.addEventListener('click', (e) => {
+
+        const t = e.target instanceof Element ? e.target.closest('[data-open-voice-widget]') : null;
+
+        if (t) window.dispatchEvent(new CustomEvent('open-voice-widget'));
+
+      });
 
       // Restrained CRT nod: one quick scanline sweep when the colour mode flips.
       // Fires only on the theme engine's `themechange` event, so it never runs on
