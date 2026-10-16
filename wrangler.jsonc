@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "clientoptimal-com",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-16",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "clientoptimal.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.clientoptimal.com",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "secrets": {
+    "required": ["RETELL_API_KEY", "RETELL_AGENT_ID"]
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.01
+    }
+  }
+}

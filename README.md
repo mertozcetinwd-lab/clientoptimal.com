@@ -8,6 +8,10 @@ Sibling to [mertozcetin.com](https://github.com/mertozcetinwd-lab/mertozcetin.co
 
 Astro 7 with hand-authored CSS and React 19 islands for the interactive browser voice sample and floating sample launcher. The demo uses Retell's browser SDK and a Three.js visualizer. Astro emits static pages; the interactive demo and launcher add client JavaScript. Theme preference is stored in local storage. No first-party analytics are currently installed. Third-party YouTube and Retell services load only with their respective sample features.
 
+Production hosting uses Cloudflare Workers Static Assets. The Worker handles `/api/demo/create-web-call` and serves the static Astro build for other paths. Retell credentials are Worker secrets named `RETELL_API_KEY` and `RETELL_AGENT_ID`; never put them in Wrangler config or client-side code. Build and deploy with `npm run cf:deploy`, or use `npm run cf:dev` for a local Worker preview.
+
+The root `api/demo/create-web-call.ts` remains the Vercel rollback endpoint. It shares the same response contract as the Worker handler in `src/worker.ts`.
+
 ```
 npm install
 npm run dev      # localhost:4321

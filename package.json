@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "cf:dev": "npm run build && wrangler dev",
+    "cf:deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
@@ -31,6 +33,7 @@
     "@types/react-dom": "^19.2.3",
     "@types/three": "^0.185.1",
     "puppeteer-core": "^25.3.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "wrangler": "4.151.1"
   }
 }
