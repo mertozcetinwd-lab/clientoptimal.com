@@ -49,7 +49,9 @@ body.d { margin: 0; background: var(--white); color: var(--ink); font: 400 17px/
 
 /* ---------- Navy panels: moving light, grain ---------- */
 .d-shell { padding: 12px; }
-.d-panel { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--r-panel); background: var(--navy); color: var(--white); }
+/* overflow: clip, not hidden: the orb's glow runs past the panel, and a hidden-overflow box can
+   still be scrolled by focus. Clicking "Talk to it now" scrolled the hero 219px (live, 2026-10-21). */
+.d-panel { position: relative; isolation: isolate; overflow: hidden; overflow: clip; border-radius: var(--r-panel); background: var(--navy); color: var(--white); }
 .d-mesh { position: absolute; inset: -20%; z-index: -2; filter: blur(70px); opacity: .95; pointer-events: none; }
 .d-mesh i { position: absolute; border-radius: 50%; }
 .d-mesh i:nth-child(1) { width: 46%; height: 60%; left: 50%; top: 14%; background: #1747c9; animation: d-drift 22s ease-in-out infinite; }
@@ -159,7 +161,7 @@ body.d { margin: 0; background: var(--white); color: var(--ink); font: 400 17px/
 
 /* How it works: phone with the text, beside three work orders */
 .d-how { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: stretch; }
-.d-phone-stage { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--r-panel); background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 48px 24px 40px; min-height: 620px; }
+.d-phone-stage { position: relative; isolation: isolate; overflow: hidden; overflow: clip; border-radius: var(--r-panel); background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 48px 24px 40px; min-height: 620px; }
 .d-device { position: relative; width: 270px; height: 540px; border-radius: 46px; padding: 12px; background: linear-gradient(160deg, #26334a, #0b1424 60%, #1a2538);
   box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 40px 80px -20px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.14); }
 .d-screen { position: relative; height: 100%; border-radius: 36px; overflow: hidden; padding: 56px 14px 14px;
