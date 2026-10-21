@@ -6,8 +6,8 @@ import Base from './Base.astro';
 import PageHero from '../components/site/PageHero.astro';
 import { meta } from '../data/site.js';
 
-interface Props { title: string; kicker: string; updated?: string }
-const { title, kicker, updated } = Astro.props;
+interface Props { title: string; kicker: string; updated?: string; effective?: string }
+const { title, kicker, updated, effective = meta.effectiveDate } = Astro.props;
 ---
 
 <Base title={`${title} · ${meta.name}`} description={kicker}>
@@ -17,7 +17,7 @@ const { title, kicker, updated } = Astro.props;
         <p class="d-pill d-in d-in--1">{meta.legalName}</p>
         <h1 class="d-display d-in d-in--2">{title}</h1>
         <p class="d-lede d-in d-in--3">{kicker}</p>
-        <p class="d-date d-in d-in--4">Effective {meta.effectiveDate}{updated && ` · Updated ${updated}`}</p>
+        <p class="d-date d-in d-in--4">Effective {effective}{updated && ` · Updated ${updated}`}</p>
       </div>
     </div>
   </PageHero>

@@ -487,6 +487,7 @@ export const aboutPage = {
 export const legalNav = [
   { label: 'Privacy', href: '/privacy' },
   { label: 'Terms', href: '/terms' },
+  { label: 'Email practices', href: '/email-practices' },
   { href: '/contact', label: 'Contact' },
 ];
 

@@ -1,0 +1,97 @@
+---
+// EMAIL PRACTICES (2026-10-21). Linked as the "published policy" on SURBL delisting requests.
+//
+// It is deliberately NOT a "we never send unsolicited email" policy: Client Optimal sends first-
+// contact emails to businesses, and saying otherwise would be false. It states the limits the
+// sender actually enforces, and every claim maps to code in the AI OS repo (builds/expree):
+//   verification block      src/sender.js   (email_status 'invalid' is never sent)
+//   reply and link opt-out  src/inbox.js, src/index.js -> src/optout.js suppress()
+//   domain-wide suppression src/campaigns.js, src/followups.js (suppressed_domains)
+//   bounce pauses           src/safety.js   BOUNCE_LIMITS mailbox 3%, domain 2%, server 2%
+//   daily ramp              src/sender.js   RAMP_DAILY_CAPS 5..30 per mailbox
+//   one follow-up           a RULE Mert keeps, not enforced in code: campaigns.followup_max can be set
+//                           higher. Keep every campaign at followup_max <= 1 or change this page.
+// Mert's call: no visible unsubscribe footer or postal address in the message body; the
+// standard List-Unsubscribe header is sent and every opt-out is honoured. Because of that, this
+// page says CAN-SPAM ALLOWS cold email but never claims Client Optimal complies with it. If any of the code
+// above changes, change this page in the same commit.
+import Legal from '../layouts/Legal.astro';
+import { meta, contact } from '../data/site.js';
+
+const SENDING_DOMAINS = [
+  'clientoptimalagents.com', 'clientoptimalbrand.com', 'clientoptimalleadgen.com', 'clientoptimalreception.com',
+  'clientoptimalsystems.com', 'clientoptimalvoice.com', 'clientoptimalwebsites.com', 'clientoptimalworks.com',
+  'getclientoptimal.com', 'clientopt.com', 'clientoptimalai.com', 'clientoptimalcalls.com',
+  'clientoptimalconnect.com', 'clientoptimaldept.com', 'clientoptimaldesk.com', 'clientoptimalmarketing.com',
+  'clientoptimalops.com', 'clientoptimalwebservice.com',
+];
+---
+
+<Legal
+  title="Email practices"
+  kicker="How Client Optimal sends outreach email, and how to make it stop."
+  effective="October 21, 2026"
+>
+  <h2>The short version</h2>
+  <p>
+    {meta.legalName} sends a small number of first-contact emails to owners of home-service
+    businesses about our AI receptionist service. These are unsolicited: you did not sign up for
+    them. This page sets out the limits we hold that email to, and how to stop it.
+  </p>
+  <p>
+    <strong>To stop our emails, reply with "stop" or anything that asks us to stop, or use your
+    mail app's unsubscribe button.</strong> Your address is added to our suppression list right
+    away and we never email it again.
+  </p>
+
+  <h2>Is this allowed?</h2>
+  <p>
+    Yes. In the United States the CAN-SPAM Act allows businesses to send commercial email
+    without asking first, as long as the sender follows its rules, including honouring every
+    request to stop. Cold email to businesses is a common, legal way to reach new customers, and
+    many outreach platforms and agencies are built around it. We send the same kind of email,
+    on a much smaller scale and with the limits below.
+  </p>
+
+  <h2>Who we email</h2>
+  <ul>
+    <li>People who run or work at home-service businesses, at their work addresses. We do not email consumers about our service.</li>
+    <li>Each business is looked up one at a time, mainly from its own public website, and each message is written for that business.</li>
+    <li>We check each address before sending, and an address that fails the check is never emailed.</li>
+  </ul>
+
+  <h2>How much we send</h2>
+  <ul>
+    <li>Each sending mailbox starts at 5 emails a day and works up slowly to a maximum of 30 a day.</li>
+    <li>We send at most one follow-up to a business that has not replied.</li>
+    <li>A mailbox stops sending on its own if more than 3% of its emails bounce, and a whole sending domain or server stops above 2%.</li>
+    <li>Our sending domains are checked against public blocklists frequently, at least once a day, and a listed domain stops sending.</li>
+  </ul>
+
+  <h2>How opting out works</h2>
+  <ul>
+    <li>Reply with "stop", "unsubscribe", "remove me" or anything that asks us to stop. Our system reads replies and suppresses the address immediately.</li>
+    <li>Every email carries the standard unsubscribe header, so the unsubscribe button in Gmail, Outlook and Apple Mail works too.</li>
+    <li>You can also email <a href={`mailto:${contact.email}`}>{contact.email}</a> and ask us to stop, or to stop emailing your whole company.</li>
+    <li>Suppression is permanent and covers all of our sending domains, not just the one that emailed you.</li>
+  </ul>
+
+  <h2>Our sending domains</h2>
+  <p>
+    These domains belong to {meta.legalName} and are used only for this outreach. Each one
+    redirects to clientoptimal.com and hosts nothing else.
+  </p>
+  <ul>
+    {SENDING_DOMAINS.map((d) => <li>{d}</li>)}
+  </ul>
+
+  <h2>Report a problem</h2>
+  <p>
+    If an email from us was unwanted, sent to the wrong person, or looks like abuse, tell us and
+    we will look into it and stop it. Email <a href={`mailto:${contact.email}`}>{contact.email}</a> or
+    call <a href={`tel:${contact.phone}`}>{contact.phoneShow}</a>.
+  </p>
+  <p>
+    {meta.legalName}<br />{contact.addressRegistered}
+  </p>
+</Legal>
