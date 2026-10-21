@@ -1,0 +1,30 @@
+---
+// The closing navy panel: book 15 minutes, or call the demo line.
+import DotField from '../DotField.astro';
+import OrbAccent from '../ui/OrbAccent';
+const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
+const DEMO_TEL = 'tel:+13526407955';
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+---
+    <div class="d-shell d-shell--close">
+      <section class="d-panel" data-reveal>
+        <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+        <DotField />
+        <div class="d-grain" aria-hidden="true"></div>
+        <div class="d-close">
+          <div>
+            <p class="d-eyebrow">Next step</p>
+            <h2 class="d-display">Want it on<br /><span class="d-grad">your line?</span></h2>
+            <p>15 minutes on Zoom with Mert. Bring how your calls work today and we'll see if it fits.</p>
+          </div>
+          <div class="d-close-side">
+            <OrbAccent client:visible size={200} />
+            <div class="d-close-actions">
+              <a class="d-btn d-btn--light" href={BOOKING_URL}>Book 15 minutes <Fragment set:html={arrow} /></a>
+              <a class="d-btn d-btn--glass" href={DEMO_TEL}>Call the demo line</a>
+              <small>Client Optimal LLC · Gainesville, Florida</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>

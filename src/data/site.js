@@ -31,10 +31,11 @@ export const meta = {
   legalName: 'Client Optimal LLC',
   // REPOSITIONED 2026-09-19: the AI voice agent is the headline product, so the
   // tagline and meta description name it directly. Feeds <title> and OG tags.
-  tagline: 'AI voice agent implementation',
+  tagline: 'AI receptionist for home-service contractors',
   // Honest: what the agent does, who it is for, no results claimed.
+  // 2026-10-21: contractor-focused, AI-answers-first (decisions/log.md 2026-10-20).
   description:
-    'Custom AI voice agent implementation and ongoing support for suitable inbound call workflows, with approved scripts and human follow-up.',
+    'An AI receptionist for home-service contractors. It answers your calls, texts you the details, and puts known callers and urgent calls through to you.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
@@ -51,9 +52,10 @@ export const meta = {
 // 2026-09-19: "Services" reads as "Voice agent" now. Same route, same anchor
 // structure, no redirects needed.
 export const nav = [
-  // Keep the live sample and the implementation offer easy to reach.
+  // 2026-10-21 redesign: the glass nav pill inside each hero. Contact lives in the footer.
+  { label: 'How it works', href: '/#how' },
+  { label: 'What you get', href: '/services' },
   { label: 'Demo', href: '/demo' },
-  { label: 'Voice agent', href: '/services' },
   { label: 'About', href: '/about' },
 ];
 
@@ -295,7 +297,7 @@ export const faq = {
     },
     {
       q: 'How are audio and call records handled?',
-      a: 'The browser sample sends microphone audio to Retell AI to run the conversation. Retention, recording, transcription, and model-use settings have not been verified for this account. Do not share real personal or sensitive details in the sample. A client deployment needs confirmed provider settings and suitable caller notices and consent.',
+      a: 'The browser sample sends microphone audio to a third-party voice AI provider to run the conversation. Retention, recording, transcription, and model-use settings have not been verified for this account. Do not share real personal or sensitive details in the sample. A client deployment needs confirmed provider settings and suitable caller notices and consent.',
     },
   ],
 };
@@ -427,6 +429,59 @@ export const elsewhere = {
   eyebrow: 'Elsewhere',
   title: 'The rest of it.',
   lead: 'Client Optimal is the business. The personal site is where the building actually gets shown: projects, how they are put together, and what I am working through at the moment.',
+};
+
+/* ============================================================
+   2026-10-21 REDESIGN COPY (home, services, about). Contractor-focused, AI answers first.
+   Same hard constraint as the top of this file: zero clients, so no results, counts, timings
+   or testimonials. Every capability named here is in the client agent template
+   (automations/voice-agent/retell/client-receptionist.json in the AI OS) or is agreed per
+   project. No prices: terms are agreed in writing first.
+   ============================================================ */
+
+export const homeProblems = [
+  { idx: '01', title: 'It rings mid-job', desc: 'You are on a ladder, under a sink or driving. Picking up means stopping work. Not picking up means a stranger decides whether to try the next name on Google.' },
+  { idx: '02', title: 'You call back at 7pm', desc: 'By the time you are free, the caller has moved on, or you are playing phone tag with a voicemail that just says "call me back".' },
+  { idx: '03', title: 'Half of it is noise', desc: 'Sales pitches, robocalls and "quick questions about your Google listing" all ring the same phone as the burst pipe.' },
+];
+
+export const homeFaq = [
+  { q: 'What does it actually do?', a: 'It answers your business calls, says it is an AI receptionist, and gets the caller\u2019s name, number, what they need and how urgent it is. Then it texts you the details. People on your own contact list ring straight through to you, urgent calls are put through to your cell, and sales calls get a polite no.' },
+  { q: 'Do I need a new number?', a: 'No. Your business line forwards to the receptionist, so the number on your truck and your listing stays the same. We confirm the forwarding with your carrier together, and you can switch it off at any time.' },
+  { q: 'What happens with an emergency?', a: 'You decide what counts as urgent for your trade. Those calls are put through to your cell. If you can\u2019t pick up, it texts you marked urgent. If a caller reports a gas smell, fire or someone hurt, it tells them to call 911 first.' },
+  { q: 'Will it quote prices or book jobs?', a: 'Not unless that is set up and tested for your business. Out of the box it never quotes, promises a time or books anything. It takes the details so you can call back with the right answer.' },
+  { q: 'Will my customers know it\u2019s AI?', a: 'Yes. It says so at the start of the call and never pretends to be you or a person.' },
+  { q: 'What does it cost?', a: 'The setup, the monthly support and any phone or provider costs are agreed in writing before anything goes live. Book 15 minutes and you will get a straight answer for your setup.' },
+  { q: 'What about call recordings and privacy?', a: 'Recording, transcripts and how long anything is kept are set for your business before go-live, along with any notice your callers need. The browser demo on this site sends your voice to a third-party voice AI provider, so don\u2019t share anything private in it.' },
+];
+
+export const servicesPage = {
+  title: 'What you get · Client Optimal',
+  description: 'A done-for-you AI receptionist for home-service contractors: your call rules, your contact list, transfers to your cell and a text for every call, set up and supported by Mert.',
+  included: [
+    { idx: '01', title: 'The receptionist', desc: 'A voice agent that answers as your business.', items: ['Says it is AI up front', 'Asks your approved questions', 'Turns away sales calls and spam'] },
+    { idx: '02', title: 'The routing', desc: 'Your rules for who reaches you.', items: ['Your contacts ring straight through', 'Urgent calls go to your cell', 'Everything else becomes a text'] },
+    { idx: '03', title: 'The texts', desc: 'Every call lands on your phone.', items: ['Name, number and what they need', 'How urgent it is', 'Marked urgent if a transfer is missed'] },
+  ],
+  steps: [
+    { idx: '01', title: 'Map your calls', desc: 'Who should ring straight through, what counts as urgent for your trade, your hours, your service area and the jobs you don\u2019t do.', tag: '15 min call' },
+    { idx: '02', title: 'Write the script', desc: 'The greeting, the questions it asks, what it will never say, and where urgent calls go. You approve it before anything is switched on.', tag: 'You sign off' },
+    { idx: '03', title: 'Connect your line', desc: 'Your business number forwards to the receptionist, transfers go to your cell, and the texts come to you. Your number never changes.', tag: 'Same number' },
+    { idx: '04', title: 'Test, then go live', desc: 'Test calls with made-up callers: a normal job, an urgent one, a known contact and a sales pitch. You get the steps to switch it off.', tag: 'Before go-live' },
+    { idx: '05', title: 'Ongoing support', desc: 'Changes to the script, your contact list or your hours, handled under the support terms you agreed in writing.', tag: 'Agreed terms' },
+  ],
+  good: ['You run a home-service business and miss calls while you work', 'You want callers to know they are talking to an AI', 'You can say what counts as urgent for your trade', 'You or someone you trust can call people back', 'You want every call texted to you'],
+  bad: ['You need it to diagnose problems or give safety advice', 'You need it to quote prices or promise arrival times', 'Nobody is around to take urgent calls or call back', 'Your calls are mostly emergencies that need dispatch', 'You want it to pretend to be a person'],
+};
+
+export const aboutPage = {
+  title: 'About · Client Optimal',
+  description: 'Client Optimal is a one-person studio in Gainesville, Florida, run by Mert Ozcetin. Mert sets up and supports AI receptionists for home-service contractors himself.',
+  paras: [
+    'I set up AI receptionists for home-service businesses: HVAC, plumbing, roofing, electrical and the trades around them. The idea is simple. You should be able to stay on the job without your phone costing you work.',
+    'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live. You deal with one person, and that person is me.',
+    'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear the receptionist for yourself on the demo page, then decide.',
+  ],
 };
 
 export const legalNav = [

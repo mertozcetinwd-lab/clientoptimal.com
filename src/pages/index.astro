@@ -1,20 +1,93 @@
 ---
+// HOME, redesigned 2026-10-21 for home-service contractors, in the /demo design system.
+// Order: the hero with the live orb, the problem in their words, how it works, the rules it
+// follows, questions, then book. Copy lives in site.js (homeProblems, homeFaq) under the same
+// hard constraint as the rest of the site: zero clients, so no results, numbers or testimonials.
 import Base from '../layouts/Base.astro';
-import HomepageHero from '../components/HomepageHero.astro';
-import Industries from '../components/Industries.astro';
-import Engagement from '../components/Engagement.astro';
-import Principles from '../components/Principles.astro';
-import Faq from '../components/Faq.astro';
-import ContactCta from '../components/ContactCta.astro';
+import PageHero from '../components/site/PageHero.astro';
+import TradesMarquee from '../components/site/TradesMarquee.astro';
+import HowItWorks from '../components/site/HowItWorks.astro';
+import TheRules from '../components/site/TheRules.astro';
+import CloseCta from '../components/site/CloseCta.astro';
+import DemoCall from '../components/ui/DemoCall';
+import { homeProblems, homeFaq } from '../data/site.js';
+
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 ---
 
-{/* Voice-agent implementation homepage: call flow, suitable call patterns,
-    implementation, ongoing support, FAQs, and a clear next step. */}
 <Base>
-  <HomepageHero />
-  <Industries />
-  <Engagement />
-  <Principles />
-  <Faq />
-  <ContactCta />
+  <PageHero>
+    <div class="d-wrap">
+      <div class="d-hero-grid" id="main">
+        <div class="d-hero-copy">
+          <p class="d-pill d-in d-in--1"><span class="d-pulse" aria-hidden="true"></span>AI receptionist for the trades <b>Live</b></p>
+          <h1 class="d-display d-in d-in--2"><span>Every call</span><span>answered.</span><span class="d-grad">Even on</span><span>a roof.</span></h1>
+          <p class="d-lede d-in d-in--3">
+            Client Optimal sets up an AI receptionist that answers your business calls, takes the
+            details and <strong>texts them to you</strong>. People you know and real emergencies go
+            straight through to your cell. Sales calls never reach you.
+          </p>
+          <div class="d-actions d-in d-in--4">
+            <a class="d-btn d-btn--light" href="/demo">Hear the demo <Fragment set:html={arrow} /></a>
+            <a class="d-btn d-btn--glass" href="#how">How it works</a>
+          </div>
+          <p class="d-hero-fine d-in d-in--5">
+            Talk to it right here: tap the orb. It tells callers it's an AI, and the browser demo
+            sends your voice to a third-party voice AI provider, so don't share anything private.{' '}
+            <a href="/privacy">Privacy</a>
+          </p>
+        </div>
+        <DemoCall client:only="react" />
+      </div>
+    </div>
+    <TradesMarquee />
+  </PageHero>
+
+  <main>
+    <section class="d-section">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">Sound familiar</p>
+            <h2 class="d-display">The phone doesn't<br /><em>wait for you.</em></h2>
+          </div>
+          <p>You can't run a job and a phone line at the same time. Something gives, and usually it's the caller.</p>
+        </div>
+        <div class="d-cards">
+          {homeProblems.map((c) => (
+            <article class="d-card" data-reveal>
+              <span class="d-order-no" aria-hidden="true">{c.idx}</span>
+              <h3>{c.title}</h3>
+              <p>{c.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <HowItWorks />
+    <TheRules />
+
+    <section class="d-section" style="padding-top:0" id="faq">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">Questions</p>
+            <h2 class="d-display">Straight<br /><em>answers.</em></h2>
+          </div>
+          <p>If yours isn't here, book 15 minutes and ask it. You'll get a plain answer, including when it isn't a fit.</p>
+        </div>
+        <div class="d-faq" data-reveal>
+          {homeFaq.map((f, i) => (
+            <details open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CloseCta />
+  </main>
 </Base>

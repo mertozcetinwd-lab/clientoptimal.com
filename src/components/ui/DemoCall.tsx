@@ -18,8 +18,8 @@ const LABEL: Record<OrbState, string> = {
   error: 'Could not connect',
 };
 
-function useOrbSize() {
-  const pick = () => (typeof window === 'undefined' ? 380 : Math.round(Math.min(420, window.innerWidth * 0.72)));
+function useOrbSize(max: number) {
+  const pick = () => (typeof window === 'undefined' ? Math.min(380, max) : Math.round(Math.min(max, window.innerWidth * 0.72)));
   const [size, setSize] = useState(pick);
   useEffect(() => {
     const onResize = () => setSize(pick());
@@ -29,7 +29,8 @@ function useOrbSize() {
   return size;
 }
 
-export default function DemoCall() {
+// `max` caps the orb: 420 on home and /demo, smaller in the compact heroes of inner pages.
+export default function DemoCall({ max = 420 }: { max?: number }) {
   const [state, setState] = useState<OrbState>('idle');
   const [volume, setVolume] = useState(0);
   const [line, setLine] = useState<{ role: 'agent' | 'user'; text: string } | null>(null);
@@ -38,7 +39,7 @@ export default function DemoCall() {
   const client = useRef<RetellWebClient | null>(null);
   const timer = useRef<number | null>(null);
   const volTimer = useRef<number | null>(null);
-  const size = useOrbSize();
+  const size = useOrbSize(max);
   const active = state === 'connecting' || state === 'listening' || state === 'speaking';
 
   useEffect(() => {

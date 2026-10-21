@@ -1,171 +1,102 @@
 ---
 name: Client Optimal
-description: A bold, route-first visual system for custom AI voice-agent work.
+description: A premium white-and-navy system for an AI receptionist sold to home-service contractors. Rebuilt 2026-10-21 from the /demo redesign.
 colors:
-  light-field: "#f0f5fc"
-  light-band: "#e2ecf9"
-  light-panel: "#ffffff"
-  light-ink: "#09162e"
-  light-ink-dim: "rgba(9, 22, 46, 0.76)"
-  light-muted: "rgba(9, 22, 46, 0.62)"
-  light-hairline: "rgba(37, 99, 235, 0.14)"
-  light-hairline-strong: "rgba(37, 99, 235, 0.26)"
-  light-accent: "#1d4ed8"
-  light-neon: "#0284c7"
-  dark-field: "#070913"
-  dark-band: "#03050a"
-  dark-panel: "#0d1424"
-  dark-ink: "#f0f6ff"
-  dark-ink-dim: "rgba(240, 246, 255, 0.78)"
-  dark-muted: "rgba(240, 246, 255, 0.62)"
-  dark-hairline: "rgba(56, 189, 248, 0.15)"
-  dark-hairline-strong: "rgba(56, 189, 248, 0.28)"
-  dark-accent: "#38bdf8"
-  dark-neon: "#00d2ff"
-  action-azure: "#2563eb"
-  action-text: "#ffffff"
+  navy: "#050f22"
+  navy-2: "#0a1f42"
+  blue: "#2b6bff"
+  blue-ink: "#1546b3"
+  sky: "#a5c8ff"
+  ice: "#e6efff"
+  white: "#ffffff"
+  mist: "#f4f7fc"
+  line: "#e1e7f0"
+  ink: "#0a1424"
+  muted: "#4f5d73"
+  muted-dark: "#a9b8cf"
+  go: "#5ee3a1"
+  mark-field: "#0b0d12"
+  mark-dot: "#3f7dff"
 typography:
   display:
-    fontFamily: "Archivo Variable, Archivo, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(3.6rem, 8vw, 8rem)"
-    fontWeight: 720
-    lineHeight: 0.86
-    letterSpacing: "-0.075em"
+    fontFamily: "Archivo Variable (width axis, font-stretch 70%), Arial Narrow, sans-serif"
+    fontSize: "clamp(56px, 7.3vw, 116px)"
+    fontWeight: 800
+    lineHeight: 0.87
+    letterSpacing: "-0.012em"
+    textTransform: uppercase
   body:
-    fontFamily: "Inter Variable, Inter, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(0.97rem, 0.94rem + 0.18vw, 1.07rem)"
+    fontFamily: "Inter Variable, system-ui, sans-serif"
+    fontSize: "17px"
     fontWeight: 400
-    lineHeight: 1.65
+    lineHeight: 1.6
   label:
-    fontFamily: "IBM Plex Mono, ui-monospace, SF Mono, Menlo, Consolas, monospace"
-    fontSize: "0.7rem"
+    fontFamily: "IBM Plex Mono, ui-monospace, monospace"
+    fontSize: "12px"
     fontWeight: 500
-    lineHeight: 1.5
-    letterSpacing: "0.13em"
+    letterSpacing: "0.14em"
+    textTransform: uppercase
+  led:
+    fontFamily: "Doto (Google Fonts, OFL), IBM Plex Mono, monospace"
+    fontWeight: 900
+    use: "Step numbers and the demo phone number only: the LED job-board accent."
 rounded:
-  sharp: "0px"
-  field: "2px"
-  sample-frame: "6px"
+  panel: "clamp(22px, 2.6vw, 36px)"
+  card: "18px to 22px"
+  pill: "999px"
   orb: "50%"
 spacing:
-  gutter: "clamp(1.4rem, 0.8rem + 3vw, 3.4rem)"
-  content-width: "1320px"
-  section: "clamp(5rem, 11vh, 9.5rem)"
-components:
-  button-primary:
-    backgroundColor: "{colors.action-azure}"
-    textColor: "{colors.action-text}"
-    rounded: "{rounded.sharp}"
-    padding: "0.75rem 1.15rem"
-    height: "48px"
-  button-quiet:
-    backgroundColor: "transparent"
-    textColor: "var(--text)"
-    rounded: "{rounded.sharp}"
-    height: "44px"
-  navigation-link:
-    backgroundColor: "transparent"
-    textColor: "var(--text-dim)"
-    rounded: "{rounded.sharp}"
-    height: "44px"
-  navigation-contact:
-    backgroundColor: "{colors.action-azure}"
-    textColor: "{colors.action-text}"
-    rounded: "{rounded.sharp}"
-    padding: "0 0.85rem"
-    height: "42px"
-  text-field:
-    backgroundColor: "transparent"
-    textColor: "var(--text)"
-    rounded: "{rounded.field}"
-    padding: "0.7rem 0.8rem"
-  route-stop:
-    backgroundColor: "transparent"
-    textColor: "var(--text)"
-    rounded: "{rounded.sharp}"
-    padding: "0 clamp(1rem, 2.4vw, 2.5rem) 0 0"
-  faq-summary:
-    backgroundColor: "transparent"
-    textColor: "var(--text)"
-    rounded: "{rounded.sharp}"
-    padding: "1.1rem 0"
+  content-width: "1200px"
+  gutter: "32px desktop, 20px phone"
+  section: "clamp(80px, 11vw, 140px)"
 ---
 
 # Design System: Client Optimal
 
+Source of truth in code: `src/styles/demo.css` (tokens, buttons, panels, motion) and `src/styles/site.css`
+(inner pages, footer, FAQ, legacy token map). Where each premium detail came from:
+`website-design/mockups/clientoptimal-demo/REFERENCES.md` in the AI OS repo.
+
 ## Overview
 
-**Creative North Star: "The Call Route"**
-
-An assured, experimental system built from one visible path. Editorial display type sets the pace, a bright route line marks the next move, and compact mono labels make the operating logic feel legible. The interface stays text-led, precise, and open rather than framing each idea in a card.
-
-Light and dark themes share the same hierarchy and accent logic. The surface changes between icy blue-white and midnight navy while the route signal remains vivid. Use motion sparingly to reveal sequence or confirm an interaction.
-
-**Key Characteristics:**
-- Large Archivo statements balanced by calm Inter paragraphs.
-- One continuous call route, with a visible human handoff.
-- Square controls, fine dividers, and small uppercase route labels.
-- Light and dark themes use the existing paired color values.
+**North star: "the office that answers while you're on the roof."** A white page holding inset navy panels.
+The navy is where the product lives: the glowing voice orb, the drifting blue light, the halftone dots. White
+sections explain it plainly, and stamped work-order cards give it a job-site feel. Light only (Mert's call).
 
 ## Colors
 
-The system pairs two blue-tinted fields with a single azure action fill. Small accent text adapts for each theme so it remains readable on its current surface.
-
-### Primary
-- **Azure action:** the shared primary action and route emphasis. The filled control uses white text in both themes.
-- **Theme signal:** deep azure carries labels in light mode; electric cyan carries them in dark mode.
-
-### Neutral
-- **Ice field and midnight field:** the two page grounds. Their lighter band and panel values separate sections and sample surfaces without a new accent.
-- **Navy ink and ice ink:** primary text swap with the field so headlines stay crisp.
-- **Hairlines and muted copy:** use the translucent theme-specific values from the frontmatter for dividers, secondary text, and annotations.
-
-**The Theme Pair Rule.** Keep both existing theme palettes intact. Do not substitute a third brand accent or use the action fill as small text.
+- **Navy panels** (`navy`, `navy-2`) carry every hero and the closing call to action. Text on them is white,
+  `sky` for the one emphasised line, `muted-dark` for supporting copy.
+- **White sections** use `ink` text, `muted` support, `blue-ink` for eyebrows, emphasis and stamped shadows.
+- **`go` green** appears only as the live dot and badge.
+- **No gradient text and no cyan neon** (flagged as AI tells, 2026-10-14 and 2026-10-20).
 
 ## Typography
 
-Archivo Variable is the display face, Inter Variable carries readable copy, and IBM Plex Mono marks actual metadata and route annotations. The headline scale ranges from responsive editorial statements to compact page titles. Body copy remains comfortably readable, with long lines limited to a measured column.
-
-**The Label Rule.** Reserve mono and wide tracking for labels that identify a route step, mode, or status. Use Inter for sentences.
-
-## Layout
-
-The main content is centered in a 1320px container with a responsive gutter. Section rhythm is generous, while the first view compresses the full call route into one continuous reading sequence. At tablet widths, multi-column headers stack. On mobile, the route becomes a vertical rail, with disclosure, intake, and handoff visible together before scrolling.
-
-The header stays sticky. Page actions remain easy to reach, content columns collapse to one column, and footer route stages use a two-column grid on small screens. The main responsive cuts are 980px and 580px in navigation, 800px and 600px in the home route, 780px and 560px in the shared page system, and 480px for the desktop voice launcher.
-
-**The Route-First Rule.** Let the path organize the explanation. Use cards only where a sample or discrete reference needs its own surface.
-
-## Elevation & Depth
-
-The site is mostly flat. Fine borders and shifts between the page field, secondary band, and panel carry structure. Reserve the soft panel shadow for the interactive voice sample and a restrained blue glow for an active control. The route itself stays clear of glow and blur.
-
-**The Signal Rule.** Use light and shadow to distinguish an interactive sample or action, not to decorate every section.
-
-## Shapes
-
-Primary route controls and dividers use square corners. Text fields have a near-square edge, the recorded sample has a small radius, and the voice orb is circular. Keep the form language exact and use borders to define edges rather than heavy card backgrounds.
+Archivo's width axis gives condensed uppercase display type at signage weight. Inter for every sentence. Plex
+Mono for labels. Doto, a dot-matrix face, is reserved for step numbers and the demo phone number.
 
 ## Components
 
-- **Primary action:** a filled azure rectangle with a short verb-led label and a small directional arrow. Keep a 48px minimum height and a clear keyboard focus outline.
-- **Quiet link:** readable body text with a thin accent underline or arrow. It should feel secondary without becoming faint.
-- **Navigation:** the brand mark anchors the left, section links stay centered, and the filled contact action sits at the right. The header remains sticky and uses a translucent field.
-- **Route step:** a mono number and verb sit above a strong short heading, followed by one spoken example. A thin rail links the stops. The last stop labels a person as the handoff.
-- **Text field:** transparent fill, a fine theme hairline, a small corner, and a visible accent focus ring.
-- **FAQ row:** disclosure text is left aligned, separated by rules, with a simple accent toggle. Expanded copy keeps a readable measure.
-- **Voice orb:** the original supernova-like wave, with flowing arctic ice clouds over electric blue. The shared shader moves at idle and responds to call activity; under reduced-motion it slows instead of freezing. Keep it paused when hidden, and show the same field before audio consent.
+- **Page hero** (`PageHero.astro`): inset navy panel with drifting light, the halftone `DotField` canvas, grain,
+  a glass nav pill with the C mark, and the page heading. `size="compact"` for inner pages.
+- **Voice orb**: the arctic-blue `FluidCloudOrb` shader with a soft halo, used as the talk button on /demo and
+  home. No rings and no idle label (Mert, 2026-10-20).
+- **Buttons**: pills. Light (white on navy) for the main action, glass for secondary. Hover sweeps a light band
+  and nudges the arrow.
+- **Work-order cards** (`.d-order`, `.d-card`): white, 1.5px ink border, 6px offset `blue-ink` shadow, a dot patch
+  in one corner, a cursor spotlight on hover.
+- **Rule cards** (`.d-fact`): mist fill with a blue top edge that grows on hover.
+- **Trades marquee**: slow, masked edges, keeps running under the OS reduce-motion setting (Mert's call).
+- **FAQ**: rows ruled in ink, condensed uppercase questions, a circled plus that turns into an x.
 
-## Do's and Don'ts
+## Motion
 
-### Do
-- Do preserve the paired light and dark palette values.
-- Do label illustrative routes and samples clearly.
-- Do keep AI disclosure, approved intake, and human handoff distinct in route examples.
-- Do make focus and active states visible on interactive controls.
+Entrance lifts on load, reveal on scroll, the drifting light and the orb. With reduce-motion on, the large motion
+stops; the marquee, live dot and orb keep a gentle loop.
 
-### Don't
-- Don't add a new accent color or replace the current type family roles.
-- Don't turn every content group into an equal card grid.
-- Don't make mono the default for long copy.
-- Don't use decorative glows on the route rail or body text.
+## Don't
+
+- Don't invent proof: no logos, testimonials, stars or numbers (zero clients; site.js hard constraint).
+- Don't add faces or people imagery (halal rulings), music, fake dashboards or gradient text.
+- Don't change the wording of /text-me's consent block, /privacy or /terms when restyling.

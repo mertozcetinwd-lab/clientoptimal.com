@@ -1,19 +1,44 @@
 ---
-// /about — a short page putting a person behind the business, ending with the
-// handoff to the personal site.
-//
-// Deliberately short and with no ContactCta: the header carries a permanent
-// "Get in touch" button, and Mert asked for the mertozcetin.com link to be the
-// last thing on the page. Adding a closing CTA under it would bury that.
-//
-// Plain Astro, so this route ships no React and no Tailwind.
+// ABOUT, redesigned 2026-10-21. Every claim is already true elsewhere: one person (meta.founder),
+// the registered Gainesville address (contact.addressRegistered), zero clients (site.js hard
+// constraint). No education, employment history or years of experience: none of it is
+// established here, and this page does not get to invent it.
 import Base from '../layouts/Base.astro';
-import AboutIntro from '../components/AboutIntro.astro';
-import Elsewhere from '../components/Elsewhere.astro';
-import { aboutMeta } from '../data/site.js';
+import PageHero from '../components/site/PageHero.astro';
+import CloseCta from '../components/site/CloseCta.astro';
+import { aboutPage as a, contact, meta } from '../data/site.js';
 ---
 
-<Base title={aboutMeta.title} description={aboutMeta.description}>
-  <AboutIntro />
-  <Elsewhere />
+<Base title={a.title} description={a.description}>
+  <PageHero size="compact">
+    <div class="d-wrap">
+      <div class="d-page-head" id="main">
+        <p class="d-pill d-in d-in--1"><span class="d-pulse" aria-hidden="true"></span>One person, start to finish</p>
+        <h1 class="d-display d-in d-in--2">Hi. I'm<br /><em>Mert.</em></h1>
+        <p class="d-lede d-in d-in--3">I run Client Optimal from Gainesville, Florida. When you call about your phones, you get me, and I'm the one who sets it up.</p>
+      </div>
+    </div>
+  </PageHero>
+
+  <main>
+    <section class="d-section">
+      <div class="d-wrap d-about">
+        <aside class="d-about-card" data-reveal>
+          <dl>
+            <div><dt>Business</dt><dd>{meta.legalName}</dd></div>
+            <div><dt>Based in</dt><dd>Gainesville, Florida</dd></div>
+            <div><dt>Hours</dt><dd>{meta.hours}</dd></div>
+            <div><dt>Email</dt><dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
+            <div><dt>Phone</dt><dd><a href={`tel:${contact.phone}`}>{contact.phoneShow}</a></dd></div>
+            <div><dt>Elsewhere</dt><dd><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a> · <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a></dd></div>
+          </dl>
+        </aside>
+        <div class="d-prose" data-reveal>
+          {a.paras.map((p, i) => <p class={i === a.paras.length - 1 ? 'd-muted' : undefined}>{p}</p>)}
+        </div>
+      </div>
+    </section>
+
+    <CloseCta />
+  </main>
 </Base>

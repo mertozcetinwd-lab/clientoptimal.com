@@ -1,0 +1,20 @@
+---
+// The glass nav pill that sits inside every page's navy hero (2026-10-21 site redesign).
+// The mark is the Client Optimal C with the blue dot, the same as the favicon.
+import { nav } from '../../data/site.js';
+const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
+const here = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+---
+<nav class="d-nav d-in" aria-label="Main">
+  <a class="d-logo" href="/" aria-label="Client Optimal home">
+    <svg class="d-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" /><path d="M44 20.5a17 17 0 1 0 0 23" /><circle cx="47" cy="32" r="5" /></svg>
+    Client Optimal
+  </a>
+  <div class="d-nav-links">
+    {nav.map((item) => (
+      <a href={item.href} aria-current={here === item.href.replace(/\/+$/, '') ? 'page' : undefined}>{item.label}</a>
+    ))}
+    <a class="d-btn d-btn--light d-btn--sm" href={BOOKING_URL}>Book 15 min <Fragment set:html={arrow} /></a>
+  </div>
+</nav>

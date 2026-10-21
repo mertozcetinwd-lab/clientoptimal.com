@@ -1,30 +1,100 @@
 ---
-// /services — the services and approach page.
-//
-// Plain Astro end to end: no React island, so this route ships none of the
-// homepage's three.js/Tailwind payload. Base.astro boots the theme controls and
-// scroll reveals for every page, so nothing extra is wired here.
-//
-// Order carries the argument: what gets built (ServicesGrid), how a project runs
-// (Engagement, which owns the #approach anchor the nav points at), who it suits
-// and who it does not (FitCheck), then the ask.
-//
-// Deliberately absent: a second FAQ (the homepage owns that one, and repeating it
-// is filler), the Ticker (a homepage signature), and any restatement of the
-// Principles band. Reactivation is intentionally unsurfaced here too.
+// WHAT YOU GET, redesigned 2026-10-21. What is set up, how a project runs, and who it is (and
+// isn't) for. Copy: site.js servicesPage. No prices and no timings: both are agreed in writing.
 import Base from '../layouts/Base.astro';
-import ServicesHero from '../components/ServicesHero.astro';
-import ServicesGrid from '../components/ServicesGrid.astro';
-import Engagement from '../components/Engagement.astro';
-import FitCheck from '../components/FitCheck.astro';
-import ContactCta from '../components/ContactCta.astro';
-import { servicesMeta } from '../data/site.js';
+import PageHero from '../components/site/PageHero.astro';
+import CloseCta from '../components/site/CloseCta.astro';
+import { servicesPage as s } from '../data/site.js';
+
+const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+const check = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 6.5"/></svg>';
+const cross = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8"/></svg>';
 ---
 
-<Base title={servicesMeta.title} description={servicesMeta.description}>
-  <ServicesHero />
-  <ServicesGrid />
-  <Engagement />
-  <FitCheck />
-  <ContactCta />
+<Base title={s.title} description={s.description}>
+  <PageHero size="compact">
+    <div class="d-wrap">
+      <div class="d-page-head" id="main">
+        <p class="d-pill d-in d-in--1"><span class="d-pulse" aria-hidden="true"></span>Done for you, start to finish</p>
+        <h1 class="d-display d-in d-in--2">Your phone,<br /><em>handled.</em></h1>
+        <p class="d-lede d-in d-in--3">
+          I set up an AI receptionist around how your business already works: your number, your
+          rules for who gets through, and a text for every call. Then I look after it.
+        </p>
+        <div class="d-actions d-in d-in--4">
+          <a class="d-btn d-btn--light" href={BOOKING_URL}>Book 15 minutes <Fragment set:html={arrow} /></a>
+          <a class="d-btn d-btn--glass" href="/demo">Hear the demo</a>
+        </div>
+      </div>
+    </div>
+  </PageHero>
+
+  <main>
+    <section class="d-section">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">What's included</p>
+            <h2 class="d-display">Three parts.<br /><em>One setup.</em></h2>
+          </div>
+          <p>Everything you need for calls to get answered while you work, and for nothing important to slip past you.</p>
+        </div>
+        <div class="d-cards">
+          {s.included.map((c) => (
+            <article class="d-card" data-reveal>
+              <span class="d-order-no" aria-hidden="true">{c.idx}</span>
+              <h3>{c.title}</h3>
+              <p>{c.desc}</p>
+              <ul>{c.items.map((i) => <li>{i}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="d-section" style="padding-top:0" id="process">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">How a setup runs</p>
+            <h2 class="d-display">Map it. Test it.<br /><em>Switch it on.</em></h2>
+          </div>
+          <p>Nothing touches your real phone line until you've approved the script and heard the test calls. Price and timing are agreed in writing first.</p>
+        </div>
+        <div class="d-orders">
+          {s.steps.map((st) => (
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">{st.idx}</span>
+              <div><h3>{st.title}</h3><p>{st.desc}</p><small>{st.tag}</small></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="d-section" style="padding-top:0" id="fit">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">Is it a fit</p>
+            <h2 class="d-display">Honest about<br /><em>who it's for.</em></h2>
+          </div>
+          <p>If it's not right for your business, I'll tell you on the first call instead of selling it to you anyway.</p>
+        </div>
+        <div class="d-fit" data-reveal>
+          <div>
+            <h3>A good fit if</h3>
+            <ul>{s.good.map((g) => <li><Fragment set:html={check} /><span>{g}</span></li>)}</ul>
+          </div>
+          <div>
+            <h3>Not a fit if</h3>
+            <ul>{s.bad.map((b) => <li><Fragment set:html={cross} /><span>{b}</span></li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CloseCta />
+  </main>
 </Base>

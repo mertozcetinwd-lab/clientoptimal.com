@@ -1,0 +1,125 @@
+/* Site-wide additions to demo.css (2026-10-21 redesign): compact heroes, footer, prose, FAQ,
+   cards and fit lists. demo.css owns the tokens, buttons, panels and motion.
+
+   LEGACY TOKENS: /text-me keeps its own scoped styles (its consent block is a carrier
+   requirement, left exactly as built). Those styles read the old token names, so they are
+   mapped here onto the new palette instead of loading the old tokens.css. */
+:root {
+  --text: var(--ink); --text-dim: var(--muted); --bg: var(--white); --bg-2: var(--mist);
+  --accent: var(--blue-ink); --accent-fill: var(--blue-ink); --accent-fill-ink: var(--white);
+  --hair: var(--line); --hair-2: #cfd8e6; --hair-w: 1px;
+  --font-mono: var(--mono); --font-display: var(--display); --font-body: var(--sans);
+  --measure: 66ch; --step-h2: clamp(2.6rem, 5vw, 4.4rem); --step-h3: 1.5rem;
+}
+
+/* Nav: current page */
+.d-nav-links > a[aria-current="page"] { color: var(--white); background: rgba(255,255,255,.08); }
+
+/* Compact hero for inner pages */
+/* The compact hero's orb sits to the right of the heading on desktop, under it on smaller screens. */
+.d-hero--compact .d-page-head { max-width: min(640px, 100%); }
+/* Centred in the space right of the heading, not pinned to the edge (Mert: "way too far right"). */
+.d-compact-orb { position: absolute; z-index: 2; top: 50%; right: calc(max(32px, (100% - 1200px) / 2) + clamp(0px, 6vw, 120px)); transform: translateY(-42%); }
+.d-compact-orb .dc-line { max-width: 18em; font-size: 14px; }
+@media (max-width: 1040px) {
+  .d-compact-orb { position: static; transform: none; display: flex; justify-content: center; padding: 0 20px 56px; }
+  .d-hero--compact .d-page-head { padding-bottom: 32px; }
+}
+.d-hero--compact .d-page-head { padding: clamp(56px, 8vw, 104px) 0 clamp(48px, 6vw, 80px); max-width: 980px; }
+.d-page-head .d-pill { margin-bottom: 26px; }
+.d-page-head h1 { font-size: clamp(52px, 7vw, 108px); margin: 0 0 24px; }
+.d-page-head h1 em { font-style: normal; color: var(--sky); }
+.d-page-head .d-lede { margin-bottom: 30px; }
+.d-page-head .d-date { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted-dark); }
+
+/* Generic white-section cards (services, about) */
+.d-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 8px 8px 0; }
+.d-card { position: relative; isolation: isolate; overflow: hidden; border-radius: 0; padding: 30px 28px; background: var(--white);
+  border: 1.5px solid var(--ink); box-shadow: 6px 6px 0 var(--blue-ink); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.d-card::before { content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(43,107,255,.09), transparent 60%); }
+.d-card:hover { transform: translate(-2px, -2px); box-shadow: 9px 9px 0 var(--blue-ink); }
+.d-card:hover::before { opacity: 1; }
+.d-card .d-order-no { display: block; margin-bottom: 22px; }
+.d-card h3 { font: 800 28px/1 var(--display); font-stretch: 76%; text-transform: uppercase; margin: 0 0 12px; }
+.d-card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.d-card ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.d-card li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--ink); }
+.d-card li::before { content: ''; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--blue-ink); }
+
+/* Fit: two columns */
+.d-fit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.d-fit > div { border-radius: 0; padding: 32px; border: 1px solid var(--line); background: var(--mist); }
+.d-fit > div:first-child { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.d-fit h3 { font: 800 30px/1 var(--display); font-stretch: 76%; text-transform: uppercase; margin: 0 0 22px; }
+.d-fit ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.d-fit li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; font-size: 16px; line-height: 1.5; }
+.d-fit li svg { width: 20px; height: 20px; margin-top: 2px; }
+.d-fit > div:first-child li { color: var(--ice); }
+.d-fit > div:first-child svg { color: var(--go); }
+.d-fit > div:last-child li { color: var(--muted); }
+.d-fit > div:last-child svg { color: #b4401f; }
+
+/* FAQ */
+.d-faq { border-top: 1.5px solid var(--ink); }
+.d-faq details { border-bottom: 1px solid var(--line); }
+.d-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0;
+  font: 700 clamp(22px, 2vw, 28px)/1.15 var(--display); font-stretch: 80%; text-transform: uppercase; }
+.d-faq summary::-webkit-details-marker { display: none; }
+.d-faq summary::after { content: '+'; flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--ink); font: 400 22px/1 var(--sans); transition: transform .3s var(--ease), background .3s, color .3s; }
+.d-faq details[open] summary::after { transform: rotate(45deg); background: var(--ink); color: var(--white); }
+.d-faq details p { margin: 0 0 26px; max-width: 62ch; color: var(--muted); font-size: 17px; }
+
+/* About: portrait-free intro */
+.d-about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+.d-about-card { border-radius: 0; padding: 30px; background: var(--mist); border: 1px solid var(--line); position: sticky; top: 24px; }
+.d-about-card dl { margin: 0; display: grid; gap: 18px; }
+.d-about-card dt { font: 500 11.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-ink); margin-bottom: 4px; }
+.d-about-card dd { margin: 0; font-size: 16px; }
+.d-about-card a { text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; }
+.d-prose p { font-size: 19px; line-height: 1.65; color: var(--ink); margin: 0 0 22px; max-width: 60ch; }
+.d-prose p.d-muted { color: var(--muted); font-size: 17px; }
+
+/* Legal and contact prose */
+.d-legal { padding: clamp(56px, 8vw, 96px) 0 40px; }
+.d-legal .prose { max-width: 70ch; }
+.d-legal .prose h2 { font: 800 30px/1.05 var(--display); font-stretch: 78%; text-transform: uppercase; margin: 48px 0 14px; }
+.d-legal .prose h2:first-child { margin-top: 0; }
+.d-legal .prose h3 { font: 700 19px/1.3 var(--sans); margin: 28px 0 10px; }
+.d-legal .prose p, .d-legal .prose li { color: var(--muted); font-size: 16.5px; line-height: 1.7; }
+.d-legal .prose p { margin: 0 0 16px; }
+.d-legal .prose ul, .d-legal .prose ol { padding-left: 20px; margin: 0 0 16px; }
+.d-legal .prose li { margin-bottom: 6px; }
+.d-legal .prose strong { color: var(--ink); font-weight: 600; }
+.d-legal .prose a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 3px; }
+
+/* /text-me: give the legacy form the new panel feel without touching its markup */
+.optin .submit { border-radius: 999px !important; font-weight: 600; }
+.optin .field input { border-radius: 0 !important; }
+.optin .consent { border-radius: 0 !important; }
+.optin .title { font-family: var(--display) !important; font-stretch: 70%; font-weight: 800 !important; text-transform: uppercase; letter-spacing: -.01em !important; }
+.optin .eyebrow { font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-ink); }
+
+/* Footer */
+/* Navy, edge to edge. After the closing panel it continues the same navy with a hairline seam;
+   on pages without that panel (legal, text-me) it opens with rounded top corners instead. */
+.d-footer { margin-top: 48px; padding: 64px 0 40px; font-size: 14.5px; background: var(--navy); color: var(--ice);
+  border-radius: var(--r-panel) var(--r-panel) 0 0; }
+main:has(.d-shell--close) + .d-footer { margin-top: 0; border-radius: 0; border-top: 1px solid var(--line-dark); }
+.d-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+.d-footer .d-logo { color: var(--white); }
+.d-footer-brand p { color: var(--muted-dark); max-width: 32em; margin: 16px 0 0; }
+.d-footer h2 { font: 500 11.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sky); margin: 0 0 14px; }
+.d-footer nav, .d-footer-grid > div:last-child { display: flex; flex-direction: column; gap: 8px; }
+.d-footer a { color: var(--ice); text-decoration: none; }
+.d-footer a:hover { color: var(--white); text-decoration: underline; text-decoration-color: var(--sky); text-underline-offset: 3px; }
+.d-footer-grid p { color: var(--muted-dark); margin: 6px 0 0; }
+.d-footer-bottom { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line-dark); color: var(--muted-dark); font-size: 13.5px; }
+.d-footer-bottom nav { flex-direction: row; flex-wrap: wrap; gap: 20px; }
+.d-footer-bottom a { color: var(--muted-dark); }
+
+@media (max-width: 1040px) {
+  .d-cards, .d-fit, .d-about, .d-footer-grid { grid-template-columns: 1fr; }
+  .d-about-card { position: static; }
+}

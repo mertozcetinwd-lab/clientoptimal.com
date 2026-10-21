@@ -16,41 +16,23 @@
 // rings first, it picks up the misses" wording (references/the-offer.md still describes that one). The demo line answers with a caller's
 // business name only when we have texted or emailed them (consent-worker agent.js lookup).
 // VOICE: casual, direct, NO EM DASHES.
-import DemoLayout from '../layouts/DemoLayout.astro';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/site/PageHero.astro';
+import TradesMarquee from '../components/site/TradesMarquee.astro';
+import HowItWorks from '../components/site/HowItWorks.astro';
+import TheRules from '../components/site/TheRules.astro';
+import CloseCta from '../components/site/CloseCta.astro';
 import DemoCall from '../components/ui/DemoCall';
-import OrbAccent from '../components/ui/OrbAccent';
-import DotField from '../components/DotField.astro';
 
-const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
 const DEMO_LINE = '(352) 640-7955';
 const DEMO_TEL = 'tel:+13526407955';
-const TRADES = ['HVAC', 'Plumbing', 'Roofing', 'Electrical', 'Remodeling', 'Tree service', 'Fencing', 'Pest control', 'Landscaping', 'Garage doors'];
-const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 ---
 
-<DemoLayout
+<Base
   title="Hear it answer your phone · Client Optimal"
   description="Talk to an AI receptionist built for home-service contractors. It answers your calls, takes the details, texts them to you, and passes the urgent ones to you."
 >
-  <div class="d-shell">
-    <header class="d-panel d-hero">
-      <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
-      <DotField />
-      <div class="d-vignette" aria-hidden="true"></div>
-      <div class="d-grain" aria-hidden="true"></div>
-
-      <nav class="d-nav d-in" aria-label="Main">
-        <a class="d-logo" href="/" aria-label="Client Optimal home">
-          <svg class="d-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" /><path d="M44 20.5a17 17 0 1 0 0 23" /><circle cx="47" cy="32" r="5" /></svg>
-          Client Optimal
-        </a>
-        <div class="d-nav-links">
-          <a href="#how">How it works</a>
-          <a href="#true">The rules</a>
-          <a class="d-btn d-btn--light d-btn--sm" href={BOOKING_URL}>Book 15 min <Fragment set:html={arrow} /></a>
-        </div>
-      </nav>
-
+  <PageHero>
       <div class="d-wrap">
         <div class="d-hero-grid" id="main">
           <div class="d-hero-copy">
@@ -73,7 +55,7 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
             </div>
             <p class="d-hero-fine d-in d-in--6">
               It tells callers it's an AI. The browser demo uses your mic and sends your voice to our
-              voice provider, Retell AI, so don't share anything private. <a href="/privacy">Privacy</a>
+              voice AI provider, so don't share anything private.{' '}<a href="/privacy">Privacy</a>
             </p>
           </div>
 
@@ -81,146 +63,12 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
         </div>
       </div>
 
-      <div class="d-marquee" aria-label="Built for">
-        <ul>
-          {[...TRADES, ...TRADES].map((t, i) => <li aria-hidden={i >= TRADES.length ? 'true' : undefined}>{t}</li>)}
-        </ul>
-      </div>
-    </header>
-  </div>
+      <TradesMarquee />
+  </PageHero>
 
   <main>
-    <section class="d-section" id="how">
-      <div class="d-wrap">
-        <div class="d-head" data-reveal>
-          <div>
-            <p class="d-eyebrow">How it works</p>
-            <h2 class="d-display">Your number.<br /><em>Fewer</em> interruptions.</h2>
-          </div>
-          <p>It answers first, so you can stay on the job. You only stop for the people you know and the calls that really need you, and you hear about every other one by text.</p>
-        </div>
-
-        <div class="d-how">
-          <div class="d-phone-stage" data-reveal>
-            <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
-            <DotField />
-            <div class="d-grain" aria-hidden="true"></div>
-            <div class="d-device" role="img" aria-label="Example of the text you get after a missed call">
-              <div class="d-screen">
-                <div class="d-clock"><b>2:14</b><span>Tuesday, on the job</span></div>
-                <div class="d-notif">
-                  <div class="d-notif-top"><i></i>Messages<time>now</time></div>
-                  <strong>New call, handled</strong>
-                  Dana, (352) 555-0147. Water leaking under the kitchen sink, wants someone today. Gainesville.
-                </div>
-                <div class="d-notif d-notif--2">
-                  <div class="d-notif-top"><i></i>Messages<time>11:02</time></div>
-                  <strong>New call, handled</strong>
-                  Rob, AC blowing warm. Asked for a quote this week.
-                </div>
-              </div>
-            </div>
-            <p class="d-phone-note">Example only. The real text uses what your caller said.</p>
-          </div>
-
-          <div class="d-orders">
-            <article class="d-order" data-reveal>
-              <span class="d-order-no" aria-hidden="true">01</span>
-              <div><h3>A call comes in</h3><p>Same number on your truck and your Google listing. Calls forward to the receptionist, so nothing goes to voicemail.</p><small>Your number stays</small></div>
-            </article>
-            <article class="d-order" data-reveal>
-              <span class="d-order-no" aria-hidden="true">02</span>
-              <div><h3>The AI answers</h3><p>It picks up for your business and asks what they need and how urgent it is. Your own contacts ring straight through to you.</p><small>Known callers skip it</small></div>
-            </article>
-            <article class="d-order" data-reveal>
-              <span class="d-order-no" aria-hidden="true">03</span>
-              <div><h3>You get a text</h3><p>Who called, their number, what they need and how urgent. If it really needs you, it's passed to you right away.</p><small>Every call, by text</small></div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="d-section" id="true" style="padding-top:0">
-      <div class="d-wrap">
-        <div class="d-head" data-reveal>
-          <div>
-            <p class="d-eyebrow">The rules it follows</p>
-            <h2 class="d-display">No new number.<br /><em>No pretending.</em></h2>
-          </div>
-          <p>It's built around your phone and your rules. It sticks to what you approve and hands the rest to you.</p>
-        </div>
-        <div class="d-facts">
-          <div class="d-fact" data-reveal>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg>
-            <b>Keep your number</b><p>It works with call forwarding on the line you already have.</p>
-          </div>
-          <div class="d-fact" data-reveal>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 3.3 6.5L4 20l1.4-3.4A8 8 0 0 1 4 12Z"/><path d="M9 10.5h6M9 13.5h4"/></svg>
-            <b>Says it's AI</b><p>Callers hear that up front. It never pretends to be you.</p>
-          </div>
-          <div class="d-fact" data-reveal>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M16.5 7H10a2.5 2.5 0 0 0 0 5h4a2.5 2.5 0 0 1 0 5H7"/></svg>
-            <b>No made-up prices</b><p>It won't quote, promise a time or book a job unless you set that up.</p>
-          </div>
-          <div class="d-fact" data-reveal>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8 7.5 9.5 4.3-1.5 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
-            <b>Spam never reaches you</b><p>Sales pitches and robocalls get a polite no and no text. Your phone stays quiet.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="d-shell" style="padding-top:0">
-      <section class="d-panel" data-reveal>
-        <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
-        <DotField />
-        <div class="d-grain" aria-hidden="true"></div>
-        <div class="d-close">
-          <div>
-            <p class="d-eyebrow">Next step</p>
-            <h2 class="d-display">Want it on<br /><span class="d-grad">your line?</span></h2>
-            <p>15 minutes on Zoom with Mert. Bring how your calls work today and we'll see if it fits.</p>
-          </div>
-          <div class="d-close-side">
-            <OrbAccent client:visible size={200} />
-            <div class="d-close-actions">
-              <a class="d-btn d-btn--light" href={BOOKING_URL}>Book 15 minutes <Fragment set:html={arrow} /></a>
-              <a class="d-btn d-btn--glass" href={DEMO_TEL}>Call the demo line</a>
-              <small>Client Optimal LLC · Gainesville, Florida</small>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <HowItWorks />
+    <TheRules />
+    <CloseCta />
   </main>
-
-  <footer class="d-foot">
-    <div class="d-wrap">
-      <span>© {new Date().getFullYear()} Client Optimal LLC</span>
-      <nav aria-label="Legal"><a href="/">Home</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
-    </div>
-  </footer>
-
-  <script>
-    // Reveal on scroll and the cursor spotlight on the work orders. Both are additive: without JS
-    // or with reduced motion (CSS) every section is simply visible.
-    document.documentElement.classList.add('js');
-    const els = document.querySelectorAll('[data-reveal]');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-      }), { rootMargin: '0px 0px -8% 0px' });
-      els.forEach((el) => io.observe(el));
-    } else {
-      els.forEach((el) => el.classList.add('is-in'));
-    }
-    document.querySelectorAll<HTMLElement>('.d-order').forEach((card) => {
-      card.addEventListener('pointermove', (ev) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
-        card.style.setProperty('--my', `${ev.clientY - r.top}px`);
-      });
-    });
-  </script>
-</DemoLayout>
+</Base>

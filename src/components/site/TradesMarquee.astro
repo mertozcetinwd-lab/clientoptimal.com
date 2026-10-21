@@ -1,0 +1,10 @@
+---
+// The slow-scrolling trades strip at the foot of a hero. It keeps running even with the OS
+// "reduce motion" setting on (Mert's call, 2026-10-20); see demo.css.
+const TRADES = ['HVAC', 'Plumbing', 'Roofing', 'Electrical', 'Remodeling', 'Tree service', 'Fencing', 'Pest control', 'Landscaping', 'Garage doors'];
+---
+<div class="d-marquee" aria-label="Built for">
+  <ul>
+    {[...TRADES, ...TRADES].map((t, i) => <li aria-hidden={i >= TRADES.length ? 'true' : undefined}>{t}</li>)}
+  </ul>
+</div>

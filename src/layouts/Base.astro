@@ -1,36 +1,31 @@
 ---
-import '@fontsource-variable/archivo';
+// The site shell, redesigned 2026-10-21 to match /demo: white page, inset navy hero panels,
+// condensed Archivo display type, Doto LED accents, light only (Mert's call). Each page opens with
+// <PageHero> (which carries the nav); this layout supplies the head, the footer and the small
+// scripts every page shares. The old dark/light theme switch and floating voice launcher are gone:
+// the demo has its own page and every nav links to it.
+import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/inter';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
-import '../styles/tokens.css';
-import '../styles/call-route.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import VoiceAgentWidget from '../components/ui/VoiceAgentWidget';
+import '../styles/demo.css';
+import '../styles/site.css';
+import SiteFooter from '../components/site/SiteFooter.astro';
 import { meta } from '../data/site.js';
 
 interface Props { title?: string; description?: string; noindex?: boolean }
 const {
-  // Middle dot, not an em dash. references/voice.md in the parent AIOS rules
-  // out em dashes, and a <title> is shipping copy like any other string.
+  // Middle dot, not an em dash: a <title> is shipping copy like any other string.
   title = `${meta.name} · ${meta.tagline}`,
   description = meta.description,
   noindex = false,
 } = Astro.props;
 
-// The floating voice-agent launcher ships on every page EXCEPT /demo, which
-// already carries the full orb card and would end up with two launchers.
-const isDemo = Astro.url.pathname.replace(/\/+$/, '') === '/demo';
-
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // Version the URL when the artwork changes so social scrapers refresh cached cards.
 const ogImage = new URL('/og.png?v=20261014-voice-agent', Astro.site).href;
 
-// Organization structured data. A small static business site gets nothing from a
-// framework of schema, but a single Organization node helps search engines
-// attach the brand, the founder, and the real social profiles together. Every
-// field is true and already lives in site.js — nothing invented.
+// One Organization node: every field is true and already lives in site.js.
 const orgLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -47,7 +42,7 @@ const orgLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,7 +51,12 @@ const orgLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,follow" />}
-    <meta name="color-scheme" content="dark light" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#050f22" />
+    <!-- Doto: a dot-matrix display face (OFL, Google Fonts) for the LED-sign accents. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&display=swap" rel="stylesheet" />
     <meta property="og:site_name" content={meta.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -70,74 +70,32 @@ const orgLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
-    <script is:inline>
-      // Runs before first paint, and both jobs depend on that.
-      // data-theme: settle it here or the page flashes the wrong field.
-      // .js: tokens.css hides .reveal ONLY under html.js, so a JS failure
-      // leaves every section visible instead of blank.
-      (function () {
-        var el = document.documentElement;
-        el.classList.add('js');
-        var t;
-        try {
-          // ?theme= wins over the stored preference. It exists so a headless
-          // browser can shoot both themes without touching localStorage, which
-          // is how this site gets visually verified. Same trick as the sibling.
-          var p = new URLSearchParams(location.search).get('theme');
-          t = p || localStorage.getItem('co-theme');
-        } catch (e) {}
-        if (t === 'dark' || t === 'light') el.setAttribute('data-theme', t);
-      })();
-    </script>
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <Header />
-    <main id="main" class="site-main"><slot /></main>
-    <Footer />
-    {!isDemo && <VoiceAgentWidget client:only="react" />}
+  <body class="d">
+    <a class="d-skip" href="#main">Skip to content</a>
+    <slot />
+    <SiteFooter />
 
     <script>
-      import { initThemeControls } from '../scripts/theme.js';
-      import { initReveals } from '../scripts/reveal.js';
-      initThemeControls();
-      initReveals();
-
-
-      // Voice widget: any element carrying [data-open-voice-widget] (ContactCta,
-      // future banners) asks the floating island to open the demo modal. The
-      // widget island listens for this window event; without it the buttons
-      // simply do nothing, so this stays optional enhancement, not load-bearing.
-      document.addEventListener('click', (e) => {
-
-        const t = e.target instanceof Element ? e.target.closest('[data-open-voice-widget]') : null;
-
-        if (t) window.dispatchEvent(new CustomEvent('open-voice-widget'));
-
-      });
-
-      // Restrained CRT nod: one quick scanline sweep when the colour mode flips.
-      // Fires only on the theme engine's `themechange` event, so it never runs on
-      // load or scroll. The class self-removes after the 220ms animation.
-      let glitchT;
-      window.addEventListener('themechange', () => {
-        const root = document.documentElement;
-        root.classList.add('theme-glitch');
-        clearTimeout(glitchT);
-        glitchT = setTimeout(() => root.classList.remove('theme-glitch'), 240);
+      // Reveal on scroll and the cursor spotlight on cards. Both are additive: without JS, or with
+      // reduced motion (demo.css), every section is simply visible.
+      const els = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }), { rootMargin: '0px 0px -8% 0px' });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+      document.querySelectorAll<HTMLElement>('.d-order, .d-card').forEach((card) => {
+        card.addEventListener('pointermove', (ev) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
+          card.style.setProperty('--my', `${ev.clientY - r.top}px`);
+        });
       });
     </script>
   </body>
 </html>
-
-<style is:global>
-  .skip {
-    position: fixed; top: -120px; left: 0; z-index: 200;
-    background: var(--text); color: var(--bg);
-    padding: 0.7em 1.1em;
-    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
-    text-decoration: none;
-    transition: top 0.2s var(--ease);
-  }
-  .skip:focus { top: 0; }
-</style>

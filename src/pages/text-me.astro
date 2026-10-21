@@ -36,6 +36,7 @@
 //     WHICH wording a person actually agreed to. Bump it whenever the consent
 //     paragraph changes. Never edit the wording without bumping it.
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/site/PageHero.astro';
 import { meta, contact } from '../data/site.js';
 
 const CONSENT_VERSION = '2026-08-22.1';
@@ -50,24 +51,28 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
   description="Request a recorded sample of an AI voice interaction by email or, with separate consent, by text."
   noindex
 >
-  <section class="optin">
-    <div class="wrap">
-      <header class="head">
-        <h1 class="display title">Hear what it sounds like.</h1>
-        <p class="eyebrow">{meta.name} / sample request</p>
-        <p class="lead">
+  <PageHero size="compact">
+    <div class="d-wrap">
+      <header class="d-page-head" id="main">
+        <p class="d-pill d-in d-in--1">{meta.name} / sample request</p>
+        <h1 class="d-display d-in d-in--2">Hear what it sounds like.</h1>
+        <p class="d-lede d-in d-in--3">
           A short recorded sample of an AI voice interaction for a fictional
           service business. It is a demonstration, not a customer call or client
           result. The sample illustrates a possible intake flow; a real setup
           depends on the business's phone system and approved script.
         </p>
-        <p class="lead" style="margin-top:.8rem">
+        <p class="d-lede d-in d-in--4">
           <strong>Your choice how you get it</strong>: tick the box for a text, or
           just leave your email instead. Either works, and you never have to
           agree to texts to see the demo.
         </p>
       </header>
+    </div>
+  </PageHero>
 
+  <section class="optin">
+    <div class="wrap">
       <form class="form" method="post" action={ENDPOINT}>
         <input type="hidden" name="consent_version" value={CONSENT_VERSION} />
 
@@ -229,7 +234,8 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
   }
 
   .optin { padding-block: clamp(3.5rem, 8vw, 7rem); }
-  .optin > .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.75fr); gap: clamp(2rem, 8vw, 8rem); align-items: start; }
+  /* 2026-10-21: the intro moved into the navy hero, so the form and the aside stack in one column. */
+  .optin > .wrap { display: grid; grid-template-columns: minmax(0, 40rem); gap: 2rem; width: min(1200px, 100% - 64px); margin-inline: auto; }
   .optin .head { position: sticky; top: 7.5rem; border-bottom: 0; margin: 0; padding: 0; }
   .optin .title { max-width: 9ch; margin: 0; font-family: var(--font-display); font-size: clamp(3.3rem, 7.4vw, 7rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.065em; }
   .optin .eyebrow { display: block; margin-block: 1.2rem; }
@@ -239,6 +245,6 @@ const ENDPOINT = 'https://consent.clientoptimal.com/optin';
   .optin .field input { min-height: 48px; border-radius: 0; border-color: var(--hair-2); background: var(--bg); }
   .optin .consent { border-radius: 0; border-color: var(--hair-2); background: var(--bg-2); font-size: 0.88rem; }
   .optin .submit { min-height: 48px; padding-inline: 1.3rem; border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); }
-  .optin .alt { grid-column: 2; margin-top: -6rem; }
+  .optin .alt { grid-column: 1; margin-top: 0; }
   @media (max-width: 760px) { .optin > .wrap { grid-template-columns: 1fr; } .optin .head { position: static; } .optin .alt { grid-column: 1; margin-top: -1rem; } }
 </style>

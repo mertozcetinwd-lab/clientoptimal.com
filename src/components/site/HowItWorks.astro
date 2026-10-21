@@ -1,0 +1,117 @@
+---
+// How it works: the phone showing the owner's texts, beside three work-order steps. AI answers first (2026-10-20).
+//
+// The lock screen is live (Mert, 2026-10-21): a new example text slides in every few seconds and the
+// clock moves on. Every message is a made-up example of what the client agent really sends: a job
+// summary, or an urgent call it could not put through (client-receptionist.json). No spam texts and
+// no "known caller" texts, because the agent sends neither. Without JS the first two show, still.
+import DotField from '../DotField.astro';
+
+const FEED = [
+  { title: 'New call, handled', body: 'Dana, (352) 555-0147. Water leaking under the kitchen sink, wants someone today. Gainesville.' },
+  { title: 'URGENT · couldn’t reach you', body: 'Mike, (352) 555-0162. Burst pipe, water in the garage. Call back now.', urgent: true },
+  { title: 'New call, handled', body: 'Rob, (352) 555-0198. AC blowing warm air. Asked for a quote this week. Ocala.' },
+];
+---
+    <section class="d-section" id="how">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">How it works</p>
+            <h2 class="d-display">Your number.<br /><em>Fewer</em> interruptions.</h2>
+          </div>
+          <p>It answers first, so you can stay on the job. You only stop for the people you know and the calls that really need you, and you hear about every other one by text.</p>
+        </div>
+
+        <div class="d-how">
+          <div class="d-phone-stage" data-reveal>
+            <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+            <DotField />
+            <div class="d-grain" aria-hidden="true"></div>
+            <div class="d-device" role="img" aria-label="Example texts the owner gets: a new one arrives every few seconds">
+              <div class="d-screen">
+                <div class="d-clock"><b data-clock>2:14</b><span>Tuesday, on the job</span></div>
+                <div class="d-feed" data-feed={JSON.stringify(FEED)}>
+                  {FEED.map((m, i) => (
+                    <div class={`d-notif ${m.urgent ? 'd-notif--urgent' : ''}`} data-i={i}>
+                      <div class="d-notif-top"><i></i>Messages<time>{['now', '2m ago', '5m ago'][i]}</time></div>
+                      <strong>{m.title}</strong>
+                      {m.body}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p class="d-phone-note">Example only. The real text uses what your caller said.</p>
+          </div>
+
+          <div class="d-orders">
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">01</span>
+              <div><h3>A call comes in</h3><p>Same number on your truck and your Google listing. Calls forward to the receptionist, so nothing goes to voicemail.</p><small>Your number stays</small></div>
+            </article>
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">02</span>
+              <div><h3>The AI answers</h3><p>It picks up for your business and asks what they need and how urgent it is. Your own contacts ring straight through to you.</p><small>Known callers skip it</small></div>
+            </article>
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">03</span>
+              <div><h3>You get a text</h3><p>Who called, their number, what they need and how urgent. If it really needs you, it's passed to you right away.</p><small>Every call, by text</small></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<script>
+  // The live lock screen (Mert, 2026-10-21): the same three texts loop. Every 3.8s the oldest comes
+  // back as the newest: it slides in on top, the other two glide down (FLIP: measure, move, animate
+  // the difference), and the one pushed off the bottom fades out. Runs only while on screen.
+  type Msg = { title: string; body: string; urgent?: boolean };
+  const EASE = 'cubic-bezier(.2, .7, .2, 1)';
+  document.querySelectorAll<HTMLElement>('.d-feed').forEach((feed) => {
+    const msgs: Msg[] = JSON.parse(feed.dataset.feed || '[]');
+    const clock = feed.parentElement?.querySelector<HTMLElement>('[data-clock]');
+    if (msgs.length !== 3) return;
+    let minutes = 14 * 60 + 14, timer = 0, visible = false;
+    const ages = ['now', '2m ago', '5m ago'];
+
+    const make = (m: Msg, i: number) => {
+      const el = document.createElement('div');
+      el.dataset.i = String(i);
+      el.className = `d-notif${m.urgent ? ' d-notif--urgent' : ''}`;
+      el.innerHTML = '<div class="d-notif-top"><i></i>Messages<time>now</time></div><strong></strong><span></span>';
+      el.querySelector('strong')!.textContent = m.title;
+      el.querySelector('span')!.textContent = m.body;
+      return el;
+    };
+    const tick = () => {
+      const items = [...feed.children] as HTMLElement[];
+      const before = new Map(items.map((el) => [el, el.getBoundingClientRect().top]));
+      // The oldest leaves: fade it out where it stands, out of the layout so nothing jumps.
+      const leaving = items[items.length - 1];
+      const lr = leaving.getBoundingClientRect(), fr = feed.getBoundingClientRect();
+      Object.assign(leaving.style, { position: 'absolute', left: '0', right: '0', top: `${lr.top - fr.top}px` });
+      leaving.animate([{ opacity: getComputedStyle(leaving).opacity }, { opacity: 0, transform: 'translateY(14px) scale(.96)' }],
+        { duration: 650, easing: EASE, fill: 'forwards' });
+      // Removed on a timer, not on the animation's end: a background tab can pause animations.
+      setTimeout(() => leaving.remove(), 700);
+      // The message that just left returns on top as the newest, so the three never repeat on screen.
+      const i = Number(leaving.dataset.i || 0);
+      const fresh = make(msgs[i], i);
+      feed.prepend(fresh);
+      fresh.animate([{ opacity: 0, transform: 'translateY(-22px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 700, easing: EASE });
+      items.slice(0, -1).forEach((el) => {
+        const dy = before.get(el)! - el.getBoundingClientRect().top;
+        if (dy) el.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 700, easing: EASE });
+      });
+      [...feed.children].forEach((el, i) => { const tm = el.querySelector('time'); if (tm && el !== leaving) tm.textContent = ages[i] || ''; });
+      minutes += 3;
+      if (clock) clock.textContent = `${Math.floor(minutes / 60) % 12 || 12}:${String(minutes % 60).padStart(2, '0')}`;
+    };
+    const run = () => { if (!timer && visible && !document.hidden) timer = window.setInterval(tick, 3800); };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? run() : stop(); }).observe(feed);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
+  });
+</script>

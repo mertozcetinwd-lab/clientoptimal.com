@@ -1,0 +1,21 @@
+---
+// The inset navy panel every page opens with: moving light, halftone dots, grain, and the nav.
+// `size="compact"` is for inner pages (services, about, legal, text-me). Mert, 2026-10-21: the orb and
+// its talk button belong on every page, so the compact hero carries a smaller one beside the heading.
+import SiteNav from './SiteNav.astro';
+import DotField from '../DotField.astro';
+import DemoCall from '../ui/DemoCall';
+interface Props { size?: 'full' | 'compact' }
+const { size = 'full' } = Astro.props;
+---
+<div class="d-shell">
+  <header class={`d-panel d-hero ${size === 'compact' ? 'd-hero--compact' : ''}`}>
+    <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+    <DotField />
+    <div class="d-vignette" aria-hidden="true"></div>
+    <div class="d-grain" aria-hidden="true"></div>
+    <SiteNav />
+    <slot />
+    {size === 'compact' && <div class="d-compact-orb"><DemoCall client:only="react" max={260} /></div>}
+  </header>
+</div>

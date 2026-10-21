@@ -1,0 +1,41 @@
+---
+// Site footer (2026-10-21 redesign). The phone, email and registered address are A2P 10DLC
+// requirements: a carrier reviewer cross-checks them against the brand record, so they come
+// from site.js and must stay visible on every page.
+import { meta, contact, legalNav } from '../../data/site.js';
+const year = new Date().getFullYear();
+---
+<footer class="d-footer">
+  <div class="d-wrap">
+    <div class="d-footer-grid">
+      <div class="d-footer-brand">
+        <a class="d-logo" href="/" aria-label={`${meta.name} home`}>
+          <svg class="d-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" /><path d="M44 20.5a17 17 0 1 0 0 23" /><circle cx="47" cy="32" r="5" /></svg>
+          {meta.name}
+        </a>
+        <p>An AI receptionist for home-service contractors. It answers your calls, texts you the details, and puts the important ones through to you.</p>
+      </div>
+      <nav aria-label="Explore">
+        <h2>Explore</h2>
+        <a href="/demo">Hear the demo</a>
+        <a href="/services">What you get</a>
+        <a href="/about">About Mert</a>
+        <a href="/text-me">Get texts from us</a>
+      </nav>
+      <div>
+        <h2>Contact</h2>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a href={`tel:${contact.phone}`}>{contact.phoneShow}</a>
+        <p>{meta.legalName}<br />{contact.addressRegistered}</p>
+      </div>
+    </div>
+    <div class="d-footer-bottom">
+      <span>© {year} {meta.legalName}</span>
+      <nav aria-label="Legal and elsewhere">
+        {legalNav.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={contact.personalSite} target="_blank" rel="noopener">{contact.personalSiteShow}</a>
+      </nav>
+    </div>
+  </div>
+</footer>
