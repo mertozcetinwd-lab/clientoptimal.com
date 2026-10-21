@@ -1,397 +1,226 @@
 ---
-// THE DEMO PAGE. Built 2026-08-23.
+// THE DEMO PAGE, redesigned 2026-10-20 (Mert: "a LOT more premium", "tailor the design more to
+// blue-collar contractors", keep the white-blue theme, the Client Optimal logo and the glowing orb).
+// It is what a lead gets after replying to a text or email, so it does one job: let them hear the
+// receptionist, then book. Premium details and their sources:
+// website-design/mockups/clientoptimal-demo/REFERENCES.md.
 //
-// This is the landing page for the VSL link. It exists on THIS domain for one
-// reason that is not aesthetic: the A2P 10DLC campaign registered against Client
-// Optimal's EIN declares clientoptimal.com in its message flow and samples.
-// Carriers check that links embedded in traffic match the registered brand, and
-// an unknown third-party domain in cold SMS is a filtering trigger.
+// Why it lives on THIS domain: the A2P 10DLC campaign registered against Client Optimal's EIN
+// declares clientoptimal.com in its message flow, and carriers filter unknown domains in SMS.
 //
-// So the video may be recorded and hosted anywhere. The LINK that goes out is
-// always clientoptimal.com/demo.
-//
-// TO PUBLISH THE VIDEO:
-//   1. Upload the recording (YouTube unlisted, or Loom).
-//   2. Paste the embed URL into VIDEO_URL below.
-//      YouTube: https://www.youtube-nocookie.com/embed/XXXXXXXXXXX
-//      Loom:    https://www.loom.com/embed/XXXXXXXXXXXXXXXX
-//   3. Deploy.
-//
-// Until VIDEO_URL is set the page shows a plain "coming shortly" state rather
-// than a broken player. It is safe to deploy empty.
-//
-// VOICE: references/voice.md. Casual, direct, no hype, NO EM DASHES.
-// HARD CONSTRAINT from site.js: zero clients, so nothing here may imply
-// results, client counts, testimonials or track record.
-import Base from '../layouts/Base.astro';
-import { contact } from '../data/site.js';
-import VoiceOrb from '../components/ui/VoiceOrb';
+// HONESTY RULES (site.js, references/the-offer.md): zero clients, so no results, counts or
+// testimonials. The client agent takes details and texts the owner; it does not book jobs, quote
+// prices or promise times, so the copy never says it does.
+// CALL FLOW (Mert, 2026-10-20): the AI answers calls FIRST; the owner's own contacts ring straight
+// through, and anything that really needs him gets passed to him. This replaces the old "your phone
+// rings first, it picks up the misses" wording (references/the-offer.md still describes that one). The demo line answers with a caller's
+// business name only when we have texted or emailed them (consent-worker agent.js lookup).
+// VOICE: casual, direct, NO EM DASHES.
+import DemoLayout from '../layouts/DemoLayout.astro';
+import DemoCall from '../components/ui/DemoCall';
+import OrbAccent from '../components/ui/OrbAccent';
+import DotField from '../components/DotField.astro';
 
-// Paste the embed URL here once the video is up. Empty string = placeholder state.
-const VIDEO_URL = 'https://www.youtube-nocookie.com/embed/wDe3INaG8ZI?rel=0&playsinline=1';
-
-// Optional: a direct file fallback if the video is self-hosted rather than embedded.
-const VIDEO_FILE = '';
+const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
+const DEMO_LINE = '(352) 640-7955';
+const DEMO_TEL = 'tel:+13526407955';
+const TRADES = ['HVAC', 'Plumbing', 'Roofing', 'Electrical', 'Remodeling', 'Tree service', 'Fencing', 'Pest control', 'Landscaping', 'Garage doors'];
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
 ---
 
-<Base
-  title="AI call intake sample · Client Optimal"
-  description="Review a sample AI voice interaction and the proposed inbound call intake flow. Audio processing and implementation limits are disclosed."
+<DemoLayout
+  title="Hear it answer your phone · Client Optimal"
+  description="Talk to an AI receptionist built for home-service contractors. It answers your calls, takes the details, texts them to you, and passes the urgent ones to you."
 >
-  <div class="demo">
-    <header class="intro">
-      <h1>Hear a browser sample of AI call intake</h1>
-      <p class="route-annotation">Illustrative sample / not a client deployment</p>
-      <p class="lede">
-        The recording and interactive sample are demonstrations, not customer
-        calls or proof of a client result. The interactive sample sends microphone
-        audio to Retell AI. Read the notice and use fictional details only.
-      </p>
-    </header>
+  <div class="d-shell">
+    <header class="d-panel d-hero">
+      <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+      <DotField />
+      <div class="d-vignette" aria-hidden="true"></div>
+      <div class="d-grain" aria-hidden="true"></div>
 
-    <div class="interactive-demo">
-      <VoiceOrb client:only="react" />
-    </div>
+      <nav class="d-nav d-in" aria-label="Main">
+        <a class="d-logo" href="/" aria-label="Client Optimal home">
+          <svg class="d-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" /><path d="M44 20.5a17 17 0 1 0 0 23" /><circle cx="47" cy="32" r="5" /></svg>
+          Client Optimal
+        </a>
+        <div class="d-nav-links">
+          <a href="#how">How it works</a>
+          <a href="#true">The rules</a>
+          <a class="d-btn d-btn--light d-btn--sm" href={BOOKING_URL}>Book 15 min <Fragment set:html={arrow} /></a>
+        </div>
+      </nav>
 
-    <div class="divider">
-      <span>Or watch the recorded sample</span>
-    </div>
-
-    <div class="player">
-      {VIDEO_URL ? (
-        <>
-          <div class="frame">
-            <iframe
-              src={VIDEO_URL}
-              title="Illustrative AI call intake sample"
-              loading="lazy"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+      <div class="d-wrap">
+        <div class="d-hero-grid" id="main">
+          <div class="d-hero-copy">
+            <p class="d-pill d-in d-in--1"><span class="d-pulse" aria-hidden="true"></span>Live demo, right in your browser <b>2 min</b></p>
+            <h1 class="d-display d-in d-in--2">
+              <span>You're on</span><span>the job.</span><span class="d-grad">It answers</span><span>the phone.</span>
+            </h1>
+            <p class="d-lede d-in d-in--3">
+              An AI receptionist answers your calls, gets the caller's name, number and what they
+              need, and <strong>texts it straight to you</strong>. People you know still ring through to
+              you, and anything urgent gets passed to you.
+            </p>
+            <div class="d-actions d-in d-in--4">
+              <a class="d-btn d-btn--glass" href={DEMO_TEL}>Call <span class="d-led">{DEMO_LINE}</span></a>
+              <a class="d-btn d-btn--glass" href="#how">See how it works</a>
+            </div>
+            <div class="d-callout d-in d-in--5">
+              <span class="d-callout-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+              <p>Call from your work phone. If we've texted or emailed you, it answers with <strong style="color:var(--white);font-weight:500">your business name</strong>.</p>
+            </div>
+            <p class="d-hero-fine d-in d-in--6">
+              It tells callers it's an AI. The browser demo uses your mic and sends your voice to our
+              voice provider, Retell AI, so don't share anything private. <a href="/privacy">Privacy</a>
+            </p>
           </div>
-          <p class="video-fallback">
-            Having trouble with the embed?{' '}
-            <a href="https://www.youtube.com/watch?v=wDe3INaG8ZI" target="_blank" rel="noopener noreferrer">
-              Open the recorded sample on YouTube <span aria-hidden="true">↗</span>
-            </a>
-          </p>
-        </>
-      ) : VIDEO_FILE ? (
-        <div class="frame">
-          <video src={VIDEO_FILE} controls playsinline preload="metadata"></video>
+
+          <DemoCall client:only="react" />
         </div>
-      ) : (
-        <div class="soon">
-          <p><strong>The video is going up shortly.</strong></p>
-          <p>
-            In the meantime, the short version is below, or just{' '}
-            <a href={`tel:${contact.phone}`}>call {contact.phoneShow}</a> and ask.
-          </p>
-        </div>
-      )}
-    </div>
+      </div>
 
-    <section class="how">
-      <h2>What a scoped implementation would include</h2>
-      <ol>
-        <li>
-          <b>Confirm the phone route</b>
-          <span>The carrier, phone system, call-forwarding rules, coverage, and disable
-            path are checked for the specific business before any number changes.</span>
-        </li>
-        <li>
-          <b>Disclose that it is AI</b>
-          <span>The approved opening identifies the assistant as AI and explains what
-            the caller can ask for.</span>
-        </li>
-        <li>
-          <b>Collect approved intake details</b>
-          <span>For example, the caller's name, callback number, requested service,
-            and location. The business decides which fields and answers are in scope.</span>
-        </li>
-        <li>
-          <b>Hand exceptions to a person</b>
-          <span>Urgent, unclear, or out-of-scope requests go to a person. The business sets the
-            escalation route and callback commitment before launch.</span>
-        </li>
-      </ol>
-    </section>
-
-    <section class="straight">
-      <h2>Limits for this draft</h2>
-      <ul>
-        <li><span><b>No emergency response or dispatch.</b> A voice agent is not a
-          substitute for emergency services or a person who can take the call.</span></li>
-        <li><span><b>No quotes, diagnoses, bookings, or promises.</b> Those are out of
-          scope unless separately configured and verified in a written agreement.</span></li>
-        <li><span><b>No assumed phone integration.</b> Provider, routing, notification
-          destination, and operating costs are agreed before go-live.</span></li>
-        <li><span><b>Human fallback is required.</b> The person, route, response time,
-          and failure behavior need to be agreed before launch.</span></li>
-        <li><span><b>Privacy settings need verification.</b> Recording, transcription,
-          retention, and model-use settings are checked with the provider before live calls.</span></li>
-      </ul>
-    </section>
-
-    <section class="cta">
-      <h2>Want to scope your call flow?</h2>
-      <p>
-        Send your phone provider, call types, service area, and preferred human
-        fallback route. Scope, price, timing, and support terms are confirmed
-        before any live setup.
-      </p>
-      <p class="ctarow">
-        <a class="btn" href={`tel:${contact.phone}`}>Call {contact.phoneShow}</a>
-        <a class="btn ghost" href={`mailto:${contact.email}`}>Email instead</a>
-      </p>
-    </section>
+      <div class="d-marquee" aria-label="Built for">
+        <ul>
+          {[...TRADES, ...TRADES].map((t, i) => <li aria-hidden={i >= TRADES.length ? 'true' : undefined}>{t}</li>)}
+        </ul>
+      </div>
+    </header>
   </div>
-</Base>
 
-<style>
-  .demo {
-    max-width: 46rem;
-    margin: 0 auto;
-    padding: clamp(2rem, 6vw, 3.5rem) clamp(1rem, 4vw, 2rem) 5rem;
-  }
+  <main>
+    <section class="d-section" id="how">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">How it works</p>
+            <h2 class="d-display">Your number.<br /><em>Fewer</em> interruptions.</h2>
+          </div>
+          <p>It answers first, so you can stay on the job. You only stop for the people you know and the calls that really need you, and you hear about every other one by text.</p>
+        </div>
 
-  .intro {
-    margin-bottom: 1.8rem;
-  }
-  .eyebrow {
-    margin: 0 0 0.6rem;
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  h1 {
-    margin: 0 0 0.5rem;
-    font-size: clamp(1.9rem, 5.5vw, 2.7rem);
-    line-height: 1.06;
-    letter-spacing: -0.033em;
-    text-wrap: balance;
-  }
-  .lede {
-    margin: 0;
-    max-width: 34rem;
-    color: var(--text-dim);
-    font-size: 1.03rem;
-  }
+        <div class="d-how">
+          <div class="d-phone-stage" data-reveal>
+            <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+            <DotField />
+            <div class="d-grain" aria-hidden="true"></div>
+            <div class="d-device" role="img" aria-label="Example of the text you get after a missed call">
+              <div class="d-screen">
+                <div class="d-clock"><b>2:14</b><span>Tuesday, on the job</span></div>
+                <div class="d-notif">
+                  <div class="d-notif-top"><i></i>Messages<time>now</time></div>
+                  <strong>New call, handled</strong>
+                  Dana, (352) 555-0147. Water leaking under the kitchen sink, wants someone today. Gainesville.
+                </div>
+                <div class="d-notif d-notif--2">
+                  <div class="d-notif-top"><i></i>Messages<time>11:02</time></div>
+                  <strong>New call, handled</strong>
+                  Rob, AC blowing warm. Asked for a quote this week.
+                </div>
+              </div>
+            </div>
+            <p class="d-phone-note">Example only. The real text uses what your caller said.</p>
+          </div>
 
-  .interactive-demo {
-    margin-bottom: 2.2rem;
-  }
-  .divider {
-    text-align: center;
-    margin: 2.5rem 0 1.5rem;
-    position: relative;
-  }
-  .divider::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--hair);
-    z-index: 0;
-  }
-  .divider span {
-    position: relative;
-    z-index: 1;
-    background: var(--bg);
-    padding: 0 1rem;
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+          <div class="d-orders">
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">01</span>
+              <div><h3>A call comes in</h3><p>Same number on your truck and your Google listing. Calls forward to the receptionist, so nothing goes to voicemail.</p><small>Your number stays</small></div>
+            </article>
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">02</span>
+              <div><h3>The AI answers</h3><p>It picks up for your business and asks what they need and how urgent it is. Your own contacts ring straight through to you.</p><small>Known callers skip it</small></div>
+            </article>
+            <article class="d-order" data-reveal>
+              <span class="d-order-no" aria-hidden="true">03</span>
+              <div><h3>You get a text</h3><p>Who called, their number, what they need and how urgent. If it really needs you, it's passed to you right away.</p><small>Every call, by text</small></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  /* 16:9 without an aspect-ratio hack that collapses on older Safari */
-  .frame {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: 6px;
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 1px 2px #0a2f450d, 0 12px 34px #0a2f4514;
-  }
-  .frame iframe,
-  .frame video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-  }
-    .video-fallback {
-      margin-top: 0.85rem;
-      color: var(--text-dim);
-      font-size: 0.83rem;
-      line-height: 1.5;
+    <section class="d-section" id="true" style="padding-top:0">
+      <div class="d-wrap">
+        <div class="d-head" data-reveal>
+          <div>
+            <p class="d-eyebrow">The rules it follows</p>
+            <h2 class="d-display">No new number.<br /><em>No pretending.</em></h2>
+          </div>
+          <p>It's built around your phone and your rules. It sticks to what you approve and hands the rest to you.</p>
+        </div>
+        <div class="d-facts">
+          <div class="d-fact" data-reveal>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg>
+            <b>Keep your number</b><p>It works with call forwarding on the line you already have.</p>
+          </div>
+          <div class="d-fact" data-reveal>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 3.3 6.5L4 20l1.4-3.4A8 8 0 0 1 4 12Z"/><path d="M9 10.5h6M9 13.5h4"/></svg>
+            <b>Says it's AI</b><p>Callers hear that up front. It never pretends to be you.</p>
+          </div>
+          <div class="d-fact" data-reveal>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M16.5 7H10a2.5 2.5 0 0 0 0 5h4a2.5 2.5 0 0 1 0 5H7"/></svg>
+            <b>No made-up prices</b><p>It won't quote, promise a time or book a job unless you set that up.</p>
+          </div>
+          <div class="d-fact" data-reveal>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8 7.5 9.5 4.3-1.5 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <b>Spam never reaches you</b><p>Sales pitches and robocalls get a polite no and no text. Your phone stays quiet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="d-shell" style="padding-top:0">
+      <section class="d-panel" data-reveal>
+        <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+        <DotField />
+        <div class="d-grain" aria-hidden="true"></div>
+        <div class="d-close">
+          <div>
+            <p class="d-eyebrow">Next step</p>
+            <h2 class="d-display">Want it on<br /><span class="d-grad">your line?</span></h2>
+            <p>15 minutes on Zoom with Mert. Bring how your calls work today and we'll see if it fits.</p>
+          </div>
+          <div class="d-close-side">
+            <OrbAccent client:visible size={200} />
+            <div class="d-close-actions">
+              <a class="d-btn d-btn--light" href={BOOKING_URL}>Book 15 minutes <Fragment set:html={arrow} /></a>
+              <a class="d-btn d-btn--glass" href={DEMO_TEL}>Call the demo line</a>
+              <small>Client Optimal LLC · Gainesville, Florida</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="d-foot">
+    <div class="d-wrap">
+      <span>© {new Date().getFullYear()} Client Optimal LLC</span>
+      <nav aria-label="Legal"><a href="/">Home</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll and the cursor spotlight on the work orders. Both are additive: without JS
+    // or with reduced motion (CSS) every section is simply visible.
+    document.documentElement.classList.add('js');
+    const els = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -8% 0px' });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-in'));
     }
-    .video-fallback a { color: var(--text); text-decoration-color: var(--accent); }
-    .video-fallback a:hover { color: var(--accent); }
-
-  .soon {
-    border: 1px dashed var(--hair);
-    border-radius: 6px;
-    padding: 1.6rem 1.3rem;
-    text-align: center;
-  }
-  .soon p {
-    margin: 0 0 0.4rem;
-  }
-  .soon p:last-child {
-    margin: 0;
-    font-size: 0.94rem;
-    color: var(--text-dim);
-  }
-
-  section {
-    margin-top: 2.8rem;
-  }
-  h2 {
-    margin: 0 0 0.9rem;
-    font-size: 1.28rem;
-    letter-spacing: -0.022em;
-  }
-
-  .how ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    counter-reset: step;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .how li {
-    counter-increment: step;
-    position: relative;
-    padding: 0.85rem 1rem 0.85rem 3.1rem;
-    border: 1px solid var(--hair);
-    border-radius: 5px;
-  }
-  .how li::before {
-    content: counter(step);
-    position: absolute;
-    left: 0.9rem;
-    top: 0.9rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: var(--text);
-    color: var(--bg);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.76rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .how b {
-    display: block;
-    margin-bottom: 0.15rem;
-  }
-  .how span {
-    font-size: 0.94rem;
-    color: var(--text-dim);
-  }
-
-  .straight ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-  .straight li {
-    display: flex;
-    gap: 0.7rem;
-    font-size: 0.97rem;
-  }
-  .straight li::before {
-    content: '';
-    flex: none;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-top: 0.62rem;
-  }
-
-  .ctarow {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-  .btn {
-    display: inline-block;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    border-radius: 4px;
-    padding: 0.6rem 1.1rem;
-    background: var(--accent);
-    color: var(--bg);
-    border: 1px solid var(--accent);
-  }
-  .btn.ghost {
-    background: none;
-    color: var(--text);
-    border-color: var(--hair);
-  }
-  .btn:focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: 2px;
-  }
-
-  .demo {
-    width: min(calc(100% - 2 * var(--gutter)), var(--wrap));
-    max-width: none;
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
-    gap: clamp(2rem, 5vw, 4.5rem);
-    padding: clamp(3.5rem, 8vw, 7rem) 0;
-  }
-  .demo .intro { align-self: start; max-width: 47rem; margin: 0; }
-  .demo h1 { max-width: 10ch; margin-bottom: 1.2rem; font-family: var(--font-display); font-size: clamp(3.3rem, 7.5vw, 7rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.065em; }
-  .demo .intro .route-annotation { margin-bottom: 1.1rem; }
-  .demo .lede { margin-top: 1rem; font-size: clamp(1rem, 1.2vw, 1.14rem); line-height: 1.65; }
-  .demo .interactive-demo { grid-column: 2; grid-row: 1; align-self: stretch; display: grid; align-items: center; min-height: 25rem; padding: clamp(1rem, 3vw, 2.3rem); border-top: 2px solid var(--accent); border-bottom: 1px solid var(--hair); background: var(--bg-2); }
-  .demo .divider, .demo .player, .demo .cta { grid-column: 1 / -1; }
-  .demo .divider { margin-top: 0; }
-  .demo .divider span { background: var(--bg); }
-  .demo .player { margin-top: -1.5rem; }
-  .demo .frame { border-radius: 0; box-shadow: none; outline: 1px solid var(--hair); }
-  .demo .how, .demo .straight { align-self: start; margin-top: 1rem; padding-top: 1.2rem; border-top: 1px solid var(--accent); }
-  .demo .how { grid-column: 1; }
-  .demo .straight { grid-column: 2; }
-  .demo section { margin-top: 0; }
-  .demo h2 { margin-bottom: 1.2rem; font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 650; letter-spacing: -0.045em; }
-  .demo .how ol { gap: 0; }
-  .demo .how li { padding: 1.1rem 0 1.1rem 3rem; border: 0; border-top: 1px solid var(--hair); border-radius: 0; }
-  .demo .how li:last-child { border-bottom: 1px solid var(--hair); }
-  .demo .how li::before { left: 0; top: 1.05rem; width: 1.6rem; height: 1.6rem; border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); }
-  .demo .how span { display: block; line-height: 1.6; }
-  .demo .straight ul { gap: 0; }
-  .demo .straight li { padding-block: 0.9rem; border-top: 1px solid var(--hair); line-height: 1.6; }
-  .demo .straight li:last-child { border-bottom: 1px solid var(--hair); }
-  .demo .cta { margin-top: 1.5rem; padding: clamp(1.5rem, 4vw, 3rem); background: var(--bg-2); }
-  .demo .cta > p { max-width: 60ch; color: var(--text-dim); }
-  .demo .ctarow { margin-top: 1.5rem; }
-  .demo .btn { border-radius: 0; background: var(--accent-fill); color: var(--accent-fill-ink); border-color: var(--accent-fill); }
-  .demo .btn.ghost { background: transparent; color: var(--text); border-color: var(--hair-2); }
-  @media (max-width: 780px) {
-    .demo { grid-template-columns: 1fr; }
-    .demo .interactive-demo { grid-column: 1; grid-row: auto; min-height: 21rem; }
-    .demo .how, .demo .straight { grid-column: 1; }
-  }
-</style>
+    document.querySelectorAll<HTMLElement>('.d-order').forEach((card) => {
+      card.addEventListener('pointermove', (ev) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
+        card.style.setProperty('--my', `${ev.clientY - r.top}px`);
+      });
+    });
+  </script>
+</DemoLayout>

@@ -1,0 +1,59 @@
+---
+// A halftone dot field for the navy panels on /demo (2026-10-20). Mert liked the dot-matrix
+// backgrounds on the RoboNuggets accelerator page; this is our own take, not their code: an LED
+// job-board feel in Client Optimal blue. Dots swell in slow waves and brighten near the cursor.
+// It pauses offscreen and when the tab is hidden, draws one still frame under reduced motion,
+// caps the pixel ratio, and is purely decorative (aria-hidden, no pointer events).
+---
+<canvas class="d-dots" aria-hidden="true"></canvas>
+
+<script>
+  const GAP = 16, BASE = 0.7, MAXR = 1.9;
+  document.querySelectorAll<HTMLCanvasElement>('canvas.d-dots').forEach((canvas) => {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const host = canvas.parentElement as HTMLElement;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w = 0, h = 0, dpr = 1, raf = 0, visible = false, t = 0;
+    let mx = -9999, my = -9999;
+
+    const size = () => {
+      const r = host.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = r.width; h = r.height;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (let y = GAP / 2; y < h; y += GAP) {
+        for (let x = GAP / 2; x < w; x += GAP) {
+          // Two slow waves give the halftone its drift; the right side is denser, under the orb.
+          const wave = Math.sin(x * 0.011 + t * 0.7) * Math.cos(y * 0.013 - t * 0.5);
+          const bias = 0.35 + 0.65 * (x / w);
+          const d = Math.hypot(x - mx, y - my);
+          const near = d < 160 ? 1 - d / 160 : 0;
+          const s = Math.max(0, (wave * 0.5 + 0.5) * bias) * 0.8 + near * 0.9;
+          if (s < 0.12) continue;
+          ctx.globalAlpha = Math.min(0.55, 0.08 + s * 0.42);
+          ctx.fillStyle = near > 0.2 ? '#cfe0ff' : '#7fa9ff';
+          ctx.beginPath();
+          ctx.arc(x, y, BASE + s * (MAXR - BASE), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    };
+    const loop = () => { t += 0.016; draw(); raf = visible ? requestAnimationFrame(loop) : 0; };
+    const start = () => { if (!raf && visible && !reduce && !document.hidden) raf = requestAnimationFrame(loop); };
+
+    size(); draw();
+    new ResizeObserver(() => { size(); draw(); }).observe(host);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); }).observe(canvas);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+    host.addEventListener('pointermove', (e) => {
+      const r = host.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
+      if (reduce) draw();
+    });
+    host.addEventListener('pointerleave', () => { mx = my = -9999; if (reduce) draw(); });
+  });
+</script>
