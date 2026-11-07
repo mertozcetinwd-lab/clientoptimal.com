@@ -130,7 +130,7 @@ const route = [
           <p>If yours isn't here, book 15 minutes and ask it. You'll get a plain answer, including when it isn't a fit.</p>
         </header>
         <div class="dt-faq">
-          {homeFaq.map((f, i) => (<details open={i === 0}><summary><span>{f.q}</span></summary><p>{f.a}</p></details>))}
+          {homeFaq.map((f, i) => (<details open={i === 0}><summary><span>{f.q}</span></summary><p set:html={f.a} /></details>))}
         </div>
       </div>
     </section>

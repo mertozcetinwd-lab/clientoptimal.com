@@ -70,6 +70,14 @@
   border: 1.5px solid var(--ink); font: 400 22px/1 var(--sans); transition: transform .3s var(--ease), background .3s, color .3s; }
 .d-faq details[open] summary::after { transform: rotate(45deg); background: var(--ink); color: var(--white); }
 .d-faq details p { margin: 0 0 26px; max-width: 62ch; color: var(--muted); font-size: 17px; }
+/* the answer fades and rises in as its row slides open (height is animated in Base.astro) */
+.d-faq details[open] p { animation: d-faq-in .5s var(--ease) both; }
+.d-faq details.is-closing p { opacity: 0; transform: translateY(-6px); transition: opacity .25s, transform .25s; }
+@keyframes d-faq-in { from { opacity: 0; transform: translateY(-8px); } }
+.d-faq summary { transition: color .25s; }
+.d-faq summary:hover { color: var(--blue-ink); }
+.d-head p a, .d-prose a, .d-faq p a { color: var(--blue-ink); text-decoration: none; background: linear-gradient(90deg, var(--blue), var(--blue-ink)) 0 100% / 100% 1.5px no-repeat; transition: background-size .4s var(--ease); }
+.d-head p a:hover, .d-prose a:hover, .d-faq p a:hover { background-size: 0 1.5px; background-position: 100% 100%; }
 
 /* About: portrait-free intro */
 .d-about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }

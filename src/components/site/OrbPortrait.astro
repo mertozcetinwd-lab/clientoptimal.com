@@ -1,0 +1,22 @@
+---
+// Mert's X photo standing in front of the live voice orb (Mert, 2026-11-07: "the exact same one
+// used in the AI voice agent demonstration"). The orb is the real FluidCloudOrb via OrbAccent,
+// non-interactive and aria-hidden; the photo is a transparent cutout (same as his X avatar),
+// bottom-anchored so the hoodie fills the bottom of the circle. No border.
+import OrbAccent from '../ui/OrbAccent';
+interface Props { size?: number; eager?: boolean }
+const { size = 240, eager = false } = Astro.props;
+---
+<div class="d-orb-portrait" style={`--s:${size}px`}>
+  <div class="d-orb-portrait-orb"><OrbAccent client:visible size={size} /></div>
+  <img src="/img/mert/mert-cutout-480.webp" srcset="/img/mert/mert-cutout-480.webp 1x, /img/mert/mert-cutout-960.webp 2x"
+    width="480" height="480" alt="Mert Ozcetin, founder of Client Optimal" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+</div>
+
+<style>
+  .d-orb-portrait { position: relative; width: var(--s); height: var(--s); flex: none; }
+  .d-orb-portrait-orb { position: absolute; inset: 0; display: grid; place-items: center; }
+  /* the orb's own background shows through until WebGL paints; keep it navy, never white */
+  .d-orb-portrait-orb :global(.d-orb-accent) { border-radius: 50%; background: radial-gradient(circle, #1747c9, #0a1f42); }
+  .d-orb-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; z-index: 4; }
+</style>

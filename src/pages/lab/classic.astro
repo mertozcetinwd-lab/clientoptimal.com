@@ -120,7 +120,7 @@ const route = [
           {homeFaq.map((f, i) => (
             <details open={i === 0}>
               <summary><span>{f.q}</span></summary>
-              <p>{f.a}</p>
+              <p set:html={f.a} />
             </details>
           ))}
         </div>

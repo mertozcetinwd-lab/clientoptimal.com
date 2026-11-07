@@ -447,12 +447,12 @@ export const homeProblems = [
 ];
 
 export const homeFaq = [
-  { q: 'What does it actually do?', a: 'It answers your business calls, says it is an AI receptionist, and gets the caller\u2019s name, number, what they need and how urgent it is. Then it texts you the details. People on your own contact list ring straight through to you, urgent calls are put through to your cell, and sales calls get a polite no.' },
-  { q: 'Do I need a new number?', a: 'No. Your business line forwards to the receptionist, so the number on your truck and your listing stays the same. We confirm the forwarding with your carrier together, and you can switch it off at any time.' },
+  { q: 'What does it actually do?', a: 'It answers your business calls, says it is an AI receptionist, and gets the caller\u2019s name, number, what they need and how urgent it is. Then it texts you the details. People on your own contact list ring straight through to you, urgent calls are put through to your cell, and sales calls get a polite no. See <a href="/#how">how it works</a>.' },
+  { q: 'Do I need a new number?', a: 'No. Your business line forwards to the receptionist, so the number on your truck and your listing stays the same. We confirm the forwarding with your carrier together, and you can switch it off at any time. <a href="/services#process">Here is how a setup runs</a>.' },
   { q: 'What happens with an emergency?', a: 'You decide what counts as urgent for your trade. Those calls are put through to your cell. If you can\u2019t pick up, it texts you marked urgent. If a caller reports a gas smell, fire or someone hurt, it tells them to call 911 first.' },
   { q: 'Will it quote prices or book jobs?', a: 'Not unless that is set up and tested for your business. Out of the box it never quotes, promises a time or books anything. It takes the details so you can call back with the right answer.' },
   { q: 'Will my customers know it\u2019s AI?', a: 'Yes. It says so at the start of the call and never pretends to be you or a person.' },
-  { q: 'What does it cost?', a: 'The setup, the monthly support and any phone or provider costs are agreed in writing before anything goes live. Book 15 minutes and you will get a straight answer for your setup.' },
+  { q: 'What does it cost?', a: 'The setup, the monthly support and any phone or provider costs are agreed in writing before anything goes live. Book 15 minutes and you will get a straight answer for your setup. <a href="/services">See what you get</a>.' },
   { q: 'What about call recordings and privacy?', a: 'Recording, transcripts and how long anything is kept are set for your business before go-live, along with any notice your callers need. The browser demo on this site sends your voice to a third-party voice AI provider, so don\u2019t share anything private in it.' },
 ];
 
@@ -480,8 +480,8 @@ export const aboutPage = {
   description: 'Client Optimal is a voice AI agency in Gainesville, Florida, run by Mert Ozcetin. Mert sets up and supports AI voice agents for trade businesses himself.',
   paras: [
     'Client Optimal is a voice AI agency. I set up AI voice agents for businesses in every trade: HVAC, plumbing, roofing, electrical, landscaping, cleaning, auto repair and the rest. The idea is simple. You should be able to stay on the job without your phone costing you work.',
-    'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live. You deal with one person, and that person is me.',
-    'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear the receptionist for yourself on the demo page, then decide.',
+    'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live (<a href="/services#process">here is how a setup runs</a>). You deal with one person, and that person is me.',
+    'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear it for yourself on <a href="/demo">the demo page</a>, see <a href="/#how">how it works</a>, then decide.',
   ],
 };
 

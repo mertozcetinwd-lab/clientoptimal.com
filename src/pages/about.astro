@@ -6,6 +6,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/site/PageHero.astro';
 import CloseCta from '../components/site/CloseCta.astro';
+import OrbPortrait from '../components/site/OrbPortrait.astro';
 import { aboutPage as a, contact, meta } from '../data/site.js';
 ---
 
@@ -25,7 +26,7 @@ import { aboutPage as a, contact, meta } from '../data/site.js';
       <div class="d-wrap d-about">
         <aside class="d-about-card" data-reveal>
           <figure class="d-about-photo">
-            <img src="/img/mert/mert-nova-480.webp" srcset="/img/mert/mert-nova-480.webp 1x, /img/mert/mert-nova-960.webp 2x" width="480" height="480" alt="Mert Ozcetin, founder of Client Optimal" decoding="async" />
+            <OrbPortrait size={180} eager />
           </figure>
           <dl>
             <div><dt>Business</dt><dd>{meta.legalName}</dd></div>
@@ -37,7 +38,7 @@ import { aboutPage as a, contact, meta } from '../data/site.js';
           </dl>
         </aside>
         <div class="d-prose" data-reveal>
-          {a.paras.map((p, i) => <p class={i === a.paras.length - 1 ? 'd-muted' : undefined}>{p}</p>)}
+          {a.paras.map((p, i) => <p class={i === a.paras.length - 1 ? 'd-muted' : undefined} set:html={p} />)}
         </div>
       </div>
     </section>
@@ -47,12 +48,11 @@ import { aboutPage as a, contact, meta } from '../data/site.js';
   <style>
     /* His X profile photo (2026-11-07), on the same navy-to-blue disc as the FounderNote band. */
     .d-about-photo { margin: 0 0 26px; }
-    .d-about-photo img { display: block; width: 176px; height: auto; border-radius: 50%; box-shadow: 0 24px 50px -18px rgba(23,71,201,.7); }
     /* a more defined card (Mert, 2026-11-07) */
     .d-about-card { border: 1.5px solid rgba(21,70,179,.35); box-shadow: 0 0 0 5px rgba(43,107,255,.05), 0 24px 50px -30px rgba(10,20,36,.35); }
     /* links draw their underline on hover */
-    .d-about-card a, .d-prose a { color: var(--blue-ink); text-decoration: none;
+    .d-about-card a { color: var(--blue-ink); text-decoration: none;
       background: linear-gradient(90deg, var(--blue), var(--blue-ink)) 0 100% / 0 1.5px no-repeat; transition: background-size .45s var(--ease), color .2s; }
-    .d-about-card a:hover, .d-about-card a:focus-visible, .d-prose a:hover { background-size: 100% 1.5px; }
+    .d-about-card a:hover, .d-about-card a:focus-visible { background-size: 100% 1.5px; }
   </style>
 </Base>

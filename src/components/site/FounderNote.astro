@@ -1,9 +1,10 @@
 ---
 // "Who sets it up" (Mert, 2026-11-07): a short navy band with his X profile photo, so a contractor
 // sees the person behind the receptionist. Photo: the same cutout as branding/personal/avatar-1080.png
-// (his X avatar), on a supernova, hoodie running off the bottom edge, no border (Mert, 2026-11-07). Every line is true per aboutPage in
+// (his X avatar), standing in front of the live voice orb (OrbPortrait), no border (Mert, 2026-11-07). Every line is true per aboutPage in
 // site.js: one person, Gainesville, he does the setup and support himself. No credentials claimed.
 import DotField from '../DotField.astro';
+import OrbPortrait from './OrbPortrait.astro';
 interface Props { link?: boolean }
 const { link = true } = Astro.props;
 ---
@@ -14,14 +15,13 @@ const { link = true } = Astro.props;
     <div class="d-grain" aria-hidden="true"></div>
     <div class="d-wrap d-founder-grid">
       <figure class="d-founder-photo">
-        <img src="/img/mert/mert-nova-480.webp" srcset="/img/mert/mert-nova-480.webp 1x, /img/mert/mert-nova-960.webp 2x"
-          width="480" height="480" alt="Mert Ozcetin, founder of Client Optimal" loading="lazy" decoding="async" />
+        <OrbPortrait size={240} />
         <figcaption><b>Mert Ozcetin</b><span>Founder</span></figcaption>
       </figure>
       <div>
         <p class="d-eyebrow">Who sets it up</p>
         <h2 class="d-display" id="founder-h">One person.<br /><span class="d-grad">Start to finish.</span></h2>
-        <p>I'm Mert. I run Client Optimal from Gainesville, Florida. I map how your calls work, set up your voice agent, test it with you and look after it once it's live. When you call about your phones, you get me.</p>
+        <p>I'm Mert. I run Client Optimal from Gainesville, Florida. I map how your calls work, set up your voice agent, test it with you and look after it once it's live (<a href="/services#process">how a setup runs</a>). When you call about your phones, you get me.</p>
         {link && <a class="d-btn d-btn--glass" href="/about">More about me</a>}
       </div>
     </div>
@@ -33,9 +33,6 @@ const { link = true } = Astro.props;
   .d-founder { padding: clamp(48px, 5vw, 72px) 0; }
   .d-founder-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
   .d-founder-photo { margin: 0; display: grid; justify-items: center; gap: 22px; }
-  .d-founder-photo img { display: block; width: clamp(200px, 17vw, 260px); height: auto; border-radius: 50%;
-    box-shadow: 0 30px 80px -24px rgba(43,107,255,.8); animation: d-founder-glow 6s ease-in-out infinite; }
-  @keyframes d-founder-glow { 50% { box-shadow: 0 30px 110px -14px rgba(76,141,255,1); } }
   .d-founder-photo figcaption { display: grid; justify-items: center; gap: 10px; }
   .d-founder-photo b { font: 800 26px/1 var(--display); font-stretch: 76%; text-transform: uppercase; letter-spacing: .02em; color: var(--white); }
   .d-founder-photo span { display: inline-flex; align-items: center; gap: 10px; font: 500 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--sky); }
@@ -45,5 +42,8 @@ const { link = true } = Astro.props;
   .d-founder h2 .d-grad { color: var(--sky); }
   .d-founder p:not(.d-eyebrow) { max-width: 36em; margin: 18px 0 26px; color: var(--muted-dark); font-size: 17.5px; }
   @media (max-width: 760px) { .d-founder-grid { grid-template-columns: 1fr; justify-items: start; } .d-founder-photo { justify-items: start; } .d-founder-photo figcaption { justify-items: start; } }
-  @media (prefers-reduced-motion: reduce) { .d-founder-photo img { animation: none; } }
+</style>
+<style>
+  .d-founder p a { color: var(--white); text-decoration: none; background: linear-gradient(90deg, var(--sky), var(--white)) 0 100% / 100% 1px no-repeat; transition: background-size .4s var(--ease); }
+  .d-founder p a:hover { background-size: 0 1px; background-position: 100% 100%; }
 </style>
