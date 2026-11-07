@@ -21,6 +21,16 @@ body.d { margin: 0; background: var(--white); color: var(--ink); font: 400 17px/
 .d-skip { position: fixed; top: -80px; left: 12px; z-index: 50; background: var(--white); color: var(--ink); padding: 10px 14px; border-radius: 8px; }
 .d-skip:focus { top: 12px; }
 .d-wrap { width: min(1200px, 100% - 64px); margin-inline: auto; }
+
+/* BIG SCREENS SCALE THE WHOLE PAGE, NOT JUST THE COLUMN (Mert, 2026-11-07: "looks a little tight"
+   at 1920x1080). The layout is tuned at 1200px with px type, so on a 1920 screen it sat in a 1200
+   column with 17px body text and ~360px of empty space each side. Widening only the column would
+   stretch the cards and leave the type small; `zoom` scales type, spacing and column together, so
+   the page keeps the proportions it was designed at. Breakpoints read the real viewport, and inside
+   the zoom the layout still sees ~1536 CSS px at 1920, so no mobile rule changes. */
+@media (min-width: 1600px) { html { zoom: 1.125; } }
+@media (min-width: 1800px) { html { zoom: 1.25; } }
+@media (min-width: 2300px) { html { zoom: 1.5; } }
 .d-eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; margin: 0; }
 .d-display { font-family: var(--display); font-stretch: 70%; font-weight: 800; text-transform: uppercase; letter-spacing: -.012em; line-height: .87; margin: 0; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
