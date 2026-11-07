@@ -5,11 +5,11 @@
 // supernova blue used only for what you can press.
 // Palette: graphite #15171B, steel #2A2E35, silver #B8C0CC, pearl #ECEEF1, white #FFFFFF,
 // hardcore blue #0B3BD1, supernova #5C9DFF.
-// Type: Anybody (variable width, stretched for titles), Geist (body), Geist Mono (labels).
+// Type: Anybody (variable width, stretched for titles), Schibsted Grotesk (body), Martian Mono (labels).
 import Lab from '../../layouts/Lab.astro';
 import DemoCall from '../../components/ui/DemoCall';
 import { homeProblems, homeFaq, steps, rules, BOOKING_URL, DEMO_TEL } from '../../lab/content.js';
-const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500';
+const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Schibsted+Grotesk:wght@400;500;600&family=Martian+Mono:wght@400;500';
 ---
 <Lab title="C · Graphite & pearl · Client Optimal lab" fonts={fonts} bodyClass="gp">
   <header class="gp-nav">
@@ -114,21 +114,21 @@ const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;5
   <style is:global>
     html:has(body.gp) { background: #15171B; }
     body.gp { --graph: #15171B; --steel: #2A2E35; --silver: #B8C0CC; --pearl: #ECEEF1; --white: #fff; --hard: #0B3BD1; --nova: #5C9DFF;
-      margin: 0; background: var(--pearl); color: var(--graph); font: 400 17px/1.6 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      margin: 0; background: var(--pearl); color: var(--graph); font: 400 17px/1.6 'Schibsted Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
     .gp a { color: inherit; }
     .gp :focus-visible { outline: 2px solid var(--nova); outline-offset: 3px; }
     .gp-wrap { width: min(1240px, 100% - 48px); margin-inline: auto; }
-    .gp-label { font: 500 12px 'Geist Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--hard); margin: 0 0 14px; }
+    .gp-label { font: 500 12px 'Martian Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--hard); margin: 0 0 14px; }
     .gp h1, .gp h2 { font-family: 'Anybody', sans-serif; font-weight: 800; font-stretch: 140%; text-transform: uppercase; margin: 0; letter-spacing: -.01em; line-height: .95; }
     .gp h2 { font-size: clamp(34px, 4.4vw, 66px); color: var(--graph); }
-    .gp h3 { font: 600 20px/1.3 'Geist', sans-serif; margin: 0 0 8px; }
+    .gp h3 { font: 600 20px/1.3 'Schibsted Grotesk', sans-serif; margin: 0 0 8px; }
 
     .gp-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 28px; padding: 22px max(24px, calc((100% - 1240px) / 2)); }
     .gp-brand { font: 800 17px 'Anybody', sans-serif; font-stretch: 150%; text-transform: uppercase; color: #fff !important; text-decoration: none; letter-spacing: .02em; }
     .gp-nav nav { margin-left: auto; display: flex; gap: 24px; font-size: 14.5px; }
     .gp-nav nav a { color: var(--silver); text-decoration: none; } .gp-nav nav a:hover { color: #fff; }
 
-    .gp-btn { display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; border-radius: 4px; font: 600 15.5px 'Geist', sans-serif; text-decoration: none;
+    .gp-btn { display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; border-radius: 4px; font: 600 15.5px 'Schibsted Grotesk', sans-serif; text-decoration: none;
       transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s; }
     .gp-btn--sm { min-height: 42px; padding: 0 18px; font-size: 14px; }
     .gp-btn:hover { transform: translateY(-2px); }
@@ -146,7 +146,7 @@ const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;5
       mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 75%); }
     .gp-stage { position: relative; width: 100%; height: clamp(340px, 46vh, 520px); display: grid; place-items: center; }
     .gp-planet { position: absolute; left: 50%; top: 50%; width: min(1100px, 130vw); height: 100%; transform: translate(-50%, -50%); z-index: 0; }
-    .gp-planet pre { position: absolute; inset: 0; margin: 0; font: 400 11px/1.12 'Geist Mono', monospace; color: rgba(184,192,204,.55); white-space: pre; overflow: hidden;
+    .gp-planet pre { position: absolute; inset: 0; margin: 0; font: 400 11px/1.12 'Martian Mono', monospace; color: rgba(184,192,204,.55); white-space: pre; overflow: hidden;
       text-shadow: 0 0 14px rgba(92,157,255,.35); animation: gp-in 2.4s ease both; }
     @keyframes gp-in { from { opacity: 0; filter: blur(8px); } }
     .gp-core { position: relative; z-index: 1; }
@@ -183,7 +183,7 @@ const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;5
     .gp-steps li::before { content: counter(s, decimal-leading-zero); display: block; font: 800 64px 'Anybody', sans-serif; font-stretch: 150%; color: transparent;
       -webkit-text-stroke: 1px var(--silver); margin-bottom: 18px; }
     .gp-steps p { color: #b4bcc8; margin: 0 0 14px; }
-    .gp-steps span { font: 500 11px 'Geist Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--nova); }
+    .gp-steps span { font: 500 11px 'Martian Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--nova); }
 
     .gp-rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .gp-glass { padding: 28px; border-radius: 6px; background: linear-gradient(160deg, rgba(255,255,255,.85), rgba(255,255,255,.45)); border: 1px solid rgba(255,255,255,.9);
@@ -195,7 +195,7 @@ const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;5
     .gp-faq details { border-bottom: 1px solid var(--silver); }
     .gp-faq details:first-child { border-top: 1px solid var(--silver); }
     .gp-faq summary { cursor: pointer; list-style: none; padding: 20px 0; font-weight: 600; font-size: 18px; display: flex; justify-content: space-between; gap: 20px; }
-    .gp-faq summary::after { content: '+'; font-family: 'Geist Mono', monospace; color: var(--hard); transition: transform .3s; }
+    .gp-faq summary::after { content: '+'; font-family: 'Martian Mono', monospace; color: var(--hard); transition: transform .3s; }
     .gp-faq details[open] summary::after { transform: rotate(45deg); }
     .gp-faq details p { margin: 0 0 22px; color: #535a66; }
 
@@ -204,7 +204,7 @@ const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;5
     .gp-close p:not(.gp-label) { color: #c9d0da; font-size: 18px; margin: 20px auto 32px; max-width: 30em; }
     .gp-close .gp-actions { justify-content: center; } .gp-close .gp-label { color: var(--nova); }
     .gp-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 26px max(24px, calc((100% - 1240px) / 2)) 80px; background: var(--graph);
-      color: #8b93a0; font: 400 13px 'Geist Mono', monospace; border-top: 1px solid #2a2e35; }
+      color: #8b93a0; font: 400 13px 'Martian Mono', monospace; border-top: 1px solid #2a2e35; }
 
     @media (max-width: 960px) {
       .gp-row, .gp-faqwrap { grid-template-columns: 1fr; gap: 10px; }
