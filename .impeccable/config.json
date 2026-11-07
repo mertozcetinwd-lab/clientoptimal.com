@@ -57,6 +57,16 @@
         "value": "geist mono",
         "createdAt": "2026-11-07T20:57:45.168Z",
         "reason": "Mert asked for 3 redesign directions with custom fonts (2026-11-07); lab pages only"
+      },
+      {
+        "rule": "overused-font",
+        "value": "instrument sans",
+        "createdAt": "2026-11-07T21:47:01.374Z"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "martian mono",
+        "createdAt": "2026-11-07T21:47:03.574Z"
       }
     ]
   }
