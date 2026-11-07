@@ -4,6 +4,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/site/PageHero.astro';
 import CloseCta from '../components/site/CloseCta.astro';
+import FounderNote from '../components/site/FounderNote.astro';
 import { servicesPage as s } from '../data/site.js';
 
 const BOOKING_URL = 'https://cal.com/mert-ozcetin/missed-calls-visioning-workshop';
@@ -95,6 +96,7 @@ const cross = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke
       </div>
     </section>
 
+    <FounderNote />
     <CloseCta />
   </main>
 </Base>

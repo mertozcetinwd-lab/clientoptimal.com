@@ -1,0 +1,49 @@
+---
+// "Who sets it up" (Mert, 2026-11-07): a short navy band with his X profile photo, so a contractor
+// sees the person behind the receptionist. Photo: the same cutout as branding/personal/avatar-1080.png
+// (his X avatar), re-rendered on the site's navy-to-blue disc. Every line is true per aboutPage in
+// site.js: one person, Gainesville, he does the setup and support himself. No credentials claimed.
+import DotField from '../DotField.astro';
+interface Props { link?: boolean }
+const { link = true } = Astro.props;
+---
+<div class="d-shell d-founder-shell">
+  <section class="d-panel d-founder" data-reveal aria-labelledby="founder-h">
+    <div class="d-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+    <DotField />
+    <div class="d-grain" aria-hidden="true"></div>
+    <div class="d-wrap d-founder-grid">
+      <figure class="d-founder-photo">
+        <img src="/img/mert/mert-x-400.webp" srcset="/img/mert/mert-x-400.webp 1x, /img/mert/mert-x-800.webp 2x"
+          width="400" height="400" alt="Mert Ozcetin, founder of Client Optimal" loading="lazy" decoding="async" />
+        <figcaption><b>Mert Ozcetin</b><span>Founder · Client Optimal LLC</span></figcaption>
+      </figure>
+      <div>
+        <p class="d-eyebrow">Who sets it up</p>
+        <h2 class="d-display" id="founder-h">One person.<br /><span class="d-grad">Start to finish.</span></h2>
+        <p>I'm Mert. I run Client Optimal from Gainesville, Florida. I map how your calls work, set up the receptionist, test it with you and look after it once it's live. When you call about your phones, you get me.</p>
+        {link && <a class="d-btn d-btn--glass" href="/about">More about me</a>}
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .d-founder-shell { margin: 0 0 clamp(64px, 7vw, 104px); }
+  .d-founder { padding: clamp(48px, 5vw, 72px) 0; }
+  .d-founder-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .d-founder-photo { margin: 0; display: grid; justify-items: center; gap: 16px; }
+  .d-founder-photo img { width: clamp(180px, 16vw, 240px); height: auto; border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(165,200,255,.35), 0 0 0 10px rgba(165,200,255,.06), 0 0 0 11px rgba(165,200,255,.16), 0 30px 80px -20px rgba(43,107,255,.7);
+    animation: d-founder-glow 6s ease-in-out infinite; }
+  @keyframes d-founder-glow { 50% { box-shadow: 0 0 0 1px rgba(165,200,255,.5), 0 0 0 14px rgba(165,200,255,.07), 0 0 0 15px rgba(165,200,255,.22), 0 30px 100px -10px rgba(43,107,255,.9); } }
+  .d-founder-photo figcaption { display: grid; justify-items: center; gap: 2px; }
+  .d-founder-photo b { font: 800 22px/1 var(--display); font-stretch: 76%; text-transform: uppercase; color: var(--white); }
+  .d-founder-photo span { font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted-dark); }
+  .d-founder .d-eyebrow { color: var(--sky); }
+  .d-founder h2 { font-size: clamp(44px, 5.2vw, 76px); margin: 16px 0 0; color: var(--white); }
+  .d-founder h2 .d-grad { color: var(--sky); }
+  .d-founder p:not(.d-eyebrow) { max-width: 36em; margin: 18px 0 26px; color: var(--muted-dark); font-size: 17.5px; }
+  @media (max-width: 760px) { .d-founder-grid { grid-template-columns: 1fr; justify-items: start; } .d-founder-photo { justify-items: start; } .d-founder-photo figcaption { justify-items: start; } }
+  @media (prefers-reduced-motion: reduce) { .d-founder-photo img { animation: none; } }
+</style>
