@@ -31,11 +31,12 @@ export const meta = {
   legalName: 'Client Optimal LLC',
   // REPOSITIONED 2026-09-19: the AI voice agent is the headline product, so the
   // tagline and meta description name it directly. Feeds <title> and OG tags.
-  tagline: 'AI receptionist for home-service contractors',
+  // 2026-11-07 (Mert): positioned as a voice AI agency for every trade, not only home services.
+  tagline: 'Voice AI agency for the trades',
   // Honest: what the agent does, who it is for, no results claimed.
   // 2026-10-21: contractor-focused, AI-answers-first (decisions/log.md 2026-10-20).
   description:
-    'An AI receptionist for home-service contractors. It answers your calls, texts you the details, and puts known callers and urgent calls through to you.',
+    'Client Optimal is a voice AI agency. We set up AI voice agents for businesses in every trade: they answer your calls, text you the details, and put known callers and urgent calls through to you.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
@@ -457,7 +458,7 @@ export const homeFaq = [
 
 export const servicesPage = {
   title: 'What you get · Client Optimal',
-  description: 'A done-for-you AI receptionist for home-service contractors: your call rules, your contact list, transfers to your cell and a text for every call, set up and supported by Mert.',
+  description: 'A done-for-you AI voice agent for your trade business: your call rules, your contact list, transfers to your cell and a text for every call, set up and supported by Mert.',
   included: [
     { idx: '01', title: 'The receptionist', desc: 'A voice agent that answers as your business.', items: ['Says it is AI up front', 'Asks your approved questions', 'Turns away sales calls and spam'] },
     { idx: '02', title: 'The routing', desc: 'Your rules for who reaches you.', items: ['Your contacts ring straight through', 'Urgent calls go to your cell', 'Everything else becomes a text'] },
@@ -470,15 +471,15 @@ export const servicesPage = {
     { idx: '04', title: 'Test, then go live', desc: 'Test calls with made-up callers: a normal job, an urgent one, a known contact and a sales pitch. You get the steps to switch it off.', tag: 'Before go-live' },
     { idx: '05', title: 'Ongoing support', desc: 'Changes to the script, your contact list or your hours, handled under the support terms you agreed in writing.', tag: 'Agreed terms' },
   ],
-  good: ['You run a home-service business and miss calls while you work', 'You want callers to know they are talking to an AI', 'You can say what counts as urgent for your trade', 'You or someone you trust can call people back', 'You want every call texted to you'],
+  good: ['You run a trade business and miss calls while you work', 'You want callers to know they are talking to an AI', 'You can say what counts as urgent for your trade', 'You or someone you trust can call people back', 'You want every call texted to you'],
   bad: ['You need it to diagnose problems or give safety advice', 'You need it to quote prices or promise arrival times', 'Nobody is around to take urgent calls or call back', 'Your calls are mostly emergencies that need dispatch', 'You want it to pretend to be a person'],
 };
 
 export const aboutPage = {
   title: 'About · Client Optimal',
-  description: 'Client Optimal is a one-person studio in Gainesville, Florida, run by Mert Ozcetin. Mert sets up and supports AI receptionists for home-service contractors himself.',
+  description: 'Client Optimal is a voice AI agency in Gainesville, Florida, run by Mert Ozcetin. Mert sets up and supports AI voice agents for trade businesses himself.',
   paras: [
-    'I set up AI receptionists for home-service businesses: HVAC, plumbing, roofing, electrical and the trades around them. The idea is simple. You should be able to stay on the job without your phone costing you work.',
+    'Client Optimal is a voice AI agency. I set up AI voice agents for businesses in every trade: HVAC, plumbing, roofing, electrical, landscaping, cleaning, auto repair and the rest. The idea is simple. You should be able to stay on the job without your phone costing you work.',
     'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live. You deal with one person, and that person is me.',
     'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear the receptionist for yourself on the demo page, then decide.',
   ],
