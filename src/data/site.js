@@ -31,12 +31,12 @@ export const meta = {
   legalName: 'Client Optimal LLC',
   // REPOSITIONED 2026-09-19: the AI voice agent is the headline product, so the
   // tagline and meta description name it directly. Feeds <title> and OG tags.
-  // 2026-11-07 (Mert): positioned as a voice AI agency for every trade, not only home services.
-  tagline: 'Voice AI agency for the trades',
+  // 2026-11-07 (Mert): voice AI for every trade, not only home services; offered, not announced as "an agency".
+  tagline: 'Voice AI for the trades',
   // Honest: what the agent does, who it is for, no results claimed.
   // 2026-10-21: contractor-focused, AI-answers-first (decisions/log.md 2026-10-20).
   description:
-    'Client Optimal is a voice AI agency. We set up AI voice agents for businesses in every trade: they answer your calls, text you the details, and put known callers and urgent calls through to you.',
+    'Client Optimal offers voice AI for businesses in every trade. We set it up for you: it answers your calls, text you the details, and puts known callers and urgent calls through to you.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
@@ -477,9 +477,9 @@ export const servicesPage = {
 
 export const aboutPage = {
   title: 'About · Client Optimal',
-  description: 'Client Optimal is a voice AI agency in Gainesville, Florida, run by Mert Ozcetin. Mert sets up and supports AI voice agents for trade businesses himself.',
+  description: 'Client Optimal offers voice AI for trade businesses. Run by Mert Ozcetin in Gainesville, Florida, who sets it up and supports it himself.',
   paras: [
-    'Client Optimal is a voice AI agency. I set up AI voice agents for businesses in every trade: HVAC, plumbing, roofing, electrical, landscaping, cleaning, auto repair and the rest. The idea is simple. You should be able to stay on the job without your phone costing you work.',
+    'Client Optimal offers voice AI for businesses in every trade: HVAC, plumbing, roofing, electrical, landscaping, cleaning, auto repair and the rest. The idea is simple. You should be able to stay on the job without your phone costing you work.',
     'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live (<a href="/services#process">here is how a setup runs</a>). You deal with one person, and that person is me.',
     'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear it for yourself on <a href="/demo">the demo page</a>, see <a href="/#how">how it works</a>, then decide.',
   ],
