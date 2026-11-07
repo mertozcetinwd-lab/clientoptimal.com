@@ -77,7 +77,50 @@ export function field(cols, rows, t) {
   return out;
 }
 
-const KINDS = { sphere, burst, field };
+// Ordered (Bayer 4x4) dithering, the same trick the ebook plates use to go 1-bit: a pixel is drawn
+// only when its brightness beats the cell's threshold, so a smooth glow turns into a print texture.
+const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
+function dith(v, x, y, ramp = ' .:+*#') {
+  const th = BAYER[(y % 4) * 4 + (x % 4)];
+  if (v < th * 0.9) return ' ';
+  return ch(Math.min(1, v), ramp);
+}
+
+// The receptionist's disc: a dithered supernova core with sound rings rippling out from the orb.
+export function nova(cols, rows, t) {
+  let out = '';
+  const cx = cols / 2, cy = rows / 2, R = Math.min(cols * ASPECT, rows) / 2;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const r = Math.hypot(((x - cx) * ASPECT) / R, (y - cy) / R);
+      if (r > 1) { out += ' '; continue; }
+      const core = Math.exp(-r * 2.4) * 0.7;
+      const ring = Math.pow(Math.max(0, Math.cos((r - t * 0.09) * 22)), 8) * 0.8 * Math.max(0.15, r);
+      const rim = Math.pow(r, 6) * 0.6;
+      out += dith(core + ring + rim, x, y);
+    }
+    out += '\n';
+  }
+  return out;
+}
+
+// A voice waveform band for the footer: stacked sine lines, dithered, drifting left.
+export function wave(cols, rows, t) {
+  let out = '';
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const u = x / cols, env = Math.sin(Math.PI * u) * 0.9 + 0.1;
+      const amp = (Math.sin(x * 0.09 + t * 1.3) * 0.6 + Math.sin(x * 0.031 - t * 0.7) * 0.4) * env;
+      const yy = (y / (rows - 1)) * 2 - 1;
+      const d = Math.abs(yy - amp * 0.8);
+      out += dith(Math.max(0, 1 - d * 3.2) * 0.9, x, y);
+    }
+    out += '\n';
+  }
+  return out;
+}
+
+const KINDS = { sphere, burst, field, nova, wave };
 
 export function mountAscii(root = document) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
