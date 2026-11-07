@@ -28,9 +28,10 @@ body.d { margin: 0; background: var(--white); color: var(--ink); font: 400 17px/
    stretch the cards and leave the type small; `zoom` scales type, spacing and column together, so
    the page keeps the proportions it was designed at. Breakpoints read the real viewport, and inside
    the zoom the layout still sees ~1536 CSS px at 1920, so no mobile rule changes. */
-@media (min-width: 1600px) { html { zoom: 1.125; } }
-@media (min-width: 1800px) { html { zoom: 1.25; } }
-@media (min-width: 2300px) { html { zoom: 1.5; } }
+/* 2026-11-07, later (Mert): "a tiny bit big for 1080", keep it in the middle 70%. At 1920 the 1200px
+   column is now 1320px wide (69% of the screen) instead of 1500px (78%). */
+@media (min-width: 1800px) { html { zoom: 1.1; } }
+@media (min-width: 2300px) { html { zoom: 1.32; } }
 
 .d-eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; margin: 0; }
 .d-display { font-family: var(--display); font-stretch: 70%; font-weight: 800; text-transform: uppercase; letter-spacing: -.012em; line-height: .87; margin: 0; }
