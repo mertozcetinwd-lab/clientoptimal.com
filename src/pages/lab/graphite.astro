@@ -1,0 +1,220 @@
+---
+// Direction C, "Graphite & pearl" (2026-11-07). A cinematic title sequence: a graphite hero where a
+// giant ASCII planet turns slowly in silver characters, with the live orb as its glowing core and
+// an ultra-wide headline across it. Below, pearl sheets with silver hairlines and blueprint marks,
+// supernova blue used only for what you can press.
+// Palette: graphite #15171B, steel #2A2E35, silver #B8C0CC, pearl #ECEEF1, white #FFFFFF,
+// hardcore blue #0B3BD1, supernova #5C9DFF.
+// Type: Anybody (variable width, stretched for titles), Geist (body), Geist Mono (labels).
+import Lab from '../../layouts/Lab.astro';
+import DemoCall from '../../components/ui/DemoCall';
+import { homeProblems, homeFaq, steps, rules, BOOKING_URL, DEMO_TEL } from '../../lab/content.js';
+const fonts = 'family=Anybody:wdth,wght@50..150,400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500';
+---
+<Lab title="C · Graphite & pearl · Client Optimal lab" fonts={fonts} bodyClass="gp">
+  <header class="gp-nav">
+    <a class="gp-brand" href="/lab/graphite">Client Optimal</a>
+    <nav><a href="#how">How it works</a><a href="#rules">Rules</a><a href="#faq">Questions</a></nav>
+    <a class="gp-btn gp-btn--glow gp-btn--sm" href={BOOKING_URL}>Book 15 min</a>
+  </header>
+
+  <main>
+    <section class="gp-hero">
+      <div class="gp-stage">
+        <div class="gp-planet" aria-hidden="true"><pre data-ascii="sphere" data-fps="12"></pre></div>
+        <div class="gp-core"><DemoCall client:only="react" max={260} /></div>
+      </div>
+      <h1 class="gp-h1"><span class="gp-l1">Every call answered.</span><span class="gp-l2">Even on a roof.</span></h1>
+      <div class="gp-under">
+        <p class="gp-lede">An AI receptionist that answers your business calls, takes the details and texts them to you. People you know and real emergencies go straight to your cell. Sales calls never reach you.</p>
+        <div class="gp-actions">
+          <a class="gp-btn gp-btn--glow" href="/demo">Hear the demo ↗</a>
+          <a class="gp-btn gp-btn--glass" href="#how">How it works</a>
+        </div>
+      </div>
+      <p class="gp-fine">Tap the orb to talk to it. It says it's an AI, and the browser demo sends your voice to a third-party voice AI provider, so don't share anything private. <a href="/privacy">Privacy</a></p>
+      <span class="gp-mark gp-mark--tl" aria-hidden="true"></span><span class="gp-mark gp-mark--tr" aria-hidden="true"></span>
+      <span class="gp-mark gp-mark--bl" aria-hidden="true"></span><span class="gp-mark gp-mark--br" aria-hidden="true"></span>
+    </section>
+
+    <section class="gp-sec">
+      <div class="gp-wrap">
+        <header class="gp-head">
+          <p class="gp-label">Sound familiar</p>
+          <h2>The phone doesn't wait for you.</h2>
+        </header>
+        <div class="gp-rows">
+          {homeProblems.map((c) => (
+            <article class="gp-row"><h3>{c.title}</h3><p>{c.desc}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gp-sec gp-sec--steel" id="how">
+      <div class="gp-wrap">
+        <header class="gp-head">
+          <p class="gp-label">How it works</p>
+          <h2>Your number. Fewer interruptions.</h2>
+        </header>
+        <ol class="gp-steps">
+          {steps.map((s) => (<li><h3>{s.title}</h3><p>{s.desc}</p><span>{s.tag}</span></li>))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="gp-sec" id="rules">
+      <div class="gp-wrap">
+        <header class="gp-head">
+          <p class="gp-label">The rules it follows</p>
+          <h2>No new number. No pretending.</h2>
+        </header>
+        <div class="gp-rules">
+          {rules.map((r) => (<div class="gp-glass"><h3>{r.title}</h3><p>{r.desc}</p></div>))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gp-sec" id="faq">
+      <div class="gp-wrap gp-faqwrap">
+        <header class="gp-head">
+          <p class="gp-label">Questions</p>
+          <h2>Straight answers.</h2>
+          <p>If yours isn't here, book 15 minutes and ask it.</p>
+        </header>
+        <div class="gp-faq">
+          {homeFaq.map((f, i) => (<details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gp-close">
+      <div class="gp-wrap">
+        <p class="gp-label">Next step</p>
+        <h2>Want it on your line?</h2>
+        <p>15 minutes on Zoom with Mert. Bring how your calls work today and we'll see if it fits.</p>
+        <div class="gp-actions">
+          <a class="gp-btn gp-btn--glow" href={BOOKING_URL}>Book 15 minutes ↗</a>
+          <a class="gp-btn gp-btn--glass" href={DEMO_TEL}>Call the demo line</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="gp-foot">
+    <span>© 2026 Client Optimal LLC · Gainesville, Florida</span>
+    <span><a href="mailto:mert@clientoptimal.com">mert@clientoptimal.com</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>
+  </footer>
+
+  <script>
+    import { mountAscii } from '../../lab/ascii.js';
+    mountAscii();
+  </script>
+
+  <style is:global>
+    html:has(body.gp) { background: #15171B; }
+    body.gp { --graph: #15171B; --steel: #2A2E35; --silver: #B8C0CC; --pearl: #ECEEF1; --white: #fff; --hard: #0B3BD1; --nova: #5C9DFF;
+      margin: 0; background: var(--pearl); color: var(--graph); font: 400 17px/1.6 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    .gp a { color: inherit; }
+    .gp :focus-visible { outline: 2px solid var(--nova); outline-offset: 3px; }
+    .gp-wrap { width: min(1240px, 100% - 48px); margin-inline: auto; }
+    .gp-label { font: 500 12px 'Geist Mono', monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--hard); margin: 0 0 14px; }
+    .gp h1, .gp h2 { font-family: 'Anybody', sans-serif; font-weight: 800; font-stretch: 140%; text-transform: uppercase; margin: 0; letter-spacing: -.01em; line-height: .95; }
+    .gp h2 { font-size: clamp(34px, 4.4vw, 66px); color: var(--graph); }
+    .gp h3 { font: 600 20px/1.3 'Geist', sans-serif; margin: 0 0 8px; }
+
+    .gp-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 28px; padding: 22px max(24px, calc((100% - 1240px) / 2)); }
+    .gp-brand { font: 800 17px 'Anybody', sans-serif; font-stretch: 150%; text-transform: uppercase; color: #fff !important; text-decoration: none; letter-spacing: .02em; }
+    .gp-nav nav { margin-left: auto; display: flex; gap: 24px; font-size: 14.5px; }
+    .gp-nav nav a { color: var(--silver); text-decoration: none; } .gp-nav nav a:hover { color: #fff; }
+
+    .gp-btn { display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; border-radius: 4px; font: 600 15.5px 'Geist', sans-serif; text-decoration: none;
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s; }
+    .gp-btn--sm { min-height: 42px; padding: 0 18px; font-size: 14px; }
+    .gp-btn:hover { transform: translateY(-2px); }
+    .gp-btn--glow { color: #fff !important; background: radial-gradient(120% 140% at 50% 0%, #6aa6ff, var(--hard) 70%); border: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 0 0 1px rgba(11,59,209,.5), 0 10px 30px -8px rgba(92,157,255,.8), 0 0 60px -10px rgba(92,157,255,.9), inset 0 1px 0 rgba(255,255,255,.45); }
+    .gp-btn--glow:hover { box-shadow: 0 0 0 1px rgba(11,59,209,.6), 0 14px 40px -8px rgba(92,157,255,1), 0 0 90px -6px rgba(92,157,255,1), inset 0 1px 0 rgba(255,255,255,.55); }
+    .gp-btn--glass { color: inherit; background: rgba(255,255,255,.08); border: 1px solid rgba(184,192,204,.35); backdrop-filter: blur(12px); }
+    .gp-btn--glass:hover { background: rgba(255,255,255,.16); }
+
+    /* hero: title sequence */
+    .gp-hero { position: relative; min-height: max(860px, 100svh); background: radial-gradient(ellipse 70% 60% at 50% 42%, #23272e, var(--graph) 70%); color: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 24px 40px; overflow: hidden; isolation: isolate; }
+    .gp-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image: linear-gradient(rgba(184,192,204,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,192,204,.06) 1px, transparent 1px); background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 50% 45%, #000 20%, transparent 75%); }
+    .gp-stage { position: relative; width: 100%; height: clamp(340px, 46vh, 520px); display: grid; place-items: center; }
+    .gp-planet { position: absolute; left: 50%; top: 50%; width: min(1100px, 130vw); height: 100%; transform: translate(-50%, -50%); z-index: 0; }
+    .gp-planet pre { position: absolute; inset: 0; margin: 0; font: 400 11px/1.12 'Geist Mono', monospace; color: rgba(184,192,204,.55); white-space: pre; overflow: hidden;
+      text-shadow: 0 0 14px rgba(92,157,255,.35); animation: gp-in 2.4s ease both; }
+    @keyframes gp-in { from { opacity: 0; filter: blur(8px); } }
+    .gp-core { position: relative; z-index: 1; }
+    .gp-h1 { position: relative; z-index: 2; text-align: center; font-size: clamp(36px, 5.2vw, 92px); color: #fff; margin-top: 8px !important; text-shadow: 0 0 50px rgba(21,23,27,.9); }
+    .gp-h1 span { display: block; }
+    .gp-l1 { animation: gp-track 1.6s cubic-bezier(.2,.7,.2,1) both; }
+    .gp-l2 { color: var(--nova); text-shadow: 0 0 30px rgba(92,157,255,.55); animation: gp-track 1.6s .2s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes gp-track { from { opacity: 0; letter-spacing: .25em; filter: blur(10px); } to { opacity: 1; letter-spacing: -.01em; filter: none; } }
+    .gp-under { position: relative; z-index: 2; display: flex; gap: 40px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 30px; max-width: 1100px; }
+    .gp-lede { max-width: 34em; margin: 0; color: #c9d0da; font-size: 17.5px; }
+    .gp-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .gp-fine { position: relative; z-index: 2; font-size: 12.5px; color: #8b93a0; margin: 26px 0 0; text-align: center; max-width: 46em; }
+    .gp-mark { position: absolute; width: 22px; height: 22px; border: 1px solid rgba(184,192,204,.45); z-index: 1; }
+    .gp-mark--tl { top: 80px; left: 24px; border-right: 0; border-bottom: 0; } .gp-mark--tr { top: 80px; right: 24px; border-left: 0; border-bottom: 0; }
+    .gp-mark--bl { bottom: 24px; left: 24px; border-right: 0; border-top: 0; } .gp-mark--br { bottom: 24px; right: 24px; border-left: 0; border-top: 0; }
+
+    /* pearl sheets */
+    .gp-sec { padding: clamp(90px, 10vw, 150px) 0; background-color: var(--pearl);
+      background-image: linear-gradient(rgba(42,46,53,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(42,46,53,.05) 1px, transparent 1px); background-size: 28px 28px; }
+    .gp-head { margin-bottom: 48px; max-width: 900px; }
+    .gp-head > p:last-child:not(.gp-label) { margin: 16px 0 0; color: #535a66; font-size: 18px; }
+    .gp-rows { border-top: 1px solid var(--silver); }
+    .gp-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; padding: 30px 0; border-bottom: 1px solid var(--silver); transition: background .3s, padding .3s; }
+    .gp-row:hover { background: rgba(255,255,255,.6); padding-inline: 18px; }
+    .gp-row h3 { font: 800 26px 'Anybody', sans-serif; font-stretch: 130%; text-transform: uppercase; margin: 0; }
+    .gp-row p { margin: 0; color: #535a66; }
+
+    .gp-sec--steel { background-color: var(--steel); color: #e3e7ee;
+      background-image: linear-gradient(rgba(184,192,204,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(184,192,204,.07) 1px, transparent 1px); }
+    .gp-sec--steel h2 { color: #fff; } .gp-sec--steel .gp-label { color: var(--nova); }
+    .gp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); counter-reset: s; border-top: 1px solid rgba(184,192,204,.3); }
+    .gp-steps li { counter-increment: s; padding: 34px 32px 34px 0; border-right: 1px solid rgba(184,192,204,.2); }
+    .gp-steps li + li { padding-left: 32px; } .gp-steps li:last-child { border-right: 0; }
+    .gp-steps li::before { content: counter(s, decimal-leading-zero); display: block; font: 800 64px 'Anybody', sans-serif; font-stretch: 150%; color: transparent;
+      -webkit-text-stroke: 1px var(--silver); margin-bottom: 18px; }
+    .gp-steps p { color: #b4bcc8; margin: 0 0 14px; }
+    .gp-steps span { font: 500 11px 'Geist Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--nova); }
+
+    .gp-rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .gp-glass { padding: 28px; border-radius: 6px; background: linear-gradient(160deg, rgba(255,255,255,.85), rgba(255,255,255,.45)); border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 1px 0 rgba(184,192,204,.6), 0 24px 50px -30px rgba(21,23,27,.35); backdrop-filter: blur(10px); transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .gp-glass:hover { transform: translateY(-4px); }
+    .gp-glass p { margin: 0; color: #535a66; font-size: 16px; }
+
+    .gp-faqwrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 60px; align-items: start; }
+    .gp-faq details { border-bottom: 1px solid var(--silver); }
+    .gp-faq details:first-child { border-top: 1px solid var(--silver); }
+    .gp-faq summary { cursor: pointer; list-style: none; padding: 20px 0; font-weight: 600; font-size: 18px; display: flex; justify-content: space-between; gap: 20px; }
+    .gp-faq summary::after { content: '+'; font-family: 'Geist Mono', monospace; color: var(--hard); transition: transform .3s; }
+    .gp-faq details[open] summary::after { transform: rotate(45deg); }
+    .gp-faq details p { margin: 0 0 22px; color: #535a66; }
+
+    .gp-close { padding: clamp(100px, 11vw, 170px) 0; background: radial-gradient(ellipse at 50% 120%, #123fb8, var(--graph) 60%); color: #fff; text-align: center; }
+    .gp-close h2 { color: #fff; font-size: clamp(40px, 6vw, 96px); }
+    .gp-close p:not(.gp-label) { color: #c9d0da; font-size: 18px; margin: 20px auto 32px; max-width: 30em; }
+    .gp-close .gp-actions { justify-content: center; } .gp-close .gp-label { color: var(--nova); }
+    .gp-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 26px max(24px, calc((100% - 1240px) / 2)) 80px; background: var(--graph);
+      color: #8b93a0; font: 400 13px 'Geist Mono', monospace; border-top: 1px solid #2a2e35; }
+
+    @media (max-width: 960px) {
+      .gp-row, .gp-faqwrap { grid-template-columns: 1fr; gap: 10px; }
+      .gp-steps { grid-template-columns: 1fr; } .gp-steps li { border-right: 0; border-bottom: 1px solid rgba(184,192,204,.2); padding: 28px 0 !important; }
+      .gp-rules { grid-template-columns: 1fr 1fr; }
+      .gp-nav nav { display: none; }
+      .gp-planet pre { font-size: 8px; }
+    }
+    @media (max-width: 560px) { .gp-rules { grid-template-columns: 1fr; } .gp-h1, .gp h2 { font-stretch: 105%; } .gp-h1 { font-size: 34px; } .gp-row h3 { font-stretch: 105%; } }
+    body.gp { overflow-x: clip; }
+    @media (prefers-reduced-motion: reduce) { .gp *, .gp *::before { animation: none !important; transition: none !important; } }
+  </style>
+</Lab>

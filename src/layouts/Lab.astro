@@ -1,0 +1,40 @@
+---
+// Design lab (Mert, 2026-11-07): three blueprint / ASCII redesign directions for the homepage,
+// previewed side by side on localhost. NEVER SHIPPED: a production build turns every /lab page
+// into a redirect to the real homepage, so a deploy can't publish a half-picked direction.
+// demo.css is imported only for the orb stage (.dc-*), which DemoCall depends on.
+import '../styles/demo.css';
+interface Props { title: string; fonts: string; bodyClass: string }
+const { title, fonts, bodyClass } = Astro.props;
+const prod = import.meta.env.PROD;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    {prod && <meta http-equiv="refresh" content="0; url=/" />}
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href={`https://fonts.googleapis.com/css2?${fonts}&display=swap`} rel="stylesheet" />
+  </head>
+  <body class={bodyClass}>
+    {!prod && <nav class="lab-switch" aria-label="Design directions">
+      <a href="/lab/drafting">A · Drafting table</a>
+      <a href="/lab/supernova">B · Supernova</a>
+      <a href="/lab/graphite">C · Graphite &amp; pearl</a>
+    </nav>}
+    <slot />
+    <style is:global>
+      .lab-switch { position: fixed; z-index: 100; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 4px;
+        padding: 5px; border-radius: 999px; background: rgba(10, 14, 22, .78); backdrop-filter: blur(10px);
+        font: 500 12px/1 ui-monospace, monospace; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+      .lab-switch a { color: #cdd6e4; text-decoration: none; padding: 8px 12px; border-radius: 999px; white-space: nowrap; }
+      .lab-switch a:hover, .lab-switch a:focus-visible { background: rgba(255,255,255,.12); color: #fff; outline: none; }
+      @media (max-width: 560px) { .lab-switch { font-size: 10.5px; } .lab-switch a { padding: 7px 8px; } }
+    </style>
+  </body>
+</html>
