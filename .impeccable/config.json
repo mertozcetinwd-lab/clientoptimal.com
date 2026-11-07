@@ -67,6 +67,11 @@
         "rule": "design-system-font",
         "value": "martian mono",
         "createdAt": "2026-11-07T21:47:03.574Z"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "doto",
+        "createdAt": "2026-11-07T22:08:25.118Z"
       }
     ]
   }

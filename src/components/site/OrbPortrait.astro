@@ -14,9 +14,20 @@ const { size = 240, eager = false } = Astro.props;
 </div>
 
 <style>
+  /* Pixel-checked 2026-11-07 (Mert): the hoodie used to run over the orb's glowing rim, so the rim
+     looked cut off at the bottom. Now (1) the orb leans white and light blue, (2) the photo sits a
+     touch inside the rim and its lower half feathers out into the orb's light, and (3) the rim is
+     drawn once more ON TOP of the photo, so it reads as one unbroken ring. */
   .d-orb-portrait { position: relative; width: var(--s); height: var(--s); flex: none; }
   .d-orb-portrait-orb { position: absolute; inset: 0; display: grid; place-items: center; }
-  /* the orb's own background shows through until WebGL paints; keep it navy, never white */
-  .d-orb-portrait-orb :global(.d-orb-accent) { border-radius: 50%; background: radial-gradient(circle, #1747c9, #0a1f42); }
-  .d-orb-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; z-index: 4; }
+  .d-orb-portrait-orb :global(.d-orb-accent) { border-radius: 50%; background: radial-gradient(circle, #dbe8ff, #8fb6ff); }
+  .d-orb-portrait-orb :global(.fluid-orb) { filter: brightness(1.32) saturate(.62) contrast(.92)
+    drop-shadow(0 0 22px rgba(230, 240, 255, .75)) drop-shadow(0 0 70px rgba(140, 185, 255, .55)); }
+  .d-orb-portrait-orb :global(.dc-halo) { opacity: .7; background: radial-gradient(circle, rgba(220,234,255,.5) 0%, rgba(140,185,255,.18) 34%, transparent 64%); }
+  .d-orb-portrait img { position: absolute; inset: 3%; width: 94%; height: 94%; border-radius: 50%; z-index: 4;
+    -webkit-mask-image: linear-gradient(#000 52%, transparent 52%), radial-gradient(circle closest-side, #000 80%, transparent 99%);
+    mask-image: linear-gradient(#000 52%, transparent 52%), radial-gradient(circle closest-side, #000 80%, transparent 99%);
+    -webkit-mask-composite: source-over; mask-composite: add; }
+  .d-orb-portrait::after { content: ''; position: absolute; inset: 0; z-index: 5; border-radius: 50%; pointer-events: none;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.85), inset 0 0 14px 4px rgba(236,244,255,.9), inset 0 0 34px 8px rgba(170,205,255,.45); }
 </style>
