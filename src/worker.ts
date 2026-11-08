@@ -1,4 +1,6 @@
-const RETELL_CREATE_WEB_CALL = 'https://api.retellai.com/v2/create-web-call';
+// v2 was retired 2026-10-18 (docs.retellai.com/deprecation-notice/2026/09-30_create_web_call_v2).
+// v3 takes the same body and still returns access_token + call_id (same as the consent Worker).
+const RETELL_CREATE_WEB_CALL = 'https://api.retellai.com/v3/create-web-call';
 const ALLOWED_ORIGIN_HOSTS = new Set(['clientoptimal.com', 'www.clientoptimal.com']);
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 10;
