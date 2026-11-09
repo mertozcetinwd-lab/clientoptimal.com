@@ -11,7 +11,6 @@ const fields = [
   { id: 'value', label: 'Average job or customer value', value: 450, step: 25, prefix: '$' },
   { id: 'days', label: 'Days open per month', value: 22, step: 1, suffix: 'days' },
   { id: 'cost', label: 'Voice AI cost per month', value: 300, step: 25, prefix: '$' },
-  { id: 'setup', label: 'One-time setup cost', value: 0, step: 50, prefix: '$' },
 ];
 ---
 <section class="d-section roi" id="roi" data-reveal>
@@ -67,9 +66,9 @@ const fields = [
       set('rev', money(rev));
       set('net', money(net));
       set('roi', cost > 0 ? (rev / cost).toFixed(1) + 'x' : '-');
-      set('year', money(net * 12 - v('setup')));
+      set('year', money(net * 12));
       const perDay = rev / 30;
-      set('pay', perDay > 0 && cost + v('setup') > 0 ? ((n) => n + (n === 1 ? ' day' : ' days'))(Math.max(1, Math.ceil((cost + v('setup')) / perDay))) : '-');
+      set('pay', perDay > 0 && cost > 0 ? ((n) => n + (n === 1 ? ' day' : ' days'))(Math.max(1, Math.ceil(cost / perDay))) : '-');
     };
     root.addEventListener('input', run);
     run();

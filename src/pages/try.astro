@@ -22,7 +22,7 @@ const steps = [
   <PageHero>
     <div class="d-wrap lp-hero" id="main">
       <p class="d-pill d-in d-in--1"><span class="d-pulse" aria-hidden="true"></span>Thanks for replying. Here's the demo.</p>
-      <h1 class="d-display d-in d-in--2 lp-h1">Use voice AI to streamline operations, <span class="d-grad">enhance customer service</span> and scale effortlessly.</h1>
+      <h1 class="d-display d-in d-in--2 lp-h1"><span>Use voice AI to</span><span>streamline operations,</span><span class="d-grad">enhance customer service,</span><span>and scale effortlessly.</span></h1>
       <p class="lp-hear d-in d-in--3">Hear a demo for yourself.</p>
       <p class="d-lede d-in d-in--3">We take care of everything. We set it up, handle the costs, and hand it off to you.</p>
       <div class="lp-video d-in d-in--4">
@@ -41,13 +41,13 @@ const steps = [
   <main>
     <section class="d-section" id="live" data-reveal>
       <div class="d-wrap lp-live">
-        <div>
+        <div class="lp-live-copy">
           <p class="d-eyebrow">Try it now</p>
           <h2 class="d-display">Talk to it<br /><span class="d-grad">right here.</span></h2>
           <p>Tap the orb and tell it what kind of business you run. It plays your front desk, takes the details and shows you the text you would get. Prefer the phone? Call <a href="tel:+13526407955">(352) 640-7955</a>.</p>
           <p class="lp-fine">The browser demo sends your voice to a third-party voice AI provider, so don't share anything private. <a href="https://clientoptimal.com/privacy">Privacy</a></p>
         </div>
-        <DemoCall client:only="react" />
+        <div class="lp-orb"><DemoCall client:only="react" /></div>
       </div>
     </section>
 
@@ -95,14 +95,23 @@ const steps = [
 </Base>
 
 <style>
-  .lp-hero { display: grid; justify-items: center; text-align: center; gap: 16px; padding-top: 12px; }
-  .lp-h1 { max-width: 16em; font-size: clamp(40px, 5.4vw, 84px); line-height: 1; }
-  .lp-hear { margin: 6px 0 0; font: 800 clamp(22px, 2.4vw, 32px) var(--display); font-stretch: 80%; text-transform: uppercase; letter-spacing: .02em; color: var(--sky); }
-  .lp-hero .d-lede { max-width: 36em; margin: 0; }
+  .lp-hero { display: grid; justify-items: center; text-align: center; padding: 12px 0 88px; }
+  .lp-hero .d-pill { margin-bottom: 26px; }
+  .lp-h1 { font-size: clamp(44px, 6.4vw, 104px); line-height: .9; margin: 0 0 34px; }
+  .lp-h1 > span { display: block; }
+  .lp-h1 .d-grad { color: var(--sky); }
+  .lp-hear { margin: 0 0 12px; font: 500 13px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--sky); }
+  .lp-hero .d-lede { max-width: 34em; margin: 0 0 40px; line-height: 1.55; }
+  .lp-hero .d-actions { margin-top: 32px; justify-content: center; }
   .lp-video { width: min(100%, 960px); border-radius: 22px; overflow: hidden; border: 1px solid rgba(165, 200, 255, .35); box-shadow: 0 0 0 6px rgba(63, 125, 255, .12), 0 40px 90px -40px rgba(63, 125, 255, .7); }
   .lp-video video { display: block; width: 100%; height: auto; background: #050f22; }
-  .lp-live { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .lp-live p { color: var(--muted); font-size: 17px; }
+  .lp-live { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .lp-live-copy .d-eyebrow { color: var(--blue-ink); display: inline-flex; align-items: center; gap: 10px; }
+  .lp-live-copy .d-eyebrow::before { content: ''; width: 18px; height: 1px; background: currentColor; }
+  .lp-live-copy h2 { font-size: clamp(46px, 6.2vw, 88px); margin: 18px 0 28px; }
+  .lp-live-copy p { color: var(--muted); font-size: 18px; line-height: 1.6; max-width: 30em; margin: 0 0 16px; }
+  .lp-orb { display: grid; place-items: center; padding: 40px 0; }
+  .lp-orb :global(.dc-halo), .lp-orb :global(.dc-aura), .lp-orb :global(.dc-ring) { display: none; }
   .lp-fine { font-size: 13.5px !important; color: var(--muted); }
   .lp-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .lp-steps li { padding: 26px; border: 1px solid var(--line); border-radius: var(--r-panel); background: #fff; }
@@ -110,5 +119,5 @@ const steps = [
   .lp-steps h3 { margin: 16px 0 8px; font: 800 22px/1.1 var(--display); font-stretch: 80%; color: var(--ink); }
   .lp-steps p { margin: 0; color: var(--muted); }
   .lp-cal { min-height: 640px; border: 1px solid var(--line); border-radius: var(--r-panel); overflow: hidden; background: #fff; }
-  @media (max-width: 900px) { .lp-live, .lp-steps { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .lp-live, .lp-steps { grid-template-columns: 1fr; } .lp-h1 > span { white-space: normal; } }
 </style>
