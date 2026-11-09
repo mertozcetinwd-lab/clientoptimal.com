@@ -12,7 +12,11 @@
     {
       "pattern": "www.clientoptimal.com",
       "custom_domain": true
-    }
+    },
+    // Second home for the same site (Mert, 2026-11-09): Explee's scanner reads the site here.
+    // The domain already carries proxied 100:: placeholder records, so this is a zone route.
+    { "pattern": "clientoptimalvoice.com/*", "zone_name": "clientoptimalvoice.com" },
+    { "pattern": "www.clientoptimalvoice.com/*", "zone_name": "clientoptimalvoice.com" }
   ],
   "assets": {
     "directory": "./dist",
