@@ -15,6 +15,6 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
     {nav.map((item) => (
       <a href={item.href} aria-current={here === item.href.replace(/\/+$/, '') ? 'page' : undefined}>{item.label}</a>
     ))}
-    <a class="d-btn d-btn--light d-btn--sm" href={BOOKING_URL}>Book 15 min <Fragment set:html={arrow} /></a>
+    <a class="d-btn d-btn--light d-btn--sm" href={BOOKING_URL}>Book 30 min <Fragment set:html={arrow} /></a>
   </div>
 </nav>

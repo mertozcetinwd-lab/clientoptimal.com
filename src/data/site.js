@@ -32,11 +32,11 @@ export const meta = {
   // REPOSITIONED 2026-09-19: the AI voice agent is the headline product, so the
   // tagline and meta description name it directly. Feeds <title> and OG tags.
   // 2026-11-07 (Mert): voice AI for every trade, not only home services; offered, not announced as "an agency".
-  tagline: 'Voice AI for the trades',
+  tagline: 'Voice AI for local businesses',
   // Honest: what the agent does, who it is for, no results claimed.
   // 2026-10-21: contractor-focused, AI-answers-first (decisions/log.md 2026-10-20).
   description:
-    'Client Optimal offers voice AI for businesses in every trade. We set it up for you: it answers your calls, text you the details, and puts known callers and urgent calls through to you.',
+    'Client Optimal offers voice AI for local businesses, from trades and home services to dental and professional offices. We set it up for you: it answers your calls, texts you the details, and puts known callers and urgent calls through to you.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
@@ -449,10 +449,10 @@ export const homeProblems = [
 export const homeFaq = [
   { q: 'What does it actually do?', a: 'It answers your business calls, says it is an AI receptionist, and gets the caller\u2019s name, number, what they need and how urgent it is. Then it texts you the details. People on your own contact list ring straight through to you, urgent calls are put through to your cell, and sales calls get a polite no. See <a href="/#how">how it works</a>.' },
   { q: 'Do I need a new number?', a: 'No. Your business line forwards to the receptionist, so the number on your truck and your listing stays the same. We confirm the forwarding with your carrier together, and you can switch it off at any time. <a href="/services#process">Here is how a setup runs</a>.' },
-  { q: 'What happens with an emergency?', a: 'You decide what counts as urgent for your trade. Those calls are put through to your cell. If you can\u2019t pick up, it texts you marked urgent. If a caller reports a gas smell, fire or someone hurt, it tells them to call 911 first.' },
+  { q: 'What happens with an emergency?', a: 'You decide what counts as urgent for your business. Those calls are put through to your cell. If you can\u2019t pick up, it texts you marked urgent. If a caller reports a gas smell, fire or someone hurt, it tells them to call 911 first.' },
   { q: 'Will it quote prices or book jobs?', a: 'Not unless that is set up and tested for your business. Out of the box it never quotes, promises a time or books anything. It takes the details so you can call back with the right answer.' },
   { q: 'Will my customers know it\u2019s AI?', a: 'Yes. It says so at the start of the call and never pretends to be you or a person.' },
-  { q: 'What does it cost?', a: 'The setup, the monthly support and any phone or provider costs are agreed in writing before anything goes live. Book 15 minutes and you will get a straight answer for your setup. <a href="/services">See what you get</a>.' },
+  { q: 'What does it cost?', a: 'The setup, the monthly support and any phone or provider costs are agreed in writing before anything goes live. Book 30 minutes and you will get a straight answer for your setup. <a href="/services">See what you get</a>.' },
   { q: 'What about call recordings and privacy?', a: 'Recording, transcripts and how long anything is kept are set for your business before go-live, along with any notice your callers need. The browser demo on this site sends your voice to a third-party voice AI provider, so don\u2019t share anything private in it.' },
 ];
 
@@ -465,13 +465,13 @@ export const servicesPage = {
     { idx: '03', title: 'The texts', desc: 'Every call lands on your phone.', items: ['Name, number and what they need', 'How urgent it is', 'Marked urgent if a transfer is missed'] },
   ],
   steps: [
-    { idx: '01', title: 'Map your calls', desc: 'Who should ring straight through, what counts as urgent for your trade, your hours, your service area and the jobs you don\u2019t do.', tag: '15 min call' },
+    { idx: '01', title: 'Map your calls', desc: 'Who should ring straight through, what counts as urgent for your business, your hours, your service area and the jobs you don\u2019t do.', tag: '15 min call' },
     { idx: '02', title: 'Write the script', desc: 'The greeting, the questions it asks, what it will never say, and where urgent calls go. You approve it before anything is switched on.', tag: 'You sign off' },
     { idx: '03', title: 'Connect your line', desc: 'Your business number forwards to the receptionist, transfers go to your cell, and the texts come to you. Your number never changes.', tag: 'Same number' },
     { idx: '04', title: 'Test, then go live', desc: 'Test calls with made-up callers: a normal job, an urgent one, a known contact and a sales pitch. You get the steps to switch it off.', tag: 'Before go-live' },
     { idx: '05', title: 'Ongoing support', desc: 'Changes to the script, your contact list or your hours, handled under the support terms you agreed in writing.', tag: 'Agreed terms' },
   ],
-  good: ['You run a trade business and miss calls while you work', 'You want callers to know they are talking to an AI', 'You can say what counts as urgent for your trade', 'You or someone you trust can call people back', 'You want every call texted to you'],
+  good: ['You run a trade business and miss calls while you work', 'You want callers to know they are talking to an AI', 'You can say what counts as urgent for your business', 'You or someone you trust can call people back', 'You want every call texted to you'],
   bad: ['You need it to diagnose problems or give safety advice', 'You need it to quote prices or promise arrival times', 'Nobody is around to take urgent calls or call back', 'Your calls are mostly emergencies that need dispatch', 'You want it to pretend to be a person'],
 };
 
@@ -479,7 +479,7 @@ export const aboutPage = {
   title: 'About · Client Optimal',
   description: 'Client Optimal offers voice AI for trade businesses. Run by Mert Ozcetin in Gainesville, Florida, who sets it up and supports it himself.',
   paras: [
-    'Client Optimal offers voice AI for businesses in every trade: HVAC, plumbing, roofing, electrical, landscaping, cleaning, auto repair and the rest. The idea is simple. You should be able to stay on the job without your phone costing you work.',
+    'Client Optimal offers voice AI for local businesses: HVAC, plumbing, electrical, home service crews, dental practices, local offices and the rest. The idea is simple. You should be able to focus on the work in front of you without your phone costing you customers.',
     'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live (<a href="/services#process">here is how a setup runs</a>). You deal with one person, and that person is me.',
     'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear it for yourself on <a href="/demo">the demo page</a>, see <a href="/#how">how it works</a>, then decide.',
   ],
