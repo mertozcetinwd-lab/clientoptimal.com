@@ -36,7 +36,7 @@ export const meta = {
   // Honest: what the agent does, who it is for, no results claimed.
   // 2026-10-21: contractor-focused, AI-answers-first (decisions/log.md 2026-10-20).
   description:
-    'Client Optimal offers voice AI for local businesses, from trades and home services to dental and professional offices. We set it up for you: it answers your calls, texts you the details, and puts known callers and urgent calls through to you.',
+    'Client Optimal offers voice AI for local businesses, from trades and home services to dental offices. We set it up for you: it answers your calls, texts you the details, and puts known callers and urgent calls through to you.',
   founder: 'Mert Ozcetin',
   location: 'Remote',
   hours: 'US Eastern',
@@ -479,7 +479,7 @@ export const aboutPage = {
   title: 'About · Client Optimal',
   description: 'Client Optimal offers voice AI for trade businesses. Run by Mert Ozcetin in Gainesville, Florida, who sets it up and supports it himself.',
   paras: [
-    'Client Optimal offers voice AI for local businesses: HVAC, plumbing, electrical, home service crews, dental practices, local offices and the rest. The idea is simple. You should be able to focus on the work in front of you without your phone costing you customers.',
+    'Client Optimal offers voice AI for local businesses: HVAC, plumbing, electrical, home service crews, dental offices and the rest. The idea is simple. You should be able to focus on the work in front of you without your phone costing you customers.',
     'I do the whole thing myself. I map how your calls work, write the script with you, connect your line, test it with fake calls, and look after it once it is live (<a href="/services#process">here is how a setup runs</a>). You deal with one person, and that person is me.',
     'Client Optimal is new. There is no wall of logos or reviews here, because there aren\u2019t any yet, and I won\u2019t make them up. What you can do is hear it for yourself on <a href="/demo">the demo page</a>, see <a href="/#how">how it works</a>, then decide.',
   ],
