@@ -106,6 +106,11 @@ export default {
       return json({ ok: false, error: 'Not found' }, 404);
     }
 
+    // try.clientoptimal.com (2026-11-09): the landing page for interested Explee replies lives at
+    // /try/; the subdomain's root serves it. Every other path is the same site.
+    if (url.hostname.startsWith('try.') && url.pathname === '/') {
+      return env.ASSETS.fetch(new Request(new URL('/try/', url), request));
+    }
     return env.ASSETS.fetch(request);
   },
 } satisfies ExportedHandler<Env>;

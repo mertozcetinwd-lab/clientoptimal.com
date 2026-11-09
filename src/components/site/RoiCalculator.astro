@@ -1,0 +1,98 @@
+---
+// ROI calculator (Mert, 2026-11-09): the prospect's own numbers, never an industry statistic.
+// Every default is a placeholder they overwrite; the result is labelled an estimate. Used on the
+// home page and on the try.clientoptimal.com landing page.
+interface Props { booking?: string }
+const { booking = 'https://cal.com/mert-ozcetin/ai-voice-agent' } = Astro.props;
+const fields = [
+  { id: 'missed', label: 'Calls you miss per day', value: 5, step: 1, suffix: 'calls' },
+  { id: 'real', label: 'Share that are real customers or jobs', value: 50, step: 5, suffix: '%' },
+  { id: 'close', label: 'Of those, how many you close', value: 40, step: 5, suffix: '%' },
+  { id: 'value', label: 'Average job or customer value', value: 450, step: 25, prefix: '$' },
+  { id: 'days', label: 'Days open per month', value: 22, step: 1, suffix: 'days' },
+  { id: 'cost', label: 'Voice AI cost per month', value: 300, step: 25, prefix: '$' },
+  { id: 'setup', label: 'One-time setup cost', value: 0, step: 50, prefix: '$' },
+];
+---
+<section class="d-section roi" id="roi" data-reveal>
+  <div class="d-wrap">
+    <div class="d-head">
+      <div>
+        <p class="d-eyebrow">Your numbers, not ours</p>
+        <h2 class="d-display">What are missed calls<br /><span class="d-grad">costing you?</span></h2>
+      </div>
+      <p>Put in your own numbers. The calculator shows what answering those calls could bring back each month, and what the voice AI costs against it.</p>
+    </div>
+    <div class="roi-grid">
+      <form class="roi-in" onsubmit="return false">
+        {fields.map((f) => (
+          <label class="roi-f">
+            <span>{f.label}</span>
+            <span class="roi-box">
+              {f.prefix && <i>{f.prefix}</i>}
+              <input type="number" inputmode="decimal" min="0" step={f.step} value={f.value} data-roi={f.id} />
+              {f.suffix && <i>{f.suffix}</i>}
+            </span>
+          </label>
+        ))}
+      </form>
+      <div class="roi-out" aria-live="polite">
+        <p class="roi-k">Revenue brought back per month</p>
+        <p class="roi-big" data-out="rev">$0</p>
+        <dl>
+          <div><dt>Customers recovered per month</dt><dd data-out="wins">0</dd></div>
+          <div><dt>Net gain per month, after the AI</dt><dd data-out="net">$0</dd></div>
+          <div><dt>Return on what you pay</dt><dd data-out="roi">0x</dd></div>
+          <div><dt>First-year net gain</dt><dd data-out="year">$0</dd></div>
+          <div><dt>Pays for itself in</dt><dd data-out="pay">-</dd></div>
+        </dl>
+        <a class="d-btn d-btn--light roi-cta" href={booking}>Book 30 minutes to check these numbers</a>
+        <p class="roi-note">We only charge a fraction of what it brings back. These are estimates from the numbers you enter, not a promise of results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const money = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
+  document.querySelectorAll<HTMLElement>('.roi').forEach((root) => {
+    const v = (id: string) => Math.max(0, Number((root.querySelector(`[data-roi="${id}"]`) as HTMLInputElement)?.value) || 0);
+    const set = (id: string, t: string) => { const el = root.querySelector(`[data-out="${id}"]`); if (el) el.textContent = t; };
+    const run = () => {
+      const wins = v('missed') * v('days') * (v('real') / 100) * (v('close') / 100);
+      const rev = wins * v('value');
+      const cost = v('cost');
+      const net = rev - cost;
+      set('wins', wins.toFixed(1));
+      set('rev', money(rev));
+      set('net', money(net));
+      set('roi', cost > 0 ? (rev / cost).toFixed(1) + 'x' : '-');
+      set('year', money(net * 12 - v('setup')));
+      const perDay = rev / 30;
+      set('pay', perDay > 0 && cost + v('setup') > 0 ? ((n) => n + (n === 1 ? ' day' : ' days'))(Math.max(1, Math.ceil((cost + v('setup')) / perDay))) : '-');
+    };
+    root.addEventListener('input', run);
+    run();
+  });
+</script>
+
+<style>
+  .roi-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: stretch; }
+  .roi-in { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 28px; border: 1px solid var(--line); border-radius: var(--r-panel); background: #fff; }
+  .roi-f { display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+  .roi-box { display: flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; transition: border-color .2s; }
+  .roi-box:focus-within { border-color: var(--blue); }
+  .roi-box i { font: 500 13px var(--mono); font-style: normal; color: var(--muted); }
+  .roi-box input { width: 100%; border: 0; outline: 0; font: 600 18px var(--sans); color: var(--ink); background: transparent; }
+  .roi-out { padding: 32px; border-radius: var(--r-panel); background: var(--navy); color: var(--white); display: flex; flex-direction: column; gap: 14px; }
+  .roi-k { margin: 0; font: 500 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--sky); }
+  .roi-big { margin: 0; font: 800 clamp(44px, 5vw, 68px)/1 var(--display); font-stretch: 80%; }
+  .roi-out dl { margin: 6px 0 4px; display: grid; gap: 10px; }
+  .roi-out dl div { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line-dark); }
+  .roi-out dt { color: var(--muted-dark); font-size: 15px; }
+  .roi-out dd { margin: 0; font-weight: 700; }
+  .roi-cta { align-self: flex-start; margin-top: auto; }
+  .roi-note { margin: 0; font-size: 13px; color: var(--muted-dark); }
+  @media (max-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .roi-in { grid-template-columns: 1fr; padding: 20px; } }
+</style>
