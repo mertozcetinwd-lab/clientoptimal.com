@@ -465,7 +465,7 @@ export const servicesPage = {
     { idx: '03', title: 'The texts', desc: 'Every call lands on your phone.', items: ['Name, number and what they need', 'How urgent it is', 'Marked urgent if a transfer is missed'] },
   ],
   steps: [
-    { idx: '01', title: 'Map your calls', desc: 'Who should ring straight through, what counts as urgent for your business, your hours, your service area and the jobs you don\u2019t do.', tag: '15 min call' },
+    { idx: '01', title: 'Map your calls', desc: 'Who should ring straight through, what counts as urgent for your business, your hours, your service area and the jobs you don\u2019t do.', tag: '30 min call' },
     { idx: '02', title: 'Write the script', desc: 'The greeting, the questions it asks, what it will never say, and where urgent calls go. You approve it before anything is switched on.', tag: 'You sign off' },
     { idx: '03', title: 'Connect your line', desc: 'Your business number forwards to the receptionist, transfers go to your cell, and the texts come to you. Your number never changes.', tag: 'Same number' },
     { idx: '04', title: 'Test, then go live', desc: 'Test calls with made-up callers: a normal job, an urgent one, a known contact and a sales pitch. You get the steps to switch it off.', tag: 'Before go-live' },
