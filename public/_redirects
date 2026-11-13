@@ -1,2 +1,7 @@
-/work /services 301
-/work/* /services 301
+# Pages from the previous site: send old links to the closest new page.
+/services /how-it-works 301
+/demo / 301
+/try / 301
+/text-me /privacy 301
+/email-practices /privacy 301
+/lab / 301

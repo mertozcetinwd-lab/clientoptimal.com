@@ -1,41 +1,18 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "clientoptimal-com",
-  "main": "src/worker.ts",
   "compatibility_date": "2026-10-16",
   "workers_dev": false,
   "routes": [
-    {
-      "pattern": "clientoptimal.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.clientoptimal.com",
-      "custom_domain": true
-    },
+    { "pattern": "clientoptimal.com", "custom_domain": true },
+    { "pattern": "www.clientoptimal.com", "custom_domain": true },
     { "pattern": "try.clientoptimal.com", "custom_domain": true },
-    // Second home for the same site (Mert, 2026-11-09): Explee's scanner reads the site here.
-    // The domain already carries proxied 100:: placeholder records, so this is a zone route.
     { "pattern": "clientoptimalvoice.com/*", "zone_name": "clientoptimalvoice.com" },
     { "pattern": "www.clientoptimalvoice.com/*", "zone_name": "clientoptimalvoice.com" }
   ],
   "assets": {
     "directory": "./dist",
-    "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/"]
+    "not_found_handling": "single-page-application"
   },
-  "secrets": {
-    "required": ["RETELL_API_KEY", "RETELL_AGENT_ID"]
-  },
-  "observability": {
-    "enabled": true,
-    "logs": {
-      "enabled": true,
-      "head_sampling_rate": 1
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 0.01
-    }
-  }
+  "observability": { "enabled": true }
 }
