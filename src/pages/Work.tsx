@@ -3,6 +3,7 @@ import { Band, CaseCard, CtaBand, NextEntryCard, PageHeader, Row } from "../comp
 import { CountUp, Rule } from "../components/motion"
 import { FOCUS, GeistMono, LINE, Reveal } from "../components/primitives"
 import { cn } from "../lib/utils"
+import { NdaSample } from "../components/NdaSample"
 import { CASES, OUTCOME_TYPES, type Case } from "../data/cases"
 
 const FILTERS = ["All", ...OUTCOME_TYPES] as const
@@ -52,33 +53,8 @@ export default function Work() {
         </Row>
       </Band>
 
-      {/* Why NDA */}
-      <Band>
-        <Row split>
-          <div className="px-4 py-8 sm:px-6 lg:border-r lg:px-10 lg:py-10" style={{ borderColor: LINE }}>
-            <Reveal>
-              <p className={cn(GeistMono.className, "text-[10px] uppercase tracking-[0.16em] text-[#6E6E6E]")}>
-                <span className="text-[#0000FF]">Why</span> / NDA-signed
-              </p>
-              <h2 className="mt-4 max-w-[18ch] text-[1.4rem] font-medium uppercase leading-[1.05] tracking-[-0.03em] sm:text-[1.7rem]">
-                Private names. <span className="co-mk on whitespace-nowrap">Visible results.</span>
-              </h2>
-            </Reveal>
-          </div>
-          <div className="px-4 pb-8 sm:px-6 sm:pt-8 lg:px-10 lg:py-10">
-            <Reveal delayMs={100}>
-              <p className="max-w-[60ch] text-[13.5px] leading-[1.65] text-[#505050]">
-                The companies in these case studies shared their results under NDA terms. Their names are covered to
-                protect their privacy, while the numbers and the process stay visible, so you can see how the
-                methodology and the systems behind our introductions perform.
-              </p>
-              <p className="mt-3 max-w-[60ch] text-[13.5px] leading-[1.65] text-[#505050]">
-                Results vary. These examples are not a promise of any particular outcome.
-              </p>
-            </Reveal>
-          </div>
-        </Row>
-      </Band>
+      {/* Why names are covered + sample NDA clause (2026-11-15) */}
+      <NdaSample />
 
       {/* Filter + documents */}
       <Band>
