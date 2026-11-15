@@ -19,6 +19,10 @@ import {
   LINE,
 } from "./primitives"
 
+/** Intro timeline (s): last block lands at ~1.84, then the dots fade in, then the scene goes live. */
+const INTRO_DOTS_AT = 1.9
+const INTRO_END = 2.8
+
 const BAYER4 = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5]
 
 /** Figures taken from the selected work (NDA-signed, licensed case studies). */
@@ -199,6 +203,23 @@ export default function ClientOptimalHero({ className }: { className?: string })
         </div>
       </div>
     </section>
+  )
+}
+
+/**
+ * The animated right column on its own (isometric supply network + the two overlay cards), so the simpler
+ * 2026-11-15 home page keeps the premium visual without the old hero's stats strip and copy (Mert asked for it back).
+ */
+export function HeroVisual({ className }: { className?: string }) {
+  return (
+    <div className={cn("relative flex flex-col overflow-hidden sm:min-h-[460px] lg:h-full lg:min-h-[520px]", className)}>
+      <div className="relative aspect-[25/16] w-full sm:aspect-auto sm:min-h-0 sm:flex-1">
+        <SupplyNetworkIllustration />
+        <SignalCard />
+        <ProcessCard />
+      </div>
+      <MobileNetworkKey />
+    </div>
   )
 }
 
@@ -573,7 +594,7 @@ function SupplyNetworkIllustration({ cell = 3, dot = 1.7 }: { cell?: number; dot
     let hp = 0 // selection progress 0..1
     let iso: Iso = () => ({ x: 0, y: 0 })
     let unit = 1
-    const start = performance.now()
+    let start = -1 // set on the first visible frame, so the build-in plays when the visitor sees it (phones scroll to it)
 
     const shade = document.createElement("canvas")
     const shadeCtx = shade.getContext("2d", { willReadFrequently: true })
@@ -1014,8 +1035,9 @@ function SupplyNetworkIllustration({ cell = 3, dot = 1.7 }: { cell?: number; dot
       })
       ctx.globalAlpha = 1
 
-      // Dots arrive with the artifact: the floor's dots with the floor, each block's dots rising with that block
-      if (width >= 560) drawDither(1, { ga: gps, go: gps.map((g) => (1 - g) * 22), fa: fp, fo: (1 - fp) * 10 })
+      // Dots fade in only once every block has landed (Mert, 2026-11-15): solid ink builds first, then the dot texture.
+      const dp = easeOut((ts - INTRO_DOTS_AT) / 0.9)
+      if (dp > 0) drawDither(1, { ga: gps.map(() => dp), go: gps.map(() => 0), fa: dp, fo: 0 })
 
       const lp = easeOut((ts - 1.6) / 0.8)
       if (lp > 0) {
@@ -1036,7 +1058,7 @@ function SupplyNetworkIllustration({ cell = 3, dot = 1.7 }: { cell?: number; dot
       // take turns being selected, so the figure is alive without the cursor.
       const ts0 = time / 1000
       const manual = hasPointer || sticky !== null || performance.now() - lastManual < 1600
-      const auto = !reduced && !manual && ts0 >= 2.4
+      const auto = !reduced && !manual && ts0 >= INTRO_END
       let tx = targetX
       let ty = targetY
       if (auto) {
@@ -1053,7 +1075,7 @@ function SupplyNetworkIllustration({ cell = 3, dot = 1.7 }: { cell?: number; dot
 
       // Build-in intro: floor settles, blocks rise in one by one, then dots and live layers fade in
       const ts = time / 1000
-      const introDone = reduced || ts >= 2.4
+      const introDone = reduced || ts >= INTRO_END
       if (!introDone) {
         drawIntro(ts)
         return
@@ -1089,13 +1111,17 @@ function SupplyNetworkIllustration({ cell = 3, dot = 1.7 }: { cell?: number; dot
           ctx.globalAlpha = 1
         }
       }
-      if (width >= 560) drawDither(dim)
+      // Dots at every width (Mert, 2026-11-15): the dotted look is what makes it read premium; it used to drop below 560px.
+      drawDither(dim)
       drawLive(ctx, time, dim)
     }
 
     const loop = (now: number) => {
       if (!running) return
-      if (visible) draw(reduced ? 0 : now - start)
+      if (visible) {
+        if (start < 0) start = now
+        draw(reduced ? 0 : now - start)
+      }
       raf = requestAnimationFrame(loop)
     }
 

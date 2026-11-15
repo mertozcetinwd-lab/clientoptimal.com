@@ -1,236 +1,210 @@
 import { Link } from "react-router-dom"
-import ClientOptimalHero from "../components/ClientOptimalHero"
-import { Band, CtaBand, H2, Label, Lead, PAD, PrimaryLink, Row, TextLink } from "../components/blocks"
-import { CountUp, Mark, Rule, Ticker } from "../components/motion"
-import { CheckSquare, GeistMono, LINE, Reveal } from "../components/primitives"
+import { HeroVisual } from "../components/ClientOptimalHero"
+import { Band, H2, Label, Lead, PAD, PrimaryLink, Row } from "../components/blocks"
+import { EMAIL, GeistMono, LINE, MAILTO, Reveal } from "../components/primitives"
 import { cn } from "../lib/utils"
-import { CASES } from "../data/cases"
 
-const TICKER = [
-  "Forecast",
-  "Confirm",
-  "Introduce",
-  "Industrial",
-  "Logistics",
-  "Healthcare",
-  "Construction",
-  "Fixed fee",
-  "Email first",
-  "Agreed in writing",
-]
+/*
+ * Home page, rebuilt 2026-11-15 (Mert). Most visitors arrive from a single cold email and want to know, fast,
+ * who we are and whether the email was real. Structure follows the brokerage model's advice for a broker's site:
+ * who you connect and what you bring, a three-step "how it works", who you work with, proof, one clear CTA.
+ * Copy rules: no em dashes, never "luck"/"chance", no outcome promises, and no claim about which side pays.
+ * General on purpose (Mert, 2026-11-15): name no niche or industry anywhere on this page, proof included.
+ */
 
-const MOVES = [
+const STEPS = [
   {
-    title: "Forecast",
-    text: "Our systems read public signals, such as new filings, purchase listings and project announcements, to help spot who may need a supplier next.",
+    title: "We identify a fit",
+    text: "We read public signals, such as new filings, projects and job posts, to find a buyer and a supplier that look like a match.",
   },
   {
-    title: "Confirm",
-    text: "We reach the buyer first and work to confirm the need, the timing and who decides before making an introduction.",
+    title: "We confirm both sides want it",
+    text: "We ask each side first. Nobody is introduced unless both have said they want the conversation.",
   },
   {
-    title: "Introduce",
-    text: "A suitable supplier and the buyer meet on one email thread, with context. One fixed fee, agreed in writing.",
+    title: "We make the introduction",
+    text: "One email thread with the context both of you need. One fixed fee, agreed in writing before the introduction.",
   },
 ]
 
-/** Big figures taken from the selected work below (NDA-signed, licensed case studies). */
+/** Who sits on each side, described by situation, never by industry. */
+const SIDES = [
+  {
+    side: "Suppliers",
+    items: [
+      "Companies that sell to other businesses",
+      "Have room to take on more work",
+      "Would rather meet a buyer with a need than run a campaign",
+    ],
+  },
+  {
+    side: "Buyers",
+    items: [
+      "Companies with a live need: a new site, a new contract or a gap in suppliers",
+      "Want a suitable option without running a search",
+      "Decide whether to talk before anyone is introduced",
+    ],
+  },
+]
+
+/** Taken from the case studies on /work (NDA-signed, licensed case studies; the disclosure is on that page). */
 const PROOF = [
-  { value: "6", label: "introductions around one plastic-conversion facility, over 120 days", tag: "Industrial" },
-  { value: "5", label: "new clients in 48 days for an education company", tag: "Education technology" },
-  { value: "$85K", label: "added revenue in a quarter for an automation firm", tag: "Industrial automation" },
-  { value: "22", label: "placements in 55 days for a recruiter", tag: "Recruitment" },
+  { value: "6", label: "introductions made around one buyer, over 120 days" },
+  { value: "5", label: "new clients in 48 days for one supplier" },
+  { value: "22", label: "placements in 55 days for one supplier" },
 ]
+
+const UL = "nda-link text-black"
 
 export default function Home() {
   return (
     <>
-      <ClientOptimalHero />
-
-      {/* Ticker */}
-      <Band>
-        <Row>
-          <Ticker
-            items={TICKER}
-            className={cn(GeistMono.className, "py-4 text-[10px] uppercase tracking-[0.16em] text-[#6E6E6E] sm:py-5 sm:text-[10.5px]")}
-          />
-        </Row>
-      </Band>
-
-      {/* The idea */}
-      <Band>
-        <Row split>
-          <div className={cn(PAD, "lg:border-r lg:py-20")} style={{ borderColor: LINE }}>
+      {/* 1. Who we connect, with the animated supply network on the right */}
+      <Band fade={false}>
+        <Row split top>
+          <div className="flex items-center border-b px-4 pb-12 pt-14 sm:px-6 sm:pt-20 lg:border-b-0 lg:border-r lg:px-10 lg:py-20" style={{ borderColor: LINE }}>
             <Reveal>
-              <Label n="01">The idea</Label>
-              <H2 wide>
-                Good introductions take <Mark delayMs={350}>research.</Mark>
-              </H2>
-              <Lead>
-                Many companies have a supplier they have not met yet, and many suppliers have buyers who may soon need
-                them. We look for both, confirm the need, and connect them. You never log in to anything.
-              </Lead>
-              <div className="mt-8 -m-[7px] p-[7px]">
-                <PrimaryLink to="/how-it-works">See how it works</PrimaryLink>
+              <Label n="CO">Introduction brokerage</Label>
+              <h1 className="mt-5 max-w-[20ch] text-[2.2rem] font-medium uppercase leading-[1.02] tracking-[-0.04em] sm:text-[3rem] lg:text-[clamp(2.4rem,3.6vw,3.8rem)]">
+                We introduce companies to the buyer or supplier they need next.
+              </h1>
+              <p className="mt-6 max-w-[52ch] text-[15px] leading-[1.65] text-[#505050] sm:text-[16px]">
+                Client Optimal connects two businesses on either side of a live commercial need: a buyer looking for a
+                supplier, and a supplier with room to take on the work. See{" "}
+                <Link to="/how-it-works" className={UL}>how it works</Link>. If you got an email from us, this is who we
+                are, and replying to it is the quickest way to reach us.
+              </p>
+              <div className="mt-9 -m-[7px] flex flex-wrap items-center gap-y-4 p-[7px]">
+                <PrimaryLink to={MAILTO} external>
+                  Reply by email
+                </PrimaryLink>
+              
+                <Link to="/work" className={cn(UL, "ml-6 text-[14px]")}>See client case studies</Link>
               </div>
             </Reveal>
           </div>
-          <ul className="divide-y" style={{ borderColor: LINE }}>
-            {MOVES.map((m, i) => (
-              <li key={m.title} style={{ borderColor: LINE }}>
-                <Reveal
-                  delayMs={i * 100}
-                  className="group grid grid-cols-[44px_1fr] gap-x-3 px-4 py-7 transition-colors hover:bg-[#FAFAFA] sm:grid-cols-[56px_1fr] sm:px-6 lg:px-9 lg:py-9"
-                >
-                  <span className={cn(GeistMono.className, "pt-1 text-[11px] tracking-[0.1em] text-[#0000FF]")}>
+          <HeroVisual />
+        </Row>
+      </Band>
+
+      {/* 2. How it works */}
+      <Band>
+        <Row>
+          <div className={PAD}>
+            <Reveal>
+              <Label n="01">How it works</Label>
+              <H2 wide>Three steps. Nothing to log in to.</H2>
+            </Reveal>
+          </div>
+          <ol className="grid grid-cols-1 border-t lg:grid-cols-3" style={{ borderColor: LINE }}>
+            {STEPS.map((s, i) => (
+              <li
+                key={s.title}
+                className={cn("px-4 py-8 sm:px-6 lg:px-10 lg:py-12", i < 2 && "border-b lg:border-b-0 lg:border-r")}
+                style={{ borderColor: LINE }}
+              >
+                <Reveal delayMs={i * 100}>
+                  <span className={cn(GeistMono.className, "text-[11px] tracking-[0.1em] text-[#0000FF]")}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div>
-                    <h3 className="co-ul inline text-[1.1rem] font-medium uppercase tracking-[-0.02em] group-hover:[background-size:100%_1px] sm:text-[1.25rem]">
-                      {m.title}
-                    </h3>
-                    <p className="mt-3 max-w-[50ch] text-[13.5px] leading-[1.6] text-[#6E6E6E]">{m.text}</p>
-                  </div>
+                  <h3 className="mt-3 text-[1.15rem] font-medium uppercase tracking-[-0.02em] sm:text-[1.3rem]">{s.title}</h3>
+                  <p className="mt-3 max-w-[40ch] text-[14px] leading-[1.6] text-[#505050]">{s.text}</p>
                 </Reveal>
               </li>
             ))}
-          </ul>
-        </Row>
-      </Band>
-
-      {/* Numbers */}
-      <Band>
-        <Row>
-          <div className="px-4 pt-9 sm:px-6 lg:px-10 lg:pt-12">
-            <Reveal>
-              <Label n="02">What an introduction can do</Label>
-            </Reveal>
-          </div>
-          <div className="mt-6 grid grid-cols-2 border-t lg:grid-cols-4" style={{ borderColor: LINE }}>
-            {PROOF.map((p, i) => (
-              <div
-                key={p.value}
-                className={cn(
-                  "px-4 py-8 sm:px-6 lg:px-8 lg:py-12",
-                  i % 2 === 0 && "border-r",
-                  i < 2 && "border-b lg:border-b-0",
-                  i === 1 && "lg:border-r",
-                  i === 2 && "lg:border-r",
-                )}
-                style={{ borderColor: LINE }}
-              >
-                <Reveal delayMs={i * 90}>
-                  <p className={cn(GeistMono.className, "text-[2.1rem] font-normal leading-none tracking-[-0.05em] sm:text-[2.8rem] lg:text-[3.6rem]")}>
-                    <CountUp value={p.value} delayMs={i * 120} durationMs={1700} />
-                  </p>
-                  <Rule className="my-4 max-w-[64px]" delayMs={300 + i * 90} />
-                  <p className="max-w-[26ch] text-[12.5px] leading-[1.55] text-[#505050] sm:text-[13px]">{p.label}</p>
-                  <p className={cn(GeistMono.className, "mt-3 text-[9px] uppercase tracking-[0.14em] text-[#0000FF]")}>{p.tag}</p>
-                </Reveal>
-              </div>
-            ))}
-          </div>
-          <p
-            className={cn(GeistMono.className, "border-t px-4 py-4 text-[9.5px] uppercase leading-[1.7] tracking-[0.1em] text-[#6E6E6E] sm:px-6 lg:px-10")}
-            style={{ borderColor: LINE }}
-          >
-            From our case studies. NDA-signed, licensed case studies. They show how the introduction process performs.{" "}
-            <Link to="/work#disclosure" className="co-ul text-[#0000FF]">
-              Read the disclosure
-            </Link>
+          </ol>
+          <p className="border-t px-4 py-5 text-[13.5px] text-[#505050] sm:px-6 lg:px-10" style={{ borderColor: LINE }}>
+            The full process, step by step, is on{" "}
+            <Link to="/how-it-works" className={UL}>how it works</Link>.
           </p>
         </Row>
       </Band>
 
-      {/* Work preview */}
+      {/* 3. Who we connect: by situation, not industry */}
       <Band>
         <Row split>
           <div className={cn(PAD, "lg:border-r")} style={{ borderColor: LINE }}>
             <Reveal>
-              <Label n="03">Case studies</Label>
-              <H2>Real introductions. <Mark delayMs={300}>Real details.</Mark></H2>
-              <Lead>Names are covered. Everything else is on the page: the need, the signal and what happened.</Lead>
+              <Label n="02">Who we connect</Label>
+              <H2>Two sides of the same need.</H2>
+              <Lead>
+                A supplier with capacity and a buyer with a need, across industries. More on{" "}
+                <Link to="/who-we-serve" className={UL}>who we serve</Link>.
+              </Lead>
             </Reveal>
           </div>
-          <div className="flex items-end px-4 pb-9 sm:px-6 lg:px-10 lg:pb-14">
-            <Reveal delayMs={120}>
-              <TextLink to="/work">All eight case studies</TextLink>
-            </Reveal>
-          </div>
-        </Row>
-        <Row>
-          <div className="grid grid-cols-1 gap-px bg-black/15 lg:grid-cols-3">
-            {[CASES[0], CASES[1], CASES[4]].map((c, i) => (
-              <Link key={c.tag} to="/work" className="co-lift group flex flex-col bg-white p-5 sm:p-6 lg:p-8">
-                <Reveal delayMs={i * 90} className="flex h-full flex-col">
-                  <p className={cn(GeistMono.className, "text-[9.5px] uppercase leading-snug tracking-[0.12em] text-[#6E6E6E]")}>{c.tag}</p>
-                  <p className={cn(GeistMono.className, "mt-6 text-[2.6rem] font-normal leading-none tracking-[-0.05em]")}>
-                    <CountUp value={c.stat} />
-                  </p>
-                  <p className={cn(GeistMono.className, "mt-2 text-[9.5px] uppercase leading-snug tracking-[0.1em] text-[#6E6E6E]")}>{c.statLabel}</p>
-                  <p className="mt-4 text-[13.5px] leading-[1.6] text-[#505050]">{c.summary}</p>
-                  <span
-                    className={cn(
-                      GeistMono.className,
-                      "co-ul mt-auto inline-flex w-fit items-center gap-1.5 pt-6 text-[10.5px] uppercase tracking-[0.14em] text-[#0000FF] group-hover:[background-size:100%_1px]",
-                    )}
-                  >
-                    Read the case
-                  </span>
-                </Reveal>
-              </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {SIDES.map((s, i) => (
+              <div key={s.side} className={cn("px-4 py-8 sm:px-6 lg:px-9 lg:py-12", i === 0 && "border-b sm:border-b-0 sm:border-r")} style={{ borderColor: LINE }}>
+                <p className={cn(GeistMono.className, "text-[11px] uppercase tracking-[0.12em] text-[#0000FF]")}>{s.side}</p>
+                <ul className="mt-4 space-y-3">
+                  {s.items.map((t) => (
+                    <li key={t} className="text-[14px] leading-[1.55] text-[#505050]">{t}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </Row>
       </Band>
 
-      {/* Two sides */}
+      {/* 4. Proof */}
       <Band>
-        <Row split>
-          {[
-            {
-              n: "04.1",
-              label: "For suppliers",
-              title: "Meet buyers who may need you.",
-              points: ["We look for a live need that matches what you do.", "We work to confirm it before we mention you.", "One fixed fee per introduction, agreed first."],
-              cta: "Sell to your next customer",
-            },
-            {
-              n: "04.2",
-              label: "For buyers",
-              title: "Skip the search. Meet a suitable supplier.",
-              points: ["Tell us what you are buying, where, and by when.", "We check capacity, past work and fit first.", "A fixed fee, agreed in writing, before work starts."],
-              cta: "Find a supplier",
-            },
-          ].map((col, i) => (
-            <div
-              key={col.n}
-              className={cn(PAD, "lg:py-16", i === 0 && "border-b lg:border-b-0 lg:border-r")}
-              style={{ borderColor: LINE }}
-            >
-              <Reveal delayMs={i * 100}>
-                <Label n={col.n}>{col.label}</Label>
-                <h3 className="mt-4 max-w-[18ch] text-[1.5rem] font-medium uppercase leading-[1.05] tracking-[-0.03em] sm:text-[1.9rem]">
-                  {col.title}
-                </h3>
-                <ul className="mt-6 space-y-3">
-                  {col.points.map((p) => (
-                    <li key={p} className="flex gap-3 text-[13.5px] leading-[1.6] text-[#505050]">
-                      <CheckSquare className="mt-[0.35em] size-3 shrink-0 text-[#0000FF]" />
-                      <span className="co-li">{p}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-7">
-                  <TextLink to="/who-we-serve">{col.cta}</TextLink>
-                </div>
-              </Reveal>
-            </div>
-          ))}
+        <Row>
+          <div className={PAD}>
+            <Reveal>
+              <Label n="03">Proof</Label>
+              <H2 wide>What an introduction has led to.</H2>
+            </Reveal>
+          </div>
+          <div className="grid grid-cols-1 border-t sm:grid-cols-3" style={{ borderColor: LINE }}>
+            {PROOF.map((p, i) => (
+              <div
+                key={p.value}
+                className={cn("px-4 py-8 sm:px-6 lg:px-10 lg:py-12", i < 2 && "border-b sm:border-b-0 sm:border-r")}
+                style={{ borderColor: LINE }}
+              >
+                <Reveal delayMs={i * 90}>
+                  <p className={cn(GeistMono.className, "text-[2.6rem] leading-none tracking-[-0.05em] lg:text-[3.4rem]")}>{p.value}</p>
+                  <p className="mt-4 max-w-[28ch] text-[13.5px] leading-[1.55] text-[#505050]">{p.label}</p>
+                </Reveal>
+              </div>
+            ))}
+          </div>
+          <p className="border-t px-4 py-5 text-[13.5px] text-[#505050] sm:px-6 lg:px-10" style={{ borderColor: LINE }}>
+            From NDA-signed, licensed case studies, so names are covered. Read them, and the disclosure, on{" "}
+            <Link to="/work" className={UL}>client case studies</Link>.
+          </p>
         </Row>
       </Band>
 
-      <CtaBand />
+      {/* 5. One clear CTA */}
+      <Band>
+        <div className="border-b bg-black text-white" style={{ borderColor: LINE }}>
+          <div className="px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-24">
+            <Reveal>
+              <Label n="Next" onDark>
+                Get in touch
+              </Label>
+              <h2 className="mt-5 max-w-[22ch] text-[2rem] font-medium uppercase leading-[1.02] tracking-[-0.04em] sm:text-[2.8rem] lg:text-[clamp(2.4rem,4vw,4rem)]">
+                Got an email from us? Reply to it.
+              </h2>
+              <p className="mt-6 max-w-[52ch] text-[15px] leading-[1.6] text-white/70">
+                Or write to{" "}
+                <a href={MAILTO} className="nda-link text-white">
+                  {EMAIL}
+                </a>{" "}
+                and say what you sell or what you need. We answer every email ourselves.
+              </p>
+              <div className="mt-8 -m-[7px] p-[7px]">
+                <PrimaryLink to={MAILTO} external onDark>
+                  Email Mert
+                </PrimaryLink>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Band>
     </>
   )
 }

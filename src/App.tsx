@@ -41,20 +41,16 @@ function ScrollAndTitle() {
 }
 
 export default function App() {
-  const { pathname } = useLocation()
-  const home = pathname === "/"
   return (
     <>
       <ScrollAndTitle />
       <main className="font-sans">
-        {/* The home hero carries its own header inside its frame; other pages get one here. */}
-        {!home && (
-          <Band fade={false}>
-            <GridPlus edge="left" className="left-0 top-0" />
-            <GridPlus edge="right" className="left-full top-0" />
-            <SiteHeader />
-          </Band>
-        )}
+        {/* Every page, the home page included (its old hero carried the header until 2026-11-15). */}
+        <Band fade={false}>
+          <GridPlus edge="left" className="left-0 top-0" />
+          <GridPlus edge="right" className="left-full top-0" />
+          <SiteHeader />
+        </Band>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
