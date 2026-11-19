@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { HeroVisual } from "../components/ClientOptimalHero"
 import { Band, H2, Label, Lead, PAD, PrimaryLink, Row } from "../components/blocks"
-import { EMAIL, GeistMono, LINE, MAILTO, Reveal } from "../components/primitives"
+import { CheckSquare, EMAIL, GeistMono, LINE, MAILTO, Reveal } from "../components/primitives"
 import { cn } from "../lib/utils"
 
 /*
@@ -31,6 +31,7 @@ const STEPS = [
 const SIDES = [
   {
     side: "Suppliers",
+    title: "You have room for more work.",
     items: [
       "Companies that sell to other businesses",
       "Have room to take on more work",
@@ -39,6 +40,7 @@ const SIDES = [
   },
   {
     side: "Buyers",
+    title: "You have a need to fill.",
     items: [
       "Companies with a live need: a new site, a new contract or a gap in suppliers",
       "Want a suitable option without running a search",
@@ -133,15 +135,25 @@ export default function Home() {
               </Lead>
             </Reveal>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2">
+          {/* 2026-11-19 (Mert): this block read as a loose list with dead space under it. Now each side has a
+              numbered label, a one-line heading and check marks, with a top rule when the columns stack. */}
+          <div className="grid grid-cols-1 border-t sm:grid-cols-2 lg:border-t-0" style={{ borderColor: LINE }}>
             {SIDES.map((s, i) => (
-              <div key={s.side} className={cn("px-4 py-8 sm:px-6 lg:px-9 lg:py-12", i === 0 && "border-b sm:border-b-0 sm:border-r")} style={{ borderColor: LINE }}>
-                <p className={cn(GeistMono.className, "text-[11px] uppercase tracking-[0.12em] text-[#0000FF]")}>{s.side}</p>
-                <ul className="mt-4 space-y-3">
-                  {s.items.map((t) => (
-                    <li key={t} className="text-[14px] leading-[1.55] text-[#505050]">{t}</li>
-                  ))}
-                </ul>
+              <div key={s.side} className={cn("flex flex-col px-4 py-8 sm:px-6 lg:px-9 lg:py-12", i === 0 && "border-b sm:border-b-0 sm:border-r")} style={{ borderColor: LINE }}>
+                <Reveal delayMs={i * 90}>
+                  <p className={cn(GeistMono.className, "text-[11px] uppercase tracking-[0.12em] text-[#0000FF]")}>
+                    {String(i + 1).padStart(2, "0")} / {s.side}
+                  </p>
+                  <h3 className="mt-4 max-w-[18ch] text-[1.15rem] font-medium uppercase leading-[1.1] tracking-[-0.02em] text-black">{s.title}</h3>
+                  <ul className="mt-6 space-y-3.5">
+                    {s.items.map((t) => (
+                      <li key={t} className="flex gap-3 text-[14px] leading-[1.55] text-[#505050]">
+                        <CheckSquare className="mt-[0.4em] size-3 shrink-0 text-[#0000FF]" />
+                        <span>{t}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
               </div>
             ))}
           </div>

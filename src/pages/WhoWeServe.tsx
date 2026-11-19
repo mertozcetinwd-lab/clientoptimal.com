@@ -29,11 +29,16 @@ const SIDES = [
   },
 ]
 
+/*
+ * 2026-11-19 (Mert): niche agnostic. No sector names (industrial, logistics, healthcare, construction); the kinds of
+ * need instead, matching the work in the brokerage course's case studies (cleaning and facilities contracts, software
+ * migrations, regulatory deadlines, hiring). Every niche is still filtered for halal before we take it on.
+ */
 const INDUSTRIES = [
-  { name: "Industrial", text: "Plants, materials, automation and the buyers who feed them." },
-  { name: "Logistics", text: "Freight, warehousing and the carriers and shippers who need each other." },
-  { name: "Healthcare", text: "Health technology and digital tools meeting the people who buy them." },
-  { name: "Construction", text: "Contractors, materials and the projects waiting on them." },
+  { name: "Business services", text: "Cleaning, facilities, maintenance and the companies with a new site or contract to cover." },
+  { name: "Software and IT", text: "Migrations, implementations and support for companies moving off a system or adding one." },
+  { name: "Compliance deadlines", text: "Companies with a rule or a date to meet, and the specialists who already do that work." },
+  { name: "Hiring and staffing", text: "Companies hiring for a gap, and the firms that place people or cover the work meanwhile." },
 ]
 
 export default function WhoWeServe() {
@@ -84,9 +89,9 @@ export default function WhoWeServe() {
         <Row split>
           <div className={cn(PAD, "lg:border-r")} style={{ borderColor: LINE }}>
             <Reveal>
-              <Label n="02">Industries</Label>
-              <H2>Where we work.</H2>
-              <Lead>We focus on industries where a supplier's capacity and a buyer's need can be checked before an introduction is made.</Lead>
+              <Label n="02">The work</Label>
+              <H2>Any industry. Four kinds of need.</H2>
+              <Lead>We don't hold to one industry. We look for a need that can be checked, and a supplier whose capacity and past work can be checked too.</Lead>
             </Reveal>
           </div>
           <div className="hidden lg:block co-hatch" aria-hidden />
@@ -106,7 +111,7 @@ export default function WhoWeServe() {
         </Row>
         <Row>
           <p className="px-4 py-5 text-[13px] text-[#6E6E6E] sm:px-6 lg:px-10">
-            Not on the list? Write to us anyway. We will tell you plainly whether we can help.
+            Your work not here? Write to us anyway. We will tell you plainly whether we can help.
           </p>
         </Row>
       </Band>
